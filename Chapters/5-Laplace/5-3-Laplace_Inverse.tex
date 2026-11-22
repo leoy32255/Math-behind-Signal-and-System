@@ -82,7 +82,7 @@
     \begin{equation}
         f_b(t)=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}F(s)\e^{st}\,\dd s
     \end{equation}
-    与$b$无关。设$b_1,b_2>a$，选择以$b_1\pm\im r,\ b_2\pm\im r$为顶点的矩形围道$C_r$，则由于$\abs{F(s)}\leq C\abs{s}^{-\alpha}$，矩形顶边、底边的积分趋于$0$，而$F(s)$在$\Re(s)>a$上全纯，由柯西积分定理知$\int_{C_r}F(s)\e^{st}\,\dd s=0$，因此$f_{b_1}(t)=f_{b_2}(t)$。
+    与$b$无关。设$b_1,b_2>a$，选择以$b_1\pm\im r,\ b_2\pm\im r$为顶点的矩形围道$C_r$，则由于$\abs{F(s)}\leq C\abs{s}^{-\alpha}$，矩形顶边、底边的积分趋于$0$，而$F(s)$在$\Re(s)>a$上全纯，由Cauchy积分定理知$\int_{C_r}F(s)\e^{st}\,\dd s=0$，因此$f_{b_1}(t)=f_{b_2}(t)$。
 
     注意到以上证明并不依赖于$t$的取值，极限过程$\lim_{r\to\infty}$对$t\in\mathbb{R}$是内闭一致收敛的，因此可以由被积函数$F(s)\e^{st}$的连续性推出$f(t)$的连续性。
 
@@ -92,7 +92,7 @@
         \includegraphics[width=0.6\textwidth]{contour2}
         \caption{拉普拉斯逆变换的围道}
     \end{figure}
-    其中$\gamma_1$为$b+\im r$到$b-\im r$的直线段，$\gamma_2$为以原点为圆心，$b-\im r$到$b+\im r$的圆弧，半径$R=\sqrt{b^2+r^2}$。由柯西积分定理，有
+    其中$\gamma_1$为$b+\im r$到$b-\im r$的直线段，$\gamma_2$为以原点为圆心，$b-\im r$到$b+\im r$的圆弧，半径$R=\sqrt{b^2+r^2}$。由Cauchy积分定理，有
     \begin{equation}
         \int_{\gamma_1+\gamma_2}F(s)\e^{st}\,\dd s=0.
     \end{equation}
@@ -196,12 +196,12 @@
     \end{equation}
 \end{example}
 
-\noindent \textbf{法二：取极限法}（又称为赫维赛德掩盖法）
+\noindent \textbf{法二：取极限法}（又称为Heaviside掩盖法）
 
 按照以上命题给出的展开式形式设待求常数为未知数，
 \begin{itemize}
-    \item 对于一次因式最高次幂$(s-r)^m$的系数，将等式两边同时乘以$(s-r)^m$，然后令$s\to r$，即可解出最高次幂的系数；
-    \item 对于一次因式次高次幂的系数，将等式两边同时乘以$(s-r)^{m-1}$，然后对$s$求导，再令$s\to r$，即可解出次高次幂的系数；也可以先约去已经求出的最高次幂项，再乘以$(s-r)^{m-1}$并令$s\to r$，依此类推；
+    \item 对于一次因式最高次幂$(s-r)^m$的系数，将等式两边同时乘以$(s-r)^m$，然后令$s= r$，即可解出最高次幂的系数；
+    \item 对于一次因式次高次幂的系数，将等式两边同时乘以$(s-r)^{m-1}$，然后对$s$求导，再令$s= r$，即可解出次高次幂的系数；也可以先约去已经求出的最高次幂项，再乘以$(s-r)^{m-1}$并令$s= r$，依此类推；
     \item 二次因式的处理类似，因为可以在复数范围内做因式分解（也可以对比正余弦函数的拉普拉斯变换，配平方得到二次不可约因式的拉普拉斯逆变换，但这样做远不如留数定理方便）。
 \end{itemize}
 
@@ -216,23 +216,24 @@
     \end{equation}
     两边同时乘以$(s+1)^2$，令$s=-1$，得到
     \begin{equation}
-        A_2=\frac{1}{(-1+2)(-1^2+1)}=1.
+        A_2=\evalat{(s+1)^2 F(s)}{s=-1}{}=\evalat{\frac{1}{(s+2)(s^2+1)}}{s=-1}{}=\frac{1}{(-1+2)[(-1)^2+1]}=\frac{1}{2}.
     \end{equation}
-    同理$B=1/3$。约去$1/(s+1)^2$项后，两边同时乘以$(s+1)$，令$s=-1$，有
-    \begin{equation}
-        A_1=\lim_{s\to -1}(s+1)\sbr{F(s)-\frac{1}{(s+1)^2}}=\lim_{s\to -1}\frac{(s+1)^2}{(s+2)(s^2+1)}=\frac{1}{2}.
-    \end{equation}
+    同理$B=1/5$。约去$1/[2(s+1)^2]$项后，两边同时乘以$(s+1)$，令$s=-1$，有
+    \begin{align}
+        A_1&=\evalat{(s+1)\sbr{F(s)-\frac{1}{2(s+1)^2}}}{s=-1}{}\nonumber\\
+        &=\evalat{\frac{2-(s+2)(s^2+1)}{2(s+1)(s+2)(s^2+1)}}{s=-1}{}=\evalat{\frac{-s(s+1)}{2(s+2)(s^2+1)}}{s=-1}{}=0.
+    \end{align}
     两边同时乘以$(s^2+1)$，令$s=\im$，有
     \begin{equation}
-        C\im+D=\lim_{s\to\im}(s-\im)F(s)=\lim_{s\to\im}\frac{(s-\im)}{(s+1)^2(s+2)(s^2+1)}=-\frac{\im}{5}.
+        C\im+D=\evalat{(s^2+1)F(s)}{s=\im}{}=\evalat{\frac{1}{(s+1)^2(s+2)}}{s=\im}{}=\frac{1}{2\im(2+\im)}=-\frac{1}{10}-\frac{\im}{5}.
     \end{equation}
     令$s=-\im$，有
     \begin{equation}
-        -C\im+D=\lim_{s\to-\im}(s+\im)F(s)=\lim_{s\to-\im}\frac{(s+\im)}{(s+1)^2(s+2)(s^2+1)}=\frac{\im}{5}.
+        -C\im+D=\evalat{(s^2+1)F(s)}{s=-\im}{}=\evalat{\frac{1}{(s+1)^2(s+2)}}{s=-\im}{}=\frac{1}{-2\im(2-\im)}=-\frac{1}{10}+\frac{\im}{5}.
     \end{equation}
-    解得$C=-1/5,\ D=0$，因此
+    解得$C=-1/5,\ D=-1/10$，因此
     \begin{equation}
-        F(s)=\frac{1}{2(s+1)}+\frac{1}{(s+1)^2}+\frac{1}{3(s+2)}-\frac{s}{5(s^2+1)}.
+        F(s)=\frac{1}{2(s+1)^2}+\frac{1}{5(s+2)}-\frac{2s+1}{10(s^2+1)}.
     \end{equation}
 \end{example}
 
@@ -243,12 +244,13 @@
         F(s)=\frac{1}{(s+1)^2(s+2)(s^2+1)}.
     \end{equation}
     在上例中，我们已经得到：
-    \begin{equation}
-        F(s)=\frac{1}{2(s+1)}+\frac{1}{(s+1)^2}+\frac{1}{3(s+2)}-\frac{s}{5(s^2+1)},
-    \end{equation}
+    \begin{align}
+        F(s)&=\frac{1}{2(s+1)^2}+\frac{1}{5(s+2)}-\frac{2s+1}{10(s^2+1)}\nonumber\\
+        &=\frac{1}{2(s+1)^2}+\frac{1}{5(s+2)}-\frac{s}{5(s^2+1)}-\frac{1}{10(s^2+1)},
+    \end{align}
     因此
     \begin{equation}
-        f(t)=\mathcal{L}^{-1}F(s)=\paren{\frac{1}{2}\e^{-t}+t\e^{-t}+\frac{1}{3}\e^{-2t}-\frac{1}{5}\cos t}u(t).
+        f(t)=\mathcal{L}^{-1}F(s)=\paren{\frac{1}{2}t\e^{-t}+\frac{1}{5}\e^{-2t}-\frac{1}{5}\cos t-\frac{1}{10}\sin t}u(t).
     \end{equation}
 \end{example}
 
@@ -356,12 +358,12 @@
     \begin{equation}
         F(s)=\frac{1}{s^2}-\frac{\pi}{s\sinh(\pi s)},
     \end{equation}
-    则$F(s)$在$s=\im n,\ n\in\mathbb{Z}\backslash\{0\}$处有简单极点。下面判断$s=0$处的奇点类型。$\sinh(x)$在$x=0$处的泰勒展开式为
+    则$F(s)$在$s=\im n,\ n\in\mathbb{Z}\backslash\{0\}$处有简单极点。下面判断$s=0$处的奇点类型。$\sinh(x)$在$x=0$处的Taylor展开式为
     \begin{align}
         \sinh(x)&=\sum_{n=0}^{\infty}\frac{x^{2n+1}}{(2n+1)!}\nonumber\\
         &=x+\frac{x^3}{6}+\cdots,\quad \forall x\in\mathbb{R}.
     \end{align}
-    根据\refsub{unique_exetension}中的唯一延拓定理，泰勒展开式在复数域上仍成立，因此
+    根据\refsub{unique_exetension}中的唯一延拓定理，Taylor展开式在复数域上仍成立，因此
     \begin{align}
         F(s)&=\frac{\sinh(\pi s)-\pi s}{s^2\sinh(\pi s)}\nonumber\\
         &=\frac{\sbr{(\pi s)+(\pi^3 s^3/3!)+\cdots}-\pi s}{s^2\cdot(\pi s)}\nonumber\\

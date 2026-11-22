@@ -160,7 +160,7 @@
 
 以线性时不变系统的视角来看微分方程，自然会想到求这个系统的单位脉冲响应，也就是说，令方程右侧的激励信号为$\delta$，看所得响应$h(t)$，这样，根据\cref{prop:LTI_conv}，不论方程右侧的激励$e(t)$变为何种形式，都可以直接求出零状态响应$r_{\zs}(t)=(h*e)(t)$，只要再叠加上零输入响应，就可以得到任意给定初始状态下方程的解，这是一个一劳永逸的工作。
 
-这种处理常系数线性微分方程的方法称为\textbf{基本解法}或\textbf{格林函数法}，单位脉冲响应$h(t)$被称为\textbf{基本解}(fundamental solution)或\textbf{格林函数}(Green's function)。历史上，数学家格林在1828年关于电势和磁势的论文中首次提出了这种方法并用它来处理带有边界条件的线性偏微分方程。
+这种处理常系数线性微分方程的方法称为\textbf{基本解法}或\textbf{Green函数法}，单位脉冲响应$h(t)$被称为\textbf{基本解}(fundamental solution)或\textbf{Green函数}。历史上，数学家格林（Green）在1828年关于电势和磁势的论文中首次提出了这种方法并用它来处理带有边界条件的线性偏微分方程。
 
 那么，如何求这个单位脉冲响应呢？我们直接考虑初始条件为$0$的情况，对于微分方程
 \begin{equation}
@@ -178,7 +178,7 @@
 \begin{equation}
     r(t)=f(t)u(t)+a_1\delta+a_2\delta'+\cdots.
 \end{equation}
-我们知道，分布与函数乘积的求导也满足莱布尼兹法则，运用这一点，将上式带入激励取为$\delta$的微分方程，可以通过待定系数法求出各个系数，并得到关于$f(t)$的常规的微分方程。很明显，我们不总是需要$\delta$及其高阶导数项，为此需要研究取到$u(t)$的几阶导数就足以完成基于待定系数法的求解，我们通过一个简单的例子来说明这个问题。
+我们知道，分布与函数乘积的求导也满足Leibniz法则，运用这一点，将上式带入激励取为$\delta$的微分方程，可以通过待定系数法求出各个系数，并得到关于$f(t)$的常规的微分方程。很明显，我们不总是需要$\delta$及其高阶导数项，为此需要研究取到$u(t)$的几阶导数就足以完成基于待定系数法的求解，我们通过一个简单的例子来说明这个问题。
 
 \begin{example}
     求微分方程
@@ -214,7 +214,7 @@
     \begin{equation}
         f(t)=\e^{-t}-\e^{-2t},\quad h(t)=\paren{\e^{-t}-\e^{-2t}}u(t).
     \end{equation}
-    总之，只要将齐次解乘以$u(t)$，求出对应阶导数并带回原方程对比系数，即可得到单位脉冲响应；由于单位脉冲响应形如$h(t)=y_{\text{h}}(t)u(t)$，满足$h(t)=0,\quad t<0$，微分方程描述的系统还具有因果性。
+    总之，只要将齐次解乘以$u(t)$，求出对应阶导数并带回原方程对比系数，即可得到单位脉冲响应；由于单位脉冲响应形如$h(t)=y_{\text{h}}(t)u(t)$，满足$h(t)=0,\quad t<0$，微分方程描述的系统还具有\textbf{因果性}。
 \end{example}
 
 对于以上例子中多次的出现满足$h(t)=y_{\text{h}}(t)u(t)$的信号，我们有一个专门的术语来称呼它们：
@@ -229,11 +229,11 @@
 \begin{theorem}
     由微分方程
     \begin{equation}
-        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(n-l)}(t)
+        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(m-l)}(t)
     \end{equation}
     描述的系统（其中$a_0=b_0=1$），其单位脉冲响应满足：
     \begin{equation}
-        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \delta^{(n-l)}.
+        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \delta^{(m-l)}.
     \end{equation}
 \end{theorem}
 当$r(t)$的最高次导数的阶数大于$\delta$的最高阶导数的阶数，即$n>m$时，解为
@@ -250,7 +250,7 @@
 
 只有在描述系统时才需单独考虑这种非齐次项为激励及其各阶导数的线性组合的方程。如果把方程右侧看作一个新的非齐次项，就得到一个新的微分方程。以这种视角看来，另一种单位脉冲响应的求解方法是，将新微分方程的基本解$h_0(t)$与非齐次项的卷积$h_0(t)*\sum_{l=0}^{m}b_l \mathrm{e}^{(m-l)}(t)$作为系统的单位脉冲响应$h(t)$，但这样涉及$\delta$各阶导数的卷积，计算较为复杂，通过待定系数法求解往往更快。
 
-这种基本解的求解方法可以进一步优化。\cref{prop:step_response}表明：单位脉冲响应是单位阶跃响应的导数，因此可以通过单位脉冲响应求出单位阶跃响应。相比带入$\delta$，将$u(t)$带入方程右侧时，所出现的$\delta$的最高阶导数会低一阶，因此用待定系数法求单位阶跃响应再求导，将比直接求单位脉冲响应少处理一个待定系数。我们通过一个例子来比较这两种方法：
+下面通过一个例子来说明这一求解方法：
 \begin{example}
     设系统由微分方程
     \begin{equation}
@@ -262,7 +262,7 @@
     \begin{equation}
         r_{\text{h}}(t)=C_1 \e^{-t}+C_2 \e^{-2t}.
     \end{equation}
-    首先，我们按照已有的方法直接求解单位脉冲响应。将$\delta$带入右式得到$\delta''+\delta$，为了使左式也出现$\delta''$，设单位脉冲响应为
+    将$\delta$带入右式得到$\delta''+\delta$，为了使左式也出现$\delta''$，设单位脉冲响应为
     \begin{equation}
         h(t)=r_{\text{h}}(t)u(t)+C\delta,
     \end{equation}
@@ -294,50 +294,13 @@
     \begin{equation}
         h(t)=\paren{2\e^{-t}-5\e^{-2t}}u(t)+\delta.
     \end{equation}
-
-    下面我们尝试用单位阶跃响应来求解单位脉冲响应。将$u(t)$带入右式得到$u(t)+\delta'$，为了使左式也出现$\delta'$，只需设单位阶跃响应为
-    \begin{equation}
-        h_1(t)=r_{\text{h}}(t)u(t),
-    \end{equation}
-    则
-    \begin{align}
-        h_1'(t)&=r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta,\\
-        h_1''(t)&=r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'.
-    \end{align}
-    带入原方程左侧得到：
-    \begin{align}
-        \LHS&=\paren{r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'}\nonumber\\
-        &\quad+3\paren{r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta}\nonumber\\
-        &\quad+2r_{\text{h}}(t)u(t)\nonumber\\
-        &=\paren{r''_{\text{h}}(t)+3r'_{\text{h}}(t)+2r_{\text{h}}(t)}u(t)+\paren{r'_{\text{h}}(0)+3r_{\text{h}}(0)}\delta+r_{\text{h}}(0)\delta'.
-    \end{align}
-    对比$\delta$及其各阶导数的系数，得到：
-    \begin{equation}
-        \begin{dcases}
-            r'_{\text{h}}(0)+3r_{\text{h}}(0)=0,\\
-            r_{\text{h}}(0)=1.
-        \end{dcases}
-    \end{equation}
-    所以
-    \begin{equation}
-        r_{\text{h}}(0)=1,\quad r'_{\text{h}}(0)=-3.
-    \end{equation}
-    满足上述条件的$C_1=-1,\ C_2=2$，因此单位阶跃响应为
-    \begin{equation}
-        g(t)=\paren{-\e^{-t}+2\e^{-2t}}u(t),
-    \end{equation}
-    单位脉冲响应为
-    \begin{equation}
-        h(t)=g'(t)=\paren{2\e^{-t}-5\e^{-2t}}u(t)+\delta,
-    \end{equation}
-    与之前的结果一致。显然，当单位脉冲响应中含有$\delta$时，\textbf{通过单位阶跃响应求解单位脉冲响应的计算更为简洁}。
 \end{example}
 
 利用“全响应=零输入响应+零状态响应”，可以提出常系数线性微分方程的通解公式：
 \begin{theorem}
     设$h(t)$为微分方程
     \begin{equation}
-        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(n-l)}(t)
+        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(m-l)}(t)
     \end{equation}
     的单位脉冲响应（其中$a_0=b_0=1$），则该微分方程的通解为
     \begin{equation}
@@ -351,7 +314,7 @@
 \begin{theorem}
     设$h(t)$为微分方程
     \begin{equation}
-        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(n-l)}(t)
+        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(m-l)}(t)
     \end{equation}
     的单位脉冲响应（其中$a_0=b_0=1$），满足初始条件
     \begin{equation}
@@ -371,7 +334,7 @@
     一方面，单位脉冲响应$h(t)$是因果信号，因此上式中积分的下限可以改为$0$；另一方面，在使用系统对方程进行建模时，我们认为\textbf{激励信号是从$0$时刻开始施加的}，因此，$e(t)=0,\quad t<0$，令$t-s\geq 0$，得到$s\leq t$，即上式中积分的上限也可以改为$t$。因此，卷积项$(h*e)(t)$可以写成$\int_{0}^{t} h(s)e(t-s)\,\dd s$。
 \end{proof}
 
-数学上，激励信号，即方程的非齐次项，往往是在全时域上都存在的，但是将方程视作一个系统时，认为激励在$0$时刻才开始施加是合理的。这是因为$t=0$时刻的初值条件就是由$t<0$时刻的激励引起的，有了起始条件就不再需要激励在$t<0$时刻的信息，这体现出\textbf{常系数线性微分方程所描述的系统具有马尔可夫性}。如果我们希望考虑全时域上的非齐次项$e(t)$，将$\int_{-\infty}^0 h(s)e(t-s)\,\dd s$也放在响应$r(t)$的公式中，则$y_{\text{h}}(t)$应根据系统在“$-\infty$时刻”的零状态来确定，它当然应该是全为$0$的，这样，通解为：
+数学上，激励信号，即方程的非齐次项，往往是在全时域上都存在的，但是将方程视作一个系统时，认为激励在$0$时刻才开始施加是合理的。这是因为$t=0$时刻的初值条件就是由$t<0$时刻的激励引起的，有了起始条件就不再需要激励在$t<0$时刻的信息，这体现出\textbf{常系数线性微分方程所描述的系统具有Markov性}。如果我们希望考虑全时域上的非齐次项$e(t)$，将$\int_{-\infty}^0 h(s)e(t-s)\,\dd s$也放在响应$r(t)$的公式中，则$y_{\text{h}}(t)$应根据系统在“$-\infty$时刻”的零状态来确定，它当然应该是全为$0$的，这样，通解为：
 \begin{equation}
     r(t)=\int_{-\infty}^{t} h(s)e(t-s)\,\dd s.
 \end{equation}

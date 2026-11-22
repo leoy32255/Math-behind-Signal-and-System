@@ -1,22 +1,22 @@
 % !TeX root = ../../MainBook.tex
-\section{施瓦兹函数类}\label{sec:Schwartz_Functions}
+\section{Schwartz函数类}\label{sec:Schwartz_Functions}
 
-\subsection{施瓦兹函数在傅里叶变换下的封闭性}\label{sub:fourier_close}
-在\refsub{schwartz}中，我们介绍了施瓦兹函数类及其对偶空间分布，并直接假定了施瓦兹函数类在傅里叶变换下的封闭性。这一小节将填补这个逻辑漏洞，并介绍施瓦兹函数类的一些其他好处。由于不涉及具体的计算，简洁起见，我们将在本节使用角频率$\omega$。
+\subsection{Schwartz函数在傅里叶变换下的封闭性}\label{sub:fourier_close}
+在\refsub{schwartz}中，我们介绍了Schwartz函数类及其对偶空间分布，并直接假定了Schwartz函数类在傅里叶变换下的封闭性。这一小节将填补这个逻辑漏洞，并介绍Schwartz函数类的一些其他好处。由于不涉及具体的计算，简洁起见，我们将在本节使用角频率$\omega$。
 
-首先，可以根据施瓦兹函数类的定义
+首先，可以根据Schwartz函数类的定义
 \begin{equation}
     \mathcal{S}(\mathbb{R})=\braces{\varphi\in C^{\infty}(\mathbb{R})\;\middle|\;\lim_{|x|\to\infty}|x|^m\varphi^{(n)}(x)=0,\ \forall m,n\in\mathbb{N}}
 \end{equation}
-给出它们在$|x|\to\infty$时的估计，从而施瓦兹函数$\varphi$必满足$\int_{-\infty}^{\infty}|\varphi^{(n)}(x)|\,\dd x<\infty,\ n\in\mathbb{N}$，即施瓦兹函数类是$L^1(\mathbb{R})$的子集，于是
+给出它们在$|x|\to\infty$时的估计，从而Schwartz函数$\varphi$必满足$\int_{-\infty}^{\infty}|\varphi^{(n)}(x)|\,\dd x<\infty,\ n\in\mathbb{N}$，即Schwartz函数类是$L^1(\mathbb{R})$的子集，于是
 \begin{align}
     \int_{-\infty}^{\infty}\varphi(t)\e^{-\im\omega t}\,\dd t&\leq \int_{-\infty}^{\infty}|\varphi(t)||\e^{-\im\omega t}|\,\dd t \nonumber \\
     &=\int_{-\infty}^{\infty}|\varphi(t)|\,\dd t<\infty,
 \end{align}
-即施瓦兹函数的傅里叶变换是良定义的，傅里叶逆变换同理。
+即Schwartz函数的傅里叶变换是良定义的，傅里叶逆变换同理。
 
-显然，施瓦兹函数在求导运算下是封闭的，即$\varphi\in\mathcal{S}(\mathbb{R})\implies \varphi'\in\mathcal{S}(\mathbb{R})$，并且乘以$x$的运算也是封闭的，即$\varphi\in\mathcal{S}(\mathbb{R})\implies x\varphi\in\mathcal{S}(\mathbb{R})$。利用这两个性质，可以证明施瓦兹函数类在傅里叶变换下的封闭性：
-\begin{theorem}[施瓦兹函数类在傅里叶变换下的封闭性]
+显然，Schwartz函数在求导运算下是封闭的，即$\varphi\in\mathcal{S}(\mathbb{R})\implies \varphi'\in\mathcal{S}(\mathbb{R})$，并且乘以$x$的运算也是封闭的，即$\varphi\in\mathcal{S}(\mathbb{R})\implies x\varphi\in\mathcal{S}(\mathbb{R})$。利用这两个性质，可以证明Schwartz函数类在傅里叶变换下的封闭性：
+\begin{theorem}[Schwartz函数类在傅里叶变换下的封闭性]
     \label{thm:schwartz_close}
     设$\varphi\in\mathcal{S}(\mathbb{R})$，则$\mathcal{F} \varphi,\mathcal{F}^{-1}\varphi\in\mathcal{S}(\mathbb{R})$。
 \end{theorem}
@@ -26,7 +26,7 @@
         \mathcal{F}\sbr{\varphi'}(\omega)&=\im\omega \mathcal{F}\varphi(\omega), \\
         \mathcal{F}\sbr{\varphi^{(n)}}(\omega)&=(\im\omega)^n \mathcal{F}\varphi(\omega).
     \end{align}
-    根据黎曼-勒贝格引理（见\refsub{riemman_lebesgue_lemma}），
+    根据Riemann-Lebesgue引理（见\refsub{riemman_lebesgue_lemma}），
     \begin{equation}
         \varphi^{(n)}\in L^1(\mathbb{R})\implies\lim_{|\omega|\to\infty}\mathcal{F}\sbr{\varphi^{(n)}(\omega)}=0,
     \end{equation}
@@ -109,7 +109,7 @@
 \end{theorem}
 物理规律中许多现象都可以归结为这一数学事实，例如著名的\textbf{海森堡不确定性原理}(Heisenberg's uncertainty principle)\footnote{尽管广义的不确定性原理应该归结为算符或矩阵的不对易，但由于动量空间波函数是位置空间波函数的傅里叶变换，以上结果的确能够证明$\sigma_x \sigma_p\geq\frac{\hbar}{2}$。}。读者可以自行验证，以上不等式取等于高斯函数。
 \begin{proof}
-    我们首先验证，$|f|^2$与$|F|^2$作为某个随机变量的概率密度函数是良定义的，从而其方差是良定义的。根据普朗歇尔定理（\cref{thm:plancherel}），
+    我们首先验证，$|f|^2$与$|F|^2$作为某个随机变量的概率密度函数是良定义的，从而其方差是良定义的。根据Plancherel定理（\cref{thm:plancherel}），
     \begin{lralign}
         \int_{-\infty}^{\infty}|f(t)|^2\,\dd t=\int_{-\infty}^{\infty}|\mathcal{F} f(\xi)|^2\,\dd\xi
     \switch
@@ -128,15 +128,15 @@
         4\pi^2 \sigma^2(f)\sigma^2(F)&=4\pi^2 \int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t\int_{-\infty}^{\infty}\xi^2|F(\xi)|^2\,\dd\xi \nonumber \\
         &=\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t\int_{-\infty}^{\infty}|2\pi\im\xi F(\xi)|^2\,\dd\xi \nonumber \\
         &=\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t\int_{-\infty}^{\infty}\abs{\mathcal{F}\sbr{f'(t)}(\xi)}^2\,\dd\xi \qquad \text{(时域微分性质)} \nonumber \\
-        &=\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t\int_{-\infty}^{\infty}|f'(t)|^2\,\dd t \qquad \text{(普朗歇尔定理)} \nonumber \\
-        &\geq \paren{\int_{-\infty}^{\infty}|tf(t)||f'(t)|\,\dd t}^2 \qquad \text{(柯西-施瓦兹不等式)} \nonumber \\
+        &=\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t\int_{-\infty}^{\infty}|f'(t)|^2\,\dd t \qquad \text{(Plancherel定理)} \nonumber \\
+        &\geq \paren{\int_{-\infty}^{\infty}|tf(t)||f'(t)|\,\dd t}^2 \qquad \text{(Cauchy-Schwarz不等式)} \nonumber \\
         &=\frac{1}{4}\paren{\evalat{t|f(t)|^2}{-\infty}{\infty}-\int_{-\infty}^{\infty}|f(t)|^2\,\dd t}^2. \qquad \text{(分部积分)}
     \end{align}
-    上述过程中，我们通过普朗歇尔定理说明了$f'(t)\in L^2(\mathbb{R})$，因此$f(t)$几乎处处可导，$t|f(t)|^2$几乎处处连续，而期望$\int_{-\infty}^{\infty}t|f(t)|^2\,\dd t=0<\infty$，因此$\lim_{|t|\to\infty}t|f(t)|^2=0$；又已知$\int_{-\infty}^{\infty}|f(t)|^2\,\dd t=1$，因此，$\sigma(f)\sigma(F)\geq \displaystyle\frac{1}{4\pi}$，得证。
+    上述过程中，我们通过Plancherel定理说明了$f'(t)\in L^2(\mathbb{R})$，因此$f(t)$几乎处处可导，$t|f(t)|^2$几乎处处连续，而期望$\int_{-\infty}^{\infty}t|f(t)|^2\,\dd t=0<\infty$，因此$\lim_{|t|\to\infty}t|f(t)|^2=0$；又已知$\int_{-\infty}^{\infty}|f(t)|^2\,\dd t=1$，因此，$\sigma(f)\sigma(F)\geq \displaystyle\frac{1}{4\pi}$，得证。
 \end{proof}
 
-使用方差的定义可以轻松地得到一个有用的不等式，它给出了一种基于方差估计函数集中程度的方法，这就是\textbf{切比雪夫不等式}(Chebyshev's inequality)：
-\begin{theorem}[切比雪夫不等式]
+使用方差的定义可以轻松地得到一个有用的不等式，它给出了一种基于方差估计函数集中程度的方法，这就是\textbf{Chebyshev不等式}：
+\begin{theorem}[Chebyshev不等式]
     设$f\in L^2(\mathbb{R})$，则对于任意$a>0$，都有
     \begin{equation}
         \int_{|t|\geq a}|f(t)|^2\,\dd t\leq \frac{1}{a^2}\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t.
@@ -177,26 +177,26 @@
 我们也可以根据时域、频域函数的半高宽或$1/20$高宽（$1\,\mathrm{dB}$带宽）来估计它们的集中程度。
 
 \subsection{*傅里叶变换的连续性}\label{sub:fourier_continuous}
-施瓦兹函数类的另一个好处在于，它不仅保证了傅里叶变换下的封闭性，还使得傅里叶变换$\mathcal{F}:\mathcal{S}(\mathbb{R})\to\mathcal{S}(\mathbb{R})$是一个\textbf{线性拓扑自同构}，具体来说，这要求
+Schwartz函数类的另一个好处在于，它不仅保证了傅里叶变换下的封闭性，还使得傅里叶变换$\mathcal{F}:\mathcal{S}(\mathbb{R})\to\mathcal{S}(\mathbb{R})$是一个\textbf{线性拓扑自同构}，具体来说，这要求
 \begin{itemize}
     \item $\mathcal{F}$是线性的；
     \item $\mathcal{F}$是双射（我们已经找到逆映射$\mathcal{F}^{-1}$）；
     \item $\mathcal{F}$及其逆映射$\mathcal{F}^{-1}$均为连续映射。
 \end{itemize}
-我们已经证明过$\mathcal{F}$是线性的双射，下面来说明连续性。为此，我们需要给施瓦兹函数类赋予一个拓扑结构。尽管$\mathcal{S}(\mathbb{R})\subset L^p(\mathbb{R})\ (1\leq p\leq\infty)$，但$L^p$空间的范数并不能很好地刻画施瓦兹函数类的性质，因此我们需要引入一族\textbf{半范数}(seminorm)：
-\begin{definition}[*施瓦兹函数类的半范数]
-    对于$m,n\in\mathbb{N}$，定义施瓦兹函数类上的半范数
+我们已经证明过$\mathcal{F}$是线性的双射，下面来说明连续性。为此，我们需要给Schwartz函数类赋予一个拓扑结构。尽管$\mathcal{S}(\mathbb{R})\subset L^p(\mathbb{R})\ (1\leq p\leq\infty)$，但$L^p$空间的范数并不能很好地刻画Schwartz函数类的性质，因此我们需要引入一族\textbf{半范数}(seminorm)：
+\begin{definition}[*Schwartz函数类的半范数]
+    对于$m,n\in\mathbb{N}$，定义Schwartz函数类上的半范数
     \begin{equation}
         \norm{\varphi}_{m,n}=\sup_{x\in\mathbb{R}}|x|^m\abs{\varphi^{(n)}(x)}.
     \end{equation}
 \end{definition}
-在这个范数下$\mathcal{S}(\mathbb{R})$构成\textbf{弗雷歇空间}(Fréchet space)，依范数收敛此时应该理解为：
-\begin{definition}[*施瓦兹函数类中的收敛]
+在这个范数下$\mathcal{S}(\mathbb{R})$构成\textbf{Fréchet空间}，依范数收敛此时应该理解为：
+\begin{definition}[*Schwartz函数类中的收敛]
     设$\{\varphi_k\}\subset\mathcal{S}(\mathbb{R})$，如果对于任意$m,n\in\mathbb{N}$，都有
     \begin{equation}
         \lim_{k\to\infty}\norm{\varphi_k-\varphi}_{m,n}=0,
     \end{equation}
-    则称$\varphi_k$在施瓦兹函数类中（依范数）收敛于$\varphi$，记为$\varphi_k\to \varphi$。
+    则称$\varphi_k$在Schwartz函数类中（依范数）收敛于$\varphi$，记为$\varphi_k\to \varphi$。
 \end{definition}
 有了这些定义，我们就可以说明傅里叶变换及其逆映射的连续性：
 \begin{theorem}[*$\mathcal{S}(\mathbb{R})$上傅里叶变换的连续性]
@@ -218,7 +218,7 @@
     \begin{equation}
         \int_{-\infty}^{\infty}|\phi_k(t)|\,\dd t\to 0.
     \end{equation}
-    考虑利用$\varphi_k\in\mathcal{S}(\mathbb{R}),\ \norm{\varphi_k}_{m,n}\to 0,\ \forall m,n\in\mathbb{N}$给出$|\phi_k(t)|$的估计。利用莱布尼兹求导法则，有：
+    考虑利用$\varphi_k\in\mathcal{S}(\mathbb{R}),\ \norm{\varphi_k}_{m,n}\to 0,\ \forall m,n\in\mathbb{N}$给出$|\phi_k(t)|$的估计。利用Leibniz求导法则，有：
     \begin{align}
         |\phi_k(t)|&=\abs{\paren{(-\im t)^n \varphi_k}^{(m)}(t)} \nonumber \\
         &=\abs{\sum_{j=0}^{m}\binom{m}{j}(t^n)^{(j)}\varphi_k^{(m-j)}(t)} \nonumber \\
@@ -251,7 +251,7 @@
     根据夹逼定理，$\norm{\mathcal{F}\varphi_k}_{m,n}\to 0$，得证。傅里叶逆变换同理。
 \end{proof}
 
-其实，如果我们考虑$L^1(\mathbb{R})\cap L^2(\mathbb{R})$中傅里叶变换的连续性，可以得到类似的结论，但证明要简单得多，因为$L^1(\mathbb{R})\cap L^2(\mathbb{R})$中有普朗歇尔定理（\cref{thm:plancherel}）。
+其实，如果我们考虑$L^1(\mathbb{R})\cap L^2(\mathbb{R})$中傅里叶变换的连续性，可以得到类似的结论，但证明要简单得多，因为$L^1(\mathbb{R})\cap L^2(\mathbb{R})$中有Plancherel定理（\cref{thm:plancherel}）。
 \begin{theorem}[$L^1(\mathbb{R})\cap L^2(\mathbb{R})$上傅里叶变换的连续性]
     设
     \begin{equation}
@@ -266,7 +266,7 @@
     尽管$L^1(\mathbb{R})\cap L^2(\mathbb{R})$是比$\mathcal{S}(\mathbb{R})$更大的空间，但这个定理有一定的局限性：其一，依$L^2$范数收敛不能保证依半范数收敛，即证得的收敛性会减弱；其二，$L^1(\mathbb{R})\cap L^2(\mathbb{R})$并不是傅里叶变换下的封闭空间，因此我们无法保证傅里叶逆变换的连续性。
 \end{remark}
 \begin{proof}
-    由普朗歇尔定理，有
+    由Plancherel定理，有
     \begin{lralign}
         \norm{\mathcal{F} f_k-\mathcal{F} f}_2^2&=\int_{-\infty}^{\infty}\abs{\mathcal{F} f_k(\xi)-\mathcal{F} f(\xi)}^2\,\dd\xi\\
         &=\int_{-\infty}^{\infty}\abs{f_k(t)-f(t)}^2\,\dd t\\

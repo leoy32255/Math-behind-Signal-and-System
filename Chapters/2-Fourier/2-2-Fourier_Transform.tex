@@ -10,7 +10,7 @@
 \begin{equation}
     c_n=\frac{1}{T}\int_{T}f(t)\e^{-\im k\omega t}\,\dd t=\frac{1}{T}\int_{T}f(t)\e^{-2\pi \im k\xi t}\,\dd t\to 0.
 \end{equation}
-这样做变换将丢失$f$的所有信息，不是我们希望看到的，但很明显，只要给以上公式乘上$T$，并认为$k\omega$或$k\xi$是自变量，问题就迎刃而解，得到一个很有意思的积分变换，它正是\textbf{傅里叶变换}(Fourier Transform, FT)。傅里叶本人同样意识到了傅里叶级数向傅里叶变换的过渡，他用同样的方法从形式上得到了傅里叶变换的公式，但我们使用的指数函数其实是后来柯西、泊松等数学家开始使用的，它使得公式具有更加简洁的形式。
+这样做变换将丢失$f$的所有信息，不是我们希望看到的，但很明显，只要给以上公式乘上$T$，并认为$k\omega$或$k\xi$是自变量，问题就迎刃而解，得到一个很有意思的积分变换，它正是\textbf{傅里叶变换}(Fourier Transform, FT)。傅里叶本人同样意识到了傅里叶级数向傅里叶变换的过渡，他用同样的方法从形式上得到了傅里叶变换的公式，但我们使用的指数函数其实是后来柯西（Cauchy）、泊松（Poisson）等数学家开始使用的，它使得公式具有更加简洁的形式。
 
 \begin{definition}[傅里叶变换]
     设$f\in L^1(\mathbb{R})$，其傅里叶变换定义为
@@ -26,7 +26,7 @@
     并称之为\textbf{傅里叶变换对}。
 \end{definition}
 
-下面解释“乘$T$，认为$k\omega$或$k\xi$为自变量”的本质。回顾上一节中的\cref{exmp:rect_FS}，为了体现双边频谱与采样函数的相似性，我们取了一个较为特殊的周期矩形脉冲函数，它的基波角频率应为图中两相邻竖直线间的间隔，即\textbf{谱线间隔}，可见其频率极小、周期极大，与我们研究非周期现象所用到的极限情况$T\to\infty$是一致的，换言之，令$T\to\infty$自动地使“傅里叶系数”在频谱中的间隔变小，\textbf{周期函数趋向非周期函数的过程自动地使离散频谱趋向连续频谱}。这样，乘$T$就不难理解了，它的作用是“除以$1/T$”，$1/T$是所在频率成分处小矩形的宽（类似于黎曼积分），换言之，以频率$\xi$为横坐标，\textbf{谱系数}$c_n$是$\displaystyle \frac{n}{T}=n\xi$处的小矩形面积，$Tc_n$是$f$中对应频率成分的含量，可以理解为单位频段内的谱系数，即频谱密度；以角频率$\omega$为横坐标，$c_n$是$\displaystyle \frac{2\pi n}{T}=n\omega$处的小矩形面积，$Tc_n$是$f$中对应角频率成分的含量。因此，$F(\xi)$或$F(\omega)$也称为\textbf{频谱密度函数}。
+下面解释“乘$T$，认为$k\omega$或$k\xi$为自变量”的本质。回顾上一节中的\cref{exmp:rect_FS}，为了体现双边频谱与采样函数的相似性，我们取了一个较为特殊的周期矩形脉冲函数，它的基波角频率应为图中两相邻竖直线间的间隔，即\textbf{谱线间隔}，可见其频率极小、周期极大，与我们研究非周期现象所用到的极限情况$T\to\infty$是一致的，换言之，令$T\to\infty$自动地使“傅里叶系数”在频谱中的间隔变小，\textbf{周期函数趋向非周期函数的过程自动地使离散频谱趋向连续频谱}。这样，乘$T$就不难理解了，它的作用是“除以$1/T$”，$1/T$是所在频率成分处小矩形的宽（类似于Riemann积分），换言之，以频率$\xi$为横坐标，\textbf{谱系数}$c_n$是$\displaystyle \frac{n}{T}=n\xi$处的小矩形面积，$Tc_n$是$f$中对应频率成分的含量，可以理解为单位频段内的谱系数，即频谱密度；以角频率$\omega$为横坐标，$c_n$是$\displaystyle \frac{2\pi n}{T}=n\omega$处的小矩形面积，$Tc_n$是$f$中对应角频率成分的含量。因此，$F(\xi)$或$F(\omega)$也称为\textbf{频谱密度函数}。
 
 实际上，从这个角度出发，可以立即得到\textbf{傅里叶逆变换}(Inverse Fourier Transform, IFT)的公式，因为我们已经将$f$展开为傅里叶级数，这对应着由$f$的傅里叶变换$\mathcal{F}f$还原出$f$。我们知道
 \begin{lralign}
@@ -108,7 +108,7 @@
     \implies &|\mathcal{F}f(\omega)-\mathcal{F}f(\nu)|<\epsilon.
 \end{lralign}
 \end{proof}
-\begin{claim}[黎曼-勒贝格引理]
+\begin{claim}[Riemann-Lebesgue引理]
     若$f\in L^1(\mathbb{R})$，则其傅里叶变换满足
     \begin{lralign}
         \lim_{|\xi|\to\infty}\mathcal{F}f(\xi)=0
@@ -312,8 +312,8 @@ $a>1$，时域收缩，频域舒张、变矮；$0<a<1$，时域舒张，频域�
 \end{proof}
 $\evalat{\e^{-2\pi \im\xi t}f(t)}{-\infty}{\infty},\ \evalat{\e^{-\im\omega t}f(t)}{-\infty}{\infty}=0$是因为$f\in L^1(\mathbb{R})$要求$\int_{\mathbb{R}}|f(t)|\,\dd t<\infty$，其必要条件为$f(t)\to 0,\ t\to\infty$，而复指数函数部分模值恒为1。
 
-下面，我们给出\textbf{帕塞瓦尔恒等式}(Parseval's identity)/\textbf{普朗歇尔定理}(Plancherel theorem)。之前已经给出过它的复指数级数形式，如果将傅里叶变换视作傅里叶级数的推广，那么“能量守恒”也自然地推广到傅里叶变换。
-\begin{theorem}[帕塞瓦尔恒等式/普朗歇尔定理]
+下面，我们给出\textbf{Parseval恒等式}/\textbf{Plancherel定理}。之前已经给出过它的复指数级数形式，如果将傅里叶变换视作傅里叶级数的推广，那么“能量守恒”也自然地推广到傅里叶变换。
+\begin{theorem}[Parseval恒等式/Plancherel定理]
     \label{thm:plancherel}
     设$f,g\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，则
     \begin{lralign}
@@ -388,7 +388,7 @@ $\evalat{\e^{-2\pi \im\xi t}f(t)}{-\infty}{\infty},\ \evalat{\e^{-\im\omega t}f(
 \end{corollary}
 
 基于以上结果，可以证明\cref{thm:dirichlet_int}：
-\begin{corollary}[狄利克雷积分]
+\begin{corollary}[Dirichlet积分]
     \begin{equation}
         \int_{-\infty}^{\infty}\frac{\sin t}{t}\,\dd t=\pi.
     \end{equation}
@@ -406,10 +406,10 @@ $\evalat{\e^{-2\pi \im\xi t}f(t)}{-\infty}{\infty},\ \evalat{\e^{-\im\omega t}f(
     \switch
         \int_{-\infty}^{\infty}\Sa(t)\,\dd t&=\pi.
     \end{lralign}
-    以上两个结果都与狄利克雷积分等价。
+    以上两个结果都与Dirichlet积分等价。
 \end{proof}
-\begin{example}[狄拉克函数]
-    狄拉克$\delta$函数（\cref{def:delta}）实际上应该作为一个分布来理解，见\refsub{general_distributions}，不过我们可以从形式上求出它的傅里叶变换。
+\begin{example}[Dirac函数]
+    Dirac $\delta$函数（\cref{def:delta}）实际上应该作为一个分布来理解，见\refsub{general_distributions}，不过我们可以从形式上求出它的傅里叶变换。
     \begin{lralign}
         \mathcal{F}\delta(\xi)&=\int_{-\infty}^{\infty}\delta(t)\e^{-2\pi \im\xi t}\,\dd t\\
         &=\int_{-\infty}^{\infty}\delta(t)\,\dd t=1
@@ -432,7 +432,7 @@ $\evalat{\e^{-2\pi \im\xi t}f(t)}{-\infty}{\infty},\ \evalat{\e^{-\im\omega t}f(
         \mathcal{F}\mathds{1}=2\pi\delta(\omega).
     \end{lralign}
 \end{claim}
-非零的常函数有无穷大的直流分量，而没有其他的频率分量，这符合我们的直观认识；另一方面，常函数$\mathds{1}$的傅里叶变换是强度为1或$2\pi$的狄拉克函数，这为我们提供了另一种理解狄拉克函数的强度的方法。
+非零的常函数有无穷大的直流分量，而没有其他的频率分量，这符合我们的直观认识；另一方面，常函数$\mathds{1}$的傅里叶变换是强度为1或$2\pi$的Dirac函数，这为我们提供了另一种理解Dirac函数的强度的方法。
 
 \begin{corollary}
     根据傅里叶变换的平移定理，立即得到：
@@ -496,7 +496,7 @@ $\evalat{\e^{-2\pi \im\xi t}f(t)}{-\infty}{\infty},\ \evalat{\e^{-\im\omega t}f(
 
 \begin{example}[高斯函数]\label{exmp:gauss_fourier}
     我们来求$G(t)=\e^{-\pi t^2}$的傅里叶变换，其他高斯函数的傅里叶变换可以用同样的方法求得，或者使用伸缩定理得到。
-    \begin{lralign}[stack]
+    \begin{lralign}
         \mathcal{F}G(\xi)=\int_{-\infty}^{\infty}\e^{-\pi t^2}\e^{-2\pi \im\xi t}\,\dd t
     \switch
         \mathcal{F}G(\omega)=\int_{-\infty}^{\infty}\e^{-\pi t^2}\e^{-\im\omega t}\,\dd t,

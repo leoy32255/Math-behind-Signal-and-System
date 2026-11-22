@@ -7,11 +7,19 @@
     f(t)=T\sinc(Tt)*f(t).
 \end{equation}
 
-如果希望对更一般的函数$f(x)$，找到一个函数$g(x)$，使得$f(x)=g*f(x)$，自然会想到狄拉克$\delta$分布，然而它是一个奇异分布，我们只能从形式上定义一个$\delta$函数。事实上，
+如果希望对更一般的函数$f(x)$，找到一个函数$g(x)$，使得$f(x)=g*f(x)$，自然会想到Dirac $\delta$分布，然而它是一个奇异分布，我们只能从形式上定义一个$\delta$函数。事实上，
 \begin{equation}
     \nexists g,\quad f*g=f,\quad\forall f,
 \end{equation}
-但很容易构造一个函数列$g_n$，使得$f*g_n\to f$\cite{folland}。回忆我们在\refsub{intuition_of_convolution}中提到的“平均化”卷积，设$g_a(x)=\frac{1}{2a}\chi_{[-a,a]}$，则$g_a*f$是$f$在区间$[x-a,x+a]$上的平均值，即$\frac{1}{2a}f*g_a(t)=\int_{x-a}^{x+a}f(x)\,\dd x$，若$f\in C(\mathbb{R})$，则$g_a*f\to f,\ a\to 0$。
+但很容易构造一个函数列$g_n$，使得$f*g_n\to f$\cite{folland}。回忆我们在\refsub{intuition_of_convolution}中提到的“平均化”卷积，设
+\begin{equation}
+    g_a(x)=\frac{1}{2a}\chi_{[-a,a]},
+\end{equation}
+则$g_a*f(t)$是$f$在区间$[t-a,t+a]$上的平均值，即
+\begin{equation}
+    f*g_a(t)=\frac{1}{2a}\int_{t-a}^{t+a}f(x)\,\dd x.
+\end{equation}
+若$f\in C(\mathbb{R})$，则$g_a*f\to f,\ a\to 0$。
 
 一般地，我们考虑函数的缩放，设$g\in L^1(\mathbb{R})$，我们记
 \begin{equation}
@@ -36,7 +44,7 @@
     特别地，如果$f(x)$在点$x$连续，则有$\lim_{\lambda\to 0}f*g_\lambda(x)=f(x)$；如果$f(x)$在某个闭区间$[a,b]$上连续，则以上极限是一致收敛于$f(x)$的。
 \end{theorem}
 \begin{proof}
-    以下证明中，我们需要使用$\epsilon-\delta$语言，暂时不用$\delta$表示狄拉克分布。
+    以下证明中，我们需要使用$\epsilon-\delta$语言，暂时不用$\delta$表示Dirac分布。
     \begin{equation}
         f*g_\lambda(x)-\alpha f(x+)-\beta f(x-)=\int_{-\infty}^{0}[f(x-y)-f(x+)]g_\lambda(y)\,\dd y+\int_{0}^{\infty}[f(x-y)-f(x-)]g_\lambda(y)\,\dd y.
     \end{equation}
@@ -68,13 +76,13 @@
 \begin{itemize}
     \item 高斯函数是偶函数，$\alpha=\beta=\displaystyle\frac{1}{2}$；
     \item 高斯函数是无限阶可导的。我们知道，卷积能够继承函数的可导性：$f*g'=f'*g=(f*g)'$，使用高斯函数做卷积，所得的函数光滑
-    \item 高斯函数是施瓦兹函数，即$G_\lambda\in\mathcal{S}(\mathbb{R})$
+    \item 高斯函数是Schwartz函数，即$G_\lambda\in\mathcal{S}(\mathbb{R})$
     \item 高斯函数的傅里叶变换仍是高斯函数，这使得傅里叶变换更容易计算
     \item 高斯函数$G_\lambda\in L^1(\mathbb{R})$并且是有界的，与任意$f\in PC(\mathbb{R})$卷积时，卷积积分良定义且趋向于$f$
 \end{itemize}
 
 作为以上定理的推论，可以得到多项式空间在连续函数空间中的稠密性：
-\begin{theorem}[*魏尔斯特拉斯第一逼近定理]\label{thm:weierstrass_1}
+\begin{theorem}[*Weierstrass第一逼近定理]\label{thm:weierstrass_1}
     设$f\in C([a,b]),\ -\infty<a<b<\infty$，则$f$是某个多项式序列在$[a,b]$上的一致极限，即：
     \begin{equation}
         \forall \epsilon>0,\ \exists \text{多项式 } P,\quad \sup_{a\leq x\leq b}|f(x)-P(x)|<\epsilon.
@@ -90,9 +98,9 @@
     \begin{equation}
         \forall \epsilon>0,\ \exists \lambda>0,\quad \sup_{a\leq x\leq b}\abs{f(x)-\frac{1}{\lambda\sqrt{\pi}}\int_{a-1}^{b+1}\e^{-(x-y)^2/\lambda^2}f(y)\,\dd y}<\frac{\epsilon}{2}.
     \end{equation}
-    考虑将右边的积分用多项式近似。我们知道，$\e^{-t^2}$可以展开为泰勒级数，并且在$\mathbb{C}$上内闭一致收敛，即
+    考虑将右边的积分用多项式近似。我们知道，$\e^{-t^2}$可以展开为Taylor级数，并且在$\mathbb{C}$上内闭一致收敛，即
     \begin{equation}
-        \sum_{n=0}^{N}\frac{t^n}{n!}\rightrightarrows \e^{-t^2},\quad N\to\infty.
+        \sum_{n=0}^{N}\frac{(-1)^n t^{2n}}{n!}\rightrightarrows \e^{-t^2},\quad N\to\infty.
     \end{equation}
     具体来说，取$|f(x)|$的上界$M$（紧支连续函数是一致连续的，必有上界），存在$N$，使得
     \begin{equation}
@@ -110,7 +118,7 @@
 \end{proof}
 
 进一步，可以得到三角多项式（\cref{def:trinomial}）空间在连续的周期函数空间中的稠密性：
-\begin{corollary}[魏尔斯特拉斯第二逼近定理]\label{cor:weierstrass_2}
+\begin{corollary}[Weierstrass第二逼近定理]\label{cor:weierstrass_2}
     设$f\in C(\mathbb{R})$以$T$为周期，则$f$是某个同周期的三角多项式序列的一致极限，即：
     \begin{equation}
         \forall \epsilon>0,\ \exists \text{三角多项式 } P,\quad \sup_{x}|f(x)-P(x)|<\epsilon.
@@ -185,9 +193,9 @@
     只要选取$\epsilon<\eta\sin\delta$，就能保证$\sup_t |F(t)-R_0(\cos t)\sin t|<\eta$。
 \end{proof}
 
-\subsection{黎曼-勒贝格引理}\label{sub:riemman_lebesgue_lemma}
-本小节来补充\refsub{introduction_of_fourier}中提到的\textbf{黎曼-勒贝格引理}的证明。
-\begin{theorem}[黎曼-勒贝格引理]\label{thm:riemann_lebesgue}
+\subsection{Riemann-Lebesgue引理}\label{sub:riemman_lebesgue_lemma}
+本小节来补充\refsub{introduction_of_fourier}中提到的\textbf{Riemann-Lebesgue引理}的证明。
+\begin{theorem}[Riemann-Lebesgue引理]\label{thm:riemann_lebesgue}
     设$f\in L^1(\mathbb{R})$，则其傅里叶变换$\mathcal{F} f(x)\to 0,\ x\to\infty$。
 \end{theorem}
 我们给出一个基于阶梯函数逼近的证明，尽管现在不需要掌握它，但可以从这个证明体会到分析学中逼近技术的强大威力。
@@ -399,7 +407,7 @@
         &=\int_{0}^{K}g(y)\frac{\e^{\im R y}-\e^{-\im R y}}{2\im}\,\dd y\\
         &=\frac{1}{2\im}\sbr{\mathcal{F} g(-R)-\mathcal{F} g(R)}.
     \end{lralign}
-    由于$f\in PS(\mathbb{R}),\ g\in PC(\mathbb{R}^*),\ g(0+)=f'(x-)$，有$g\in L^1(\mathbb{R})$，根据黎曼-勒贝格引理（\cref{thm:riemann_lebesgue}），$\mathcal{F} g(\pm R)\to 0,\ R\to\infty$，故
+    由于$f\in PS(\mathbb{R}),\ g\in PC(\mathbb{R}^*),\ g(0+)=f'(x-)$，有$g\in L^1(\mathbb{R})$，根据Riemann-Lebesgue引理（\cref{thm:riemann_lebesgue}），$\mathcal{F} g(\pm R)\to 0,\ R\to\infty$，故
     \begin{equation}
         \int_{0}^{K}[f(x-y)-f(x-)]\frac{\sin(R y)}{\pi y}\,\dd y\to 0,\quad R\to\infty,
     \end{equation}

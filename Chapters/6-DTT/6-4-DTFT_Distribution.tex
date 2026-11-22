@@ -33,7 +33,7 @@
     \begin{equation}
         \abs{\Phi(\Omega)}=\abs{\sum_{n=-\infty}^{\infty}\phi[n]\e^{\im\Omega n}}\leq \sum_{n=-\infty}^{\infty}|\phi[n]|.
     \end{equation}
-    容易由$\phi[n]\in\mathcal{S}(\mathbb{Z})$的定义得到$\sum_{n=-\infty}^{\infty}|\phi[n]|<\infty$，根据魏尔斯特拉斯M判别法，$\sum_{n=-\infty}^{\infty}\phi[n]\e^{\im\Omega n}$是一致收敛的函数项级数，逐项求导所得的函数项级数为：
+    容易由$\phi[n]\in\mathcal{S}(\mathbb{Z})$的定义得到$\sum_{n=-\infty}^{\infty}|\phi[n]|<\infty$，根据Weierstrass M判别法，$\sum_{n=-\infty}^{\infty}\phi[n]\e^{\im\Omega n}$是一致收敛的函数项级数，逐项求导所得的函数项级数为：
     \begin{equation}
         \sum_{n=-\infty}^{\infty}\phi[n](\e^{\im\Omega n})'=\im\sum_{n=-\infty}^{\infty}n\phi[n]\e^{\im\Omega n}.
     \end{equation}
@@ -113,7 +113,7 @@ $\mathcal{C}(\mathbb{T})$的对偶空间是分布空间$\mathcal{D}(\mathbb{T})$
     \begin{equation}
         X=2\pi\sum_{k=-\infty}^{\infty}\delta_{\Omega_0+2\pi k}=2\pi\tau_{\Omega_0}\shah_{2\pi},
     \end{equation}
-    其中，平移算子$\tau$的定义可以参考\cref{def:distribution_delay}，$\shah_{2\pi}$是\cref{def:shah}给出的以$2\pi$为周期的狄拉克梳状分布。
+    其中，平移算子$\tau$的定义可以参考\cref{def:distribution_delay}，$\shah_{2\pi}$是\cref{def:shah}给出的以$2\pi$为周期的Dirac梳状分布。
 
     但是，事实上，我们不需要采用像$2\pi\tau_{\Omega_0}\shah_{2\pi}$这么复杂的符号，这一方面是因为$2\pi\delta_{\Omega_0}$已经足以描述$X$的行为，并且其意义是不言自明的；另一方面，从本节中对于配对的定义可以看出，$\mathcal{C}(\mathbb{T}),\mathcal{D}(\mathbb{T})$是否进行周期化并不影响分布的运算，换言之，$2\pi\delta_{\Omega_0}$和$2\pi\tau_{\Omega_0}\shah_{2\pi}$在$\mathcal{D}(\mathbb{T})$中\textbf{完全是同一个分布}。因此，$X=2\pi\delta_{\Omega_0}$。
 \end{example}
@@ -352,34 +352,34 @@ $\mathcal{C}(\mathbb{T})$的对偶空间是分布空间$\mathcal{D}(\mathbb{T})$
     \begin{align}
         & u[n]-u[n-1]=\delta[n] \nonumber \\
         \implies & \langle (1-\tau_1)u,\phi\rangle=\langle\delta,\phi\rangle \nonumber \\
-        \implies & \langle(1-\e^{\im\Omega})U,\Phi\rangle=\langle 1,\Phi\rangle.
+        \implies & \langle(1-\e^{-\im\Omega})U,\Phi\rangle=\langle 1,\Phi\rangle.
     \end{align}
-    类似\refsub{normal_distribution}，作为一个分布方程，$(1-\e^{\im\Omega})U=1$并不能表明$U=1/(1-\e^{\im\Omega})$，由于
+    类似\refsub{normal_distribution}，作为一个分布方程，$(1-\e^{-\im\Omega})U=1$并不能表明$U=1/(1-\e^{-\im\Omega})$，由于
     \begin{equation}
-        \frac{1}{1-\e^{\im\Omega}}\sim\frac{\im}{\Omega},\quad \Omega\to 0,
+        \frac{1}{1-\e^{-\im\Omega}}\sim\frac{1}{\im\Omega},\quad \Omega\to 0,
     \end{equation}
-    $1/(1-\e^{\im\Omega})$在$[-\pi,\pi]$上不可积，也就无法与$1\in\mathcal{C}(\mathbb{T})$配对。我们需要更加仔细地考察$U$的性质。
+    $1/(1-\e^{-\im\Omega})$在$[-\pi,\pi]$上不可积，也就无法与$1\in\mathcal{C}(\mathbb{T})$配对。我们需要更加仔细地考察$U$的性质。
 
-    $(1-\e^{\im\Omega})U=1$确定了$U$在$\Omega\neq 0$处的值，为了使它能与$1$配对，我们只能认为$\langle U,\Phi\rangle$的意义是在主值意义下的积分，这样，$U$仍满足它的分布方程：
+    $(1-\e^{-\im\Omega})U=1$确定了$U$在$\Omega\neq 0$处的值，为了使它能与$1$配对，我们只能认为$\langle U,\Phi\rangle$的意义是在主值意义下的积分，这样，$U$仍满足它的分布方程：
     \begin{equation}
-        (1-\e^{\im\Omega})U=(1-\e^{\im\Omega})\pv\frac{1}{1-\e^{\im\Omega}}=1.
+        (1-\e^{-\im\Omega})U=(1-\e^{-\im\Omega})\pv\frac{1}{1-\e^{-\im\Omega}}=1.
     \end{equation}
-    由于$\Phi\in\mathcal{C}(\mathbb{T})$光滑，$1/(1-\e^{\im\Omega})$在$\Omega=0$附近的表现类似于奇函数$\im/\Omega$，该主值意义下的积分总是收敛的。
+    由于$\Phi\in\mathcal{C}(\mathbb{T})$光滑，$1/(1-\e^{-\im\Omega})$在$\Omega=0$附近的表现类似于奇函数$\displaystyle\frac{1}{\im\Omega}$，该主值意义下的积分总是收敛的。
 
-    主值积分不能描述$\Omega=0$处的$U$的行为，由于它是$1/(1-\e^{\im\Omega})$的极点，直观上可以使用$\delta$分布来处理这个问题。我们引入另一个分布方程：
-    \begin{equation}
+    主值积分不能描述$\Omega=0$处的$U$的行为，由于它是$1/(1-\e^{-\im\Omega})$的极点，直观上可以使用$\delta$分布来处理这个问题。我们引入另一个分布方程：
+    \begin{equation}\label{eq:distribution_equation}
         u[n]+u[-n]=\begin{dcases}
             2, & \text{if } n=0,    \\
             1, & \text{if } n\neq 0
         \end{dcases}=1+\delta[n]\implies U+U^-=2\pi\delta+1.
     \end{equation}
-    代入
+    设
     \begin{equation}
-        U=\pv\frac{1}{1-\e^{\im\Omega}}+a\delta,
+        U=\pv\frac{1}{1-\e^{-\im\Omega}}+a\delta,
     \end{equation}
-    得到$a=\pi$，因此：
+    代入\refeqn{distribution_equation}得到$a=\pi$，因此：
     \begin{equation}
-        U=\pv\frac{1}{1-\e^{\im\Omega}}+\pi\delta.
+        U=\pv\frac{1}{1-\e^{-\im\Omega}}+\pi\delta.
     \end{equation}
     对于z变换的收敛域边界恰为单位圆的序列，这样的做法是普适的。
 \end{example}
@@ -397,18 +397,18 @@ $\mathcal{C}(\mathbb{T})$的对偶空间是分布空间$\mathcal{D}(\mathbb{T})$
 
 利用分布的卷积的定义，容易得到
 \begin{equation}
-    \delta_a*\delta_b=\delta_{a+b},\quad \delta_a*X=\tau_a X.
+    \delta_a*\delta_b=\frac{1}{2\pi}\delta_{a+b},\quad \delta_a*X=\frac{1}{2\pi}\tau_a X.
 \end{equation}
 基于此，利用频域卷积定理可得：（注意周期函数的卷积带有系数$1/2\pi$）
 
 \begin{example}[单边正弦、余弦序列的离散时间傅里叶变换]
     \begin{align}
         \DTFT(\cos(\Omega_0 n)u[n])&=\pi(\delta_{\Omega_0}+\delta_{-\Omega_0})*U \nonumber \\
-        &=\pv\frac{1}{2}\paren{\frac{1}{1-\e^{\im(\Omega-\Omega_0)}}+\frac{1}{1-\e^{\im(\Omega+\Omega_0)}}}+\frac{\pi}{2}(\delta_{\Omega_0}+\delta_{-\Omega_0}) \nonumber \\
-        &=\pv\frac{1-\e^{\im\Omega}\cos\Omega_0}{1-2\e^{\im\Omega}\cos\Omega_0+\e^{2\im\Omega}}+\frac{\pi}{2}(\delta_{\Omega_0}+\delta_{-\Omega_0}), \\
+        &=\pv\frac{1}{2}\paren{\frac{1}{1-\e^{-\im(\Omega-\Omega_0)}}+\frac{1}{1-\e^{-\im(\Omega+\Omega_0)}}}+\frac{\pi}{2}(\delta_{\Omega_0}+\delta_{-\Omega_0}) \nonumber \\
+        &=\pv\frac{1-\e^{-\im\Omega}\cos\Omega_0}{1-2\e^{-\im\Omega}\cos\Omega_0+\e^{-2\im\Omega}}+\frac{\pi}{2}(\delta_{\Omega_0}+\delta_{-\Omega_0}), \\
         \DTFT(\sin(\Omega_0 n)u[n])&=-\pi\im(\delta_{\Omega_0}-\delta_{-\Omega_0})*U \nonumber \\
-        &=-\frac{\im}{2}\pv\paren{\frac{1}{1-\e^{\im(\Omega-\Omega_0)}}-\frac{1}{1-\e^{\im(\Omega+\Omega_0)}}}-\frac{\pi\im}{2}(\delta_{\Omega_0}-\delta_{-\Omega_0}) \nonumber \\
-        &=-\pv\frac{\e^{\im\Omega}\sin\Omega_0}{1-2\e^{\im\Omega}\cos\Omega_0+\e^{2\im\Omega}}-\frac{\pi\im}{2}(\delta_{\Omega_0}-\delta_{-\Omega_0}).
+        &=-\frac{\im}{2}\pv\paren{\frac{1}{1-\e^{-\im(\Omega-\Omega_0)}}-\frac{1}{1-\e^{-\im(\Omega+\Omega_0)}}}-\frac{\pi\im}{2}(\delta_{\Omega_0}-\delta_{-\Omega_0}) \nonumber \\
+        &=\pv\frac{\e^{-\im\Omega}\sin\Omega_0}{1-2\e^{-\im\Omega}\cos\Omega_0+\e^{-2\im\Omega}}-\frac{\pi\im}{2}(\delta_{\Omega_0}-\delta_{-\Omega_0}).
     \end{align}
     与\cref{exmp:causual_cos_z}和\cref{exmp:casual_sin_z}对比，可以发现这两个序列的DTFT仍是z变换在单位圆上的取值，尽管单位圆并不在它们的z变换的收敛域内。
 \end{example}
@@ -442,32 +442,27 @@ $\mathcal{C}(\mathbb{T})$的对偶空间是分布空间$\mathcal{D}(\mathbb{T})$
     \begin{equation}
         \lim_{k\to\infty}\langle x_k,\phi\rangle=\lim_{k\to\infty}\sum_{n=-\infty}^{\infty}x_k[n]\phi[n].
     \end{equation}
-    构造函数列
+    对每个$n\in\mathbb{Z}$，有$\lim_{k\to\infty}x_k[n]\phi[n]=x[n]\phi[n]$。由一致缓增性，定义非负控制序列
     \begin{equation}
-        \{f_k:\mathbb{R}\to\mathbb{C}\}_{k=1}^\infty,\quad f_k(t)=\sum_{n=-\infty}^{\infty}x_k[n]\phi[n]\chi_{[n,n+1)}(t),
+        g[n]=C(1+|n|)^M|\phi[n]|,
     \end{equation}
-    显然$\{f_k\}$具有逐点极限
+    则对任意$k\in\mathbb{N}^*,\ n\in\mathbb{Z}$均有
     \begin{equation}
-        f:\mathbb{R}\to\mathbb{C},\quad f(t)=\sum_{n=-\infty}^{\infty}x[n]\phi[n]\chi_{[n,n+1)}(t).
+        |x_k[n]\phi[n]|\leq g[n].
     \end{equation}
     根据速降序列的定义，
     \begin{equation}
-        \lim_{n\to\infty}Cn^2(1+|n|)^M\phi[n]=0,
+        \lim_{|n|\to\infty}Cn^2(1+|n|)^M|\phi[n]|=0,
     \end{equation}
-    因此$\{Cn^2(1+|n|)^M\phi[n]\}_{k=1}^\infty$有上界$M'$，于是
-    \begin{align}
-        \abs{Cn^2(1+|n|)^M\phi[n]}&\leq \frac{M}{n^2}, \\
-        \sum_{n=-\infty}^{\infty}\abs{Cn^2(1+|n|)^M\phi[n]}&\leq\sum_{n=-\infty}^{\infty}\frac{M}{n^2}<\infty.
-    \end{align}
-    由此构造出可积的控制函数：
+    因此序列$\braces{Cn^2(1+|n|)^M|\phi[n]|}_{n\in\mathbb{Z}}$有上界$M'>0$。于是对一切$n\neq 0$，有
     \begin{equation}
-        g(t)=\sum_{n=-\infty}^{\infty}\abs{Cn^2(1+|n|)^M\phi[n]}\chi_{[n,n+1)}(t),\quad |f_k(t)|\leq g(t),\quad \forall k,\ \forall t.
+        g[n]=C(1+|n|)^M|\phi[n]|\leq \frac{M'}{n^2},
     \end{equation}
-    由控制收敛定理（\cref{thm:DCT}），可得：
+    从而
     \begin{equation}
-        \int_{\mathbb{R}}f\,\dd m=\lim_{k\to\infty}\int_{\mathbb{R}}f_k\,\dd m,
+        \sum_{n=-\infty}^{\infty}g[n]=g[0]+\sum_{n\neq 0}g[n]\leq C|\phi[0]|+2M'\sum_{n=1}^{\infty}\frac{1}{n^2}<\infty.
     \end{equation}
-    即
+    由离散控制收敛定理（\cref{cor:discrete_DCT}），可得
     \begin{equation}
         \langle x,\phi\rangle=\sum_{n=-\infty}^{\infty}x[n]\phi[n]=\lim_{k\to\infty}\sum_{n=-\infty}^{\infty}x_k[n]\phi[n]=\lim_{k\to\infty}\langle x_k,\phi\rangle,
     \end{equation}
@@ -531,9 +526,9 @@ $\mathcal{C}(\mathbb{T})$的对偶空间是分布空间$\mathcal{D}(\mathbb{T})$
     \end{enumerate}
     若$x$为实序列，则$r_x$也是实序列，且为偶序列。
 \end{proposition}
-这些性质可由求和换元和上面的柯西—施瓦茨估计直接得到。
+这些性质可由求和换元和上面的Cauchy-Schwarz估计直接得到。
 
-\begin{theorem}[离散能量信号的维纳-辛钦定理]\label{thm:discrete_energy_wiener_khinchin}
+\begin{theorem}[离散能量信号的Wiener-Khinchin定理]\label{thm:discrete_energy_wiener_khinchin}
     设$x,y\in l^1\cap l^2$，其DTFT分别为$X$和$Y$，则
     \begin{equation}
         \DTFT(r_{xy})(\e^{\im\Omega})=X(\e^{\im\Omega})\overline{Y(\e^{\im\Omega})}.
@@ -553,7 +548,7 @@ $\mathcal{C}(\mathbb{T})$的对偶空间是分布空间$\mathcal{D}(\mathbb{T})$
     \end{align}
 \end{proof}
 
-由DTFT的帕塞瓦尔定理（\cref{thm:DTFT_plancherel}），
+由DTFT的Parseval定理（\cref{thm:DTFT_plancherel}），
 \begin{equation}
     E_x=\frac{1}{2\pi}\int_{-\pi}^{\pi}|X(\e^{\im\Omega})|^2\,\dd\Omega,
     \quad
@@ -698,7 +693,7 @@ $\mathcal{C}(\mathbb{T})$的对偶空间是分布空间$\mathcal{D}(\mathbb{T})$
     \end{dcases}
 \end{equation}
 类似地，$y_M[n]$在$-M\leq n\leq M$时等于$y[n]$，其余位置为零。记$I_M=\{-M,\ldots,M\}$，以及$X_M=\DTFT(x_M)$、$Y_M=\DTFT(y_M)$。
-截短序列只有有限个非零项，帕塞瓦尔定理给出
+截短序列只有有限个非零项，Parseval定理给出
 \begin{equation}
     \frac{1}{2M+1}\sum_{n=-M}^{M}|x[n]|^2=\int_{-\pi}^{\pi}\frac{|X_M(\e^{\im\Omega})|^2}{2\pi(2M+1)}\,\dd\Omega.
 \end{equation}
@@ -748,7 +743,7 @@ $\mathcal{C}(\mathbb{T})$的对偶空间是分布空间$\mathcal{D}(\mathbb{T})$
 
 \subsubsection{截短功率谱的分布极限}
 
-\begin{theorem}[离散功率信号的维纳-辛钦定理]\label{thm:deiscrete_winner_khinchin}
+\begin{theorem}[离散功率信号的Wiener-Khinchin定理]\label{thm:deiscrete_winner_khinchin}
     设$x,y\in\mathcal{P}_{\mathrm d}$，$x_M,y_M$为上述截短序列，其DTFT分别为$X_M,Y_M$。则在周期分布的意义下，
     \begin{equation}
         \lim_{M\to\infty}\frac{X_M\overline{Y_M}}{2M+1}=\DTFT(r_{xy})=2\pi S_{xy}.

@@ -52,8 +52,8 @@
     \end{lralign}
 \end{proof}
 
-此外，黎曼-勒贝格引理仍然成立：
-\begin{claim}[$n$维黎曼-勒贝格引理]
+此外，Riemann-Lebesgue引理仍然成立：
+\begin{claim}[$n$维Riemann-Lebesgue引理]
     设$f\in L^1(\mathbb{R}^n)$，则其$n$维傅里叶变换$\mathcal{F}f$满足
     \begin{lralign}
         \lim_{\abs{\boldsymbol{\xi}}\to\infty}\mathcal{F}f(\boldsymbol{\xi})&=0.
@@ -194,7 +194,7 @@ $f(\mathbf{x})$的傅里叶变换为（以频率为例）：
     \begin{lralign}
         \mathcal{F}f^-&=\overline{\mathcal{F}f}.
         \switch
-        \mathcal{F}f^-&=(2\pi)^n\overline{\mathcal{F}f}.
+        \mathcal{F}f^-&=\overline{\mathcal{F}f}.
     \end{lralign}
 \end{proposition}
 \begin{proof}
@@ -216,9 +216,9 @@ $f(\mathbf{x})$的傅里叶变换为（以频率为例）：
         &=\overline{\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}}\\
         &=\overline{\mathcal{F}f(\boldsymbol{\xi})}.
         \switch
-        \mathcal{F}f^-(\boldsymbol{\omega})&=\int_{\mathbb{R}^n}f(-\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
-        &=\overline{\int_{\mathbb{R}^n}f(\mathbf{x})\e^{\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}}\\
-        &=(2\pi)^n\overline{\mathcal{F}f(\boldsymbol{\omega})}.
+        \mathcal{F}f^-(\boldsymbol{\omega})&=\int_{\mathbb{R}^n}f(\mathbf{x})\e^{\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=\overline{\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}}\\
+        &=\overline{\mathcal{F}f(\boldsymbol{\omega})}.
     \end{lralign}
 \end{proof}
 
@@ -354,7 +354,7 @@ $f(\mathbf{x})$的傅里叶变换为（以频率为例）：
 \end{proof}
 
 \begin{definition}[场论中的算子]
-    $\nabla$为哈密顿算子（或称nabla算子），$\Delta=\nabla\cdot\nabla$为拉普拉斯算子，
+    $\nabla$为Hamilton算子（或称nabla算子），$\Delta=\nabla\cdot\nabla$为拉普拉斯算子，
     \begin{align}
         \nabla&=\paren{\frac{\partial}{\partial x_1},\frac{\partial}{\partial x_2},\cdots,\frac{\partial}{\partial x_n}},\\
         \Delta&=\frac{\partial^2}{\partial x_1^2}+\frac{\partial^2}{\partial x_2^2}+\cdots+\frac{\partial^2}{\partial x_n^2}.
@@ -447,9 +447,9 @@ $f(\mathbf{x})$的傅里叶变换为（以频率为例）：
     \end{lralign}
 \end{proof}
 
-与一维的情况下的\cref{thm:plancherel}类似，我们给出更一般的普朗歇尔定理，它实际上指出空间域与变换域上的内积的数量关系。
+与一维的情况下的\cref{thm:plancherel}类似，我们给出更一般的Plancherel定理，它实际上指出空间域与变换域上的内积的数量关系。
 
-\begin{theorem}[普朗歇尔定理]
+\begin{theorem}[Plancherel定理]
     设$f(\mathbf{x})\in L^1(\mathbb{R}^n)\cap L^2(\mathbb{R}^n)$，则有：
     \begin{lralign}
         \int_{\mathbb{R}^n}\abs{f(\mathbf{x})}^2\,\dd\mathbf{x}&=\int_{\mathbb{R}^n}\abs{\mathcal{F}f(\boldsymbol{\xi})}^2\,\dd\boldsymbol{\xi}.
@@ -475,10 +475,10 @@ $f(\mathbf{x})$的傅里叶变换为（以频率为例）：
     取$g=f$即得所需结论。
 \end{proof}
 
-\subsection{多维施瓦兹函数与多维分布}\label{sub:multi_schwartz}
+\subsection{多维Schwartz函数与多维分布}\label{sub:multi_schwartz}
 
-首先，我们将\textbf{施瓦兹函数}的定义推广到多维空间$\mathbb{R}^n$中。
-\begin{definition}[多维施瓦兹函数]
+首先，我们将\textbf{Schwartz函数}的定义推广到多维空间$\mathbb{R}^n$中。
+\begin{definition}[多维Schwartz函数]
     设$\varphi(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$，如果
     \begin{itemize}
         \item $\varphi(\mathbf{x})\in C^{\infty}(\mathbb{R}^n)$；
@@ -491,19 +491,19 @@ $f(\mathbf{x})$的傅里叶变换为（以频率为例）：
     \begin{equation}
         \partial_{\mathcal{J}}=\frac{\partial^{j_1+j_2+\cdots+j_n}}{\partial x_1^{j_1}\partial x_2^{j_2}\cdots\partial x_n^{j_n}},
     \end{equation}
-    则称$\varphi(\mathbf{x})$为\textbf{多维施瓦兹函数}，所有多维施瓦兹函数构成的空间记为$\mathcal{S}(\mathbb{R}^n)$。
+    则称$\varphi(\mathbf{x})$为\textbf{多维Schwartz函数}，所有多维Schwartz函数构成的空间记为$\mathcal{S}(\mathbb{R}^n)$。
 \end{definition}
 
 $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间，即\textbf{多维缓增分布空间}，$\mathcal{T}(\mathbb{R}^n)$中的元素称为\textbf{多维缓增分布}：
 \begin{definition}[多维缓增分布]
-    泛函$T:\mathcal{S}(\mathbb{R}^n)\to\mathbb{C}$为线性映射，将施瓦兹函数$\varphi\in\mathcal{S}(\mathbb{R}^n)$映射为复数$T(\varphi)\in\mathbb{C}$。对于正则分布$T_f$，有
+    泛函$T:\mathcal{S}(\mathbb{R}^n)\to\mathbb{C}$为线性映射，将Schwartz函数$\varphi\in\mathcal{S}(\mathbb{R}^n)$映射为复数$T(\varphi)\in\mathbb{C}$。对于正则分布$T_f$，有
     \begin{equation}
         T_f(\varphi)=\braket{T_f,\varphi}=\int_{\mathbb{R}^n}f(\mathbf{x})\varphi(\mathbf{x})\,\dd\mathbf{x}.
     \end{equation}
     将缓增分布组成的线性空间记作$\mathcal{T}(\mathbb{R}^n)$。
 \end{definition}
 
-容易验证$\mathcal{S}(\mathbb{R}^n)$上的卷积总是有定义的；用类似于\cref{thm:schwartz_close}的证明方法，可以证明$\mathcal{S}(\mathbb{R}^n)$在傅里叶变换下是封闭的，我们仍然定义$\braket{\mathcal{F}T,\varphi}=\braket{T,\mathcal{F}\varphi}$，从而$\mathcal{T}(\mathbb{R}^n)$在傅里叶变换下也是封闭的。典型的施瓦兹函数例如高斯函数$f(\mathbf{x})=\e^{-\pi\abs{\mathbf{x}}^2}$。
+容易验证$\mathcal{S}(\mathbb{R}^n)$上的卷积总是有定义的；用类似于\cref{thm:schwartz_close}的证明方法，可以证明$\mathcal{S}(\mathbb{R}^n)$在傅里叶变换下是封闭的，我们仍然定义$\braket{\mathcal{F}T,\varphi}=\braket{T,\mathcal{F}\varphi}$，从而$\mathcal{T}(\mathbb{R}^n)$在傅里叶变换下也是封闭的。典型的Schwartz函数例如高斯函数$f(\mathbf{x})=\e^{-\pi\abs{\mathbf{x}}^2}$。
 
 我们不再一一讨论作用于分布的各算子，因为它们与一维的情况没有多少差异。对于分布而言，平移与伸缩需要用算子来表示，只是这时平移算子$\tau_{\mathbf{b}}$（其中$\mathbf{b}$为向量）定义为：
 \begin{equation}
@@ -548,15 +548,15 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
 
 借助上一小节中对函数的傅里叶变换的讨论，读者可以自行构建出分布的傅里叶变换的各种性质。
 
-下面，我们来讨论一些典型的分布。首先是多维狄拉克分布：
-\begin{definition}[多维狄拉克分布]
-    设$\mathbf{x}_0\in\mathbb{R}^n$，则多维狄拉克分布$\delta_{\mathbf{x}_0}\in\mathcal{T}(\mathbb{R}^n)$定义为：
+下面，我们来讨论一些典型的分布。首先是多维Dirac分布：
+\begin{definition}[多维Dirac分布]
+    设$\mathbf{x}_0\in\mathbb{R}^n$，则多维Dirac分布$\delta_{\mathbf{x}_0}\in\mathcal{T}(\mathbb{R}^n)$定义为：
     \begin{equation}
         \braket{\delta_{\mathbf{x}_0},\varphi}=\varphi(\mathbf{x}_0),\quad \forall\varphi\in\mathcal{S}(\mathbb{R}^n).
     \end{equation}
-    特别地，$\delta_{\mathbf{0}}$记为$\delta$，称为\textbf{多维狄拉克分布}。
+    特别地，$\delta_{\mathbf{0}}$记为$\delta$，称为\textbf{多维Dirac分布}。
 
-    形式上，可以将多维狄拉克分布表示为：
+    形式上，可以将多维Dirac分布表示为：
     \begin{equation}
         \delta_{\mathbf{x}_0}(\mathbf{x})=\begin{dcases}
             \infty, & \mathbf{x}=\mathbf{x}_0,\\
@@ -565,15 +565,15 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
     \end{equation}
     即$\delta_{\mathbf{x}_0}(\mathbf{x})=\tau_{\mathbf{x}_0}\delta(\mathbf{x})$。
 \end{definition}
-\begin{proposition}[多维狄拉克分布的性质]
-    多维狄拉克分布具有以下性质：
+\begin{proposition}[多维Dirac分布的性质]
+    多维Dirac分布具有以下性质：
     \begin{itemize}
-        \item 多维狄拉克分布仍为卷积幺元，即$f*\delta=\delta*f=f$；
-        \item 多维狄拉克分布是可分的，即
+        \item 多维Dirac分布仍为卷积幺元，即$f*\delta=\delta*f=f$；
+        \item 多维Dirac分布是可分的，即
         \begin{equation}
             \delta(\mathbf{x})=\delta(x_1,x_2,\ldots,x_n)=\delta(x_1)\delta(x_2)\cdots\delta(x_n);
         \end{equation}
-        \item 多维狄拉克分布的伸缩性质：
+        \item 多维Dirac分布的伸缩性质：
         \begin{equation}
             \sigma_A\delta=\frac{1}{\abs{\det A}}\delta,
         \end{equation}
@@ -582,7 +582,7 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
             \delta(a_1 x_1,a_2 x_2,\ldots,a_n x_n)=\frac{1}{\abs{a_1 a_2\cdots a_n}}\delta(x_1,x_2,\ldots,x_n),
         \end{equation}
         并且$\delta$是偶分布，即$\delta^-=\delta$；
-        \item 多维狄拉克分布的傅里叶变换：
+        \item 多维Dirac分布的傅里叶变换：
         \begin{lralign}
             \mathcal{F}\delta(\boldsymbol{\xi})&=\mathds{1}.
             \switch
@@ -621,7 +621,7 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
         &=\braket{\frac{1}{\abs{\det A}}\delta,\varphi}.
     \end{align}
 
-    最后，求多维狄拉克分布的傅里叶变换：
+    最后，求多维Dirac分布的傅里叶变换：
     \begin{lralign}
         \braket{\mathcal{F}\delta,\varphi}&=\braket{\delta,\mathcal{F}\varphi}\\
         &=(\mathcal{F}\varphi)(\mathbf{0})\\
@@ -633,7 +633,7 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
         &=\frac{1}{(2\pi)^n}\int_{\mathbb{R}^n}\varphi(\mathbf{x})\,\dd\mathbf{x}\\
         &=\braket{\mathds{1},\varphi}.
     \end{lralign}
-    因此多维狄拉克分布的傅里叶变换是常函数$1$。
+    因此多维Dirac分布的傅里叶变换是常函数$1$。
 \end{proof}
 
 \begin{corollary}
@@ -664,7 +664,7 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
     \end{lralign}
 \end{corollary}
 
-\subsection{格与二维狄拉克梳状分布}\label{sub:lattice}
+\subsection{格与二维Dirac梳状分布}\label{sub:lattice}
 
 为了直观性，我们再这一小节中将仅考虑$\mathbb{R}^2$中的情况。我们首先给出\textbf{格}的定义，讨论它的一些性质，再介绍它在信号与系统中的应用。
 \begin{definition}[格]
@@ -690,17 +690,17 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{n_comb}
-    \caption{二维的格和狄拉克梳状分布示意图}
+    \caption{二维的格和Dirac梳状分布示意图}
 \end{figure}
 
-\begin{definition}[狄拉克梳状分布]
-    设$\mathcal{L}=A(\mathbb{Z}^2)$为$\mathbb{R}^2$中的格，则由该格生成的\textbf{二维狄拉克梳状分布}(Dirac comb distribution)定义为
+\begin{definition}[Dirac梳状分布]
+    设$\mathcal{L}=A(\mathbb{Z}^2)$为$\mathbb{R}^2$中的格，则由该格生成的\textbf{二维Dirac梳状分布}定义为
     \begin{equation}
         \shah_{\mathcal{L}}=\sum_{\mathbf{p}\in\mathcal{L}}\delta_{\mathbf{p}}.
     \end{equation}
     特别地，当$\mathcal{L}=\mathbb{Z}^2$时，我们直接记为$\shah$。$\displaystyle\shah_{\mathcal{L}}=\frac{1}{\abs{\det A}}\sigma_{A^{-1}}\shah$。
 
-    狄拉克梳状分布看起来像一个钉床，因此又称为\textbf{钉床分布}(bed of nails)。
+    Dirac梳状分布看起来像一个钉床，因此又称为\textbf{钉床分布}(bed of nails)。
 \end{definition}
 \begin{remark}
     $\displaystyle\shah_{\mathcal{L}}=\frac{1}{\abs{\det A}}\sigma_{A^{-1}}\shah$的证明如下：
@@ -710,9 +710,9 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
     \end{align}
 \end{remark}
 
-我们将再一次使用狄拉克梳状分布来分析采样信号，只不过这时信号是二维的（例如图像信号），而采样是在格点上进行的。在本小节中，我们仍然使用频率形式的傅里叶变换。
+我们将再一次使用Dirac梳状分布来分析采样信号，只不过这时信号是二维的（例如图像信号），而采样是在格点上进行的。在本小节中，我们仍然使用频率形式的傅里叶变换。
 
-首先，我们给出二维情况下的\textbf{傅里叶级数}以及\textbf{泊松求和公式}：
+首先，我们给出二维情况下的\textbf{傅里叶级数}以及\textbf{Poisson求和公式}：
 \begin{definition}[二维傅里叶级数]
     设$f(x_1,x_2)$为$\mathbb{R}^2$中周期为$(T_1,T_2)$的周期函数，即
     \begin{equation}
@@ -735,7 +735,7 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
         c_{k_1,k_2}=\int_{[0,1]^2}f(x_1,x_2)\e^{-2\pi\im(k_1 x_1+k_2 x_2)}\,\dd x_1\,\dd x_2=\int_{[0,1]^2}f(\mathbf{x})\e^{-2\pi\im\mathbf{k}\cdot\mathbf{x}}\,\dd\mathbf{x}.
     \end{equation}
 \end{definition}
-\begin{theorem}[二维泊松求和公式]
+\begin{theorem}[二维Poisson求和公式]
     \begin{equation}
         \sum_{\mathbf{k}\in\mathbb{Z}^2}\mathcal{F}\varphi(\mathbf{k})=\sum_{\mathbf{k}\in\mathbb{Z}^2}\varphi(\mathbf{k}),\quad \varphi\in\mathcal{S}(\mathbb{R}^2).
     \end{equation}
@@ -759,8 +759,8 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
     令$\mathbf{x}=\mathbf{0}$，即得所需结论。
 \end{proof}
 
-通过二维泊松求和公式，可以得到狄拉克梳状分布的傅里叶变换：
-\begin{proposition}[二维狄拉克梳状分布的傅里叶变换]
+通过二维Poisson求和公式，可以得到Dirac梳状分布的傅里叶变换：
+\begin{proposition}[二维Dirac梳状分布的傅里叶变换]
     \begin{equation}
         \mathcal{F}\shah=\shah.
     \end{equation}
@@ -768,7 +768,7 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
 
 考虑使用傅里叶变换的伸缩性质，可以得到：
 \begin{proposition}
-    设$\mathcal{L}=A(\mathbb{Z}^2)$为$\mathbb{R}^2$中的格，则由该格生成的二维狄拉克梳状分布的傅里叶变换为
+    设$\mathcal{L}=A(\mathbb{Z}^2)$为$\mathbb{R}^2$中的格，则由该格生成的二维Dirac梳状分布的傅里叶变换为
     \begin{equation}
         \mathcal{F}\shah_{\mathcal{L}}=\frac{1}{\abs{\det A}}\shah_{A^{-T}(\mathbb{Z}^2)}.
     \end{equation}
@@ -780,7 +780,7 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
     \begin{equation}
         \mathcal{L}^*=A^{-T}(\mathbb{Z}^2),
     \end{equation}
-    在这种记号下，二维狄拉克梳状分布的傅里叶变换可以记为
+    在这种记号下，二维Dirac梳状分布的傅里叶变换可以记为
     \begin{equation}
         \mathcal{F}\shah_{\mathcal{L}}=\frac{1}{\mathrm{Area}(\mathcal{L})}\shah_{\mathcal{L}^*}.
     \end{equation}
@@ -817,10 +817,10 @@ $\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间�
             0, & i\neq j
         \end{dcases}=\delta^i_{j},
     \end{equation}
-    $\delta^i_{j}$为克罗内克$\delta$符号。我们将$\mathbf{u}^*_1,\mathbf{u}^*_2$称为$\mathbf{u}_1,\mathbf{u}_2$的\textbf{对偶基}。\textbf{对偶基生成了对偶格}。此外，与对偶基做内积，定义了内积空间上唯一一组满足正交归一化条件，即$f_i(\mathbf{u}_j)=\delta^i_{j}$的线性泛函，这组线性泛函称为\textbf{对偶线性泛函}。
+    $\delta^i_{j}$为Kronecker $\delta$符号。我们将$\mathbf{u}^*_1,\mathbf{u}^*_2$称为$\mathbf{u}_1,\mathbf{u}_2$的\textbf{对偶基}。\textbf{对偶基生成了对偶格}。此外，与对偶基做内积，定义了内积空间上唯一一组满足正交归一化条件，即$f_i(\mathbf{u}_j)=\delta^i_{j}$的线性泛函，这组线性泛函称为\textbf{对偶线性泛函}。
 \end{definition}
 
-$\shah_{\mathcal{L}}$的$\delta$分布位于格$\mathcal{L}$的格点上，而其傅里叶变换$\mathcal{F}\shah_{\mathcal{L}}$的$\delta$分布位于对偶格$\mathcal{L}^*$的格点上。这为我们展示了一种理解空间域与频域关系的方式，并从更高的视角解释了我们在\refsub{fourier_of_dirac_comb}最后所发现的现象，即一维狄拉克梳状分布经过傅里叶变换，$\delta$的位置具有“倒数”关系。
+$\shah_{\mathcal{L}}$的$\delta$分布位于格$\mathcal{L}$的格点上，而其傅里叶变换$\mathcal{F}\shah_{\mathcal{L}}$的$\delta$分布位于对偶格$\mathcal{L}^*$的格点上。这为我们展示了一种理解空间域与频域关系的方式，并从更高的视角解释了我们在\refsub{fourier_of_dirac_comb}最后所发现的现象，即一维Dirac梳状分布经过傅里叶变换，$\delta$的位置具有“倒数”关系。
 
 最后，我们来讨论二维信号的采样与重建问题。
 \begin{definition}[二维带限函数]

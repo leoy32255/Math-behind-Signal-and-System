@@ -49,7 +49,7 @@
     \end{bmatrix}.
 \end{equation}
 
-这是一个\textbf{范德蒙德矩阵}(Vandermonde Matrix)，它的行列式为
+这是一个\textbf{Vandermonde矩阵}，它的行列式为
 \begin{equation}
     \det\mathcal{F}=\prod_{0\leq j<k\leq N-1}(W_N^{-k}-W_N^{-j})\neq 0.
 \end{equation}
@@ -79,7 +79,7 @@
     \begin{equation}
         x[n]=\frac{1}{N}\sum_{k=0}^{N-1}X[k]W_N^{-kn},
     \end{equation}
-    其中$W_N=\e^{\im\frac{2\pi}{N}}$，$X[k]=\sum_{n=0}^{N-1}x[n]W_N^{-kn}$。
+    其中$W_N=\e^{-\im\frac{2\pi}{N}}$，$X[k]=\sum_{n=0}^{N-1}x[n]W_N^{kn}$。
 \end{definition}
 
 尽管在分析序列时没有“高次谐波分量”，但从以上讨论可以看出，只要有这$N$个离散频率成分，就可以完全表征周期为$N$的序列的频谱特性。至此，我们完美地回答了“如何对序列进行分解与合成”的问题。
@@ -246,9 +246,9 @@
     \end{bmatrix}.
 \end{equation}
 
-习惯上，将这种向量记法的各元素的序号依次取为$0,1,\dots,N-1$，而不是$1,2,\dots,N$，这样序号与离散傅里叶变换中的求和指标一致。仿照狄拉克分布的平移，离散选择函数的平移记为$\boldsymbol{\delta}_k[n]=\boldsymbol{\delta}[n-k]$，特别地，$\boldsymbol{\delta}_0=\boldsymbol{\delta}$。
+习惯上，将这种向量记法的各元素的序号依次取为$0,1,\dots,N-1$，而不是$1,2,\dots,N$，这样序号与离散傅里叶变换中的求和指标一致。仿照Dirac分布的平移，离散选择函数的平移记为$\boldsymbol{\delta}_k[n]=\boldsymbol{\delta}[n-k]$，特别地，$\boldsymbol{\delta}_0=\boldsymbol{\delta}$。
 
-类似狄拉克分布，容易验证单位脉冲序列具有取样性质和卷积性质：
+类似Dirac分布，容易验证单位脉冲序列具有取样性质和卷积性质：
 \begin{proposition}
     设$x[n]$是周期为$N$的序列，则有
     \begin{align}
@@ -313,12 +313,12 @@
 \begin{equation}
     \mathcal{F}_N \mathcal{F}_N^H = N\cdot I_N,
 \end{equation}
-其中$H$为埃尔米特算子，表示取矩阵的共轭转置，$I_N$为$N$阶单位矩阵。正交变换保持向量的内积，即
+其中$H$为Hermite算子，表示取矩阵的共轭转置，$I_N$为$N$阶单位矩阵。正交变换保持向量的内积，即
 \begin{equation}
     \forall \mathbf{x},\mathbf{y}\in\mathbb{C}^N,\quad \mathbf{x}\cdot\mathbf{y}=\frac{1}{N}\mathcal{F}_N \mathbf{x}\cdot\mathcal{F}_N \mathbf{y}.
 \end{equation}
-由此可得DFT的帕塞瓦尔定理：
-\begin{theorem}[离散傅里叶变换的帕塞瓦尔定理]
+由此可得DFT的Parseval定理：
+\begin{theorem}[离散傅里叶变换的Parseval定理]
     设$x[n],y[n]$是长为$N$的序列，其DFT分别为$X[k],Y[k]$，则有
     \begin{equation}
         \sum_{n=0}^{N-1}x[n]\overline{y[n]}=\frac{1}{N}\sum_{k=0}^{N-1}X[k]\overline{Y[k]}.
@@ -371,7 +371,7 @@
     &=\sum_{m=-\infty}^{\infty}\sum_{n=0}^{N-1}x[n]\e^{-\im\Omega (n+mN)} \nonumber \\
     &=\paren{\sum_{m=-\infty}^{\infty}\e^{-\im\Omega mN}}\paren{\sum_{n=0}^{N-1}x[n]\e^{-\im\Omega n}}.
 \end{align}
-左侧括号内是狄拉克梳状分布的傅里叶级数形式（类似\cref{def:shah_fourier_series}），通过（角频率形式的）傅里叶变换可以推导出它的等价形式。由分布的傅里叶变换的连续性（\cref{thm:distribution_fourier_continuous}），有：
+左侧括号内是Dirac梳状分布的傅里叶级数形式（类似\cref{def:shah_fourier_series}），通过（角频率形式的）傅里叶变换可以推导出它的等价形式。由分布的傅里叶变换的连续性（\cref{thm:distribution_fourier_continuous}），有：
 \begin{align}
     \mathcal{F}\sbr{\sum_{m=-\infty}^{\infty}\e^{-\im\Omega mN}}&=\sum_{m=-\infty}^{\infty}\mathcal{F}\sbr{\e^{-\im\Omega mN}} \nonumber \\
     &=2\pi\sum_{m=-\infty}^{\infty}\delta_{-mN} \nonumber \\
@@ -388,7 +388,7 @@
 
 将$X(\e^{\im\Omega})$与$\shah_{2\pi/N}$相乘，相当于在$\Omega$轴上以$2\pi/N$为间隔进行采样，在点$\Omega_k=2\pi k/N$处，得到的样值为
 \begin{equation}
-    \sum_{n=0}^{N-1}x[n]\e^{-\im\Omega_k n}=\sum_{n=0}^{N-1}x[n]W_N^{-kn},
+    \sum_{n=0}^{N-1}x[n]\e^{-\im\Omega_k n}=\sum_{n=0}^{N-1}x[n]W_N^{kn},
 \end{equation}
 这正是周期序列$\tilde{x}[n]$的DFT的值$X[k]$。
 
@@ -428,7 +428,7 @@
     x[n]=f\paren{\frac{nL}{N}},\quad n=0,1,\dots,N-1.
 \end{equation}
 
-采样间隔充分小时，采样频率高于奈奎斯特频率，即频域上周期化时不会产生交叠。因此，离散时间傅里叶变换$X(\e^{\im\Omega})$在$[-\pi,\pi]$范围内就是原函数的傅里叶变换$\mathcal{F} f(\omega)$在$[-\pi/T,\pi/T]$范围内的伸缩，即
+采样间隔充分小时，采样频率高于Nyquist频率，即频域上周期化时不会产生交叠。因此，离散时间傅里叶变换$X(\e^{\im\Omega})$在$[-\pi,\pi]$范围内就是原函数的傅里叶变换$\mathcal{F} f(\omega)$在$[-\pi/T,\pi/T]$范围内的伸缩，即
 \begin{equation}
     X(\e^{\im\Omega})=\mathcal{F} f\paren{\frac{\Omega}{T}},\quad \Omega\in[-\pi,\pi].
 \end{equation}
@@ -473,7 +473,7 @@
 \begin{align}
     X[k]&=\sum_{n=0}^{N-1}x[n]W_N^{kn} \nonumber \\
     &=\sum_{n=0}^{N/2-1}x[2n]W_N^{k(2n)}+\sum_{n=0}^{N/2-1}x[2n+1]W_N^{k(2n+1)} \nonumber \\
-    &=\sum_{n=0}^{N/2-1}x[2n]W_{N/2}^{kn}+W_N^{-k}\sum_{n=0}^{N/2-1}x[2n+1]W_{N/2}^{kn}.\label{eq:dit_fft_decomp}
+    &=\sum_{n=0}^{N/2-1}x[2n]W_{N/2}^{kn}+W_N^{k}\sum_{n=0}^{N/2-1}x[2n+1]W_{N/2}^{kn}.\label{eq:dit_fft_decomp}
 \end{align}
 
 $x[n]$的奇数项和偶数项都是长度为$N/2$的序列，他们的离散傅里叶变换分别为
@@ -498,33 +498,23 @@ $x[n]$的奇数项和偶数项都是长度为$N/2$的序列，他们的离散傅
     &=\sum_{n=0}^{N/2-1}x[n]W_N^{kn}+(-1)^k\sum_{n=0}^{N/2-1}x[n+N/2]W_N^{kn}.\label{eq:dif_fft_decomp}
 \end{align}
 
-$x[n]$的前半部分和后半部分都是长度为$N/2$的序列，他们的离散傅里叶变换分别为
-\begin{align}
-    X_1[k]&=\sum_{n=0}^{N/2-1}x[n]W_{N/2}^{kn}, \\
-    X_2[k]&=\sum_{n=0}^{N/2-1}x[n+N/2]W_{N/2}^{kn}.
-\end{align}
 分别考虑$k$为偶数和奇数的情况，与\refeqn{dif_fft_decomp}对比，有
 \begin{align}
     X[2k]&=\sum_{n=0}^{N/2-1}x[n]W_N^{2kn}+(-1)^{2k}\sum_{n=0}^{N/2-1}x[n+N/2]W_N^{2kn} \nonumber \\
-    &=\sum_{n=0}^{N/2-1}x[n]W_{N/2}^{kn}+\sum_{n=0}^{N/2-1}x[n+N/2]W_{N/2}^{kn} \nonumber \\
-    &=X_1[k]+X_2[k], \\
+    &=\sum_{n=0}^{N/2-1}\paren{ x[n]+x[n+N/2]}W_{N/2}^{kn},\\
     X[2k+1]&=\sum_{n=0}^{N/2-1}x[n]W_N^{(2k+1)n}+(-1)^{2k+1}\sum_{n=0}^{N/2-1}x[n+N/2]W_N^{(2k+1)n} \nonumber \\
-    &=W_{N}^n\sbr{\sum_{n=0}^{N/2-1}x[n]W_{N/2}^{kn}-\sum_{n=0}^{N/2-1}x[n+N/2]W_{N/2}^{kn}} \nonumber \\
-    &=W_N^n(X_1[k]-X_2[k]).
+    &=\sum_{n=0}^{N/2-1}\sbr{x[n]-x[n+N/2]}W_{N}^nW_{N/2}^{kn}.
 \end{align}
 
-与DIT-FFT相同，$X[k]$的计算可以通过计算$X_1[k]$和$X_2[k]$来实现，从而递归地将离散傅里叶变换的计算复杂度降低到$O(N\log N)$。
-
-事实上，计算DIF-FFT的标准做法是对输入信号进行预处理。定义两个长为$N/2$的序列：
-\begin{align}
-    g_1[n]&=x[n]+x[n+N/2], \\
-    g_2[n]&=(x[n]-x[n+N/2])W_N^n,
-\end{align}
-则根据DFT的线性性，有
-\begin{align}
-    X[2k]&=\DFT(g_1)[k]=\sum_{n=0}^{N/2-1}g_1[n]W_{N/2}^{kn}, \\
-    X[2k+1]&=\DFT(g_2)[k]=\sum_{n=0}^{N/2-1}g_2[n]W_{N/2}^{kn}.
-\end{align}
+令
+\begin{equation}
+    y_1[n]= x[n]+x[n+N/2],\quad y_2[n]=\paren{x[n]-x[n+N/2]}W_{N}^n,
+\end{equation}
+则
+\begin{equation}
+    X[2k]=Y_1[k],\quad X[2k+1]=Y_2[k].
+\end{equation}
+与DIT-FFT相同，$X[k]$的计算可以通过计算$Y_1[k]$和$Y_2[k]$来实现，从而递归地将离散傅里叶变换的计算复杂度降低到$O(N\log N)$。
 
 不难想到，离散傅里叶逆变换也能够通过类似的方式进行快速计算。
 

@@ -85,7 +85,7 @@
 \begin{proof}
     一方面，我们已经说明$\sigma_c\geq\sigma_s$。
 
-    另一方面，$\sigma_c\leq\sigma_s$。用反证法，假设$\sigma_c>\sigma_s$，任取$b>\sigma_c$，由于$F(s)$在$\Re(s)>\sigma_s$上全纯，可以将它展开为$b$处的泰勒级数：
+    另一方面，$\sigma_c\leq\sigma_s$。用反证法，假设$\sigma_c>\sigma_s$，任取$b>\sigma_c$，由于$F(s)$在$\Re(s)>\sigma_s$上全纯，可以将它展开为$b$处的Taylor级数：
     \begin{equation}
         F(s)=\sum_{n=0}^{\infty}\frac{F^{(n)}(b)}{n!}(s-b)^n,\quad \Re(s)>\sigma_s,
     \end{equation}
@@ -109,12 +109,12 @@
         \int_{0}^{R}f(t)\e^{-at}\,\dd t=\int_{0}^{R}f(t)\e^{-bt}\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}t^n\,\dd t,
     \end{equation}
 
-    由$\displaystyle\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}t^n\,\dd t$在$[0,R]$上一致收敛，可交换求和与积分次序，得到
+    由$\displaystyle\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}t^n$在$[0,R]$上一致收敛，可交换求和与积分次序，得到
     \begin{equation}
         \int_{0}^{R}f(t)\e^{-at}\,\dd t=\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}\int_{0}^{R}f(t)t^n\e^{-bt}\,\dd t.
     \end{equation}
 
-    由于$f(t)\geq 0$，级数的每一项都是非负的。由单调收敛定理（\cref{thm:DCT}），有
+    由于$f(t)\geq 0$，级数的每一项均非负且随$R$单调递增。对任意递增趋于无穷的序列$R_k\uparrow\infty$应用离散单调收敛定理（\cref{cor:discrete_MCT}），有
     \begin{align}
         \lim_{R\to\infty}\int_{0}^{R}f(t)\e^{-at}\,\dd t&=\lim_{R\to\infty}\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}\int_{0}^{R}f(t)t^n\e^{-bt}\,\dd t\nonumber\\
         &=\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}\int_{0}^{\infty}f(t)t^n\e^{-bt}\,\dd t\nonumber\\
@@ -202,7 +202,7 @@
     多数文献中，这个定理不仅仅包括$s=0$是简单极点的情况。不过，如果$s=0$不是奇点，则$\sigma_s<0$，多数情况下有$\sigma_c<0$，从而$f(t)\to 0$，因此这里我们只考虑非平凡情形；如果$s=0$是高阶极点，同样可以用以下方法证明$\lim_{t\to\infty}f(t)=\infty$。
 \end{remark}
 \begin{proof}
-    考虑$F(s)$在$s=0$处的洛朗级数展开：
+    考虑$F(s)$在$s=0$处的Laurent级数展开：
     \begin{equation}
         F(s)=\sum_{n=-1}^{\infty}a_n s^n=\frac{a_{-1}}{s}+G(s),\quad a_{-1}\neq 0,
     \end{equation}

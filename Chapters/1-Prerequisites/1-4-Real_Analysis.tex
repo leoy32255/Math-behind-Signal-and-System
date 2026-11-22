@@ -1,8 +1,8 @@
 % !TeX root = ../../MainBook.tex
 \section{实变函数概要}\label{sec:Real_Analysis}
 
-读者可能已经注意到，并不是所有的函数都是可积的，例如$\e^x$的能量与功率都是无限的，因此它既不属于能量信号，也不属于功率信号；另一种情况下，函数本身的性质比较差，以至于在黎曼积分的框架下说不清它的积分（或能量）是什么：
-\begin{example}[狄利克雷函数]
+读者可能已经注意到，并不是所有的函数都是可积的，例如$\e^x$的能量与功率都是无限的，因此它既不属于能量信号，也不属于功率信号；另一种情况下，函数本身的性质比较差，以至于在Riemann积分的框架下说不清它的积分（或能量）是什么：
+\begin{example}[Dirichlet函数]
     \begin{equation}
         \chi_{\mathbb{Q}}(x)=
         \begin{dcases}
@@ -12,17 +12,17 @@
     \end{equation}
     （其中$\mathbb{Q}$表示有理数集，上标$c$表示取补集）
 \end{example}
-它在黎曼积分的意义下是不可积的，因为它在所有点不连续，但是这样的函数在\textbf{勒贝格积分}的意义下可积。尽管工程上我们很少考虑这样的函数，但由勒贝格积分描述的函数空间（见\refsub{Lp_space}）具有很好的性质，这是黎曼积分做不到的。
+它在Riemann积分的意义下是不可积的，因为它在所有点不连续，但是这样的函数在\textbf{Lebesgue积分}的意义下可积。尽管工程上我们很少考虑这样的函数，但由Lebesgue积分描述的函数空间（见\refsub{Lp_space}）具有很好的性质，这是Riemann积分做不到的。
 
-对于非反常积分，\textbf{勒贝格积分是黎曼积分的推广}，黎曼可积的函数一定是勒贝格可积的，并且在相同的区间上积分值相等。
+对于非反常积分，\textbf{Lebesgue积分是Riemann积分的推广}，Riemann可积的函数一定是Lebesgue可积的，并且在相同的区间上积分值相等。
 
 本节就来介绍一些基础的实变函数理论，以便后续学习中使用。由于篇幅原因，我们不得不略去大多数证明（证明可以参考\cite{real_analysis}），不过读者不妨先接受其中的一些重要结论，尤其是有黑体字阐释的定理。
 
-\subsection{*勒贝格测度与可测函数}\label{sub:lebesgue}
+\subsection{*Lebesgue测度与可测函数}\label{sub:lebesgue}
 
 首先，我们给出\textbf{外测度}和\textbf{可测集}的概念。
-\begin{definition}[勒贝格外测度]
-    设集合$A\subset\mathbb{R}$，其勒贝格外测度定义为
+\begin{definition}[Lebesgue外测度]
+    设集合$A\subset\mathbb{R}$，其Lebesgue外测度定义为
     \begin{equation}
         m^*(A)=\inf\braces{\sum_{k=1}^{\infty}l(I_k)\,\middle|\,A\subset\bigcup_{k=1}^{\infty}I_k},
     \end{equation}
@@ -51,11 +51,11 @@
     \begin{equation}
         \forall A,\quad m^*(A)=m^*(A\cap E)+m^*(A\cap E^c),
     \end{equation}
-    则称$E$为\textbf{可测集}。上述条件称为\textbf{Carathéodory条件}或\textbf{卡氏条件}。可测集的\textbf{勒贝格测度}定义为其勒贝格外测度，即$m(E)=m^*(E)$。
+    则称$E$为\textbf{可测集}。上述条件称为\textbf{Carathéodory条件}或\textbf{卡氏条件}。可测集的\textbf{Lebesgue测度}定义为其Lebesgue外测度，即$m(E)=m^*(E)$。
 \end{definition}
 尽管不是所有集合都能用测度来描述长度，但可测意味着一个集合边界清晰，可以以较高的精度描述它的“长度”。
 
-勒贝格测度对不交可数集族具有可数可加性：
+Lebesgue测度对不交可数集族具有可数可加性：
 \begin{equation}
     m\paren{\bigsqcup_{k=1}^{\infty}E_k}=\sum_{k=1}^{\infty}m(E_k).
 \end{equation}
@@ -84,7 +84,7 @@
 \end{proof}
 
 \begin{example}
-    单点集是零测集。由测度的可数可加性，可数集是零测集，特别地，$\mathbb{Q}$是可数的，因而是零测集。但是，零测集未必是可数的，例如康托集是不可数单点集之并\cite{real_analysis}。
+    单点集是零测集。由测度的可数可加性，可数集是零测集，特别地，$\mathbb{Q}$是可数的，因而是零测集。但是，零测集未必是可数的，例如Cantor集是不可数单点集之并\cite{real_analysis}。
 \end{example}
 
 \begin{definition}[几乎处处]
@@ -123,7 +123,7 @@
 %     设$f:E\to\mathbb{R}$可测，则$\forall \epsilon>0$，存在连续函数$g:E\to\mathbb{R}$及闭集$F\subset E$，使得$m(E\setminus F)<\epsilon$，且在$F$上有$f=g$。
 % \end{theorem}
 %
-在勒贝格测度的框架下，逐点收敛性可以减弱为几乎处处收敛性：
+在Lebesgue测度的框架下，逐点收敛性可以减弱为几乎处处收敛性：
 
 \begin{definition}[几乎处处收敛]
     函数列$\{f_n:E\to\mathbb{R}\}_{n=1}^{\infty}$在$E$上\textbf{几乎处处收敛}于函数$f:E\to\mathbb{R}$，如果存在一个零测度集$E_0$，使得
@@ -149,16 +149,16 @@
 %     设$m(E)<\infty$，可测函数列$\{f_n:E\to\mathbb{R}\}$几乎处处收敛于$f:E\to\mathbb{R}$，则$\forall \epsilon>0$，存在闭集$F\subset E$，满足$m(E\setminus F)<\epsilon$，且在$F$上$f_n$一致收敛于$f$，记为$f_n\rightrightarrows f$。
 % \end{theorem}
 
-\subsection{*勒贝格积分}\label{sub:integral}
+\subsection{*Lebesgue积分}\label{sub:integral}
 
-我们首先回顾黎曼积分的定义。
+我们首先回顾Riemann积分的定义。
 
-\begin{definition}[黎曼积分]
+\begin{definition}[Riemann积分]
     设$f:[a,b]\to\mathbb{R}$有界，$P=\{x_0,x_1,\dots,x_n\}$是区间$[a,b]$的一个划分，$a=x_0<x_1<\cdots <x_n=b$，对于每个子区间$[x_{k-1},x_k]$，定义
     \begin{equation}
         m_k=\inf_{x\in [x_{k-1},x_k]}f(x),\quad M_k=\sup_{x\in [x_{k-1},x_k]}f(x).
     \end{equation}
-    由此分别定义$f$对$P$的上、下\textbf{达布和}(Darboux sum)：
+    由此分别定义$f$对$P$的上、下\textbf{Darboux和}：
     \begin{equation}
         U(f,P)=\sum_{k=1}^{n}M_k(x_k-x_{k-1}),\quad L(f,P)=\sum_{k=1}^{n}m_k(x_k-x_{k-1}).
     \end{equation}
@@ -166,23 +166,23 @@
     \begin{equation}
         \inf_{P}U(f,P)=\sup_{P}L(f,P),
     \end{equation}
-    则称$f$在$[a,b]$上\textbf{黎曼可积}，并将上述公共值定义为$f$在$[a,b]$上的\textbf{黎曼积分}，为了区分于勒贝格积分，记为$(R)\int_{a}^{b}f(x)\,\dd x$。
+    则称$f$在$[a,b]$上\textbf{Riemann可积}，并将上述公共值定义为$f$在$[a,b]$上的\textbf{Riemann积分}，为了区分于Lebesgue积分，记为$(R)\int_{a}^{b}f(x)\,\dd x$。
 \end{definition}
 
-这个定义实质上实质上是先定义了\textbf{阶梯函数}的黎曼积分，然后通过阶梯函数对被积函数进行上、下逼近，从而定义了被积函数的黎曼积分。阶梯函数的定义如下：
+这个定义实质上是先定义了\textbf{阶梯函数}的Riemann积分，然后通过阶梯函数对被积函数进行上、下逼近，从而定义了被积函数的Riemann积分。阶梯函数的定义如下：
 
 \begin{definition}[阶梯函数]
     如果函数$\varphi:[a,b]\to\mathbb{R}$的定义域可以被划分为有限的子区间族$\{[x_{k-1},x_k]\}_{k=1}^{n}$（严格来说需要处理区间端点，但区间端点属于左侧、右侧的集合均没有影响），使得$\varphi$在每个子区间的内部$(x_{k-1},x_k)$为常数函数，则称$\varphi$是定义在$[a,b]$上的\textbf{阶梯函数}。
 
-    显然阶梯函数黎曼可积，并且
+    显然阶梯函数Riemann可积，并且
     \begin{equation}
         \int_{a}^{b}\varphi(x)\,\dd x=\sum_{k=1}^{n}\varphi(x)(x_k-x_{k-1}).
     \end{equation}
 \end{definition}
 
-勒贝格定理\cite{real_analysis}表明，闭区间上的有界函数$f$黎曼可积的充要条件是$f$在$[a,b]$中的不连续点构成零测集。狄利克雷函数$\chi_{\mathbb{Q}}$在$[0,1]$处处不连续，因此它在黎曼积分的意义下不可积，而\textbf{勒贝格积分扩展了有界区间上可积函数的范围}，这是勒贝格积分的第一条重要优势。
+Lebesgue定理\cite{real_analysis}表明，闭区间上的有界函数$f$Riemann可积的充要条件是$f$在$[a,b]$中的不连续点构成零测集。Dirichlet函数$\chi_{\mathbb{Q}}$在$[0,1]$处处不连续，因此它在Riemann积分的意义下不可积，而\textbf{Lebesgue积分扩展了有界区间上可积函数的范围}，这是Lebesgue积分的第一条重要优势。
 
-勒贝格积分的定义与黎曼积分类似，区别在于它需要通过\textbf{简单函数}来逼近可测函数。
+Lebesgue积分的定义与Riemann积分类似，区别在于它需要通过\textbf{简单函数}来逼近可测函数。
 
 \begin{definition}[简单函数]
     若存在函数$\varphi:E\to\mathbb{R}$的定义域$E$的一个有限的可测集划分$\{E_k\}_{k=1}^{n}$，使得$\varphi$在每个可测子集$E_k$上为常数函数，则称$\varphi$是定义在$E$上的\textbf{简单函数}(simple function)。
@@ -198,26 +198,26 @@
 \begin{equation}
     \int_{E}\varphi\,\dd m=\sum_{k=1}^{n}a_k m(E_k),
 \end{equation}
-其中$\dd m$表示勒贝格测度，并约定$0\cdot\infty=0$。积分值允许为$+\infty$。
+其中$\dd m$表示Lebesgue测度，并约定$0\cdot\infty=0$。积分值允许为$+\infty$。
 \begin{remark}*
-    对于单调递增的有界变差函数$f$，可以由$f$的增量定义新的测度，并由此引出\textbf{勒贝格-斯蒂尔杰斯积分}，此时$\dd m$就应替换为$\dd f$，但我们不在这里展开讨论，感兴趣的读者可以参考\cite{simple_real_analysis}或\cite{chentianquan}，它实际上是分部积分的基础。
+    对于单调递增的有界变差函数$f$，可以由$f$的增量定义新的测度，并由此引出\textbf{Lebesgue-Stieltjes积分}，此时$\dd m$就应替换为$\dd f$，但我们不在这里展开讨论，感兴趣的读者可以参考\cite{simple_real_analysis}或\cite{chentianquan}，它实际上是分部积分的基础。
 \end{remark}
 
-我们先用非负简单函数从下方逼近非负可测函数来定义其勒贝格积分，再借助函数的正部和负部处理一般情形。
+我们先用非负简单函数从下方逼近非负可测函数来定义其Lebesgue积分，再借助函数的正部和负部处理一般情形。
 
-\begin{definition}[非负可测函数的勒贝格积分]
-    设$f:E\to[0,+\infty)$是非负可测函数，则定义$f$在$E$上的\textbf{勒贝格积分}为
+\begin{definition}[非负可测函数的Lebesgue积分]
+    设$f:E\to[0,+\infty)$是非负可测函数，则定义$f$在$E$上的\textbf{Lebesgue积分}为
     \begin{equation}
         \int_{E}f\,\dd m=\sup_{0\leq \varphi\leq f}\int_{E}\varphi\,\dd m,
     \end{equation}
     其中$\varphi$取遍定义在$E$上的非负简单函数。该积分取值于$[0,+\infty]$。
 
-    若$\int_{E}f\,\dd m<\infty$，则称$f$在$E$上\textbf{可积}。不可积的非负函数仍有勒贝格积分，其值为$+\infty$。
+    若$\int_{E}f\,\dd m<\infty$，则称$f$在$E$上\textbf{可积}。不可积的非负函数仍有Lebesgue积分，其值为$+\infty$。
 \end{definition}
 
 这个定义不要求$f$有界，也不要求$E$的测度有限。若$m(E)<\infty$且$f$有界，则$f$自然可积。
 
-\begin{theorem}[非负可测函数的勒贝格积分的线性性]
+\begin{theorem}[非负可测函数的Lebesgue积分的线性性]
     设$f,g:E\to[0,+\infty)$是非负可测函数，$\forall\alpha,\beta\in[0,+\infty)$，有
     \begin{equation}
         \int_{E}(\alpha f+\beta g)\,\dd m=\alpha\int_{E}f\,\dd m+\beta\int_{E}g\,\dd m,
@@ -253,8 +253,8 @@
 \end{definition}
 后文中将定义函数的翻转为$f^-(x)=f(-x)$，请读者注意它们的区别，正部与负部这一概念及其符号仅在本节中使用。
 
-\begin{definition}[可测函数的勒贝格积分]
-    设$f:E\to\mathbb{R}$是可测函数，如果$f^+,f^-$均可积，则称$f$是可积的，并定义$f$在$E$上的勒贝格积分为
+\begin{definition}[可测函数的Lebesgue积分]
+    设$f:E\to\mathbb{R}$是可测函数，如果$f^+,f^-$均可积，则称$f$是可积的，并定义$f$在$E$上的Lebesgue积分为
     \begin{equation}
         \int_{E}f\,\dd m=\int_{E}f^+\,\dd m-\int_{E}f^-\,\dd m.
     \end{equation}
@@ -264,14 +264,14 @@
     \end{equation}
 \end{definition}
 
-由定义立即得到勒贝格积分的绝对值不等式
+由定义立即得到Lebesgue积分的绝对值不等式
 \begin{equation}
     \abs{\int_{E}f\,\dd m}\leq \int_{E}|f|\,\dd m.
 \end{equation}
 
-对于黎曼积分，绝对可积性强于可积性，并称可积却不绝对可积的函数是\textbf{条件可积}的，例如，\cref{def:sinc}给出的采样函数就是条件可积的。但是，从前一定义可以看出，对于勒贝格积分，\textbf{可积性与绝对可积性是等价的}。
+对于Riemann积分，绝对可积性强于可积性，并称可积却不绝对可积的函数是\textbf{条件可积}的，例如，\cref{def:sinc}给出的采样函数就是条件可积的。但是，从前一定义可以看出，对于Lebesgue积分，\textbf{可积性与绝对可积性是等价的}。
 
-\begin{proposition}[勒贝格积分的基本性质]
+\begin{proposition}[Lebesgue积分的基本性质]
     设$f,g:E\to\mathbb{R}$可积，$\alpha,\beta\in\mathbb{R}$，则：\\
     \ding{172} $\alpha f+\beta g$可积，并且
     \begin{equation}
@@ -298,20 +298,20 @@
 \begin{equation}
     \int_{a}^{b}f\,\dd m=\int_{[a,b]}f\,\dd m=\int_{(a,b)}f\,\dd m=\int_{[a,b)}f\,\dd m=\int_{(a,b]}f\,\dd m.
 \end{equation}
-在不致混淆时，也沿用$\int_{a}^{b}f(x)\,\dd x$的记号表示勒贝格积分。
+在不致混淆时，也沿用$\int_{a}^{b}f(x)\,\dd x$的记号表示Lebesgue积分。
 
 \begin{theorem}
-    设$f:[a,b]\to\mathbb{R}$是黎曼可积函数，则$f$也是勒贝格可积的，并且
+    设$f:[a,b]\to\mathbb{R}$是Riemann可积函数，则$f$也是Lebesgue可积的，并且
     \begin{equation}
         (R)\int_{a}^{b}f(x)\,\dd x=\int_{a}^{b}f\,\dd m.
     \end{equation}
 \end{theorem}
 
-可见，在有界区间上，\textbf{勒贝格积分是黎曼积分的推广}。
+可见，在有界区间上，\textbf{Lebesgue积分是Riemann积分的推广}。
 
 下面依次介绍三个用于交换极限与积分顺序的重要结果。前两个定理针对非负函数，控制收敛定理则适用于一般可积函数列。
 
-\begin{theorem}[Levi单调收敛定理]
+\begin{theorem}[Levi单调收敛定理]\label{thm:MCT}
     设$\{f_n:E\to[0,+\infty)\}$是递增的非负可测函数列，且$f_n\to f,\ \aee$，则
     \begin{equation}
         \int_{E}f\,\dd m=\lim_{n\to\infty}\int_{E}f_n\,\dd m.
@@ -322,6 +322,28 @@
     \int_{E}s\,\dd m=\lim_{n\to\infty}\int_{E}s_n\,\dd m=\sum_{n=1}^{\infty}\int_{E}f_n\,\dd m.
 \end{equation}
 因此，非负可测函数项级数可以\textbf{逐项积分}。
+
+\begin{corollary}[离散单调收敛定理]\label{cor:discrete_MCT}
+    设非负序列$\{a_k[n]\}_{k=1}^{\infty}$满足对每个$n\in\mathbb{Z}$都有$0\leq a_k[n]\leq a_{k+1}[n]$且$\lim_{k\to\infty}a_k[n]=a[n]$，则
+    \begin{equation}
+        \sum_{n=-\infty}^{\infty}a[n]=\lim_{k\to\infty}\sum_{n=-\infty}^{\infty}a_k[n].
+    \end{equation}
+    特别地，对单边序列（指标$n\in\mathbb{N}$或$n\in\mathbb{N}^*$），令其余指标处取值为$0$即得相应结论。
+\end{corollary}
+\begin{proof}
+    在$\mathbb{R}$上构造分段常值非负可测函数列
+    \begin{equation}
+        f_k(t)=\sum_{n=-\infty}^{\infty}a_k[n]\chi_{[n,n+1)}(t),\quad f(t)=\sum_{n=-\infty}^{\infty}a[n]\chi_{[n,n+1)}(t).
+    \end{equation}
+    显然$\{f_k\}$是非负递增可测函数列，且逐点收敛于$f$。由非负可测函数项级数的逐项积分性质，有
+    \begin{equation}
+        \int_{\mathbb{R}}f_k\,\dd m=\sum_{n=-\infty}^{\infty}a_k[n],\quad \int_{\mathbb{R}}f\,\dd m=\sum_{n=-\infty}^{\infty}a[n].
+    \end{equation}
+    对$\{f_k\}$应用单调收敛定理（\cref{thm:MCT}），即得
+    \begin{equation}
+        \sum_{n=-\infty}^{\infty}a[n]=\int_{\mathbb{R}}f\,\dd m=\lim_{k\to\infty}\int_{\mathbb{R}}f_k\,\dd m=\lim_{k\to\infty}\sum_{n=-\infty}^{\infty}a_k[n].
+    \end{equation}
+\end{proof}
 
 \begin{theorem}[Fatou引理]
     设$\{f_n:E\to[0,+\infty)\}$是非负可测函数列，则
@@ -347,8 +369,35 @@ Fatou引理给出了积分与下极限之间的基本不等式，也是证明其
 
 后文中将它简称为“控制收敛定理”。\textbf{此定理容易推广到实变量的复值函数列}，只要分别考虑实部和虚部即可。
 
-作为使用控制收敛定理的例子，也作为勒贝格积分的优秀性质，我们给出以下定理：
-\begin{theorem}[勒贝格积分的可数可加性]
+\begin{corollary}[离散控制收敛定理]\label{cor:discrete_DCT}
+    设复值序列$\{a_k[n]\}_{k=1}^{\infty}$对每个$n\in\mathbb{Z}$都满足$\lim_{k\to\infty}a_k[n]=a[n]$。如果存在非负序列$g[n]$满足$\sum_{n=-\infty}^{\infty}g[n]<\infty$，使得$\forall k\in\mathbb{N}^*,\ \forall n\in\mathbb{Z}$都有$|a_k[n]|\leq g[n]$，则级数$\sum_{n=-\infty}^{\infty}a[n]$绝对收敛，并且
+    \begin{equation}
+        \sum_{n=-\infty}^{\infty}a[n]=\lim_{k\to\infty}\sum_{n=-\infty}^{\infty}a_k[n].
+    \end{equation}
+    特别地，对单边序列（指标$n\in\mathbb{N}$或$n\in\mathbb{N}^*$），令其余指标处取值为$0$即得相应结论。
+\end{corollary}
+\begin{proof}
+    在$\mathbb{R}$上构造分段常值可测函数列与控制函数：
+    \begin{align}
+        f_k(t)&=\sum_{n=-\infty}^{\infty}a_k[n]\chi_{[n,n+1)}(t),\quad f(t)=\sum_{n=-\infty}^{\infty}a[n]\chi_{[n,n+1)}(t), \nonumber\\
+        G(t)&=\sum_{n=-\infty}^{\infty}g[n]\chi_{[n,n+1)}(t).
+    \end{align}
+    显然$f_k(t)\to f(t)$逐点成立，且$|f_k(t)|\leq G(t),\ \forall k\in\mathbb{N}^*,\ \forall t\in\mathbb{R}$。由非负可测函数项级数的逐项积分性质，有
+    \begin{equation}
+        \int_{\mathbb{R}}G\,\dd m=\sum_{n=-\infty}^{\infty}g[n]<\infty,
+    \end{equation}
+    故$G$在$\mathbb{R}$上可积。又因部分和$f_k^{(N)}(t)=\sum_{n=-N}^{N}a_k[n]\chi_{[n,n+1)}(t)$满足$f_k^{(N)}\to f_k$且$|f_k^{(N)}|\leq G$，由控制收敛定理（\cref{thm:DCT}）可得
+    \begin{equation}
+        \int_{\mathbb{R}}f_k\,\dd m=\lim_{N\to\infty}\sum_{n=-N}^{N}a_k[n]=\sum_{n=-\infty}^{\infty}a_k[n],
+    \end{equation}
+    同理$\int_{\mathbb{R}}f\,\dd m=\sum_{n=-\infty}^{\infty}a[n]$（且$|a[n]|\leq g[n]$保证其绝对收敛）。最后对$\{f_k\}$应用控制收敛定理（\cref{thm:DCT}），即得
+    \begin{equation}
+        \sum_{n=-\infty}^{\infty}a[n]=\int_{\mathbb{R}}f\,\dd m=\lim_{k\to\infty}\int_{\mathbb{R}}f_k\,\dd m=\lim_{k\to\infty}\sum_{n=-\infty}^{\infty}a_k[n].
+    \end{equation}
+\end{proof}
+
+作为使用控制收敛定理的例子，也作为Lebesgue积分的优秀性质，我们给出以下定理：
+\begin{theorem}[Lebesgue积分的可数可加性]
     设$f:E\to\mathbb{R}$是可测函数，$\{E_k\}_{k=1}^{\infty}$是$E$的可测划分，则
     \begin{equation}
         \int_{E}f\,\dd m=\sum_{k=1}^{\infty}\int_{E_k}f\,\dd m.
@@ -376,7 +425,7 @@ Fatou引理给出了积分与下极限之间的基本不等式，也是证明其
     \begin{equation}
         \int_{\bigcup_{n=1}^{\infty}A_n}f\,\dd m=\sum_{n=1}^{\infty}\int_{E_n}f\,\dd m=\lim_{n\to\infty}\sum_{i=1}^{n}\int_{E_i}f\,\dd m=\lim_{n\to\infty}\int_{\bigcup_{i=1}^{n}A_i}f\,\dd m=\lim_{n\to\infty}\int_{A_n}f\,\dd m.
     \end{equation}
-    因此\ding{172}得证，考虑$B_n=E\setminus A_n$并用德摩根律：
+    因此\ding{172}得证，考虑$B_n=E\setminus A_n$并用De Morgan律：
     \begin{equation}
         \bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}(E\setminus A_n)=E\setminus \bigcap_{n=1}^{\infty}A_n=E,
     \end{equation}
@@ -387,7 +436,7 @@ Fatou引理给出了积分与下极限之间的基本不等式，也是证明其
 \begin{equation}
     \int_{\mathbb{R}}f\,\dd m=\lim_{n\to\infty}\int_{[-n,n]}f\,\dd m.
 \end{equation}
-这个性质也是黎曼积分不具备的。黎曼积分的无穷限反常积分需要考虑积分上下限是否有关联，例如主值意义下的积分有时不等于普通意义下的积分，而勒贝格积分则不存在这样的情况。
+这个性质也是Riemann积分不具备的。Riemann积分的无穷限反常积分需要考虑积分上下限是否有关联，例如主值意义下的积分有时不等于普通意义下的积分，而Lebesgue积分则不存在这样的情况。
 
 \begin{example}
     考虑函数$f(x)=x$，它在$\mathbb{R}$上不可积，但在区间$[-n,n]$上可积，并且
@@ -398,21 +447,21 @@ Fatou引理给出了积分与下极限之间的基本不等式，也是证明其
     \begin{equation}
         \pv\int_{\mathbb{R}}f\,\dd m=\lim_{n\to\infty}\int_{[-n,n]}f\,\dd m=0.
     \end{equation}
-    在主值意义下，$f$是可积的。但在勒贝格积分的意义下，$f$不可积，因为
+    在主值意义下，$f$是可积的。但在Lebesgue积分的意义下，$f$不可积，因为
     \begin{equation}
         \int_{\mathbb{R}}|f|\,\dd m=\int_{\mathbb{R}}|x|\,\dd m=+\infty.
     \end{equation}
 \end{example}
 
-\textbf{黎曼积分的计算技巧在多数情况下同样适用于勒贝格积分}：
-\begin{theorem}[勒贝格积分的变量代换]
+\textbf{Riemann积分的计算技巧在多数情况下同样适用于Lebesgue积分}：
+\begin{theorem}[Lebesgue积分的变量代换]
     设$f:[a,b]\to\mathbb{R}$可积，递增函数$g:[c,d]\to \mathbb{R}$可导，并且$g(c)=a,\ g(d)=b$，则
     \begin{equation}
         \int_{a}^{b}f\,\dd m=\int_{c}^{d}f\circ g\cdot g'\,\dd m.
     \end{equation}
 \end{theorem}
 
-\begin{theorem}[勒贝格积分的分部积分法]
+\begin{theorem}[Lebesgue积分的分部积分法]
     设$f,g:[a,b]\to\mathbb{R}$可导，则
     \begin{equation}
         \int_{a}^{b}f g'\,\dd m=\evalat{fg}{a}{b}-\int_{a}^{b}f' g\,\dd m.
@@ -424,7 +473,7 @@ Fatou引理给出了积分与下极限之间的基本不等式，也是证明其
 本小节主要介绍两类常用的线性赋范空间：$L^p$空间和$l^p$空间（$1\leq p\leq \infty$），前者是处理连续信号的，而后者是处理序列的。
 
 \begin{definition}[$L^p$空间]\label{def:Lp}
-    设$E$是可测集，$L^p(E)\ (0<p<\infty)$空间表示在$E$上$p$次勒贝格可积的函数组成的函数空间，即
+    设$E$是可测集，$L^p(E)\ (0<p<\infty)$空间表示在$E$上$p$次Lebesgue可积的函数组成的函数空间，即
     \begin{equation}
         L^p(E):=\braces{f:E\rightarrow \mathbb{C} \,\middle|\, \int_{E}|f(t)|^p\,\dd m<\infty}.
     \end{equation}
@@ -585,7 +634,7 @@ $L^p$空间的完备性证明较为复杂，我们仅仅给出结论：
 
 %为了区分于分布理论的符号，本书中总是用$(\cdot,\cdot)$来表示$L^2(E)$空间的内积。
 
-显然，$L^2(E)$空间的范数可以由这个内积导出。因此，\textbf{$L^2(E)$空间构成完备的内积空间，即希尔伯特空间}。
+显然，$L^2(E)$空间的范数可以由这个内积导出。因此，\textbf{$L^2(E)$空间构成完备的内积空间，即Hilbert空间}。
 
 令$f=g$，有
 \begin{equation}
@@ -614,7 +663,7 @@ $L^p$空间的完备性证明较为复杂，我们仅仅给出结论：
 
 \subsection{\texorpdfstring{*$\mathbb{R}^n$上的测度与积分}{*Rn上的测度与积分}}
 
-$\mathbb{R}^n$上的勒贝格测度可以视作$\mathbb{R}$上的勒贝格测度的\textbf{乘积测度}。乘积测度空间的完整构造通常要借助Carathéodory-Hahn定理，因此本小节仅引入必要的概念和结论。
+$\mathbb{R}^n$上的Lebesgue测度可以视作$\mathbb{R}$上的Lebesgue测度的\textbf{乘积测度}。乘积测度空间的完整构造通常要借助Carathéodory-Hahn定理，因此本小节仅引入必要的概念和结论。
 
 \begin{definition}[区间]
     集合$I$是$\mathbb{R}^n$中的\textbf{区间}，如果它是$\mathbb{R}$中的区间族$\{I_k\}_{k=1}^n$的$n$重笛卡尔积：
@@ -630,23 +679,23 @@ $\mathbb{R}^n$上的勒贝格测度可以视作$\mathbb{R}$上的勒贝格测度
 
 类似于一维的情况，$\mathbb{R}^n$中的外测度定义也由区间的体积出发：
 
-\begin{definition}[$\mathbb{R}^n$上的勒贝格外测度]
-    设集合$A\subset\mathbb{R}^n$，其勒贝格外测度定义为
+\begin{definition}[$\mathbb{R}^n$上的Lebesgue外测度]
+    设集合$A\subset\mathbb{R}^n$，其Lebesgue外测度定义为
     \begin{equation}
         \mu_n^*(A)=\inf\braces{\sum_{k=1}^{\infty}\vol(I_k)\,\middle|\,A\subset\bigcup_{k=1}^{\infty}I_k},
     \end{equation}
     其中$\inf$取自所有覆盖$A$的可数开区间族$\{I_k\}_{k=1}^{\infty}$。
 \end{definition}
 
-\begin{definition}[$\mathbb{R}^n$上的勒贝格可测集]
+\begin{definition}[$\mathbb{R}^n$上的Lebesgue可测集]
     若集合$E\subset \mathbb{R}^n$满足卡氏条件：
     \begin{equation}
         \forall A\subset \mathbb{R}^n,\quad \mu_n^*(A)=\mu_n^*(A\cap E)+\mu_n^*(A\cap E^c),
     \end{equation}
-    则称$E$为\textbf{$\mu_n$-可测集}，在不引起歧义时也可以直接称之为可测集。可测集的\textbf{勒贝格测度}定义为其勒贝格外测度，即$\mu_n(E)=\mu_n^*(E)$。
+    则称$E$为\textbf{$\mu_n$-可测集}，在不引起歧义时也可以直接称之为可测集。可测集的\textbf{Lebesgue测度}定义为其Lebesgue外测度，即$\mu_n(E)=\mu_n^*(E)$。
 \end{definition}
 
-$\mu_n(\cdot)$具有与$m(\cdot)$类似的性质，此处不再赘述。特别地，我们仍然约定$0\cdot\infty=0$；作为一种乘积测度，勒贝格测度是良定义的，即
+$\mu_n(\cdot)$具有与$m(\cdot)$类似的性质，此处不再赘述。特别地，我们仍然约定$0\cdot\infty=0$；作为一种乘积测度，Lebesgue测度是良定义的，即
 \begin{equation}
     \mu_{m+n}=\mu_m\times \mu_n=\mu_n\times \mu_m.
 \end{equation}
@@ -659,14 +708,14 @@ $\mu_n(\cdot)$具有与$m(\cdot)$类似的性质，此处不再赘述。特别�
 \end{claim}
 
 \begin{example}
-    在$\mathbb{R}^n$中，（作为$n$维线性空间的）真子空间$V$的勒贝格测度为0。这是因为$V$总能在适当的可逆线性变换下变为$\mathbb{R}^k\times\{\mathbf{0}\}$，其中$k$为小于$n$的正整数，根据定义，
+    在$\mathbb{R}^n$中，（作为$n$维线性空间的）真子空间$V$的Lebesgue测度为0。这是因为$V$总能在适当的可逆线性变换下变为$\mathbb{R}^k\times\{\mathbf{0}\}$，其中$k$为小于$n$的正整数，根据定义，
     \begin{equation}
         \mu_n(\mathbb{R}^k\times\{\mathbf{0}\})=\vol(\mathbb{R}^k\times\{\mathbf{0}\})=\infty\cdot 0=0.
     \end{equation}
     由此可知$V$的任何子集也都是零测集。
 \end{example}
 
-勒贝格可测函数及其勒贝格积分的定义全都与\refsub{integral}中一致：我们仍然用简单函数对非负可测函数进行下逼近，然后通过考虑正部与负部推广到一般的可测函数，用于积分与极限换序的单调收敛定理、控制收敛定理也仍然成立，只是函数的定义域更换为$\mathbb{R}^n$。
+Lebesgue可测函数及其Lebesgue积分的定义全都与\refsub{integral}中一致：我们仍然用简单函数对非负可测函数进行下逼近，然后通过考虑正部与负部推广到一般的可测函数，用于积分与极限换序的单调收敛定理、控制收敛定理也仍然成立，只是函数的定义域更换为$\mathbb{R}^n$。
 
 以下两个定理表明，在多数情况下可以交换重积分的积分次序：
 \begin{theorem}[Tonelli定理]\label{thm:tonelli}
@@ -705,15 +754,15 @@ $\mu_n(\cdot)$具有与$m(\cdot)$类似的性质，此处不再赘述。特别�
 
 \subsection{正交函数系}\label{sub:orthognal}
 \begin{definition}[正交基]
-    如果有内积空间$V$的一组基$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$，满足$\langle \mathbf{v}_i,\mathbf{v}_j\rangle =0,\ i \neq j$，则称这组基是一组\textbf{正交基}(orthognal bases)。
+    如果有内积空间$V$的一组基$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$，满足$\langle \mathbf{v}_i,\mathbf{v}_j\rangle =0,\ i \neq j$，则称这组基是一组\textbf{正交基}(orthogonal bases)。
 
     如果对$V$中任一向量$\mathbf{w}$，均可以表示为这组基的线性组合：
     \begin{equation}
         \mathbf{w}=\sum_{i = 1}^{n} c_i \mathbf{v}_i,
     \end{equation}
-    则这组基是\textbf{完备正交基}(complete orthognal bases)。
+    则这组基是\textbf{完备正交基}(complete orthogonal bases)。
 
-    如果$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$还满足$\langle \mathbf{v}_i,\mathbf{v}_i\rangle =1,\ i\in \{1,2,\dots ,n\}$，称这组基是\textbf{标准完备正交基}(complete othornormal bases)。
+    如果$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$还满足$\langle \mathbf{v}_i,\mathbf{v}_i\rangle =1,\ i\in \{1,2,\dots ,n\}$，称这组基是\textbf{标准完备正交基}(complete orthonormal bases)。
 \end{definition}
 
 \begin{theorem}\label{thm:vector_decomposition}
@@ -789,8 +838,8 @@ $\mu_n(\cdot)$具有与$m(\cdot)$类似的性质，此处不再赘述。特别�
 \begin{equation}
     a_i=\frac{(g,f_i)}{(f_i,f_i)}=\frac{\int_{T}g(t)f_i^*(t)\,\dd t}{\int_{T}|f_i(t)|^2\,\dd t}.
 \end{equation}
-细心的读者可能已经发现，这里得到的公式用到了有限维线性空间中的结论，但要推广到无限维线性空间并不是显然的。我们将在\refsub{paseval}中给出帕塞瓦尔恒等式之后一并讨论这个问题。
+细心的读者可能已经发现，这里得到的公式用到了有限维线性空间中的结论，但要推广到无限维线性空间并不是显然的。我们将在\refsub{paseval}中给出Parseval恒等式之后一并讨论这个问题。
 
-在下一章中我们将看到，三角函数系和指数函数系都是完备正交函数系，是傅里叶级数理论的基础。在添加适当权函数的前提下，\refsub{chebychev_polynomial}中介绍的切比雪夫多项式以及\refsub{bessel}中介绍的贝塞尔函数都是完备正交函数系；此外，典型的标准完备正交函数系还有勒让德多项式(Legendre polynomials)、小波变换基函数(wavelet basis functions)等。
+在下一章中我们将看到，三角函数系和指数函数系都是完备正交函数系，是傅里叶级数理论的基础。在添加适当权函数的前提下，\refsub{chebychev_polynomial}中介绍的Chebyshev多项式以及\refsub{bessel}中介绍的Bessel函数都是完备正交函数系；此外，典型的标准完备正交函数系还有Legendre多项式、小波变换基函数(wavelet basis functions)等。
 
 本书仅讨论三角函数系和指数函数系，它们的本质上都是\refsub{chebychev_polynomial}中介绍的\textbf{三角多项式}的延申。

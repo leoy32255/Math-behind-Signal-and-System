@@ -192,7 +192,7 @@ Cayley-Hamilton定理（见\refsub{eigenvector}）的内容是，设矩阵$A$的
     \end{equation}
     的解矩阵，则方程组的通解为
     \begin{align}
-        \mathbf{y}[n]&=\phi[n]\mathbf{y}_0+\sum_{i=0}^{n}\phi[i]\mathbf{f}[n-i] \nonumber \\
+        \mathbf{y}[n]&=\phi[n]\mathbf{y}_0+\sum_{i=0}^{n-1}\phi[n-1-i]\mathbf{f}[i] \nonumber \\
         &=A^n\mathbf{y}_0+\sum_{i=0}^{n-1}A^{n-1-i}\mathbf{f}[i].
     \end{align}
 \end{theorem}
@@ -483,24 +483,24 @@ Cayley-Hamilton定理（见\refsub{eigenvector}）的内容是，设矩阵$A$的
     是行满秩的，即$\rank\mathcal{C}=N$。
 \end{theorem}
 \begin{proof}
-    不妨设$\mathbf{q}[0]=0$。根据状态变量的解的公式，
+    不妨设$\mathbf{q}[0]=0$。根据状态变量的解的公式，$\forall n\in\mathbb{N}^*$，
     \begin{equation}
-        \mathbf{q}[n_0]=\sum_{i=0}^{n_0-1}A^{n_0-1-i}B\mathbf{e}[i]=\begin{bmatrix}
-            B & AB & A^2B & \cdots & A^{N-1}B
+        \mathbf{q}[n]=\sum_{i=0}^{n-1}A^{n-1-i}B\mathbf{e}[i]=\begin{bmatrix}
+            B & AB & A^2B & \cdots & A^{n-1}B
         \end{bmatrix}\begin{bmatrix}
-            e_1[n] \\
-            e_2[n] \\
+            \mathbf e[n-1]\\
+            \mathbf e[n-2] \\
             \vdots \\
-            e_N[n]
+            \mathbf e[0]
         \end{bmatrix}.
     \end{equation}
-    矩阵右乘一个列向量，相当于对矩阵进行列变换，因此$\mathbf{q}[n_0]$的取值范围就等于矩阵
+    矩阵右乘一个列向量，相当于对矩阵进行列变换，因此$\mathbf{q}[n]$的取值范围就等于矩阵
     \begin{equation}
         \mathcal{C}=\begin{bmatrix}
-            B & AB & A^2B & \cdots & A^{N-1}B
+            B & AB & A^2B & \cdots & A^{n-1}B
         \end{bmatrix}
     \end{equation}
-    的列空间$\mathrm{C}(\mathcal{C})$，因此$\mathbf{q}[n_0]$可以取$\mathbb{R}^N$中的任意值就等价于
+    的列空间$\mathrm{C}(\mathcal{C})$，因此$\mathbf{q}[n]$可以取$\mathbb{R}^N$中的任意值就等价于
     \begin{equation}
         \dim\mathrm{C}(\mathcal{C})=\rank(\mathcal{C})=\dim\mathbb{R}^N=N.
     \end{equation}

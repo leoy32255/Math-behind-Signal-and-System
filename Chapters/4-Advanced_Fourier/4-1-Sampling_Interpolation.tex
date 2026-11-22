@@ -1,5 +1,5 @@
 % !TeX root = ../../MainBook.tex
-\section{采样与插值，狄拉克梳状分布}\label{sec:Sampling_Interpolation}
+\section{采样与插值，Dirac梳状分布}\label{sec:Sampling_Interpolation}
 
 \subsection{插值问题}\label{sub:interpolation}
 \textbf{插值}的雏形来自于古代天文学，最简单的插值就是通过观察星体在几个时刻的位置推测中间时刻的位置。在数学上，插值需要我们给出一个连续信号来逼近甚至还原原信号，工程上则需要我们插入若干新的样值点使得序列看起来更接近原信号。我们首先引入一些术语：
@@ -9,27 +9,27 @@
 
 类似于用像素表示图片，利用采样所得的序列$f_d[n]=f(nT_s)$表示信息，相当于用序列表示连续信号，能够大大降低传输和存储的成本。一个数字处理系统或数字传输系统的第一个环节就是对信号进行采样，随后进行量化编码、数字传输或处理，到信号接收方或需要使用信号时再进行信号恢复。
 
-历史上，最早对插值问题进行系统研究的是牛顿和拉格朗日。牛顿提出的牛顿插值公式是组合数学讨论的话题，他通过引入序列的差商的概念，提出了一种使用三角形差商表构造过若干指定数据点的多项式的方法；相比之下拉格朗日的拉格朗日插值法要简单得多，其想法的关键在于构造在特定数据点处非$0$，而在另外所有数据点处均为$0$的多项式：
-\begin{definition}[拉格朗日插值法]
+历史上，最早对插值问题进行系统研究的是牛顿（Newton）和拉格朗日（Lagrange）。牛顿提出的牛顿插值公式是组合数学讨论的话题，他通过引入序列的差商的概念，提出了一种使用三角形差商表构造过若干指定数据点的多项式的方法；相比之下拉格朗日的Lagrange插值法要简单得多，其想法的关键在于构造在特定数据点处非$0$，而在另外所有数据点处均为$0$的多项式：
+\begin{definition}[Lagrange插值法]
     对于一组互异的数据点
     \begin{equation}
         (x_0,y_0),(x_1,y_1),\cdots,(x_n,y_n),
     \end{equation}
-    其拉格朗日插值多项式为
+    其Lagrange插值多项式为
     \begin{equation}
         L(x) = \sum_{i=0}^{n} y_i \ell_i(x),
     \end{equation}
-    其中$\ell_i(x)$是拉格朗日基函数，满足$\ell_i(x_i)=1,\ \ell_i(x_j)=0\ (j\neq i)$：
+    其中$\ell_i(x)$是Lagrange基函数，满足$\ell_i(x_i)=1,\ \ell_i(x_j)=0\ (j\neq i)$：
     \begin{equation}
         \ell_i(x) = \prod_{\substack{j=0 \\ j \neq i}}^{n} \frac{x - x_j}{x_i - x_j}.
     \end{equation}
     该多项式满足$L(x_i) = y_i,\quad i=0,1,\cdots,n$。
 \end{definition}
-这个方法后来被埃尔米特改进，不仅能保证函数值相等，还能保证若干阶导数的值相等，称为\textbf{埃尔米特插值法}。
+这个方法后来被埃尔米特（Hermite）改进，不仅能保证函数值相等，还能保证若干阶导数的值相等，称为\textbf{Hermite插值法}。
 
 另外，还有一种插值的思路将采样时产生的误差也考虑了进来，以这种视角进行最优线性拟合，就是\textbf{最小二乘法}，在测量误差可能比较大时，这一类拟合方法的表现会更好。
 
-以上插值方式对原信号的逼近效果比较有限，一些数学家们开始转向研究如何重建整个信号。1948年，克劳德·香农发表了他的巨著《通信的数学原理》，明确提出了\textbf{香农采样定理}，并给出下一节中将介绍的还原带限函数的公式。要还原大带宽信号需要很高的采样频率，会对硬件设备提出很高的要求。我们可以通过另外的插值流程还原信号，例如对于一些信号可以利用其稀疏性和相关性，用远低于$f_N$的采样频率还原信号。
+以上插值方式对原信号的逼近效果比较有限，一些数学家们开始转向研究如何重建整个信号。1948年，克劳德·香农（Claude Shannon）发表了他的巨著《通信的数学原理》，明确提出了\textbf{Shannon采样定理}，并给出下一节中将介绍的还原带限函数的公式。要还原大带宽信号需要很高的采样频率，会对硬件设备提出很高的要求。我们可以通过另外的插值流程还原信号，例如对于一些信号可以利用其稀疏性和相关性，用远低于$f_N$的采样频率还原信号。
 
 就信息通信而言，我们最关注的是如何\textbf{用更低的成本传递更多的信息}。可以想象，传递序列要比传递连续信号更为高效，而序列是我们用来近似描述连续信号的，其本质就是对连续信号的采样。因此，本书所要研究的内容集中在以下两个方面：
 \begin{itemize}
@@ -41,9 +41,9 @@
 
 在以上所有条件都满足的情况下，我们就可以将采样信号抽象成一个$\shah$分布，下一小节就来介绍这个分布。
 
-\subsection{狄拉克梳状分布}\label{sub:dirac_comb}
-由于我们并不关注采样信号幅值的大小，又希望采样所得信号与序列尽可能相似，我们可以将采样信号取成若干等间距排列、强度相同的狄拉克$\delta$分布的和，即：
-\begin{definition}[狄拉克梳状分布]\label{def:shah}
+\subsection{Dirac梳状分布}\label{sub:dirac_comb}
+由于我们并不关注采样信号幅值的大小，又希望采样所得信号与序列尽可能相似，我们可以将采样信号取成若干等间距排列、强度相同的Dirac $\delta$分布的和，即：
+\begin{definition}[Dirac梳状分布]\label{def:shah}
     对任意$T>0$，定义分布
     \begin{equation}
         \shah_T=\sum_{k=-\infty}^{\infty}\delta_{kT},
@@ -52,7 +52,7 @@
     \begin{equation}
         \braket{\shah_T,\varphi}=\braket{\sum_{k=-\infty}^{\infty}\delta_{kT},\varphi}=\sum_{k=-\infty}^{\infty}\varphi(kT).
     \end{equation}
-    符号“$\shah$”读作“shah”，在$T=1$时可以将角标略去，直接写作$\shah$\cite{brad_osgood_ee261}。由于其图像是等间距排列的一个个$\delta$，又称之为\textbf{狄拉克梳状分布}(dirac comb)。
+    符号“$\shah$”读作“shah”，在$T=1$时可以将角标略去，直接写作$\shah$\cite{brad_osgood_ee261}。由于其图像是等间距排列的一个个$\delta$，又称之为\textbf{Dirac梳状分布}。
 \end{definition}
 
 容易看出，这个分布具有三条基本性质。其一是采样性质，它直接得自$\delta_a$的采样性质：
@@ -63,7 +63,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{shah.jpeg}
-    \caption{狄拉克梳状分布示意图}
+    \caption{Dirac梳状分布示意图}
 \end{figure}
 其二是$\shah$在伸缩变换下的性质：
 \begin{proposition}[$\shah$的伸缩]
@@ -83,15 +83,15 @@
 \end{equation}
 在\refsub{operation_of_distribution}中，我们曾建立了$\delta_a$的平移性质：$\delta_a*f=\tau_a f$，只要函数项级数$\sum_{k=-\infty}^{\infty}f(t-kT)$收敛，自然就可以把它写成卷积的形式。
 
-对于一个施瓦兹函数，以上的式子中均不会出现收敛性的问题。回顾施瓦兹函数类的定义：
+对于一个Schwartz函数，以上的式子中均不会出现收敛性的问题。回顾Schwartz函数类的定义：
 \begin{equation}
     \mathcal{S}(\mathbb{R}) =\left\{\varphi\in C^{\infty}(\mathbb{R})\;\middle|\;\lim_{|x|\to\infty}|x|^m\varphi^{(n)}(x)=0,\ \forall m,n\in\mathbb{N}\right\}.
 \end{equation}
 对任意的$t$，考察级数$\sum_{k=-\infty}^{\infty}f(t-kT)$的收敛性时，只需要将$n$取为$0$，$m$取为不小于$2$的整数，则在$|k|$充分大时，级数比$C/k^2$更小，从而绝对收敛。注意这种估计方式并不依赖于自变量$t$的选取，因此这个函数项级数一致收敛，其和函数会保留$f(t)$的许多分析性质，例如我们可以逐项求导（从而和函数也无限阶可导）、逐项积分，还可以交换求和符号与其他极限过程的顺序（见数学分析教材，如\cite{zorich}\cite{xinjiang}）。
 
-\subsection{泊松求和公式}\label{sub:poisson_summation}
-本小节旨在说明\textbf{泊松求和公式}(the Poisson summation formula)，它揭示了傅里叶级数与傅里叶变换的深刻关系。
-\begin{theorem}[泊松求和公式]
+\subsection{Poisson求和公式}\label{sub:poisson_summation}
+本小节旨在说明\textbf{Poisson求和公式}，它揭示了傅里叶级数与傅里叶变换的深刻关系。
+\begin{theorem}[Poisson求和公式]
     \begin{lralign}
         \sum_{k=-\infty}^{\infty}\varphi(k)=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(k).
         \switch
@@ -118,7 +118,7 @@
         \switch
         \hat{\Phi}(k)=\mathcal{F}\varphi(2\pi k).
     \end{lralign}
-    证明中，第二行到第三行的积分与求和的换序用到了周期化函数作为函数项级数的一致收敛性。这个等式意味着\textbf{施瓦兹函数的傅里叶变换在整数点处的值就是其周期化函数的傅里叶系数}（以上是周期化为$T=1$的情况，周期为其他值的情况是类似的），进一步，在恒等式
+    证明中，第二行到第三行的积分与求和的换序用到了周期化函数作为函数项级数的一致收敛性。这个等式意味着\textbf{Schwartz函数的傅里叶变换在整数点处的值就是其周期化函数的傅里叶系数}（以上是周期化为$T=1$的情况，周期为其他值的情况是类似的），进一步，在恒等式
     \begin{lralign}
         \Phi(t)=\sum_{k=-\infty}^{\infty}\hat{\Phi}(k)\e^{2\pi\im kt}=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(k)\e^{2\pi\im kt}
         \switch
@@ -139,8 +139,8 @@
 
 %我们当然也可以对$\shah_T*\varphi$做类似的推导，但其结论远不如以上两式简洁，这实际上是整数集$\mathbb{Z}$的自对偶性的体现。
 
-\subsection{狄拉克梳状分布的傅里叶变换}\label{sub:fourier_of_dirac_comb}
-借助泊松求和公式，可以得到$\shah$分布的傅里叶变换：
+\subsection{Dirac梳状分布的傅里叶变换}\label{sub:fourier_of_dirac_comb}
+借助Poisson求和公式，可以得到$\shah$分布的傅里叶变换：
 \begin{lralign}
     \braket{\mathcal{F}\shah,\varphi}=\braket{\shah,\mathcal{F}\varphi}=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(k)=\sum_{k=-\infty}^{\infty}\varphi(k)=\braket{\shah,\varphi}.
     \switch
@@ -167,13 +167,13 @@ $\shah$分布的傅里叶变换具有自对偶性，即{\color{freqcolor}$\shah\
 \begin{lralign}
     \mathcal{F}\shah&=\mathcal{F}\sbr{\lim_{N\to\infty}\sum_{k=-N}^{N}\delta_k}\\
     &=\lim_{N\to\infty}\sum_{k=-N}^{N}\mathcal{F}\delta_k\\
-    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\e^{-2\pi\im kx}\\
-    &=\sum_{k=-\infty}^{\infty}\e^{-2\pi\im kx},
+    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\e^{-2\pi\im k\xi}\\
+    &=\sum_{k=-\infty}^{\infty}\e^{-2\pi\im k\xi},
     \switch
-    \mathcal{F}\shah&=\mathcal{F}\sbr{\lim_{N\to\infty}\sum_{k=-N}^{N}\delta_k}\\
-    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\mathcal{F}\delta_k\\
-    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\e^{-2\pi\im kx}\\
-    &=\sum_{k=-\infty}^{\infty}\e^{-2\pi\im kx},
+    \mathcal{F}\shah_{2\pi}&=\mathcal{F}\sbr{\lim_{N\to\infty}\sum_{k=-N}^{N}\delta_{2\pi k}}\\
+    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\mathcal{F}\delta_{2\pi k}\\
+    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\e^{-2\pi\im k\omega}\\
+    &=\sum_{k=-\infty}^{\infty}\e^{-2\pi\im k\omega},
 \end{lralign}
 
 结合$\shah$的频率形式傅里叶变换公式可以得到$\shah$分布作为形式上的函数的另一种定义。实际上，这就是$\shah$作为一个周期分布的傅里叶级数展开（分布的周期性是通过$\tau_1\shah=\shah$体现的）：
@@ -183,11 +183,15 @@ $\shah$分布的傅里叶变换具有自对偶性，即{\color{freqcolor}$\shah\
         \shah(x)=\sum_{k=-\infty}^{\infty}\e^{-2\pi\im kx}.
     \end{equation}
 \end{definition}
-右边正是\refsub{dirichlet_kernel}中提到的狄利克雷核在$N\to\infty$时的式子。需要注意，这个式子仅在分布的意义下成立，例如将这个分布作用在某一区间的特征函数$\chi_{[a,b]}\in\mathcal{S}(\mathbb{R})$上，则可验证函数项级数
+右边正是\refsub{dirichlet_kernel}中提到的Dirichlet核在$N\to\infty$时的式子。需要注意，这个式子仅在分布的意义下成立：任取检验函数$\varphi\in\mathcal{S}(\mathbb{R})$，有
+\begin{equation}
+    \lim_{N\to\infty}\int_{-\infty}^{\infty}\paren{\sum_{k=-N}^{N}\e^{-2\pi\im kx}}\varphi(x)\,\dd x=\langle\shah,\varphi\rangle=\sum_{n=-\infty}^{\infty}\varphi(n).
+\end{equation}
+特别地，若光滑紧支函数$\varphi\in\mathcal{C}(\mathbb{R})\subset\mathcal{S}(\mathbb{R})$的支集不包含任何整数点，则配对结果为$0$；而当$x\in\mathbb{Z}$时，部分和$\sum_{k=-N}^{N}\e^{-2\pi\im kx}=2N+1\to+\infty$。然而，作为普通的函数项级数，
 \begin{equation}
     \sum_{k=-\infty}^{\infty}\e^{-2\pi\im kx}
 \end{equation}
-在整数点处趋于正无穷，在任意不包含整数点的区间上积分值为$0$。然而，作为函数项级数，我们只能得到整数点处的广义极限存在，这是一个几乎处处不收敛的函数项级数，例如在$x=1/2$处，级数项为$(-1)^k$，其和函数在多数点没有定义，只能作为奇异分布来定义。
+几乎处处不收敛（例如在$x=1/2$处，通项为$(-1)^k$），因此不能作为常规函数理解，只能在奇异分布的意义下定义。
 
 根据角频率形式下的$\shah$分布的傅里叶变换，可以想到$\shah$的伸缩的傅里叶变换仍具有$\shah$的形式，下面就来找出具体的公式：
 \begin{proposition}[$\shah_T$的傅里叶变换]

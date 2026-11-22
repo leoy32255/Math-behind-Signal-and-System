@@ -176,8 +176,8 @@ $J$是块对角矩阵，每个块为一个Jordan块，可以通过代入消元�
 
 本小节旨在刻画线性微分方程组的解空间。根据上一小节的转化关系，本小节的内容同样适用于线性微分方程，以及我们最关注的常系数线性微分方程（组）。
 
-\begin{definition}[柯西问题]
-    带有初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的微分方程组$\displaystyle\frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}+\mathbf{f}(t)$的求解问题，称为\textbf{柯西问题}(Cauchy problem)。
+\begin{definition}[Cauchy问题]
+    带有初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的微分方程组$\displaystyle\frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}+\mathbf{f}(t)$的求解问题，称为\textbf{Cauchy问题}。
 \end{definition}
 
 \begin{claim}[Picard定理]
@@ -189,7 +189,7 @@ $J$是块对角矩阵，每个块为一个Jordan块，可以通过代入消元�
     \begin{equation}
         \exists L>0,\ \forall (t,\mathbf{y}_1),(t,\mathbf{y}_2)\in D,\quad \norm{\mathbf{f}(t,\mathbf{y}_1)-\mathbf{f}(t,\mathbf{y}_2)}\leq L\norm{\mathbf{y}_1-\mathbf{y}_2}
     \end{equation}
-    （其中范数$\norm{\cdot}$就是欧几里得空间$\mathbb{R}^d$中的向量长度），则柯西问题的解在$\abs{t-t_0}\leq h$上\textbf{存在且唯一}，其中
+    （其中范数$\norm{\cdot}$就是欧几里得空间$\mathbb{R}^d$中的向量长度），则Cauchy问题的解在$\abs{t-t_0}\leq h$上\textbf{存在且唯一}，其中
     \begin{equation}
         h=\min\braces{a,\frac{b}{\max_{(t,\mathbf{y})\in D}\abs{\mathbf{f}(t,\mathbf{y})}}}.
     \end{equation}
@@ -425,7 +425,7 @@ Picard定理适用范围很广，但我们仅仅关注线性微分方程组，�
 \end{proof}
 
 \begin{example}
-    求解柯西问题
+    求解Cauchy问题
     \begin{equation}
         \frac{\dd\mathbf{y}}{\dd t}=\begin{bmatrix}
         \cos 6t+1 & \sin 6t-3\\

@@ -1,11 +1,11 @@
 % !TeX root = ../../MainBook.tex
 \section{傅里叶级数的渐进特性}\label{sec:Asymptotic_Behaviour}
 
-\subsection{狄利克雷核}\label{sub:dirichlet_kernel}
-本小节引入狄利克雷核并介绍它的一些性质，并在下一小节用它来辅助我们对傅里叶级数收敛性的讨论。直接由狄利克雷条件证明收敛性是很困难的，并且需要更加专业的分析学工具，我们将给出更强的条件下的证明，并从这个更强的条件获得一些额外的性质。
+\subsection{Dirichlet核}\label{sub:dirichlet_kernel}
+本小节引入Dirichlet核并介绍它的一些性质，并在下一小节用它来辅助我们对傅里叶级数收敛性的讨论。直接由Dirichlet条件证明收敛性是很困难的，并且需要更加专业的分析学工具，我们将给出更强的条件下的证明，并从这个更强的条件获得一些额外的性质。
 
-研究傅里叶级数的渐进特性时，一个非常好用的工具是\textbf{狄利克雷核}(Dirichlet kernel)：
-\begin{definition}[狄利克雷核]
+研究傅里叶级数的渐进特性时，一个非常好用的工具是\textbf{Dirichlet核}：
+\begin{definition}[Dirichlet核]
     \begin{equation}
         D_N(t)=\sum_{k=-N}^{N}\e^{\im k\omega t}=1+\sum_{k=1}^{N}\paren{\e^{\im k\omega t}+\e^{-\im k\omega t}}=1+2\sum_{k=1}^{N}\cos(k\omega t),
     \end{equation}
@@ -24,14 +24,14 @@
     &=1+\frac{\sin\paren{\paren{N+\frac{1}{2}}\omega t}-\sin\paren{\frac{\omega t}{2}}}{\sin\paren{\frac{\omega t}{2}}} \nonumber \\
     &=\frac{\sin\paren{\paren{N+\frac{1}{2}}\omega t}}{\sin\paren{\frac{\omega t}{2}}}.
 \end{align}
-这两种结果是相符的，读者可自行验证，并且可以从后一结果想象出狄利克雷核的函数图像，它被$\pm 1/\sin\paren{\frac{\omega t}{2}}$包络并高速振荡。函数图像如下。
+这两种结果是相符的，读者可自行验证，并且可以从后一结果想象出Dirichlet核的函数图像，它被$\pm 1/\sin\paren{\frac{\omega t}{2}}$包络并高速振荡。函数图像如下。
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Figure_3}
-    \caption{狄利克雷核$D_N(t)$的函数图像}
+    \caption{Dirichlet核$D_N(t)$的函数图像}
 \end{figure}
 
-傅里叶级数的部分和是狄利克雷核与被展开函数的周期函数卷积（\cref{def:period_conv}）：
+傅里叶级数的部分和是Dirichlet核与被展开函数的周期函数卷积（\cref{def:period_conv}）：
 \begin{proposition}
     \begin{equation}
         S_N^f(t)=\frac{1}{T}\int_{T}f(\tau)D_N(t-\tau)\,\dd\tau=\frac{1}{T}f*D_N(t).
@@ -48,7 +48,7 @@
     \end{align}
 \end{proof}
 
-在讨论傅里叶级数的收敛性前，先给出两个引理。第一个引理表明狄利克雷核在半周期上积分值为$\displaystyle\frac{T}{2}$，在证明傅里叶级数的逐点收敛性时将用到它。
+在讨论傅里叶级数的收敛性前，先给出两个引理。第一个引理表明Dirichlet核在半周期上积分值为$\displaystyle\frac{T}{2}$，在证明傅里叶级数的逐点收敛性时将用到它。
 \begin{lemma}
     \begin{equation}
         \int_{-\frac{T}{2}}^{0}D_N(t)\,\dd t=\int_{0}^{\frac{T}{2}}D_N(t)\,\dd t=\frac{T}{2}.
@@ -64,7 +64,7 @@
     $D_N(t)$是偶函数，得证。
 \end{proof}
 
-\begin{lemma}[贝塞尔不等式]\label{lemma:bessel_inequality}
+\begin{lemma}[Bessel不等式]\label{lemma:bessel_inequality}
     设$f\in L^2([0,T]),\ c_n=\displaystyle\frac{1}{T}\int_{T}f(t)\e^{-\im n\omega t}\,\dd t$，则
     \begin{equation}
         \sum_{n=-\infty}^{\infty}|c_n|^2\leq \frac{1}{T}\int_{T}|f(t)|^2\,\dd t=\frac{1}{T}\norm{f}_2^2.
@@ -98,7 +98,7 @@
 \end{proof}
 
 \subsection{分段光滑条件下的一致收敛性}\label{sub:uniform_converge}
-直接由狄利克雷条件证明逐点收敛性需要很专业的分析学工具，但我们可以适当地加强狄利克雷条件，以得到更直观、简单的结论\cite{folland}。分段光滑的定义，见\cref{def:piecewice_smooth}。
+直接由Dirichlet条件证明逐点收敛性需要很专业的分析学工具，但我们可以适当地加强Dirichlet条件，以得到更直观、简单的结论\cite{folland}。分段光滑的定义，见\cref{def:piecewice_smooth}。
 
 我们研究的多数函数是分段光滑的。分段光滑会带来一些额外的性质，例如，可以相对简单地证明逐点收敛性：
 \begin{theorem}[傅里叶级数的逐点收敛性]
@@ -124,11 +124,11 @@
             \frac{f(t_0+t)-f(t_0^+)}{\e^{\im\omega t}-1}, & \text{if } 0<t<\frac{T}{2}.
         \end{dcases}
     \end{equation}
-    由洛必达法则，$t\to 0$时，
+    由L'Hôpital法则，$t\to 0$时，
     \begin{equation}
         \lim_{t\to 0^+}g(t)=\lim_{t\to 0^+}\frac{f(t_0+t)-f(t_0^+)}{\e^{\im\omega t}-1}=\lim_{t\to 0^+}\frac{f'(t_0+t)}{\im\omega \e^{\im\omega t}}=\frac{f'(t_0^+)}{\im\omega},
     \end{equation}
-    $t\to 0^-$时同理。故$g$分段连续，当然是平方可积的，由贝塞尔不等式，$g(t)$的傅里叶系数平方和收敛，通项趋于$0$，$S_N^f(t_0)-(f(t_0^+)+f(t_0^-))/2=C_{-(N+1)}-C_N\to 0$，得证。
+    $t\to 0^-$时同理。故$g$分段连续，当然是平方可积的，由Bessel不等式，$g(t)$的傅里叶系数平方和收敛，通项趋于$0$，$S_N^f(t_0)-(f(t_0^+)+f(t_0^-))/2=C_{-(N+1)}-C_N\to 0$，得证。
 \end{proof}
 
 在分段光滑的条件下，容易得到$f'(t)$的傅里叶系数，注意微积分基本定理可以分区间使用：
@@ -157,7 +157,7 @@ $f$的原函数$F$的傅里叶系数同理，并且只要\textbf{分段连续}�
     \label{prop:integral_fourier_series}
     设周期函数$f(t)\in PS(\mathbb{R})$的基波角频率为$\omega$，三角形式的傅里叶系数为$\{a_n\}_{n=0}^\infty$和$\{b_n\}_{n=1}^\infty$，复指数形式的傅里叶系数为$\{c_n\}_{n\in\mathbb{Z}}$，且直流分量$a_0/2=c_0=0$，则其原函数$F$的对应的傅里叶系数为：
     \begin{equation}
-        A_n=\frac{a_n}{n\omega},\quad B_n=\frac{b_n}{n\omega},\quad C_n=\frac{c_n}{\im n\omega}.
+        A_n=-\frac{b_n}{n\omega},\quad B_n=\frac{a_n}{n\omega},\quad C_n=\frac{c_n}{\im n\omega}.
     \end{equation}
     直流分量$A_0/2=C_0$仅依赖于不定积分的常数$C$。
 \end{proposition}
@@ -173,7 +173,7 @@ $f$的原函数$F$的傅里叶系数同理，并且只要\textbf{分段连续}�
 %    对于函数项级数$\sum_{n=1}^{\infty}f_n(x)$，如果存在正项级数$\sum_{n=1}^{\infty}M_n<\infty$使得在区间E上$|f_n(x)|<M_n$，则$\sum_{n=1}^{\infty}f_n(x)$在E上绝对收敛且一致收敛。
 %\end{theorem}
 \begin{proof}
-    使用魏尔斯特拉斯M判别法，要证明一致收敛性，只需证明
+    使用Weierstrass M判别法，要证明一致收敛性，只需证明
     \begin{equation}
         \sum_{n=-\infty}^{\infty}|c_n \e^{\im n\omega t}|=\sum_{n=-\infty}^{\infty}|c_n|<\infty.
     \end{equation}
@@ -182,7 +182,7 @@ $f$的原函数$F$的傅里叶系数同理，并且只要\textbf{分段连续}�
         \sum_{n=-\infty}^{\infty}|c_n|&=|c_0|+\sum_{n\neq 0}\abs{\frac{c'_n}{n\omega}} \nonumber \\
         &\leq |c_0|+\frac{1}{\omega}\paren{\sum_{n\neq 0}\frac{1}{n^2}}^{1/2}\paren{\sum_{n\neq 0}|c'_n|^2}^{1/2}<\infty.
     \end{align}
-    最后一步使用了柯西-施瓦兹不等式。
+    最后一步使用了Cauchy-Schwarz不等式。
 \end{proof}
 
 请读者思考：我们探究了指数形式傅里叶级数收敛的条件，对于三角函数形式的傅里叶级数应该怎么办？
@@ -210,7 +210,7 @@ $f$的原函数$F$的傅里叶系数同理，并且只要\textbf{分段连续}�
         \max\abs{f(t)-S_N^f(t)}&=\max\abs{\sum_{k=N+1}^{\infty}c_k\e^{\im k\omega t}+\sum_{k=-\infty}^{-(N+1)}c_k\e^{\im k\omega t}} \nonumber \\
         &\leq\sum_{|k|>N}|c_k|=\sum_{|k|>N}\frac{|c_k^{(p)}|}{(k\omega)^p}.
     \end{align}
-    由柯西不等式可得：
+    由Cauchy不等式可得：
     \begin{align}
         \sum_{|k|>N}\frac{|c_k^{(p)}|}{(k\omega)^p}&\leq\paren{\sum_{|k|>N}\frac{1}{(k\omega)^{2p}}}^{1/2}\paren{\sum_{|k|>N}|c^{(p)}_k|^2}^{1/2} \nonumber \\
         &<\frac{1}{\omega^{p}}\paren{\sum_{|k|>N}\frac{1}{k^{2p}}}^{1/2}\paren{\sum_{k\in\mathbb{Z}}|c^{(p)}_k|^2}^{1/2}.

@@ -32,7 +32,7 @@
 \end{proposition}
 
 这种形式导数在其他方面也很像普通的导数，甚至可以说$z,\overline{z}$构成了一组新的坐标。例如：
-\begin{theorem}[莱布尼兹法则]
+\begin{theorem}[Leibniz法则]
     \begin{align}
         \frac{\partial}{\partial z}(fg)&=f\frac{\partial}{\partial z}g+g\frac{\partial}{\partial z}f,\\
         \frac{\partial}{\partial \overline{z}}(fg)&=f\frac{\partial}{\partial \overline{z}}g+g\frac{\partial}{\partial \overline{z}}f.
@@ -65,7 +65,7 @@
     \end{equation}
 \end{remark}
 \begin{definition}[全纯函数]
-    设开集$U\subset\mathbb{C}$，如果复值函数$f=u+\im v\in C^1(U)$满足$\displaystyle\frac{\partial f}{\partial \overline{z}}=0,\ \forall z\in U$，则称$f$为$U$上的\textbf{全纯函数}(holomorphic function)。这等价于$u,v$在$U$上满足\textbf{柯西-黎曼方程组}(Cauchy-Riemann equations)：
+    设开集$U\subset\mathbb{C}$，如果复值函数$f=u+\im v\in C^1(U)$满足$\displaystyle\frac{\partial f}{\partial \overline{z}}=0,\ \forall z\in U$，则称$f$为$U$上的\textbf{全纯函数}(holomorphic function)。这等价于$u,v$在$U$上满足\textbf{Cauchy-Riemann方程组}：
     \begin{equation}
         \begin{dcases}
             \frac{\partial u}{\partial x}=\frac{\partial v}{\partial y},\\
@@ -81,8 +81,8 @@
 \begin{equation}
     \lim_{\zeta\to z}\frac{f(\zeta)-f(z)}{\zeta-z}
 \end{equation}
-存在，即全纯等价于复可导性，并且由此定义的导数$\displaystyle f'(z)=\frac{\partial f}{\partial z}$；全纯函数还是无限阶可导的，其各阶导数也是全纯函数，并且全纯性等价于解析性，即其泰勒级数在收敛域内一定收敛于这个函数本身：
-\begin{definition}[复变函数的泰勒级数展开]
+存在，即全纯等价于复可导性，并且由此定义的导数$\displaystyle f'(z)=\frac{\partial f}{\partial z}$；全纯函数还是无限阶可导的，其各阶导数也是全纯函数，并且全纯性等价于解析性，即其Taylor级数在收敛域内一定收敛于这个函数本身：
+\begin{definition}[复变函数的Taylor级数展开]
     设$f$为开集$U\subset\mathbb{C}$上的全纯函数，$D(a,R)\subset U$，则$\forall z\in D(a,R)$，有
     \begin{equation}
         f(z)=\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(z-a)^n,
@@ -90,18 +90,18 @@
     其中$f^{(n)}(a)$表示$f$在$a$处的第$n$阶导数。
 \end{definition}
 
-以上定义其实隐含了一个很强的结论：只要$D(a,r)\subset U$，则$f$在$a$处的泰勒级数在$D(a,r)$上收敛于$f$，即泰勒级数的收敛半径恰为$f$在$a$处到$U$的边界的距离。
+以上定义其实隐含了一个很强的结论：只要$D(a,r)\subset U$，则$f$在$a$处的Taylor级数在$D(a,r)$上收敛于$f$，即Taylor级数的收敛半径恰为$f$在$a$处到$U$的边界的距离。
 \begin{example}
-    函数$\displaystyle f(z)=\frac{1}{1-z}$在$\mathbb{C}\backslash\{1\}$上全纯。将$f$展开为$z_0$处的泰勒级数，有
+    函数$\displaystyle f(z)=\frac{1}{1-z}$在$\mathbb{C}\backslash\{1\}$上全纯。将$f$展开为$z_0$处的Taylor级数，有
     \begin{equation}
         f(z)=\frac{1/(1-z_0)}{1-\frac{z-z_0}{1-z_0}}=\sum_{n=0}^{\infty}\frac{1}{(1-z_0)^{n+1}}(z-z_0)^n,
     \end{equation}
     收敛半径为$\abs{1-z_0}$，即$f$在$z_0$处到点$z=1$的距离。
 
-    我们马上将给出计算复幂级数收敛半径的方法，即柯西-阿达马公式，这时读者可以自行验证这个结果。
+    我们马上将给出计算复幂级数收敛半径的方法，即Cauchy-Hadamard公式，这时读者可以自行验证这个结果。
 \end{example}
 
-对实变函数，即便无限阶可导，泰勒级数也未必收敛于函数本身，即未必解析：
+对实变函数，即便无限阶可导，Taylor级数也未必收敛于函数本身，即未必解析：
 \begin{example}
     设
     \begin{equation}
@@ -110,11 +110,11 @@
             0, & \text{if}\ x\leq 0,
         \end{dcases}
     \end{equation}
-    则$f(x)$在$x=0$处各阶导数都是$0$，泰勒展开式也为$0$，收敛域为$\mathbb{R}$，但$f(x)\neq 0,\ x>0$，它不是解析函数。
+    则$f(x)$在$x=0$处各阶导数都是$0$，Taylor展开式也为$0$，收敛域为$\mathbb{R}$，但$f(x)\neq 0,\ x>0$，它不是解析函数。
 \end{example}
 
-数学分析中，我们学过幂级数收敛半径的求法，复变函数的泰勒级数也有类似的结论：
-\begin{theorem}[柯西-阿达马公式]
+数学分析中，我们学过幂级数收敛半径的求法，复变函数的Taylor级数也有类似的结论：
+\begin{theorem}[Cauchy-Hadamard公式]
     复幂级数
     \begin{equation}
         \sum_{n=0}^{\infty}c_n(z-a)^n
@@ -125,7 +125,7 @@
     \end{equation}
     这里的极限是广义极限，即允许$R=0$（仅在中心点收敛）或$R=\infty$（级数在整个复平面上收敛）。
 \end{theorem}
-在复幂级数的收敛域上，级数是绝对收敛且内闭一致收敛的。其本质还是与几何级数做比较，收敛半径与实幂级数的收敛半径求法一致，实幂级数的收敛半径可看作是复幂级数的收敛半径在实轴上的投影。使用柯西-阿达马公式求出的收敛半径与前面提到的“到不全纯区域的距离”总是一致的，读者可以对例5.1.1自行验算。
+在复幂级数的收敛域上，级数是绝对收敛且内闭一致收敛的。其本质还是与几何级数做比较，收敛半径与实幂级数的收敛半径求法一致，实幂级数的收敛半径可看作是复幂级数的收敛半径在实轴上的投影。使用Cauchy-Hadamard公式求出的收敛半径与前面提到的“到不全纯区域的距离”总是一致的，读者可以对例5.1.1自行验算。
 
 \subsection{复线积分}\label{sub:line_integral}
 在数学分析中，我们曾学过曲线积分，它对于复平面上的复变函数也有意义：
@@ -148,7 +148,7 @@
 实际上还能将曲线推广至分段一阶可导，即$\gamma\in PS[a,b]$，只要分区间使用微积分基本定理，就能得到与上面一致的结论，但为了叙述的简洁性，下面不再提及这一点。
 
 后续内容中，我们用符号$D(z_0,r)$表示复平面上以$z_0=x_0+\im y_0$为圆心，$r$为半径的开圆盘，即$D(z_0,r)=\{x+\im y\in\mathbb{C}\mid (x-x_0)^2+(y-y_0)^2<r\}$；用符号$\mathcal{A}_a(r,R)=\{z\in\mathbb{C}\mid r<|z-a|<R\}$表示以$a$为圆心，内半径$r$，外半径$R$的开圆环。
-\begin{theorem}[柯西积分公式]
+\begin{theorem}[Cauchy积分公式]
     设开集$U\subset\mathbb{C}$，$\gamma$为$C^1$闭曲线，且
     \begin{equation}
         f\in C^1(U),\quad D(z_0,r)\subset U,\quad \gamma:[a,b]\to D(z_0,r),
@@ -158,7 +158,7 @@
         \forall z\in D(z_0,r),\quad f(z)=\frac{1}{2\pi\im}\oint_{\gamma}\frac{f(\zeta)}{\zeta-z}\,\dd\zeta.
     \end{equation}
 \end{theorem}
-\begin{theorem}[柯西积分定理]
+\begin{theorem}[Cauchy积分定理]
     设$f$是单连通开集$U\subset\mathbb{C}$上的全纯函数，$\gamma(t)\in U$，则
     \begin{equation}
         \oint_{\gamma}f(z)\,\dd z=0.
@@ -179,7 +179,7 @@
 \end{remark}
 
 \begin{remark}*
-    对于了解微分形式的语言的读者，可以从柯西-黎曼方程看出全纯函数$f=u+\im v$相当于闭形式
+    对于了解微分形式的语言的读者，可以从Cauchy-Riemann方程看出全纯函数$f=u+\im v$相当于闭形式
     \begin{equation}
         u(x,y)\,\dd x+v(x,y)\,\dd y,
     \end{equation}
@@ -187,34 +187,34 @@
     \begin{equation}
         \dd\varphi=\frac{\partial\varphi}{\partial x}\,\dd x+\frac{\partial\varphi}{\partial y}\,\dd y=u\,\dd x+v\,\dd y.
     \end{equation}
-    另外，根据另一柯西-黎曼方程，$-v(x,y)\,\dd x+u(x,y)\,\dd y$也是闭形式、恰当形式，因此是某实函数$\psi$的外导数，即$\dd\psi=-v\,\dd x+u\,\dd y$。由于$\varphi,\psi$满足柯西-黎曼方程，可以定义全纯函数$g=\varphi+\im\psi$，$\displaystyle\frac{\partial g}{\partial z}=u-\im v$与$f$互为共轭复变函数，将$g$称为向量场$f$的\textbf{复势函数}(complex potential function)。如果取
+    另外，根据另一Cauchy-Riemann方程，$-v(x,y)\,\dd x+u(x,y)\,\dd y$也是闭形式、恰当形式，因此是某实函数$\psi$的外导数，即$\dd\psi=-v\,\dd x+u\,\dd y$。由于$\varphi,\psi$满足Cauchy-Riemann方程，可以定义全纯函数$g=\varphi+\im\psi$，$\displaystyle\frac{\partial g}{\partial z}=u-\im v$与$f$互为共轭复变函数，将$g$称为向量场$f$的\textbf{复势函数}(complex potential function)。如果取
     \begin{equation}
         \dd\psi=v\,\dd x-u\,\dd y,\quad g=\varphi+\im\psi,
     \end{equation}
     则$\displaystyle\frac{\partial g}{\partial z}=u+\im v=f$，即单连通开集上的全纯函数$f$总是某个全纯函数$g$的导数。
 \end{remark}
 
-\subsection{洛朗级数}\label{sub:laurant_series}
-对于$f(z)=1/z$这样的函数，它已经是很简洁的分式形式了，但它在$z=0$处并不是全纯函数，因此不能在包含$0$的开集上展开成泰勒级数。我们将破坏了全纯性的这种点称为\textbf{孤立奇点}(isolated singular point)，孤立表示它不构成奇点集的极限点。为了处理这种情况，我们引入\textbf{洛朗级数}：
+\subsection{Laurent级数}\label{sub:laurant_series}
+对于$f(z)=1/z$这样的函数，它已经是很简洁的分式形式了，但它在$z=0$处并不是全纯函数，因此不能在包含$0$的开集上展开成Taylor级数。我们将破坏了全纯性的这种点称为\textbf{孤立奇点}(isolated singular point)，孤立表示它不构成奇点集的极限点。为了处理这种情况，我们引入\textbf{Laurent级数}：
 
-\begin{definition}[洛朗级数]
+\begin{definition}[Laurent级数]
     设$a\in\mathbb{C}$，形如
     \begin{equation}
         \sum_{n=-\infty}^{\infty}c_n(z-a)^n
     \end{equation}
-    的级数称为以$a$为中心的\textbf{洛朗级数}，其收敛域记为ROC。
+    的级数称为以$a$为中心的\textbf{Laurent级数}，其收敛域记为ROC。
 
-    类似于无穷限积分，洛朗级数的收敛性是由它的正负幂次项部分和的二重极限给出的。将它的负幂次项部分视为$w=1/(z-a)$下的幂级数，则可用柯西-阿达马公式确定它的收敛域为圆环$\mathcal{A}_a(r,R)$，其中$r,R$分别称为洛朗级数的\textbf{外半径}(outer radius)和\textbf{内半径}(inner radius)，满足：
+    类似于无穷限积分，Laurent级数的收敛性是由它的正负幂次项部分和的二重极限给出的。将它的负幂次项部分视为$w=1/(z-a)$下的幂级数，则可用Cauchy-Hadamard公式确定它的收敛域为圆环$\mathcal{A}_a(r,R)$，其中$r,R$分别称为Laurent级数的\textbf{外半径}(outer radius)和\textbf{内半径}(inner radius)，满足：
     \begin{equation}
         r=\varlimsup_{n\to\infty}\abs{c_{-n}}^{1/n},\quad R=\paren{\varlimsup_{n\to\infty}\abs{c_n}^{1/n}}^{-1}.
     \end{equation}
-    在$\ROC=\mathcal{A}_a(r,R)$上，洛朗级数是绝对收敛且内闭一致收敛的。
+    在$\ROC=\mathcal{A}_a(r,R)$上，Laurent级数是绝对收敛且内闭一致收敛的。
 \end{definition}
-事实上，对任意的全纯函数$f:U\to\mathbb{C}$，及孤立奇点$a\in U$，$f$在$a$处存在且有唯一的洛朗级数展开式。
+事实上，对任意的全纯函数$f:U\to\mathbb{C}$，及孤立奇点$a\in U$，$f$在$a$处存在且有唯一的Laurent级数展开式。
 
-对于正幂次项部分，我们已经在\refsub{derivative_and_holomorphic}中指出，收敛半径$R$恰为参考点$a$到距它最近的奇点的距离，而负幂次项部分作为$w=1/(z-a)$的泰勒级数，也具有类似的性质，然而洛朗级数的奇点同时包括正、负幂次项两部分的奇点，因此，\textbf{收敛域$\mathcal{A}_a(r,R)$总是存在洛朗级数的奇点，但当存在多种可能的收敛域时，就不能仅靠奇点位置找出收敛域了}。
+对于正幂次项部分，我们已经在\refsub{derivative_and_holomorphic}中指出，收敛半径$R$恰为参考点$a$到距它最近的奇点的距离，而负幂次项部分作为$w=1/(z-a)$的Taylor级数，也具有类似的性质，然而Laurent级数的奇点同时包括正、负幂次项两部分的奇点，因此，\textbf{收敛域$\mathcal{A}_a(r,R)$总是存在Laurent级数的奇点，但当存在多种可能的收敛域时，就不能仅靠奇点位置找出收敛域了}。
 
-借助洛朗级数的一致收敛性，可以建立一个对柯西积分公式的直观认识：记
+借助Laurent级数的一致收敛性，可以建立一个对Cauchy积分公式的直观认识：记
 \begin{equation}
     f_n(z)=1/z^n,\quad n\in\mathbb{Z},
 \end{equation}
@@ -236,20 +236,20 @@
     \end{dcases}
 \end{align}
 
-为了验证柯西积分公式
+为了验证Cauchy积分公式
 \begin{equation}
     f(z)=\frac{1}{2\pi\im}\oint_{\gamma}\frac{f(\zeta)}{\zeta-z}\,\dd\zeta,\quad \gamma:t\mapsto z+r\e^{\im t},\ t\in[0,2\pi],
 \end{equation}
-将$f$展开为$z$处的洛朗级数$f(\zeta)=\sum_{n=0}^{\infty}c_n(\zeta-z)^n$，由于洛朗级数在闭曲线$\gamma$上一致收敛，可以交换求和与积分的次序，得到
+将$f$展开为$z$处的Laurent级数$f(\zeta)=\sum_{n=0}^{\infty}c_n(\zeta-z)^n$，由于Laurent级数在闭曲线$\gamma$上一致收敛，可以交换求和与积分的次序，得到
 \begin{align}
     \oint_{\gamma}\frac{f(\zeta)}{\zeta-z}\,\dd\zeta&=\oint_{\gamma}\sum_{n=0}^{\infty}c_n(\zeta-z)^{n-1}\,\dd\zeta\nonumber\\
     &=\sum_{n=0}^{\infty}c_n\oint_{\gamma}(\zeta-z)^{n-1}\,\dd\zeta\nonumber\\
     &=2\pi\im c_0=2\pi\im f(z).
 \end{align}
 
-多数情况下，洛朗级数的负幂次项并不真正构成级数，即负幂次项仅仅由有限项构成，因此内半径必为$0$，即只要外半径$R>0$，洛朗级数就在展开点的去心邻域内收敛。例如$f(z)=1/z$在$0$处的展开式就是它本身，收敛域为$\mathcal{A}_0(0,\infty)=\mathbb{C}^*$。根据负幂次项是否存在、是否构成级数，我们可以将孤立奇点分为三类：
+多数情况下，Laurent级数的负幂次项并不真正构成级数，即负幂次项仅仅由有限项构成，因此内半径必为$0$，即只要外半径$R>0$，Laurent级数就在展开点的去心邻域内收敛。例如$f(z)=1/z$在$0$处的展开式就是它本身，收敛域为$\mathcal{A}_0(0,\infty)=\mathbb{C}^*$。根据负幂次项是否存在、是否构成级数，我们可以将孤立奇点分为三类：
 \begin{definition}[孤立奇点的分类]\label{def:singular_point}
-    设$f$在开集$U\subset\mathbb{C}$上全纯，$a$为$f$的孤立奇点，$f$在$a$处的洛朗级数展开式为
+    设$f$在开集$U\subset\mathbb{C}$上全纯，$a$为$f$的孤立奇点，$f$在$a$处的Laurent级数展开式为
     \begin{equation}
         f(z)=\sum_{n=-\infty}^{\infty}c_n(z-a)^n,
     \end{equation}
@@ -264,23 +264,23 @@
     $f(z)=\e^{1/z}$在$0$处有本性奇点，$f(z)=1/\sin(\pi z)$在$z=n,\ n\in\mathbb{Z}$处有简单极点，$\displaystyle f(z)=\frac{\sin z}{z}$在$0$处有可去奇点。
 \end{example}
 
-类似地也可以根据泰勒级数或等价无穷小量定义全纯函数的若干阶的零点，不过这不属于我们讨论的范围。
+类似地也可以根据Taylor级数或等价无穷小量定义全纯函数的若干阶的零点，不过这不属于我们讨论的范围。
 
-柯西积分公式中，$\displaystyle\frac{f(\zeta)}{\zeta-z}$这一结构相当于为$f(\zeta)$添加了一个简单极点。\textbf{留数定理}(residue theorem)就是描述复线积分的值与被积函数在闭曲线内部的“$1/z$”系数关系的定理：
+Cauchy积分公式中，$\displaystyle\frac{f(\zeta)}{\zeta-z}$这一结构相当于为$f(\zeta)$添加了一个简单极点。\textbf{留数定理}(residue theorem)就是描述复线积分的值与被积函数在闭曲线内部的“$1/z$”系数关系的定理：
 \begin{theorem}[留数定理]
     设$f$为开集$U\subset\mathbb{C}$上的全纯函数，$a_1,a_2,\cdots,a_n$为$f$在$U$内的极点，$\gamma:[a,b]\to U$为包含所有$a_k$的$C^1$闭曲线，则
     \begin{equation}
         \oint_{\gamma}f(z)\,\dd z=2\pi\im\sum_{k=1}^{n}\Res(f,a_k)\mathrm{Ind}_{\gamma}(a_k),
     \end{equation}
-    其中$\Res(f,a_k)$称为$f$在$a_k$处的\textbf{留数}(residue)，它等于$f$在$a_k$处洛朗级数展开式中$(z-a_k)^{-1}$项的系数；$\mathrm{Ind}_{\gamma}(a_k)$称为$\gamma$绕点$a_k$的\textbf{环绕数}(winding number)，它表示$\gamma$绕$a_k$转了多少圈。
+    其中$\Res(f,a_k)$称为$f$在$a_k$处的\textbf{留数}(residue)，它等于$f$在$a_k$处Laurent级数展开式中$(z-a_k)^{-1}$项的系数；$\mathrm{Ind}_{\gamma}(a_k)$称为$\gamma$绕点$a_k$的\textbf{环绕数}(winding number)，它表示$\gamma$绕$a_k$转了多少圈。
 \end{theorem}
 注意计算环绕数时，以逆时针为正向，例如$\gamma(t)=\e^{\im t},\ t\in[0,2\pi]$绕原点的环绕数为$1$，而$\gamma(t)=\e^{-\im t},\ t\in[0,2\pi]$绕原点的环绕数为$-1$。希望了解环绕数严格定义的读者可以参考复变函数或拓扑学的教材。在留数定理的语境下又将积分路径称为\textbf{围道}(contour)。
 
-要找到$f$在极点$a$处的留数的计算公式，可以将$f$视同其在$a$处的洛朗级数展开式：
+要找到$f$在极点$a$处的留数的计算公式，可以将$f$视同其在$a$处的Laurent级数展开式：
 \begin{equation}
     f(z)=\sum_{n=-k}^{\infty}c_n(z-a)^n,
 \end{equation}
-这里假设$a$为$f$的$k$阶极点。在处理泰勒级数时，我们在$f(x)=\sum_{n=0}^{\infty}a_n x^n$中两边同时对$x$求导再令$x=0$，得到$f^{(m)}(0)=m!a_m$。类似地，在处理洛朗级数时，我们可以将其乘以$(z-a)^k$从而化归到泰勒级数：
+这里假设$a$为$f$的$k$阶极点。在处理Taylor级数时，我们在$f(x)=\sum_{n=0}^{\infty}a_n x^n$中两边同时对$x$求导再令$x=0$，得到$f^{(m)}(0)=m!a_m$。类似地，在处理Laurent级数时，我们可以将其乘以$(z-a)^k$从而化归到Taylor级数：
 \begin{equation}
     (z-a)^k f(z)=\sum_{n=0}^{\infty}c_{n-k}(z-a)^n,
 \end{equation}

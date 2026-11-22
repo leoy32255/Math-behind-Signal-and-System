@@ -83,7 +83,7 @@
     \end{equation}
 \end{definition}
 
-互能量积分的存在性由$L^2$中的柯西—施瓦茨不等式保证；互功率极限的存在性则已由平均正交性证明。
+互能量积分的存在性由$L^2$中的Cauchy-Schwarz不等式保证；互功率极限的存在性则已由平均正交性证明。
 
 在$\mathcal{P}$上定义\textbf{内积}：
 \begin{equation}
@@ -100,7 +100,7 @@
     =\paren{\sum_{\xi\in\Lambda}|a_\xi|^2}^{1/2}.
 \end{equation}
 
-柯西—施瓦茨不等式给出
+Cauchy-Schwarz不等式给出
 \begin{equation}
     |P_{fg}|\le\sqrt{P_fP_g}.
 \end{equation}
@@ -147,7 +147,7 @@
 
 简便起见，本小节中，我们将使用频率形式的傅里叶变换。
 
-对于能量信号$f\in L^2(\mathbb{R})$，如果它还是绝对可积的，即$f\in L^1(\mathbb{R})$，则它的傅里叶变换$F(\xi)$存在，并且满足帕塞瓦尔定理（\cref{thm:plancherel}）：
+对于能量信号$f\in L^2(\mathbb{R})$，如果它还是绝对可积的，即$f\in L^1(\mathbb{R})$，则它的傅里叶变换$F(\xi)$存在，并且满足Parseval定理（\cref{thm:plancherel}）：
 \begin{equation}
     \int_{-\infty}^{\infty}|f(t)|^2\,\dd t=\int_{-\infty}^{\infty}|F(\xi)|^2\,\dd\xi,
 \end{equation}
@@ -169,11 +169,11 @@
 \end{definition}
 前者表示能量在频率上的分布，其积分是总能量；后者的积分是互能量，通常为复数。
 
-对于$f\in \mathcal{P}$，为了使用帕塞瓦尔定理，可以考虑功率信号的截短。本小节中，总是用记号$f_T$来表示时域功率信号$f$的截短：
+对于$f\in \mathcal{P}$，为了使用Parseval定理，可以考虑功率信号的截短。本小节中，总是用记号$f_T$来表示时域功率信号$f$的截短：
 \begin{equation}
     f_T(t)=f(t)\chi_{[-T/2,T/2]}.
 \end{equation}
-由于$f$有界，$f_T(t)\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，因此可以定义它的傅里叶变换，记为$F_T(\xi)$。对$f_T(t)$使用帕塞瓦尔定理，有：
+由于$f$有界，$f_T(t)\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，因此可以定义它的傅里叶变换，记为$F_T(\xi)$。对$f_T(t)$使用Parseval定理，有：
 \begin{equation}
     E_{f_T}=\int_{\mathbb{R}}|f_T(t)|^2\,\dd t=\int_{\mathbb{R}}|F_T(\xi)|^2\,\dd\xi.
 \end{equation}
@@ -189,7 +189,7 @@
 
 然而，这样定义的功率谱密度不仅计算流程复杂，而且极限$\displaystyle \lim_{T\to\infty}\frac{1}{T}|F_T(\xi)|^2$未必存在，积分与极限的换序也未必合法。
 
-前面已经说明，$\mathcal{P}$中函数的相关仍属于$\mathcal{P}$，其傅里叶变换（在分布的意义下）是存在的，因此，我们不妨直接扩展帕塞瓦尔定理的适用范围，定义：
+前面已经说明，$\mathcal{P}$中函数的相关仍属于$\mathcal{P}$，其傅里叶变换（在分布的意义下）是存在的，因此，我们不妨直接扩展Parseval定理的适用范围，定义：
 
 \begin{definition}[功率谱密度]
     设功率信号$f,g\in\mathcal{P}$，则$f$的\textbf{功率谱密度}(power spectral density, PSD)为
@@ -248,7 +248,7 @@
 
 下面证明，刚才定义的功率谱也是有限时间截短所得能量谱除以窗口长度后的分布极限，从而将相关函数的定义与实际的有限时间观察联系起来。
 
-\begin{theorem}[功率信号的维纳-辛钦定理]\label{thm:power_winner_khinchin}
+\begin{theorem}[功率信号的Wiener-Khinchin定理]\label{thm:power_winner_khinchin}
     设$f,g\in\mathcal{P}$，记
     \begin{equation}
         I_T=[-T/2,T/2],\qquad f_T=f\chi_{I_T},\quad g_T=g\chi_{I_T},
@@ -291,7 +291,7 @@
     \end{equation}
     这就证明了$q_T\to R_{fg}$在缓增分布的意义下成立。
 
-    另一方面，$f_T,g_T\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，由能量信号的维纳-辛钦定理（\cref{thm:winner-khinchin}），
+    另一方面，$f_T,g_T\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，由能量信号的Wiener-Khinchin定理（\cref{thm:winner-khinchin}），
     \begin{equation}
         \mathcal{F}q_T=\frac{F_T\overline{G_T}}{T}.
     \end{equation}
@@ -364,7 +364,7 @@
     \begin{equation}
         |M_n-(-1)^n|\le\frac{2A_n}{A_{n+1}}\to 0,\quad n\to\infty.
     \end{equation}
-    因此互功率沿两条子列分别趋于$1$和$-1$，极限不存在。可见柯西—施瓦茨不等式只能说明这些平均值的模不超过$1$，不能保证它们收敛。
+    因此互功率沿两条子列分别趋于$1$和$-1$，极限不存在。可见Cauchy-Schwarz不等式只能说明这些平均值的模不超过$1$，不能保证它们收敛。
     \begin{equation}
         \frac{1}{T}\int_{-T/2}^{T/2}|f(t)+g(t)|^2\,\dd t=\frac{1}{T}\int_{-T/2}^{T/2}(f^2(t)+2f(t)g(t)+g^2(t))\,\dd t=2+\frac{2}{T}\int_{-T/2}^{T/2}g(t)\,\dd t,
     \end{equation}

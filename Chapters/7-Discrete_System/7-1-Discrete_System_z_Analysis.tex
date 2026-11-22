@@ -1,5 +1,5 @@
 % !TeX root = ../../MainBook.tex
-\section{离散系统与$z$域分析}\label{sec:Discrete_System_z_Analysis}
+\section{离散系统与z域分析}\label{sec:Discrete_System_z_Analysis}
 
 %本节中，我们将介绍离散系统的基本特性，并介绍由z变换引出的离散系统的系统函数，以及由系统函数引出的离散系统的频率响应和相位响应等概念。
 
@@ -34,7 +34,7 @@
         \begin{equation}
             H^{-1}r[n]=e[n]
         \end{equation}
-        \item \textbf{马尔可夫性}：只要知道了$n=n_0$时刻的系统状态，未来的响应$r[n]\ (n>n_0)$就与过去的激励$e[n]\ (n<n_0)$无关。
+        \item \textbf{Markov性}：只要知道了$n=n_0$时刻的系统状态，未来的响应$r[n]\ (n>n_0)$就与过去的激励$e[n]\ (n<n_0)$无关。
         \item \textbf{即时性}与\textbf{记忆性}：如果该系统在任意时刻$n$的状态完全且唯一地取决于该时刻的系统状态与激励，而不显式地依赖于任何过去时刻$n'<n$的系统状态或历史激励，则称该系统为即时的；否则称该系统为有记忆的。
     \end{itemize}
 \end{definition}
@@ -101,7 +101,7 @@
     \end{equation}
 \end{definition}
 
-离散系统与连续系统的系统函数分析方法是类似的：一般来说，我们考虑的离散系统的系统函数为有理函数，可以绘制系统函数的零极点图，并通过它来分析系统的滤波特性、稳定性、因果性等时域特性；此外，\textbf{系统流图与梅森增益公式对于离散系统仍然适用}，系统的串联（级联）、并联与反馈的定义与连续系统完全一致，信号流图的标准型也仍然适用于离散系统，因此\refsec{Signal_Flow_Graph}中的内容不再单独讨论。
+离散系统与连续系统的系统函数分析方法是类似的：一般来说，我们考虑的离散系统的系统函数为有理函数，可以绘制系统函数的零极点图，并通过它来分析系统的滤波特性、稳定性、因果性等时域特性；此外，\textbf{系统流图与Mason增益公式对于离散系统仍然适用}，系统的串联（级联）、并联与反馈的定义与连续系统完全一致，信号流图的标准型也仍然适用于离散系统，因此\refsec{Signal_Flow_Graph}中的内容不再单独讨论。
 
 与连续系统不同的是，连续系统的分析通常使用双边拉普拉斯变换，其收敛域是带状区域$\sigma_c<\Re(s)<\Sigma_c$；而离散系统的分析通常使用双边z变换，其收敛域是环状区域$r<|z|<R$。%这使得离散系统的稳定性的z域判则不同于连续系统。
 
@@ -122,7 +122,7 @@
     对于离散系统，如果它是因果的，那么对于任意激励信号$e[n]$，响应$r[n]$都满足$r[n]=0,\ n<0$，因此单位脉冲响应也满足$h[n]=0,\ n<0$；反之，如果单位脉冲响应满足$h[n]=0,\ n<0$，则对于任意激励信号$e[n]$，响应$r[n]=(h*e)[n]$在$n<0$时为$0$，因此系统是因果的。
 \end{proof}
 
-\begin{proposition}[因果性的$z$域判则]\label{prop:causal_z}
+\begin{proposition}[因果性的z域判则]\label{prop:causal_z}
     一个离散系统是因果系统当且仅当其系统函数的收敛域包含$\infty$。
 \end{proposition}
 
@@ -144,10 +144,18 @@
     \end{align}
     即$r\in l^{\infty}(\mathbb{Z})$，系统是稳定的。
 
-    另一方面，设$h$不是绝对可和的，取有界激励信号$e[n]=\sgn(h[-n])$，则
+    另一方面，设$h$不是绝对可和的，取有界激励信号
+    \begin{equation}
+        e[n]=\begin{dcases}
+            \frac{\overline{h[-n]}}{\abs{h[-n]}}, & h[-n]\neq 0, \\
+            0, & h[-n]=0,
+        \end{dcases}
+    \end{equation}
+    则
     \begin{align}
         |r[0]|&=|(h*e)[0]| \nonumber \\
         &=\abs{\sum_{m=-\infty}^{\infty}h[m]e[-m]} \nonumber \\
+        &=\abs{\sum_{m\in\mathbb{Z},h[m]\neq 0}h[m]\frac{\overline{h[m]}}{\abs{h[m]}}} \nonumber \\
         &=\sum_{m=-\infty}^{\infty}|h[m]| \nonumber \\
         &=\norm{h}_1=\infty.
     \end{align}
@@ -156,7 +164,7 @@
 
 对稳定性的时域判据做z变换，立即得到：
 
-\begin{proposition}[稳定性的$z$域判则]\label{prop:stability_z}
+\begin{proposition}[稳定性的z域判则]\label{prop:stability_z}
     一个离散系统是稳定系统当且仅当其系统函数的收敛域包含单位圆。
 \end{proposition}
 

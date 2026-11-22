@@ -75,7 +75,7 @@
         \Sa(t)=\frac{\sin(t)}{t}.
     \end{equation}
 \end{definition}
-它在0处连续延拓为1，在$\pi$的整数倍处为0，是偶函数，在正半轴上的积分值为$\pi /2$（这个结果称为狄利克雷积分）。国外教材中采样函数一般为一个类似的函数
+它在0处连续延拓为1，在$\pi$的整数倍处为0，是偶函数，在正半轴上的积分值为$\pi /2$（这个结果称为Dirichlet积分）。国外教材中采样函数一般为一个类似的函数
 \begin{equation}
     \sinc(t)=\frac{\sin(\pi t)}{\pi t}=\Sa(\pi t).
 \end{equation}
@@ -86,7 +86,7 @@
     \end{equation}
     $\tau$为衰减速率或时间常数，$\tau$越大，函数值衰减越慢。
 \end{definition}
-\begin{definition}[单位脉冲函数/狄拉克函数]\label{def:delta}
+\begin{definition}[单位脉冲函数/Dirac函数]\label{def:delta}
     \begin{equation}
         \delta(x)=\begin{dcases}
             0,      & x\neq 0, \\
@@ -104,7 +104,7 @@
 \begin{equation}
     \int_{-\infty}^{\infty}\delta(ax)\,\dd(ax)=a\int_{-\infty}^{\infty}\delta(y)\,\dd y=a.
 \end{equation}
-我们规定，$\delta_a(x)=\delta(x-a)$，即在$x=a$处采样的狄拉克函数。
+我们规定，$\delta_a(x)=\delta(x-a)$，即在$x=a$处采样的Dirac函数。
 
 \begin{definition}[单位阶跃函数]
     \begin{equation}
@@ -123,7 +123,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Figure_1}
-    \caption{采样函数、高斯函数、狄拉克函数、单位阶跃函数}
+    \caption{采样函数、高斯函数、Dirac函数、单位阶跃函数}
 \end{figure}
 
 这个函数在0处的值可以任意定义，一般取0、1或$1/2$，不会有影响，所以一般也不会讨论。
@@ -140,9 +140,9 @@
 
 例如，一个幅值为1、存在于区间$[a,b]$上的矩形波可以表示为$\chi_{[a,b]}(x)$。在多数信号与系统的教材中，这类函数通常会使用其他的符号来定义，例如$R_T(t),\ G_T(t)$等，但都不如特征函数的符号意义清晰。
 
-我们将在实变函数的理论中用到它。例如，狄利克雷函数$D(x)$可表示为$\chi_{\mathbb{Q}}(x)$。概率论中会定义连续性随机变量的特征函数(characteristic function)，指随机变量的矩母函数的傅里叶变换，本书中不会用到它，请读者注意它们的区别。
+我们将在实变函数的理论中用到它。例如，Dirichlet函数$D(x)$可表示为$\chi_{\mathbb{Q}}(x)$。概率论中会定义连续性随机变量的特征函数(characteristic function)，指随机变量的矩母函数的傅里叶变换，本书中不会用到它，请读者注意它们的区别。
 
-单位阶跃函数的积分为单位斜变函数(the unit ramp)，导数为狄拉克函数，从直观上这不难理解，在学习\refsub{general_distributions}之后，很容易自行验证它。
+单位阶跃函数的积分为单位斜变函数(the unit ramp)，导数为Dirac函数，从直观上这不难理解，在学习\refsub{general_distributions}之后，很容易自行验证它。
 
 \begin{definition}[单边指数函数和双边指数函数]\label{def:exp}
     \begin{equation}
@@ -162,7 +162,7 @@
 \end{definition}
 
 \subsubsection{序列}
-\begin{definition}[单位脉冲序列/克罗内克$\delta$函数]
+\begin{definition}[单位脉冲序列/Kronecker $\delta$函数]
     \begin{equation}
         \delta[n]=\begin{dcases}
             1, & \text{if }n=0,     \\
@@ -177,7 +177,7 @@
         0, & \text{if }n\neq 0.
     \end{dcases}
 \end{equation}
-它与狄拉克$\delta$函数一样，都具有采样性质：$x[n]\delta_k[n]=x[k]\delta_k[n],\ \forall n$。
+它与Dirac $\delta$函数一样，都具有采样性质：$x[n]\delta_k[n]=x[k]\delta_k[n],\ \forall n$。
 \begin{definition}[单位阶跃序列]
     \begin{equation}
         u[n]=\begin{dcases}

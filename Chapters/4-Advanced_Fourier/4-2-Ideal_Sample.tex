@@ -34,20 +34,20 @@
     \end{align}
 \end{proof}
 
-\subsection{香农采样定理}\label{sub:shannon}
+\subsection{Shannon采样定理}\label{sub:shannon}
 本小节以及下一小节旨在说明以下定理：
-\begin{theorem}[香农采样定理]
-    如果已知信号的频谱支于$[-\nu_m,\nu_m]$，则采样频率必须大于$2\nu_m$，即奈奎斯特频率$f_N$，才能还原出原信号\cite{brad_osgood_ee261}。
+\begin{theorem}[Shannon采样定理]
+    如果已知信号的频谱支于$[-\nu_m,\nu_m]$，则采样频率必须大于$2\nu_m$，即Nyquist频率$f_N$，才能还原出原信号\cite{brad_osgood_ee261}。
 \end{theorem}
-有时将奈奎斯特频率称为信号的\textbf{带宽}(bandwidth)，但在另一些语境下，实信号的带宽不考虑负频率，值为奈奎斯特频率的一半。
+有时将Nyquist频率称为信号的\textbf{带宽}(bandwidth)，但在另一些语境下，实信号的带宽不考虑负频率，值为Nyquist频率的一半。
 
-香农采样定理基于以下事实：
+Shannon采样定理基于以下事实：
 \begin{theorem}[采样定理]
     设带限函数$f$的频谱支于$[-\nu_m,\nu_m]$，则有
     \begin{equation}
         \mathcal{F}f(x)=\chi_{[-\nu_m,\nu_m]}(\mathcal{F}f*\shah_{1/T})(x),
     \end{equation}
-    其中$f_s=1/T\geq 2\nu_m$为采样频率，$T$为采样间隔，临界的采样频率$f_N=2\nu_m$被称为\textbf{奈奎斯特频率}(Nyquist frequency)。
+    其中$f_s=1/T\geq 2\nu_m$为采样频率，$T$为采样间隔，临界的采样频率$f_N=2\nu_m$被称为\textbf{Nyquist频率}。
 \end{theorem}
 
 采样频率、采样间隔的名称及关系，来自于\refsub{fourier_of_dirac_comb}中提出的关键观点：\textbf{在时域以$f_s=1/T$进行采样，在频域上表现为以$1/T$为周期进行周期化}。这一事实实质上就是将频谱先周期化再截取低频成分。
@@ -60,23 +60,23 @@
     &=2\nu_m T\sinc(2\nu_m t)*\paren{\sum_{k=-\infty}^{\infty}f(kT)\delta_{kT}}(t)\nonumber\\
     &=2\nu_m T\sum_{k=-\infty}^{\infty}f(kT)\sinc\paren{2\nu_m (t-kT)}.
 \end{align}
-如果令采样频率$f_s$等于奈奎斯特频率$f_N=2\nu_m$，就得到\textbf{香农采样定理}(Shannon Sampling theorem)：
-\begin{theorem}[香农采样定理]
+如果令采样频率$f_s$等于Nyquist频率$f_N=2\nu_m$，就得到\textbf{Shannon采样定理}：
+\begin{theorem}[Shannon采样定理]
     设带限函数$f$的频谱支于$[-\nu_m,\nu_m]$，$\forall \displaystyle\frac{1}{T}\geq f_N=2\nu_m$，有
     \begin{equation}
         f(t)=2\nu_m T\sum_{k=-\infty}^{\infty}f(kT)\sinc\paren{2\nu_m (t-kT)}\xlongequal{f_s=2\nu_m} \sum_{k=-\infty}^{\infty}f(kT)\sinc\paren{f_s(t-kT)}.
     \end{equation}
 \end{theorem}
-当$T$表示采样周期时，$1/T=f_s$为采样频率，于是这一定理表明：\textbf{对于采样率足够的理想采样，可以由采样函数恢复出原函数}。这种插值方式与上一节中讨论的拉格朗日插值有一定的相似之处。采样函数$\sinc$在非零整数点处的值为$0$，在$0$处的值为$1$，于是可以直接利用每个数据点处的值限定所还原出信号在这一点的值，换言之，在以下这种公式所代表的插值方式下，数据点处的值是不会产生偏移的，$\Sa$函数同理。不同的是，拉格朗日插值法在数据点以外的位置往往会有误差，而以上插值方法在没有产生混叠现象时是精确的。
+当$T$表示采样周期时，$1/T=f_s$为采样频率，于是这一定理表明：\textbf{对于采样率足够的理想采样，可以由采样函数恢复出原函数}。这种插值方式与上一节中讨论的Lagrange插值有一定的相似之处。采样函数$\sinc$在非零整数点处的值为$0$，在$0$处的值为$1$，于是可以直接利用每个数据点处的值限定所还原出信号在这一点的值，换言之，在以下这种公式所代表的插值方式下，数据点处的值是不会产生偏移的，$\Sa$函数同理。不同的是，Lagrange插值法在数据点以外的位置往往会有误差，而以上插值方法在没有产生混叠现象时是精确的。
 
-必须指出，工程上很少使用香农采样定理还原信号，它仅仅指出采样不丢失模拟信号信息的最低要求。在\refsub{finite_sampling}的\cref{exmp:finite_sum}中，我们将看到物理可实现的有限项模拟信号求和
+必须指出，工程上很少使用Shannon采样定理还原信号，它仅仅指出采样不丢失模拟信号信息的最低要求。在\refsub{finite_sampling}的\cref{exmp:finite_sum}中，我们将看到物理可实现的有限项模拟信号求和
 \begin{equation}
     \sum_{k=-N}^{N}f(kT)\sinc\paren{f_s(t-kT)}
 \end{equation}
-可能会出现吉布斯现象。此外函数在时刻$t$的值要依赖于后续的采样点$f(kT)\ (kT>t)$，本质上这是在频域上通过理想滤波器$\chi_{[-\nu_m,\nu_m]}$非因果导致的，这使得我们无法进行实时的信号恢复。工程上，通常采用的插值方式例如零阶采样保持、线性插值等，都要求\textbf{采样率远高于奈奎斯特频率}，这样才能使得模拟信号失真不明显。
+可能会出现Gibbs现象。此外函数在时刻$t$的值要依赖于后续的采样点$f(kT)\ (kT>t)$，本质上这是在频域上通过理想滤波器$\chi_{[-\nu_m,\nu_m]}$非因果导致的，这使得我们无法进行实时的信号恢复。工程上，通常采用的插值方式例如零阶采样保持、线性插值等，都要求\textbf{采样率远高于Nyquist频率}，这样才能使得模拟信号失真不明显。
 
 \subsection{混叠现象}\label{sub:alias}
-我们已经说明了采样率不低于奈奎斯特频率时的信号还原方法，下面来说明为什么奈奎斯特频率是极限情况。直观上，采样频率越高，所需要的成本就越高，提供的信息就越多，而如果采样频率低于$f_N$，将发生\textbf{混叠}(alias)现象，还原所得的信号将产生失真。下图展示了正弦波的混叠：
+我们已经说明了采样率不低于Nyquist频率时的信号还原方法，下面来说明为什么Nyquist频率是极限情况。直观上，采样频率越高，所需要的成本就越高，提供的信息就越多，而如果采样频率低于$f_N$，将发生\textbf{混叠}(alias)现象，还原所得的信号将产生失真。下图展示了正弦波的混叠：
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{cos.jpeg}
@@ -87,7 +87,7 @@
 \begin{equation}
     \mathcal{F}\sbr{f\cdot\shah_{1/T}}(\xi)=\mathcal{F}f(\xi)*\mathcal{F}\shah_{1/T}(\xi)=\mathcal{F}f(\xi)*T\shah_{T}(\xi)=T\sum_{k=-\infty}^{\infty}\mathcal{F}f\paren{\xi-\frac{k}{T}}.
 \end{equation}
-这就是我们反复强调的：在时域以$f_s=1/T$进行采样，在频域上表现为以$1/T$为周期进行周期化。如果采样频率不低于奈奎斯特频率$f_N=2\nu_m$，则频谱在周期化的过程中未发生交叠，可以用特征函数$\chi_{[-\nu_m,\nu_m]}$还原；而如果采样频率$f_s$低于奈奎斯特频率$f_N$，则周期化后的频谱会发生重叠，如图所示：
+这就是我们反复强调的：在时域以$f_s=1/T$进行采样，在频域上表现为以$1/T$为周期进行周期化。如果采样频率不低于Nyquist频率$f_N=2\nu_m$，则频谱在周期化的过程中未发生交叠，可以用特征函数$\chi_{[-\nu_m,\nu_m]}$还原；而如果采样频率$f_s$低于Nyquist频率$f_N$，则周期化后的频谱会发生重叠，如图所示：
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{alias.jpeg}
@@ -98,11 +98,11 @@
 \begin{equation}
     f(t)=\sum_{k=-\infty}^{\infty}f(kT)\sinc\paren{\frac{1}{T}(t-kT)}
 \end{equation}
-还原函数当然是有误差的，乘以$\chi_{[-\nu_m,\nu_m]}$，会丢掉一部分原有频谱，并叠加一部分平移后的频谱。这就是混叠现象的原理，它构成香农采样定理的另一部分，即\textbf{采样频率必须不低于奈奎斯特频率才能无失真地还原信号}。
+还原函数当然是有误差的，乘以$\chi_{[-\nu_m,\nu_m]}$，会丢掉一部分原有频谱，并叠加一部分平移后的频谱。这就是混叠现象的原理，它构成Shannon采样定理的另一部分，即\textbf{采样频率必须不低于Nyquist频率才能无失真地还原信号}。
 
 \subsection{*有限采样公式}\label{sub:finite_sampling}
 
-使用香农采样定理要求有无穷多个采样点，这是不可实现的。工程上，常假设实际信号是带限的，并且只关注有限的时间范围。我们不妨认为信号支于这个时间区间，这样就能借助有限采样公式，利用有限的采样点数还原局部的信号（的周期延拓）。
+使用Shannon采样定理要求有无穷多个采样点，这是不可实现的。工程上，常假设实际信号是带限的，并且只关注有限的时间范围。我们不妨认为信号支于这个时间区间，这样就能借助有限采样公式，利用有限的采样点数还原局部的信号（的周期延拓）。
 
 \begin{lemma}
     设$f_s,T>0$，正整数$N$为严格小于$\displaystyle\frac{T f_s}{2}$的最大整数，则$\forall t\in\mathbb{R}$，有
@@ -129,7 +129,7 @@
         &=\frac{1}{T f_s}\frac{\sin\paren{(2N+1)\pi t/T}}{\sin(\pi t/T)}\nonumber\\
         &=\frac{2N+1}{T f_s}\frac{\sinc\paren{(2N+1)t/T}}{\sinc(t/T)}.
     \end{align}
-    第二行到第三行其实就是狄利克雷核的相关公式，见\refsub{dirichlet_kernel}，可以通过等比数列求和公式得到：
+    第二行到第三行其实就是Dirichlet核的相关公式，见\refsub{dirichlet_kernel}，可以通过等比数列求和公式得到：
     \begin{align}
         \sum_{k=-N}^{N}\e^{2\pi\im kt/T}&=\e^{-2\pi\im Nt/T}\frac{1-\e^{2\pi\im(2N+1)t/T}}{1-\e^{2\pi\im t/T}}\nonumber\\
         &=\frac{\e^{-\pi\im(2N+1)t/T}-\e^{\pi\im(2N+1)t/T}}{\e^{-\pi\im t/T}-\e^{\pi\im t/T}}\nonumber\\
@@ -143,7 +143,7 @@
         \includegraphics[width=0.75\textwidth]{sinc_shah.jpeg}
         \caption{$\sinc(t)*\shah$的前$N$项和}
     \end{figure}
-    它与方波很接近，并且出现了吉布斯现象。将部分和$S_N(t)=\sum_{k=-N}^{N}\sinc(t-k)$视为采样率为$1$的情况下，对时宽为$2N$的方波进行还原的结果，则随着$N$的增大，采样点增多，结果越来越接近$\mathds{1}$。方波不是带限信号，吉布斯现象可以视为混叠的结果，但由于频带能量集中于低频，所以在大部分区域上，这种还原结果仍然较好地逼近了方波。
+    它与方波很接近，并且出现了Gibbs现象。将部分和$S_N(t)=\sum_{k=-N}^{N}\sinc(t-k)$视为采样率为$1$的情况下，对时宽为$2N$的方波进行还原的结果，则随着$N$的增大，采样点增多，结果越来越接近$\mathds{1}$。方波不是带限信号，Gibbs现象可以视为混叠的结果，但由于频带能量集中于低频，所以在大部分区域上，这种还原结果仍然较好地逼近了方波。
 \end{example}
 \begin{proposition}[有限采样公式]
     设$f(t)$周期为$T$，且带限于$[-\nu_m,\nu_m]$，取$f_s$满足
@@ -174,7 +174,7 @@
         \caption{有限采样公式示意图}
     \end{figure}
 
-    用$\shah_{T_s}$进行采样，在频域上相当于以$f_s$为周期进行周期化，由香农采样定理，有
+    用$\shah_{T_s}$进行采样，在频域上相当于以$f_s$为周期进行周期化，由Shannon采样定理，有
     \begin{equation}
         f(t)=\sum_{k=-\infty}^{\infty}f(t_k)\sinc\paren{f_s(t-t_k)},
     \end{equation}

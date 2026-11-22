@@ -22,9 +22,9 @@
 \begin{example}[相时延]
     设输入信号为单频复指数序列$e[n]=\e^{\im\Omega_0 n}\ (-\pi<\Omega_0\leq\pi)$，求频率响应为$H(\e^{\im\Omega})$的线性时不变系统的输出序列$r[n]$。
 
-    解：利用\cref{exmp:exp_DTFT}的结果，$e[n]$的DTFT为$E(\e^{\im\Omega})=\delta_{\Omega_0}$，因此输出序列的DTFT为
+    解：利用\cref{exmp:exp_DTFT}的结果，$e[n]$的DTFT为$E(\e^{\im\Omega})=2\pi\delta_{\Omega_0}$，因此输出序列的DTFT为
     \begin{equation}
-        R(\e^{\im\Omega})=H(\e^{\im\Omega})E(\e^{\im\Omega})=H(\e^{\im\Omega_0})\delta_{\Omega_0},
+        R(\e^{\im\Omega})=H(\e^{\im\Omega})E(\e^{\im\Omega})=2\pi H(\e^{\im\Omega_0})\delta_{\Omega_0},
     \end{equation}
     因此
     \begin{equation}
@@ -56,7 +56,7 @@
         r[n]&=\frac{1}{2}\abs{H(\e^{\im(\Omega_c+\Omega_m)})}\cos((\Omega_c+\Omega_m)n+\varphi(\Omega_c+\Omega_m)) \nonumber \\
         &\quad+\frac{1}{2}\abs{H(\e^{\im(\Omega_c-\Omega_m)})}\cos((\Omega_c-\Omega_m)n+\varphi(\Omega_c-\Omega_m)).
     \end{align}
-    由于$\Omega_c\gg\Omega_m$，可以将$\abs{H(\e^{\im(\Omega_c+\Omega_m)})}$近似为$\abs{H(\e^{\im\Omega_c})}$，将$\varphi(\Omega)$在$\Omega_c$处做泰勒展开：
+    由于$\Omega_c\gg\Omega_m$，可以将$\abs{H(\e^{\im(\Omega_c+\Omega_m)})}$近似为$\abs{H(\e^{\im\Omega_c})}$，将$\varphi(\Omega)$在$\Omega_c$处做Taylor展开：
     \begin{equation}
         \varphi(\Omega_c+\Omega)\approx\varphi(\Omega_c)+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega,
     \end{equation}
@@ -159,18 +159,18 @@
     \begin{align}
         r[n]&=\frac{1}{4}\left[H(\e^{\im(\Omega_c+\Omega_m)})\e^{\im(\Omega_c+\Omega_m)n}+H(\e^{-\im(\Omega_c+\Omega_m)})\e^{-\im(\Omega_c+\Omega_m)n}\right. \nonumber \\
         &\qquad+\left.H(\e^{\im(\Omega_c-\Omega_m)})\e^{\im(\Omega_c-\Omega_m)n}+H(\e^{-\im(\Omega_c-\Omega_m)})\e^{-\im(\Omega_c-\Omega_m)n}\right] \nonumber \\
-        &=|H(\e^{\im(\Omega_c+\Omega_m)})|\cos((\Omega_c+\Omega_m)n+\varphi(\Omega_c+\Omega_m)) \nonumber \\
-        &\qquad+|H(\e^{\im(\Omega_c-\Omega_m)})|\cos((\Omega_c-\Omega_m)n+\varphi(\Omega_c-\Omega_m)).
+        &=\frac12\left[\abs{H(\e^{\im(\Omega_c+\Omega_m)})}\cos((\Omega_c+\Omega_m)n+\varphi(\Omega_c+\Omega_m))\right. \nonumber \\
+        &\qquad\left.+\abs{H(\e^{\im(\Omega_c-\Omega_m)})}\cos((\Omega_c-\Omega_m)n+\varphi(\Omega_c-\Omega_m))\right].
     \end{align}
-    由于$\Omega_m\ll\Omega_c$，可以将幅频特性近似为$|H(\e^{\im\Omega_c})|$，对相频特性进行泰勒展开：
+    由于$\Omega_m\ll\Omega_c$，可以将幅频特性近似为$|H(\e^{\im\Omega_c})|$，对相频特性进行Taylor展开：
     \begin{equation}
         \varphi(\Omega_c\pm\Omega_m)\approx \varphi(\Omega_c)\pm \evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m.
     \end{equation}
     代入$r[n]$的表达式中，得到
     \begin{align}
-        r[n]&\approx \frac{1}{2}|H(\e^{\im\Omega_c})|\left[\cos\paren{(\Omega_c+\Omega_m)n+\varphi(\Omega_c)+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}\right. \nonumber \\
+        r[n]&\approx \frac{1}{2}\abs{H(\e^{\im\Omega_c})}\left[\cos\paren{(\Omega_c+\Omega_m)n+\varphi(\Omega_c)+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}\right. \nonumber \\
         &\qquad\left.+\cos\paren{(\Omega_c-\Omega_m)n+\varphi(\Omega_c)-\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}\right] \nonumber \\
-        &=|H(\e^{\im\Omega_c})|\cos(\Omega_c n+\varphi(\Omega_c))\cos\paren{\Omega_m n+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}.
+        &=\abs{H(\e^{\im\Omega_c})}\cos(\Omega_c n+\varphi(\Omega_c))\cos\paren{\Omega_m n+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}.
     \end{align}
     同样地，将稳态响应的相位偏移折算为系统对中心频率为$\Omega_c$的序列的群时延：
     \begin{equation}

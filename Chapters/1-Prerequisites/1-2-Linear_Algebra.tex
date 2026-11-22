@@ -148,13 +148,13 @@
 \end{align}
 这就是数学分析中的极限定义，只是将绝对值改成了度量。
 
-\begin{definition}[柯西列]
-    在度量空间$(V,d)$中，序列$\{x_n\}$称为柯西列，如果对于任意$\epsilon>0$，存在$N\in\mathbb{N}$使得对所有$m,n>N$都有$d(x_m,x_n)<\epsilon$。
+\begin{definition}[Cauchy列]
+    在度量空间$(V,d)$中，序列$\{x_n\}$称为Cauchy列，如果对于任意$\epsilon>0$，存在$N\in\mathbb{N}$使得对所有$m,n>N$都有$d(x_m,x_n)<\epsilon$。
 \end{definition}
-在数学分析中，一个实数列的收敛性等价于该序列是柯西列，这实际上是依赖于实数的完备性的。柯西列描述了一个“应当收敛”的序列所具有的性质，而不依赖于最终的极限是否在我们所讨论的空间中。更一般地，我们提出度量空间中完备性的定义：
+在数学分析中，一个实数列的收敛性等价于该序列是Cauchy列，这实际上是依赖于实数的完备性的。Cauchy列描述了一个“应当收敛”的序列所具有的性质，而不依赖于最终的极限是否在我们所讨论的空间中。更一般地，我们提出度量空间中完备性的定义：
 
 \begin{definition}[完备度量空间]
-    如果度量空间中所有柯西列都有极限，那么这个空间称为\textbf{完备度量空间}。
+    如果度量空间中所有Cauchy列都有极限，那么这个空间称为\textbf{完备度量空间}。
 \end{definition}
 
 稍后我们将给出一个不完备的线性赋范空间的例子，它同时也是不完备的度量空间的例子。
@@ -184,14 +184,14 @@
     \lim_{x \to x_0} f(x)&=A:=\forall \epsilon>0,\ \exists \delta>0\ \paren{\|x-x_0\|<\delta\implies \|f(x)-f(x_0)\|<\epsilon}.
 \end{align}
 
-线性赋范空间中的柯西列定义类似。
+线性赋范空间中的Cauchy列定义类似。
 
 \begin{definition}[完备的线性赋范空间]
-    如果线性赋范空间中所有柯西列都有极限，那么这个空间称为\textbf{完备的线性赋范空间}，或称为\textbf{巴拿赫空间}\cite{real_analysis}。
+    如果线性赋范空间中所有Cauchy列都有极限，那么这个空间称为\textbf{完备的线性赋范空间}，或称为\textbf{Banach空间}\cite{real_analysis}。
 \end{definition}
 
 \begin{example}
-    连续函数空间$C[a,b]$是不完备的线性赋范空间：在1-范数$\|f\|_1 =\int_{a}^{b}|f(t)|\,\dd t$下，其中的柯西列
+    连续函数空间$C[a,b]$是不完备的线性赋范空间：在1-范数$\|f\|_1 =\int_{a}^{b}|f(t)|\,\dd t$下，其中的Cauchy列
     \begin{equation}
         f_n(t)=\begin{dcases}
             0,  & \text{if }-1\leq t <0,         \\
@@ -216,7 +216,7 @@
     \end{equation}
 \end{definition}
 
-事实上，线性赋范空间的对偶空间总是构成巴拿赫空间，不论原空间是否完备。
+事实上，线性赋范空间的对偶空间总是构成Banach空间，不论原空间是否完备。
 
 \begin{definition}[泛函的连续性]
     设$X$是线性赋范空间，泛函$F:X\to\mathbb{C}$是\textbf{连续}的，如果
@@ -275,12 +275,12 @@
 
 不难发现，只要取$\|\mathbf{v}\|^2=\langle \mathbf{v}, \mathbf{v} \rangle$，就由内积导出了一种范数，并且这种范数具有比一般的范数更强的性质；只要取$d(\mathbf{x},\mathbf{y})=\|\mathbf{x}-\mathbf{y}\|$，就由范数导出了一种度量，并且这种度量具有比一般的度量更强的性质。因此，可以说内积空间是特殊的线性赋范空间，线性赋范空间是特殊的度量空间。
 
-\begin{definition}[希尔伯特空间]\label{def:hilbert_space}
-    具有内积，且范数由内积导出的巴拿赫空间，或者说完备的内积空间，称为\textbf{希尔伯特空间}。
+\begin{definition}[Hilbert空间]\label{def:hilbert_space}
+    具有内积，且范数由内积导出的Banach空间，或者说完备的内积空间，称为\textbf{Hilbert空间}。
 \end{definition}
 
-在内积空间上有著名的\textbf{柯西-施瓦兹不等式}(Cauchy-Shwartz inequality)：
-\begin{theorem}[柯西-施瓦兹不等式]
+在内积空间上有著名的\textbf{Cauchy-Schwarz不等式}：
+\begin{theorem}[Cauchy-Schwarz不等式]
     \begin{equation}
         |\langle \mathbf{a},\mathbf{b}\rangle| \leq \|\mathbf{a}\| \|\mathbf{b}\|.
     \end{equation}
@@ -296,7 +296,7 @@
     \end{equation}
     这与要证明的不等式是等价的。
 \end{proof}
-有了柯西-施瓦兹不等式，三角不等式就是显然的了，这里仅给出其表述，读者可以自行证明。
+有了Cauchy-Schwarz不等式，三角不等式就是显然的了，这里仅给出其表述，读者可以自行证明。
 \begin{proposition}[三角不等式]
     \begin{equation}
         \forall \mathbf{a},\mathbf{b}\in V,\quad \|\mathbf{a}+\mathbf{b}\|\leq\|\mathbf{a}\|+\|\mathbf{b}\|.
@@ -336,7 +336,7 @@
 \end{example}
 
 \begin{claim}
-    只要承认选择公理（或左恩引理），无限维线性空间总存在基。
+    只要承认选择公理（或Zorn引理），无限维线性空间总存在基。
 \end{claim}
 
-\refsec{Real_Analysis}将给出更多无穷维线性空间的例子，它们当中很多都是完备的线性赋范空间。使用正交函数系作为基函数系是，从而将函数展开为这些基函数的线性组合，就是傅里叶级数展开的基本思想，见\refsub{orthognal}。
+\refsec{Real_Analysis}将给出更多无穷维线性空间的例子，它们当中很多都是完备的线性赋范空间（Banach空间）。使用正交函数系作为基函数系，从而将函数展开为基函数的无限线性组合构成的函数项级数，就是傅里叶级数展开的基本思想，见\refsub{orthognal}。

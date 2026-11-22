@@ -1,11 +1,11 @@
 % !TeX root = ../../MainBook.tex
 \section{分布及其傅里叶变换}\label{sec:Distributions}
 
-经典的数学分析理论难以处理单位阶跃函数的导数，也无法对一些比较基本的函数如正弦、余弦函数做傅里叶变换，甚至因此傅里叶反演公式不总是成立（注意我们之前仅在形式上使用傅里叶反演公式），要扩充这个理论，标准的做法是引入\textbf{广义函数}(generalized function)，又称\textbf{分布}(distribution)。分布这个名称一开始是由物理学家引入的，例如在描述点电荷的分布时，经典函数是失效的，于是在20世纪20年代末到30年代初，狄拉克及一众物理学家开始用分布进行运算，到30年代中，索伯列夫首先明确提出了广义函数的思想，后于40年代末由施瓦兹发展，他因这一工作获得1950年的菲尔兹奖。因此，下面将提到的广义函数空间$\mathcal{D}(\mathbb{R})$也称为\textbf{索伯列夫-施瓦兹广义函数空间}\cite{zorich}。
+经典的数学分析理论难以处理单位阶跃函数的导数，也无法对一些比较基本的函数如正弦、余弦函数做傅里叶变换，甚至因此傅里叶反演公式不总是成立（注意我们之前仅在形式上使用傅里叶反演公式），要扩充这个理论，标准的做法是引入\textbf{广义函数}(generalized function)，又称\textbf{分布}(distribution)。分布这个名称一开始是由物理学家引入的，例如在描述点电荷的分布时，经典函数是失效的，于是在20世纪20年代末到30年代初，狄拉克（Dirac）及一众物理学家开始用分布进行运算，到30年代中，索伯列夫（Sobolev）首先明确提出了广义函数的思想，后于40年代末由施瓦兹（Schwartz）发展，他因这一工作获得1950年的菲尔兹奖。因此，下面将提到的广义函数空间$\mathcal{D}(\mathbb{R})$也称为\textbf{Sobolev-Schwartz广义函数空间}\cite{zorich}。
 
 \subsection{一般的分布理论}\label{sub:general_distributions}
 
-我们已经看到，分布（例如狄拉克$\delta$）难以用经典的“函数”来描述，这时我们可以考察它们与一系列\textbf{检验函数}(test function)$\varphi$的作用，具体来说：
+我们已经看到，分布（例如Dirac $\delta$）难以用经典的“函数”来描述，这时我们可以考察它们与一系列\textbf{检验函数}(test function)$\varphi$的作用，具体来说：
 \begin{definition}[分布]
     我们称无限阶可导的函数是\textbf{光滑}(smooth)的。记定义于$\mathbb{R}$上的复值光滑紧支函数集为$\mathcal{C}(\mathbb{R})$。如果将检验函数集取为$\mathcal{C}(\mathbb{R})$，我们将其对偶空间$\mathcal{D}(\mathbb{R})$中的元素称为分布，并规定函数$f\in \mathcal{C}(\mathbb{R})$所产生的分布为作用在$\mathcal{C}(\mathbb{R})$上的泛函：
     \begin{equation}
@@ -25,7 +25,7 @@
     \begin{equation}
         \langle \delta,\varphi\rangle:=\varphi(0).
     \end{equation}
-    由于“狄拉克函数”严格来说并不能算作一种函数，$\delta$是一个奇异分布。容易验证这与我们一开始给出的$\delta$作为“函数”的性质是相符的：
+    由于“Dirac函数”严格来说并不能算作一种函数，$\delta$是一个奇异分布。容易验证这与我们一开始给出的$\delta$作为“函数”的性质是相符的：
     \begin{equation}
         \langle \delta,\varphi\rangle=\int_{-\infty}^{\infty}\delta(x)\varphi(x)\,\dd x=\int_{-\infty}^{\infty}\delta(x)\varphi(0)\,\dd x=\varphi(0).
     \end{equation}
@@ -87,11 +87,11 @@ $\delta$的高阶导数可以依此类推，它们已经难以用类似$\delta(x
     \begin{enumerate}
         \item 任何分布$T\in\mathcal{D}(\mathbb{R})$都是无穷次可微的；
         \item 微分算子$D:\mathcal{D}(\mathbb{R})\to\mathcal{D}(\mathbb{R})$是线性的；
-        \item 微分算子$D$满足莱布尼兹法则(Leibniz rule)：
+        \item 微分算子$D$满足Leibniz法则：
               \begin{equation}
                   (gT)'=g'T+gT',
               \end{equation}
-              从而数学分析中的莱布尼兹公式在分布理论中仍成立：
+              从而数学分析中的Leibniz公式在分布理论中仍成立：
               \begin{equation}
                   (gT)^{(m)}=\sum_{k=0}^{m}C_m^k T^{(k)}g^{(m-k)};
               \end{equation}
@@ -102,7 +102,7 @@ $\delta$的高阶导数可以依此类推，它们已经难以用类似$\delta(x
     \begin{enumerate}
         \item 得自$\mathcal{C}(\mathbb{R})$中函数的无限可微性：$\langle T^{(m)},\varphi\rangle=(-1)^m\langle T,\varphi^{(m)}\rangle$。
         \item 显然。
-        \item 只需验证莱布尼兹法则，由此容易得到莱布尼兹公式。
+        \item 只需验证Leibniz法则，由此容易得到Leibniz公式。
               \begin{align}
                   \langle (gT)',\varphi\rangle & =-\langle gT,\varphi'\rangle=-\langle T,g\varphi'\rangle=-\langle T,(g\varphi)'-g'\varphi\rangle\nonumber \\
                                                & =\langle T',g\varphi\rangle+\langle T,g'\varphi\rangle=\langle gT',\varphi\rangle+\langle g'T,\varphi\rangle=\langle gT'+g'T,\varphi\rangle.
@@ -116,29 +116,29 @@ $\delta$的高阶导数可以依此类推，它们已经难以用类似$\delta(x
     可以看到，分布理论中极限的概念是通过测试函数来定义的，如果分布序列$\{T_m\}_{m=1}^{\infty}$作用在任何测试函数上都是趋于某个分布$T$作用于这个测试函数的值，就说序列$\{T_m\}$\textbf{弱收敛}(converge weakly)于$T$，并记为$T_m\to T$\cite{folland}。
 \end{proof}
 
-\subsection{施瓦兹空间的引入}\label{sub:schwartz}
+\subsection{Schwartz空间的引入}\label{sub:schwartz}
 接下来讨论分布理论在傅里叶分析中的应用。我们的目标是，在这个新的理论体系下：
 \begin{itemize}
     \item 允许$\delta$函数，单位阶跃函数，多项式，正弦、余弦函数等（作为分布）做傅里叶变换；
     \item 分布的傅里叶变换和其反变换同时有定义；傅里叶反演公式成立；
-    \item 对于分布，帕塞瓦尔恒等式成立（之前我们只能在$L^1(\mathbb{R})\cap L^2(\mathbb{R})$中使用它）。
+    \item 对于分布，Parseval恒等式成立（之前我们只能在$L^1(\mathbb{R})\cap L^2(\mathbb{R})$中使用它）。
 \end{itemize}
 我们将看到，分布$T$的傅里叶变换$\mathcal{F}T$定义为
 \begin{equation}
     \langle\mathcal{F}T,\varphi\rangle=\langle T,\mathcal{F}\varphi\rangle.
 \end{equation}
-然而，测试函数$\varphi\in\mathcal{C}(\mathbb{R})$的傅里叶变换$\mathcal{F}\varphi$并不属于$\mathcal{C}(\mathbb{R})$（关于这一点的说明，以及施瓦兹函数类的引出，见\refsub{fourier_close}），这说明测试函数集$\mathcal{C}(\mathbb{R})$在傅里叶分析中的表现不够好，我们需要引入新的测试函数空间，以保证$\mathcal{F}\varphi$仍然是测试函数。这个测试函数空间正是\textbf{施瓦兹空间}(Schwartz space)$\mathcal{S}(\mathbb{R})$\cite{brad_osgood_ee261}，它是$\mathbb{R}$上所有无限可微函数的集合，这些函数及其各阶导数都以比任何负幂更快的速度趋于0，即：
-\begin{definition}[施瓦兹空间与施瓦兹函数]\label{def:schwartz}
+然而，测试函数$\varphi\in\mathcal{C}(\mathbb{R})$的傅里叶变换$\mathcal{F}\varphi$并不属于$\mathcal{C}(\mathbb{R})$（关于这一点的说明，以及Schwartz函数类的引出，见\refsub{fourier_close}），这说明测试函数集$\mathcal{C}(\mathbb{R})$在傅里叶分析中的表现不够好，我们需要引入新的测试函数空间，以保证$\mathcal{F}\varphi$仍然是测试函数。这个测试函数空间正是\textbf{Schwartz空间}$\mathcal{S}(\mathbb{R})$\cite{brad_osgood_ee261}，它是$\mathbb{R}$上所有无限可微函数的集合，这些函数及其各阶导数都以比任何负幂更快的速度趋于0，即：
+\begin{definition}[Schwartz空间与Schwartz函数]\label{def:schwartz}
     \begin{equation}
         \mathcal{S}(\mathbb{R}) =\braces{\varphi\in C^{\infty}(\mathbb{R})\,\middle|\,\lim_{|x|\to\infty}|x|^m\varphi^{(n)}(x)=0,\ \forall m,n\in\mathbb{N}}.
     \end{equation}
-    施瓦兹空间中的函数称为\textbf{施瓦兹函数}(Schwartz function)，它们是非常光滑且衰减很快的函数，因此又称为\textbf{速降函数}(rapidly decreasing function)。
+    Schwartz空间中的函数称为\textbf{Schwartz函数}，它们是非常光滑且衰减很快的函数，因此又称为\textbf{速降函数}(rapidly decreasing function)。
 \end{definition}
 \begin{example}
-    高斯函数$\e^{-x^2}$及其各阶导数都属于施瓦兹空间。
+    高斯函数$\e^{-x^2}$及其各阶导数都属于Schwartz空间。
 \end{example}
-\begin{definition}[施瓦兹分布]
-    施瓦兹空间的对偶空间$\mathcal{T}(\mathbb{R}):=[\mathcal{S}(\mathbb{R})]^*$中的元素称为\textbf{施瓦兹分布}(Schwartz distribution)或\textbf{缓增分布}(tempered distribution)。称之为“缓增分布”，是因为一些能够用函数描述的施瓦兹分布在自变量趋于无穷时增长速度较缓，以至于它们与施瓦兹函数的乘积可积。
+\begin{definition}[Schwartz分布]
+    Schwartz空间的对偶空间$\mathcal{T}(\mathbb{R}):=[\mathcal{S}(\mathbb{R})]^*$中的元素称为\textbf{Schwartz分布}或\textbf{缓增分布}(tempered distribution)。称之为“缓增分布”，是因为一些能够用函数描述的Schwartz分布在自变量趋于无穷时增长速度较缓，以至于它们与Schwartz函数的乘积可积。
 \end{definition}
 我们仍定义
 \begin{align}
@@ -147,7 +147,7 @@ $\delta$的高阶导数可以依此类推，它们已经难以用类似$\delta(x
 \end{align}
 易见$\mathcal{C}(\mathbb{R}) \subset \mathcal{S}(\mathbb{R}),\ \mathcal{T}(\mathbb{R}) \subset\mathcal{D}(\mathbb{R})$。
 
-有了施瓦兹函数类$\mathcal{S}(\mathbb{R})$和缓增分布$\mathcal{T}(\mathbb{R})$，我们就可以定义分布的傅里叶变换，还可以定义有关分布的一系列算子。前文中曾定义分布与函数的乘法和分布的导数，现在认为正则分布是由施瓦兹函数导出的，则显然能够推广到缓增分布，即
+有了Schwartz函数类$\mathcal{S}(\mathbb{R})$和缓增分布$\mathcal{T}(\mathbb{R})$，我们就可以定义分布的傅里叶变换，还可以定义有关分布的一系列算子。前文中曾定义分布与函数的乘法和分布的导数，现在认为正则分布是由Schwartz函数导出的，则显然能够推广到缓增分布，即
 \begin{align}
     \langle gT,\varphi\rangle&=\langle T,g\varphi\rangle,\quad \langle T',\varphi\rangle=\langle T,\varphi'\rangle,\quad g\in\mathcal{S}(\mathbb{R}),\ T\in\mathcal{T}(\mathbb{R}).
 \end{align}
@@ -296,7 +296,7 @@ $\delta$的高阶导数可以依此类推，它们已经难以用类似$\delta(x
     如果$T^-=T$，则$T$是\textbf{偶分布}；如果$T^-=-T$，则$T$是\textbf{奇分布}。
 \end{definition}
 
-从施瓦兹函数的傅里叶变换的对偶性，就能得到缓增分布的傅里叶变换的对偶性：
+从Schwartz函数的傅里叶变换的对偶性，就能得到缓增分布的傅里叶变换的对偶性：
 \begin{theorem}[分布傅里叶变换的对偶性]
     \begin{lralign}
         \mathcal{F}[T^-]= (\mathcal{F}T)^-=\mathcal{F}^{-1}T
@@ -333,7 +333,7 @@ $\delta$的高阶导数可以依此类推，它们已经难以用类似$\delta(x
 这与前文中函数的傅里叶变换对偶性完全一样。
 
 利用分布的傅里叶变换的定义及其对偶性，可以立即得到：
-\begin{theorem}[帕塞瓦尔恒等式/普朗歇尔定理]\label{thm:distribution_plancherel}
+\begin{theorem}[Parseval恒等式/Plancherel定理]\label{thm:distribution_plancherel}
     设$f\in\mathcal{T}(\mathbb{R}),\ g\in\mathcal{S}(\mathbb{R})$，则
     \begin{lralign}
         \int_{-\infty}^{\infty}f(t)\overline{g(t)}\,\dd t=\int_{-\infty}^{\infty}\mathcal{F}f(\xi)\overline{\mathcal{F}g(\xi)}\,\dd\xi
@@ -437,7 +437,7 @@ $\delta$的高阶导数可以依此类推，它们已经难以用类似$\delta(x
 \begin{equation}
     \langle\mathcal{F}T^-,\varphi\rangle =\langle T,\mathcal{F}\varphi^-\rangle.
 \end{equation}
-但是，我们并不能保证$\varphi$是实值函数\footnote{尽管在原始定义中没有提到这一点，但和前面引入施瓦兹函数类一样，要保证施瓦兹函数的傅里叶变换仍然是施瓦兹函数，而实值函数的傅里叶变换往往是复值函数。}，因此并不能推出实分布的最后一条对偶性。不过，我们还是可以得到分布的傅里叶变换的对称性：
+但是，我们并不能保证$\varphi$是实值函数\footnote{尽管在原始定义中没有提到这一点，但和前面引入Schwartz函数类一样，要保证Schwartz函数的傅里叶变换仍然是Schwartz函数，而实值函数的傅里叶变换往往是复值函数。}，因此并不能推出实分布的最后一条对偶性。不过，我们还是可以得到分布的傅里叶变换的对称性：
 \begin{theorem}[分布的傅里叶变换的对称性]
     \begin{align}
         T^-=T&\implies\mathcal{F}T^-=\mathcal{F}T, \\
@@ -862,7 +862,7 @@ $\delta$的高阶导数可以依此类推，它们已经难以用类似$\delta(x
 \switch
     \mathcal{F}\sgn&=\frac{2}{\im\omega},
 \end{lralign}
-因为反比例函数不能完整地描述分布$\mathcal{F}\sgn$的行为，它在原点附近不可积，通常无法与施瓦兹函数配对。为了处理这个问题，我们认为反比例函数作为一个正则分布的作用是做主值意义下的积分，由于施瓦兹函数光滑，这个主值积分总是收敛的。为了体现这一点，我们将它写成
+因为反比例函数不能完整地描述分布$\mathcal{F}\sgn$的行为，它在原点附近不可积，通常无法与Schwartz函数配对。为了处理这个问题，我们认为反比例函数作为一个正则分布的作用是做主值意义下的积分，由于Schwartz函数光滑，这个主值积分总是收敛的。为了体现这一点，我们将它写成
 \begin{lralign}
     \pv\frac{1}{\pi\im\xi}
 \switch
@@ -977,4 +977,4 @@ $\delta$的高阶导数可以依此类推，它们已经难以用类似$\delta(x
 
 分布的傅里叶变换的连续性是在弱收敛的意义下定义的，也就是说，作为一个分布，我们总是能够交换极限或求和与傅里叶变换的顺序（我们将会多次使用到这一结论），但是对于正则分布列$f_n\to f$，尽管$T_{f_n}\to T_f$，也不能认为$\mathcal{F}f_n$作为一个函数列收敛于$\mathcal{F}f$。在\refsec{Sampling_Interpolation}中我们将看到，通过分布的傅里叶变换的连续性，$\shah$分布能表示成傅里叶级数的形式，然而这个展开式是几乎处处不收敛的函数项级数。
 
-事实上，施瓦兹函数的傅里叶变换也是具有连续性的。然而，证明它要困难得多，我们将证明放在\refsub{fourier_continuous}中。
+事实上，Schwartz函数的傅里叶变换也是具有连续性的。然而，证明它要困难得多，我们将证明放在\refsub{fourier_continuous}中。

@@ -1,7 +1,7 @@
 % !TeX root = ../../MainBook.tex
 \section{傅里叶级数}\label{sec:Fourier_Series}
 
-十九世纪初，傅里叶为了求解热传导问题中的偏微分方程，断言：任何周期函数都可以通过无穷多个正弦和余弦函数的线性组合来表示，即傅里叶级数。这一猜想引发了许多数学家的质疑，促进了分析学的发展，直到1829年，狄利克雷提出了傅里叶级数收敛的充分条件和严格证明。今天，傅里叶级数已经成为数学、物理中的重要工具。
+十九世纪初，傅里叶（Fourier）为了求解热传导问题中的偏微分方程，断言：任何周期函数都可以通过无穷多个正弦和余弦函数的线性组合来表示，即傅里叶级数。这一猜想引发了许多数学家的质疑，促进了分析学的发展，直到1829年，狄利克雷（Dirichlet）提出了傅里叶级数收敛的充分条件和严格证明。今天，傅里叶级数已经成为数学、物理中的重要工具。
 
 读者在学习本节之前，最好在数学分析等课程中已经对傅里叶级数有所了解。
 
@@ -223,7 +223,7 @@
 \end{proof}
 
 为了证明依范数收敛性，我们还需要说明：三角多项式（\cref{def:trinomial}）在$L^2([0,T])$中是稠密的，这一结论可以拆分为以下两个命题。
-\begin{theorem}[魏尔斯特拉斯第二逼近定理]
+\begin{theorem}[Weierstrass第二逼近定理]
     在$L^2$范数的意义下，三角多项式（即形如傅里叶级数部分和的函数）在连续函数空间$C([0,T])$中是稠密的，即$\forall f\in C([0,T]),\ \forall \varepsilon >0$，存在一个三角多项式$P(t)$使得$\|f-P\|_2<\varepsilon$。
 \end{theorem}
 以上定理改写自\cref{cor:weierstrass_2}，证明也将在那里给出。
@@ -251,9 +251,9 @@
 
 \subsubsection{逐点收敛性}
 
-对于逐点收敛性，狄利克雷给出了它的一个充分条件，称之为\textbf{狄利克雷条件}，满足这个条件的函数的傅里叶级数在任意点收敛于其左右极限的平均值。在此之前给出两个概念：
+对于逐点收敛性，Dirichlet给出了它的一个充分条件，称之为\textbf{Dirichlet条件}，满足这个条件的函数的傅里叶级数在任意点收敛于其左右极限的平均值。在此之前给出两个概念：
 
-\begin{definition}[狄利克雷条件]
+\begin{definition}[Dirichlet条件]
     \begin{itemize}[nosep, left=0pt]
         \item $\int_{T}|f(t)|\,\dd t<\infty$
         \item 在一个周期内$f$连续或有有限个第一类间断点，即\textbf{分段连续}(piecewise continuous)
@@ -265,8 +265,8 @@
     函数$f$在区间$[a,b]$上是\textbf{分段连续}的，如果存在区间的划分$a=x_0<x_1<\dots <x_n=b$，使得在每个子区间$(x_{i-1},x_i)$上$f$连续，且区间端点处$f$的左右极限存在，记作$f\in PC[a,b]$。
 \end{definition}
 
-\begin{theorem}[狄利克雷定理]
-    满足狄利克雷条件时，$f$的傅里叶级数展开在任意点收敛到其左右极限的平均值：
+\begin{theorem}[Dirichlet定理]
+    满足Dirichlet条件时，$f$的傅里叶级数展开在任意点收敛到其左右极限的平均值：
     \begin{equation}
         \forall t\in \mathbb{R},\quad \sum_{k=-\infty}^{\infty}c_k \e^{\im 2\pi kt}=\frac{f(t+)+f(t-)}{2}.
     \end{equation}
@@ -274,7 +274,7 @@
 
 如果函数在有限个点处不连续，我们的确无法将这一结论加强到逐点收敛，因为在不连续点处函数的取值不影响积分值，也就不影响傅里叶系数，当然也就得不到不连续点处的收敛性，但是如果将分段连续函数在不连续点处的取值定义为左右极限的平均值，这样就能够得到逐点收敛性了。
 
-狄利克雷条件中的最后一条实际上相当于要求$f$是有界变差函数，感兴趣的读者可以参考实变函数的教材（如\cite{simple_real_analysis}，\cite{real_analysis}）。在\refsub{uniform_converge}中我们将讨论另外的更易理解的条件：
+Dirichlet条件中的最后一条实际上相当于要求$f$是有界变差函数，感兴趣的读者可以参考实变函数的教材（如\cite{simple_real_analysis}，\cite{real_analysis}）。在\refsub{uniform_converge}中我们将讨论另外的更易理解的条件：
 \begin{definition}[分段光滑]
     \phantomsection\label{def:piecewice_smooth}
     在区间$[a,b]$上，函数$f$称为\textbf{分段光滑}(piecewise smooth)，如果存在区间的划分$a=x_0<x_1<\dots <x_n=b$，使得在每个子区间$(x_{i-1},x_i)$上$f$可微，且区间端点处$f$的左右导数存在，记作$f\in PS[a,b]$。
@@ -283,11 +283,11 @@
 
 此外，逐点收敛性可以推广为点态的\textbf{Cesàro收敛}或\textbf{Abel收敛}。逐点收敛性强于这两种收敛性，一个数项级数收敛于某个值，则它必然Cesàro收敛、Abel收敛到同样的值。
 
-事实上，只要函数$f\in L^1([0,T])\cap L^2([0,T])$，就能保证$f$的傅里叶级数在$f$的连续点处Cesàro收敛于$f(t)$，而Cesàro收敛又能推出Abel收敛。这一条件比狄利克雷条件弱一些。对于这两种收敛性的定义及其证明，可以参考\cite{stein2011fourier}。
+事实上，只要函数$f\in L^1([0,T])\cap L^2([0,T])$，就能保证$f$的傅里叶级数在$f$的连续点处Cesàro收敛于$f(t)$，而Cesàro收敛又能推出Abel收敛。这一条件比Dirichlet条件弱一些。对于这两种收敛性的定义及其证明，可以参考\cite{stein2011fourier}。
 
-\subsection{吉布斯现象}\label{sub:gibbs_phenomenon}
-当$f(t)$不连续时，傅里叶级数会在间断点处产生\textbf{吉布斯现象}(Gibbs' Phenomenon)：
-\begin{definition}[吉布斯现象]
+\subsection{Gibbs现象}\label{sub:gibbs_phenomenon}
+当$f(t)$不连续时，傅里叶级数会在间断点处产生\textbf{Gibbs现象}：
+\begin{definition}[Gibbs现象]
     部分和$S_N^f(t)$在间断点处总会\textbf{过冲}（在间断点两侧出现超过原函数的峰值），过冲幅度约为跳变幅度的9\%，并且$S_N^f(t)$会在间断点附近高频振荡。
 \end{definition}
 \begin{example}
@@ -303,14 +303,14 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{gibbs}
-        \caption{吉布斯现象示意图}
+        \caption{Gibbs现象示意图}
     \end{figure}
 \end{example}
-$\varlimsup_{N \to \infty}S_N^R(t)>1$并不意味着狄利克雷定理失效，因为定理给出的是逐点收敛：
+$\varlimsup_{N \to \infty}S_N^R(t)>1$并不意味着Dirichlet定理失效，因为定理给出的是逐点收敛：
 \begin{equation}
     \varlimsup_{N \to \infty}S_N^R(t)=\lim_{N \to \infty}\sup_{t\in \mathbb{R}}S_N^R(t)\neq \sup_{t\in\mathbb{R}}\lim_{N\to\infty}S_N^R(t).
 \end{equation}
-使极限号与取上界号交换的一个充分条件是一致收敛，吉布斯现象表明，傅里叶级数在包含间断点的区间上不可能一致收敛。
+使极限号与取上界号交换的一个充分条件是一致收敛，Gibbs现象表明，傅里叶级数在包含间断点的区间上不可能一致收敛。
 
 为了直观地理解上确界的极限与极限的上确界之间的区别，我们来看一个经典的例子：
 \begin{example}
@@ -325,9 +325,9 @@ $\varlimsup_{N \to \infty}S_N^R(t)>1$并不意味着狄利克雷定理失效，�
     随$n$增大，$f(x)$逐点趋于0，因为对每一点$2/n$总能取到更小的值；但$f(x)$的最大值永远是1。
 \end{example}
 
-\subsection{帕塞瓦尔恒等式}\label{sub:paseval}
+\subsection{Parseval恒等式}\label{sub:paseval}
 类比有限维线性空间中的勾股定理，有
-\begin{theorem}[帕塞瓦尔定理/瑞利恒等式]
+\begin{theorem}[Parseval定理/Rayleigh恒等式]
     \begin{equation}
         \|f\|_2=\sum_{k=1}^{\infty}c_k^2|\e^{\im k\omega t}|^2=T\sum_{k=1}^{\infty}c_k^2,
     \end{equation}
@@ -337,9 +337,9 @@ $\varlimsup_{N \to \infty}S_N^R(t)>1$并不意味着狄利克雷定理失效，�
     \end{equation}
     其中$P$为平均功率。
 \end{theorem}
-至此，我们提出了傅里叶系数的公式和帕塞瓦尔定理，但用到的毕达哥拉斯定理（\cref{thm:gougu}）是基于有限维线性空间的，现在就来填补这个逻辑漏洞，对此不感兴趣的读者可以忽略这部分内容。设$\{\phi_n\}_{n=1}^{\infty}$是内积空间$L^2((a,b))$的标准正交基，$f\in L^2((a,b))$（注意这里已经不局限于讨论傅里叶级数）。
+至此，我们提出了傅里叶系数的公式和Parseval定理，但用到的毕达哥拉斯定理（\cref{thm:gougu}）是基于有限维线性空间的，现在就来填补这个逻辑漏洞，对此不感兴趣的读者可以忽略这部分内容。设$\{\phi_n\}_{n=1}^{\infty}$是内积空间$L^2((a,b))$的标准正交基，$f\in L^2((a,b))$（注意这里已经不局限于讨论傅里叶级数）。
 
-\begin{lemma}[*贝塞尔不等式]
+\begin{lemma}[*Bessel不等式]
     \begin{equation}
         \sum_{n=1}^{\infty}|(f,\phi_n)|^2\leq\|f\|_2^2.
     \end{equation}
@@ -358,13 +358,13 @@ $\varlimsup_{N \to \infty}S_N^R(t)>1$并不意味着狄利克雷定理失效，�
     \end{align}
     令$N\to\infty$即证。从第一行到第二行用到了恒等式$\|\mathbf{a}+\mathbf{b}\|^2=\|\mathbf{a}\|^2+2\Re\paren{\langle\mathbf{a},\mathbf{b}\rangle}+\|\mathbf{b}\|^2$，这个结论十分简单，留予读者自证。
 \end{proof}
-在最终的结论帕塞瓦尔定理中这个不等号将变成等号，但它是不可或缺的，并且我们还将在\cref{lemma:bessel_inequality}中见到它。
+在最终的结论Parseval定理中这个不等号将变成等号，但它是不可或缺的，并且我们还将在\cref{lemma:bessel_inequality}中见到它。
 
 \begin{lemma}*
     级数$\sum_{n=1}^{N}(f,\phi_n)\phi_n$依范数收敛，并且$\norm{\sum_{n=1}^{\infty}(f,\phi_n)\phi_n}_2\leq\|f\|_2$。
 \end{lemma}
 \begin{proof}
-    由贝塞尔不等式，
+    由Bessel不等式，
     \begin{equation}
         \sum_{n=1}^{\infty}|(f,\phi_n)|^2\leq\|f\|_2^2<\infty,
     \end{equation}
@@ -376,7 +376,7 @@ $\varlimsup_{N \to \infty}S_N^R(t)>1$并不意味着狄利克雷定理失效，�
     \begin{equation}
         \norm{\sum_{n=m_1}^{m_2}(f,\phi_n)\phi_n}_2^2=\sum_{n=m_1}^{m_2}|(f,\phi_n)|^2\to 0,
     \end{equation}
-    因此$\sum_{n=1}^{\infty}(f,\phi_n)\phi_n$构成柯西列。由于$L^2((a,b))$是无限维的完备度量空间，即希尔伯特空间（\cref{def:hilbert_space}）。
+    因此$\sum_{n=1}^{\infty}(f,\phi_n)\phi_n$构成Cauchy列。由于$L^2((a,b))$是无限维的完备度量空间，即Hilbert空间（\cref{def:hilbert_space}）。
 
     令$m_1=1,\ m_2\to\infty$，即得
     \begin{equation}
@@ -384,8 +384,8 @@ $\varlimsup_{N \to \infty}S_N^R(t)>1$并不意味着狄利克雷定理失效，�
     \end{equation}
 \end{proof}
 
-\begin{proposition}[*希尔伯特空间中的内积的连续性]\label{prop:hilbert_inner_product_continuous}
-    对于希尔伯特空间$H$，如果$\phi_n\in H$，级数$\sum_{n=1}^{\infty}\phi_n$的部分和$S_N$依范数收敛到$S$，则任给$y\in H$，总有
+\begin{proposition}[*Hilbert空间中的内积的连续性]\label{prop:hilbert_inner_product_continuous}
+    对于Hilbert空间$H$，如果$\phi_n\in H$，级数$\sum_{n=1}^{\infty}\phi_n$的部分和$S_N$依范数收敛到$S$，则任给$y\in H$，总有
     \begin{equation}
         \lim_{N\to\infty}\langle S_n,y\rangle=\langle S,y\rangle.
     \end{equation}
@@ -403,7 +403,7 @@ $\varlimsup_{N \to \infty}S_N^R(t)>1$并不意味着狄利克雷定理失效，�
     \begin{enumerate}
         \item $\forall n,\ (f,\phi_n)=0\implies f\sim 0$，即$\{\phi_n\}_{n=1}^{\infty}$是完备的标准正交基；
         \item $\forall f\in L^2((a,b))$，有$f\sim\sum_{n=1}^{\infty}(f,\phi_n)\phi_n$；
-        \item $\forall f\in L^2((a,b))$，有\textbf{帕塞瓦尔恒等式}：
+        \item $\forall f\in L^2((a,b))$，有\textbf{Parseval恒等式}：
               \begin{equation}
                   \|f\|_2^2=\sum_{n=1}^{\infty}|(f,\phi_n)|^2.
               \end{equation}

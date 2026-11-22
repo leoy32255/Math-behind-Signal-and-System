@@ -64,7 +64,7 @@
 \begin{example}
     序列$x[n]=\cos(n\pi)$的数字角频率为$\Omega=\pi$，假定采样间隔$T=1$，对应的连续信号为$f(t)=\cos(\pi t)$，其模拟角频率为$\omega=\pi$。
 
-    利用香农采样定理的方式还原函数，所得连续信号为
+    利用Shannon采样定理的方式还原函数，所得连续信号为
     \begin{equation}
         f_{\mathrm{re}}(t)=\sum_{n=-\infty}^{\infty}\cos(n\pi)\sinc\paren{\frac{t-nT}{T}}=\sum_{n=-\infty}^{\infty}(-1)^n\sinc(t-n),
     \end{equation}
@@ -269,7 +269,7 @@ DTFT的运算性质列举如下：
     \begin{equation}
         \im\frac{\dd X(\e^{\im\Omega})}{\dd\Omega}=\im\sum_{n=-\infty}^{\infty}x[n]\frac{\dd}{\dd\Omega}\e^{-\im\Omega n}=\sum_{n=-\infty}^{\infty}nx[n]\e^{-\im\Omega n}.
     \end{equation}
-    注意它与$z$域微分性质（\cref{prop:z_operation}）的形式不同。
+    注意它与z域微分性质（\cref{prop:z_operation}）的形式不同。
 \end{proof}
 
 作为共轭性质的推论，我们有：
@@ -286,8 +286,8 @@ DTFT的运算性质列举如下：
     x[n]y[n]\xleftrightarrow{\mathrm{DTFT}}\frac{1}{2\pi}\mathcal{X}(\Omega)*\mathcal{Y}(\Omega)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\mathcal{X}(\theta)\mathcal{Y}(\Omega-\theta)\,\dd\theta.
 \end{equation}
 
-此外，我们给出DTFT的\textbf{帕塞瓦尔定理}(Parseval's Theorem)，它表明时域能量与频域能量成正比：
-\begin{theorem}[离散时间傅里叶变换的帕塞瓦尔定理]\label{thm:DTFT_plancherel}
+此外，我们给出DTFT的\textbf{Parseval定理}，它表明时域能量与频域能量成正比：
+\begin{theorem}[离散时间傅里叶变换的Parseval定理]\label{thm:DTFT_plancherel}
     设$x[n],y[n]\in l^1\cap l^2$，其DTFT分别为$X(\e^{\im\Omega}),Y(\e^{\im\Omega})$，则有
     \begin{equation}
         \sum_{n=-\infty}^{\infty}x[n]\overline{y[n]}=\frac{1}{2\pi}\int_{-\pi}^{\pi}X(\e^{\im\Omega})\overline{Y(\e^{\im\Omega})}\,\dd\Omega.
@@ -311,25 +311,25 @@ DTFT的运算性质列举如下：
     \end{equation}
 \end{proof}
 
-利用帕塞瓦尔定理，可以得到原函数与采样序列的能量关系：
+利用Parseval定理，可以得到原函数与采样序列的能量关系：
 
 \begin{theorem}
-    设$f(t)\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$是带限函数，采样频率高于奈奎斯特频率，以$T$表示采样间隔，$E_d$表示采样序列$x[n]$的能量，$E$表示原函数$f(t)$的能量，则它们满足以下关系：
+    设$f(t)\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$是带限函数，采样频率高于Nyquist频率，以$T$表示采样间隔，$E_d$表示采样序列$x[n]$的能量，$E$表示原函数$f(t)$的能量，则它们满足以下关系：
     \begin{equation}
         E=TE_d,\quad \text{即}\ \sum_{n=-\infty}^{\infty}|x[n]|^2=\frac{1}{T}\norm{f(t)}_2^2.
     \end{equation}
 \end{theorem}
 \begin{proof}
-    在采样频率高于奈奎斯特频率时不会发生混叠，即频域上周期化时不产生交叠，因此离散时间傅里叶变换$X(\e^{\im\Omega})$在$(-\pi,\pi]$范围内就是原函数的傅里叶变换$\mathcal{F} f(\omega)$在$(-\pi/T,\pi/T]$范围内的伸缩，即
+    在采样频率高于Nyquist频率时不会发生混叠，即频域上周期化时不产生交叠，因此离散时间傅里叶变换$X(\e^{\im\Omega})$在$(-\pi,\pi]$范围内就是原函数的傅里叶变换$\mathcal{F} f(\omega)$在$(-\pi/T,\pi/T]$范围内的伸缩，即
     \begin{equation}
-        X(\e^{\im\Omega})=\mathcal{F} f(\Omega/T),\quad \Omega\in(-\pi,\pi].
+        X(\e^{\im\Omega})=\frac1T\mathcal{F} f(\Omega/T),\quad \Omega\in(-\pi,\pi].
     \end{equation}
     因此有
     \begin{align}
         E_d&=\sum_{n=-\infty}^{\infty}|x[n]|^2 \nonumber \\
         &=\frac{1}{2\pi}\int_{-\pi}^{\pi}|X(\e^{\im\Omega})|^2\,\dd\Omega \nonumber \\
-        &=\frac{1}{2\pi}\int_{-\pi}^{\pi}|\mathcal{F} f(\Omega/T)|^2\,\dd\Omega \nonumber \\
-        &=\frac{1}{T}\cdot\frac{1}{2\pi}\int_{-\pi/T}^{\pi/T}|\mathcal{F} f(\omega)|^2\,\dd\omega \qquad (\omega=T\Omega) \nonumber \\
+        &=\frac{1}{2\pi T^2}\int_{-\pi}^{\pi}|\mathcal{F} f(\Omega/T)|^2\,\dd\Omega \nonumber \\
+        &=\frac{1}{2\pi T}\int_{-\pi/T}^{\pi/T}|\mathcal{F} f(\omega)|^2\,\dd\omega \qquad (\omega=\Omega/T) \nonumber \\
         &=\frac{1}{T}\norm{f(t)}_2^2=\frac{E}{T}.
     \end{align}
 \end{proof}

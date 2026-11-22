@@ -83,14 +83,14 @@
     当$e(t)=\delta(t)$时，零状态响应$r_{\zs}(t)$为\textbf{单位脉冲响应}；当$e(t)=u(t)$时，零状态响应$r_{\zs}(t)$称为\textbf{单位阶跃响应}。习惯上，将单位脉冲响应记为$h(t)$，单位阶跃响应记为$g(t)$。
 \end{definition}
 
-常微分方程的解空间是有限维的，只要给定足够的初值数量，就可以唯一确定方程的解，因此常微分方程系统都具有\textbf{马尔可夫性}。在\refsub{compare_to_high_order}中，我们将对线性微分方程组的解空间维数进行说明。
+常微分方程的解空间是有限维的，只要给定足够的初值数量，就可以唯一确定方程的解，因此常微分方程系统都具有\textbf{Markov性}。在\refsub{compare_to_high_order}中，我们将对线性微分方程组的解空间维数进行说明。
 
-\begin{definition}[马尔可夫性]
+\begin{definition}[Markov性]
     \label{def:system_markov}
-    只要知道了$t=t_0$时刻的系统状态，未来的响应$r(t)\ (t>t_0)$就与过去的激励$e(t)\ (t<t_0)$无关，称这样的系统具有\textbf{马尔可夫性}或\textbf{无后效性}。
+    只要知道了$t=t_0$时刻的系统状态，未来的响应$r(t)\ (t>t_0)$就与过去的激励$e(t)\ (t<t_0)$无关，称这样的系统具有\textbf{Markov性}或\textbf{无后效性}。
 \end{definition}
 
-对于同时具有线性性和马尔可夫性的系统，在某一时刻（通常取为$t=0$时刻）以前的激励归结为系统的初始条件，在$t>0$时，即便激励为零，响应也可能不为零。由系统的线性性，可以将$r(t)$分解为两部分：
+对于同时具有线性性和Markov性的系统，在某一时刻（通常取为$t=0$时刻）以前的激励归结为系统的初始条件，在$t>0$时，即便激励为零，响应也可能不为零。由系统的线性性，可以将$r(t)$分解为两部分：
 \begin{definition}[零输入响应与零状态响应]
     \label{def:zir_zsr}
     \textbf{零输入响应}(zero input response, $r_{\zi}(t)$)是指$e(t)=0$时，由于初始条件而产生的响应；\textbf{零状态响应}(zero state response, $r_{\zs}(t)$)是指将系统初始能量置零时的响应。\textbf{全响应}$r(t)=r_{\zi}(t)+r_{\zs}(t)$。
@@ -120,7 +120,7 @@
     一个系统具有\textbf{记忆性}（或历史依赖性），如果系统的响应在任意时刻$t$的状态演化率显式地依赖于过去时刻$t'<t$的系统状态或历史激励，而不能被简化为仅依赖于当前时刻$t$的量。
 \end{definition}
 
-相比马尔可夫性，即时性对系统的约束要强得多：
+相比Markov性，即时性对系统的约束要强得多：
 
 \begin{example}[积分方程]
     设系统由积分方程
@@ -131,10 +131,10 @@
     \begin{equation}
         r(t)=\int_{t_0}^{t}e(y)\,\dd y,\quad t>t_0,
     \end{equation}
-    因此该系统具有马尔可夫性。
+    因此该系统具有Markov性。
 \end{example}
 
-事实上，线性时不变系统总是具有马尔可夫性的，但是它们多数没有即时性，即时性要求单位脉冲响应$h(t)=K\delta$，$K$为常数。加法器、乘法器都是典型的即时系统。
+事实上，线性时不变系统总是具有Markov性的，但是它们多数没有即时性，即时性要求单位脉冲响应$h(t)=K\delta$，$K$为常数。加法器、乘法器都是典型的即时系统。
 
 \subsection{常见线性系统}\label{sub:ordinary_system}
 
@@ -160,7 +160,7 @@
     \begin{itemize}
         \item 转置系统$H^T$描述为$H^T[e(t)]=\int_{a}^{b}k(y,x)e(y)\,\dd y$；
         \item 如果$k(x,y)=k(y,x)$，称$k$是\textbf{对称的}并将系统称为\textbf{对称系统}；
-        \item 如果$k(x,y)=\overline{k(y,x)}$，称$k$是\textbf{埃尔米特的}并将系统称为\textbf{自伴系统}。
+        \item 如果$k(x,y)=\overline{k(y,x)}$，称$k$是\textbf{Hermite的}并将系统称为\textbf{自伴系统}。
     \end{itemize}
 \end{definition}
 
@@ -234,8 +234,8 @@
     \end{align}
 \end{proof}
 
-函数与$\delta$的卷积还是它本身，这就好比信号在进入任何一个系统前，先经过了一个与$\delta$卷积的线性时不变系统，利用这一观点即可得到\textbf{叠加定理}(superposition theorem)\cite{brad_osgood_ee261}，由于它是泛函分析中对应定理的特殊形式，有时也将它称为\textbf{施瓦兹核定理}(Schwartz kernel theorem)。
-\begin{theorem}[叠加定理/施瓦兹核定理]\label{thm:superposition}
+函数与$\delta$的卷积还是它本身，这就好比信号在进入任何一个系统前，先经过了一个与$\delta$卷积的线性时不变系统，利用这一观点即可得到\textbf{叠加定理}(superposition theorem)\cite{brad_osgood_ee261}，由于它是泛函分析中对应定理的特殊形式，有时也将它称为\textbf{Schwartz核定理}。
+\begin{theorem}[叠加定理/Schwartz核定理]\label{thm:superposition}
     \begin{equation}
         r(x)=\int_{-\infty}^{\infty}k(x,y)e(y)\,\dd y,
     \end{equation}

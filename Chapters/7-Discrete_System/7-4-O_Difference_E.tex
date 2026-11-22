@@ -162,19 +162,23 @@
     \begin{equation}
         y[n]-2y[n-1]+y[n-2]=x[n]
     \end{equation}
-    的单位阶跃响应。
+    的单位脉冲响应。
 
     解：特征方程为$\lambda^2-2\lambda+1=0$，有一个重根$\lambda=1$，因此单位脉冲响应的形式为
     \begin{equation}
         h[n]=(A n+B)u[n].
     \end{equation}
-    代入$n=0,1$，得
+    代入原方程，得
     \begin{equation}
-        h[0]=B=1,\quad h[1]=A+B=0,
+        \sbr{An+B}u[n]-2\sbr{A(n-1)+B}u[n-1]+\sbr{A(n-2)+B}u[n-2]=\delta[n].
     \end{equation}
-    因此$A=-1,\ B=1$，单位脉冲响应为
+    分别令$n=0,1$，得
     \begin{equation}
-        h[n]=(1-n)u[n].
+        B=1,\quad A+B-2B=0,
+    \end{equation}
+    因此$A=1,\ B=1$，单位脉冲响应为
+    \begin{equation}
+        h[n]=(1+n)u[n].
     \end{equation}
 \end{example}
 
@@ -187,6 +191,40 @@
     h[n]=\paren{\sum_{i=1}^{s}P_i(n) \lambda_i^n}u[n]+\sum_{i=0}^{M-N}B_i\delta[n-i],
 \end{equation}
 其中$B_i$为常数，代入$n=0,1,\cdots,M$，解出多项式$P_i(n)$的系数与常数$B_i$，即可得到单位脉冲响应$h[n]$，从而得到差分方程的解。
+
+\begin{example}
+    求差分方程
+    \begin{equation}
+        y[n]-2y[n-1]+y[n-2]=x[n]+x[n-2]
+    \end{equation}
+    的单位脉冲响应。
+
+    解：特征方程为$\lambda^2-2\lambda+1=0$，有一个重根$\lambda=1$，因此齐次解为
+    \begin{equation}
+        y_h[n]=A n+B.
+    \end{equation}
+    由于$N=M=2$，将单位脉冲响应设为
+    \begin{equation}
+        h[n]=(A n+B)u[n]+C\delta[n].
+    \end{equation}
+    代入原方程，得
+    \begin{align}
+        \delta[n]+\delta[n-2]&=\sbr{An+B}u[n]-2\sbr{A(n-1)+B}u[n-1]+\sbr{A(n-2)+B}u[n-2]\nonumber\\
+        &\quad+C(\delta[n]-2\delta[n-1]+\delta[n-2]).
+    \end{align}
+    代入$n=0,1,2$，得
+    \begin{equation}
+        \begin{dcases}
+            B+C=1,\\
+            A-B-2C=0,\\
+            C=1,
+        \end{dcases}
+    \end{equation}
+    因此$A=2,\ B=0,\ C=1$，单位脉冲响应为
+    \begin{equation}
+        h[n]=2n u[n]+\delta[n].
+    \end{equation}
+\end{example}
 
 从基本解的形式可以看出$h[n]$总是因果信号，因此\textbf{差分方程所描述的系统是因果的线性时不变系统}。
 
@@ -221,103 +259,14 @@
     \begin{equation}
         \sum_{k=0}^{N}a_k y[n-k]=\sum_{l=0}^{M}b_l x[n-l]
     \end{equation}
-    的单位脉冲响应，并且有零状态初始值$r_{\zs}[1-N],r_{\zs}[2-N],\cdots,r_{\zs}[0]$，则该差分方程的解为
+    的单位脉冲响应，并且有零输入初始值$r_{\zi}[1-N],r_{\zi}[2-N],\cdots,r_{\zi}[0]$，则该差分方程的解为
     \begin{equation}
         y[n]=r_{\zi}[n]+r_{\zs}[n]=r_{\zi}[n]+\sum_{m=0}^{n}h[n-m]x[m],
     \end{equation}
     其中零输入响应$r_{\zi}[n]$由零输入初始值唯一确定。
 \end{theorem}
 
-尽管$N>1$时，差分方程的解不仅依赖于$r_{\zs}[0]$，还依赖于$r_{\zs}[1-N]$，但我们还是认为系统有马尔可夫性，这与\refsub{discrete_system_overview}中提到的马尔可夫性并不矛盾——在\refsub{difference_equation}的最后我们指出，这些初始值相当于$n=0$时刻$r_{\zs}$的$0$到$N-1$阶差分，并且给定这些初始值后，$n>0$时刻的响应的确不依赖于$n<0$时刻的激励。
-
-沿着\refsub{fundamental_solution}的思路，我们尝试由单位阶跃响应来求解单位脉冲响应，从而简化计算。
-
-\begin{lemma}
-    设$h[n]$为差分方程
-    \begin{equation}
-        \sum_{k=0}^{N}a_k y[n-k]=\sum_{l=0}^{M}b_l x[n-l]
-    \end{equation}
-    的单位脉冲响应，$g[n]$为该方程的单位阶跃响应，则$h[n]$是$g[n]$的后向差分：
-    \begin{equation}
-        h[n]=\nabla g[n]=g[n]-g[n-1].
-    \end{equation}
-\end{lemma}
-\begin{proof}
-    单位脉冲响应$h[n]$与单位阶跃响应$g[n]$分别满足以下方程：
-    \begin{equation}
-        \sum_{k=0}^{N}a_k h[n-k]=\delta[n],\quad \sum_{k=0}^{N}a_k g[n-k]=u[n].
-    \end{equation}
-    将$g[n]$的方程两边同时后向差分，得到
-    \begin{equation}
-        \sum_{k=0}^{N}a_k \nabla g[n-k]=\nabla u[n]=\delta[n].
-    \end{equation}
-    因此$\nabla g[n]$与$h[n]$满足同一个方程，并且它们的零状态初始值都为零，因此$\nabla g[n]=h[n]$。
-\end{proof}
-
-这样，可以少引入一阶$\delta[n]$的差分，从而使方程降一阶。具体来说，对于差分方程
-\begin{equation}
-    \sum_{k=0}^{N}a_k y[n-k]=\sum_{l=0}^{M}b_l x[n-l],
-\end{equation}
-当$N\geq M$时，可以将单位阶跃响应设为
-\begin{equation}
-    g[n]=\paren{\sum_{i=1}^{s}P_i(n) \lambda_i^n}u[n],
-\end{equation}
-其中$P_i(n)$为关于$n$的多项式，$\deg P_i=k_i-1$；当$N<M$时，可以将单位阶跃响应设为
-\begin{equation}
-    g[n]=\paren{\sum_{i=1}^{s}P_i(n) \lambda_i^n}u[n]+\sum_{i=0}^{M-N-1}B_i\delta[n-i],
-\end{equation}
-其中$B_i$为常数。
-
-\begin{example}
-    求差分方程
-    \begin{equation}
-        y[n]-2y[n-1]+y[n-2]=x[n]+x[n-2]
-    \end{equation}
-    的单位阶跃响应。
-
-    解：特征方程为$\lambda^2-2\lambda+1=0$，有一个重根$\lambda=1$，因此齐次解为
-    \begin{equation}
-        y_h[n]=A n+B.
-    \end{equation}
-
-    首先，我们直接求解单位脉冲响应。由于$N=M=2$，因此单位脉冲响应的形式为
-    \begin{equation}
-        h[n]=(A n+B)u[n]+C\delta[n].
-    \end{equation}
-    代入$n=0,1,2$，得
-    \begin{equation}
-        \begin{dcases}
-            h[0]=B+C=1,\\
-            h[1]=A+B=0,\\
-            h[2]=2A+B=1,
-        \end{dcases}
-    \end{equation}
-    因此$A=1,\ B=-1,\ C=2$，单位脉冲响应为
-    \begin{equation}
-        h[n]=(n-1)u[n]+2\delta[n].
-    \end{equation}
-
-    其次，我们通过求单位阶跃响应来求单位脉冲响应。由于$N=M=2$，因此单位阶跃响应的形式为
-    \begin{equation}
-        g[n]=(A n+B)u[n].
-    \end{equation}
-    代入$n=0,1$，得
-    \begin{equation}
-        \begin{dcases}
-            h[0]=B=1,\\
-            h[1]=A+B=0,
-        \end{dcases}
-    \end{equation}
-    因此$A=-1,\ B=1$，单位阶跃响应为
-    \begin{equation}
-        g[n]=(1-n)u[n],
-    \end{equation}
-    从而单位脉冲响应为
-    \begin{equation}
-        h[n]=\nabla g[n]=g[n]-g[n-1]=(n-1)u[n]+2\delta[n],
-    \end{equation}
-    与之前的结果一致。显然，当单位脉冲响应中含有$\delta[n]$时，\textbf{通过单位阶跃响应求解单位脉冲响应的计算更为简便}。
-\end{example}
+尽管$N>1$时，差分方程的解不仅依赖于$r_{\zi}[0]$，还依赖于$r_{\zi}[1-N]$，但我们还是认为系统有Markov性，这与\refsub{discrete_system_overview}中提到的Markov性并不矛盾——在\refsub{difference_equation}的最后我们指出，这些初始值相当于$n=0$时刻$r_{\zi}$的$0$到$N-1$阶差分，并且给定这些初始值后，$n>0$时刻的响应的确不依赖于$n<0$时刻的激励。
 
 \subsection{单边z变换}\label{sub:single_z}
 
@@ -333,7 +282,7 @@
 \begin{equation}
     \braces{z\in\mathbb{C}\;\middle|\;|z|>r,\ r=\varlimsup_{n\to\infty}|x[n]|^{1/n}}.
 \end{equation}
-当然，作为洛朗级数，我们还是可以通过奇点判断收敛域。
+当然，作为Laurent级数，我们还是可以通过奇点判断收敛域。
 
 单边z变换与双边z变换类似，可以参照\refsub{z_operation}给出单边z变换的线性性、移位性质、卷积定理等性质。本小节中，我们简要介绍与双边z变换不同的性质：
 \begin{proposition}[单边z变换的移位性质]
@@ -400,8 +349,8 @@
     为了处理它们的留数，可以选取一个半径$r$，使得$|p_k|<r<1$，以半径$r$的圆$C_{r}:t\mapsto r\e^{\im t},\ t\in[0,2\pi]$为围道，有
     \begin{align}
         \abs{\sum_{k}\Res(X(z)z^{n-1},p_k)}&=\abs{\frac{1}{2\pi\im}\oint_{C_r}X(z)z^{n-1}\,\dd z} \nonumber \\
-        &\leq \frac{1}{2\pi}\oint_{C_r}|X(z)|r^{n-1}\,\dd t \nonumber \\
-        &\leq \max_{|z|=r}|X(z)|r^{n-1}.
+        &\leq \frac{1}{2\pi}\oint_{C_r}|X(z)|r^{n-1}\,\abs{\dd z} \nonumber \\
+        &\leq \max_{|z|=r}|X(z)|\cdot r^{n}.
     \end{align}
     令$n\to\infty$，由于$r<1$，上式以指数函数的速度趋于$0$，因此
     \begin{align}
@@ -417,18 +366,18 @@
 
 其次，上面的留数证明要求$X(z)$的奇点均为极点，类似的论证曾用于\refsub{causual_static_delay}。若存在其他类型的奇点，可仿照\refsub{initial_and_final_value}，将$X(z)$分解为$z=1$处的一阶分式与$|z|>r$上的全纯函数之和，从而得到相同结论。
 
-最后，多数文献也允许$z=1$不是奇点。若$X(z)$的奇点都严格位于单位圆内，则其收敛域的内边界半径$r<1$。由洛朗级数的收敛半径公式，
+最后，多数文献也允许$z=1$不是奇点。若$X(z)$的奇点都严格位于单位圆内，则其收敛域的内边界半径$r<1$。由Laurent级数的收敛半径公式，
 \begin{equation}
     \varlimsup_{n\to\infty}|x[n]|^{1/n}=r<1,
 \end{equation}
-故$x[n]\to 0$，终值定理仍成立，其终值为零。反之，若奇点都位于单位圆外，则$r>1$，信号必然无界，且极限未必存在。更一般地，在已知收敛域方向的前提下，奇点到原点的距离决定信号的指数包络，奇点的辐角决定振荡频率，奇点的阶数则决定多项式包络。因此，与\refsub{converge_abscissa}类似，可以由$X(z)$的奇点判断$x[n]$的时域特性；这一结论也可由\refsub{laurant_series}中的洛朗级数理论严格说明。
+故$x[n]\to 0$，终值定理仍成立，其终值为零。反之，若奇点都位于单位圆外，则$r>1$，信号必然无界，且极限未必存在。更一般地，在已知收敛域方向的前提下，奇点到原点的距离决定信号的指数包络，奇点的辐角决定振荡频率，奇点的阶数则决定多项式包络。因此，与\refsub{converge_abscissa}类似，可以由$X(z)$的奇点判断$x[n]$的时域特性；这一结论也可由\refsub{laurant_series}中的Laurent级数理论严格说明。
 
 \begin{example}
     考察单边z变换
     \begin{equation}
         X_m(z)=\frac{1}{(1-az^{-1})^m}=\frac{z^m}{(z-a)^m},\quad |z|>|a|,
     \end{equation}
-    其中$a=\rho\e^{\im\Omega}\neq 0$。对$(1-az^{-1})^{-m}$做泰勒级数展开可得：
+    其中$a=\rho\e^{\im\Omega}\neq 0$。对$(1-az^{-1})^{-m}$做Taylor级数展开可得：
     \begin{equation}
         x_m[n]=\binom{n+m-1}{m-1}a^n u[n]=\binom{n+m-1}{m-1}\rho^n\e^{\im\Omega n}u[n].
     \end{equation}
@@ -478,11 +427,11 @@
     \end{equation}
     代入并整理得
     \begin{equation}
-        (1-3z^{-1}+2z^{-2})Y(z)=\frac{z}{z-2}+3y[-1]-2y[-2]+2y[-1]z^{-1}=\frac{z}{z-2}+3-2z^{-1},
+        (1-3z^{-1}+2z^{-2})Y(z)=\frac{z}{z-2}+3y[-1]-2y[-2]-2y[-1]z^{-1}=\frac{z}{z-2}+3-2z^{-1},
     \end{equation}
     因此
     \begin{equation}
-        Y(z)=\frac{z}{(z-2)(1-3z^{-1}+2z^{-2})}+\frac{3+2z^{-1}}{1-3z^{-1}+2z^{-2}}=\frac{4z(z-1)}{(z-2)^2}.
+        Y(z)=\frac{z}{(z-2)(1-3z^{-1}+2z^{-2})}+\frac{3-2z^{-1}}{1-3z^{-1}+2z^{-2}}=\frac{4z(z-1)}{(z-2)^2}.
     \end{equation}
     由逆z变换的留数定理公式，选取$|z|>2$中的围道$C$，有
     \begin{align}

@@ -60,7 +60,7 @@
 
 不过，周期函数的卷积也与经典的卷积有一些差别。例如，在函数的平移和伸缩变换下，卷积不再具有类似\cref{prop:conv_signal_shift}中的性质，因为这两个性质的证明都依赖于无穷的积分区间。
 
-在\refsub{poisson_summation}中，我们指出，周期函数可以视作施瓦兹函数的周期延拓，并且周期函数的傅里叶级数的系数正比于紧支函数的傅里叶变换在离散点处的取值。因此，我们希望周期函数的卷积的傅里叶系数也具有类似卷积定理的性质。事实也确实如此。我们先引入以下结论：
+在\refsub{poisson_summation}中，我们指出，周期函数可以视作Schwartz函数的周期延拓，并且周期函数的傅里叶级数的系数正比于紧支函数的傅里叶变换在离散点处的取值。因此，我们希望周期函数的卷积的傅里叶系数也具有类似卷积定理的性质。事实也确实如此。我们先引入以下结论：
 \begin{claim}
     设$1\le p<\infty$，$1/p+1/q=1$，$f\in L^p(\mathbb{R})$，$g\in L^q(\mathbb{R})$，则$f*g$在$\mathbb{R}$上有限且一致连续。
 \end{claim}
@@ -99,9 +99,9 @@
     \item 傅里叶变换处理的频域信息是全局的，无法获得时间局部的频率成分信息。
 \end{itemize}
 
-因此需要对信号进行截断处理，即对信号乘以一个\textbf{窗函数}(window function)，这个过程称为\textbf{加窗}(windowing)。常见的窗函数有矩形窗、三角窗、高斯窗和汉明窗(Hamming window)等。其中，汉明窗又称升余弦窗，它的定义为：
-\begin{definition}[汉明窗]
-    设$L>0$，则汉明窗$w:\mathbb{R}\to\mathbb{R}$定义为：
+因此需要对信号进行截断处理，即对信号乘以一个\textbf{窗函数}(window function)，这个过程称为\textbf{加窗}(windowing)。常见的窗函数有矩形窗、三角窗、高斯窗和Hamming窗等。其中，Hamming窗又称升余弦窗，它的定义为：
+\begin{definition}[Hamming窗]
+    设$L>0$，则Hamming窗$w:\mathbb{R}\to\mathbb{R}$定义为：
     \begin{equation}
         w(t)=\begin{dcases}
             \alpha+(1-\alpha)\cos\paren{\frac{2\pi t}{L}}, & \abs{t}\leq\frac{L}{2},\\
@@ -127,10 +127,10 @@
         \mathrm{STFT}_{f,w}(\tau,\omega)&=\mathcal{F}\sbr{f(t)w(t-\tau)}(\omega)\\
         &=\int_{-\infty}^{\infty}f(t)w_{\tau}(t)\e^{-\im\omega t}\,\dd t,
     \end{lralign}
-    其中参数$\tau$表示加窗的时间位置。特别地，当窗函数为矩形窗时，短时傅里叶变换称为\textbf{滑动傅里叶变换}(sliding Fourier transform)；当窗函数为高斯窗时，短时傅里叶变换称为\textbf{Gabor变换}(Gabor transform)。
+    其中参数$\tau$表示加窗的时间位置。特别地，当窗函数为矩形窗时，短时傅里叶变换称为\textbf{滑动傅里叶变换}(sliding Fourier transform)；当窗函数为高斯窗时，短时傅里叶变换称为\textbf{Gabor变换}。
 \end{definition}
 
-要求$f\in L^2(\mathbb{R})$是为了保证$f(t)w(t-\tau)\in L^1(\mathbb{R})$，从而短时傅里叶变换良定义。由柯西不等式，有：
+要求$f\in L^2(\mathbb{R})$是为了保证$f(t)w(t-\tau)\in L^1(\mathbb{R})$，从而短时傅里叶变换良定义。由Cauchy不等式，有：
 \begin{align}
     \norm{f(\cdot)w(\cdot-\tau)}_1&=\int_{-\infty}^{\infty}\abs{f(t)w(t-\tau)}\,\dd t\nonumber\\
     &\leq\paren{\int_{-\infty}^{\infty}\abs{f(t)}^2\,\dd t}^{1/2}\paren{\int_{-\infty}^{\infty}\abs{w(t-\tau)}^2\,\dd t}^{1/2}\nonumber\\
@@ -285,7 +285,7 @@
 
 使用频率形式的傅里叶变换，仅仅是因为需要借助傅里叶变换的工具来分析小波变换，使用角频率也不会产生本质区别。
 
-我们很快会看到，这一条件保证了小波变换可逆，并使得小波变换的普朗歇尔公式成立。
+我们很快会看到，这一条件保证了小波变换可逆，并使得小波变换的Plancherel公式成立。
 
 容许性条件蕴含了小波母函数的直流分量为$0$：
 
@@ -308,14 +308,14 @@
     矛盾。
 \end{proof}
 
-\begin{theorem}[小波变换的普朗歇尔公式]
+\begin{theorem}[小波变换的Plancherel公式]
     设$f,g\in L^2(\mathbb{R})$，$\psi$为满足容许性条件的小波母函数，则
     \begin{equation}
         (f,g)=\frac{1}{C_{\psi}}\int_{-\infty}^{\infty}a^{-2}\,\dd a\int_{-\infty}^{\infty}\mathrm{WT}_{f,\psi}(a,b)\overline{\mathrm{WT}_{g,\psi}(a,b)}\,\dd b.
     \end{equation}
 \end{theorem}
 \begin{proof}
-    \refsub{fourier_operation_properties}中的普朗歇尔定理表明：
+    \refsub{fourier_operation_properties}中的Plancherel定理表明：
     \begin{equation}
         (f,g)=(\hat{f},\hat{g})=\int_{-\infty}^{\infty}\hat{f}(\xi)\overline{\hat{g}(\xi)}\,\dd\xi,
     \end{equation}
@@ -323,7 +323,7 @@
     \begin{equation}
         \int_{-\infty}^{\infty}\mathrm{WT}_{f,\psi}(a,b)\overline{\mathrm{WT}_{g,\psi}(a,b)}\,\dd b=\paren{\mathrm{WT}_{f,\psi}(a,\cdot),\mathrm{WT}_{g,\psi}(a,\cdot)}.
     \end{equation}
-    希望使用普朗歇尔定理，为此考察$\mathcal{F}_b\sbr{\mathrm{WT}_{f,\psi}(a,b)}(\xi)$。将小波变换的定义式改写为
+    希望使用Plancherel定理，为此考察$\mathcal{F}_b\sbr{\mathrm{WT}_{f,\psi}(a,b)}(\xi)$。将小波变换的定义式改写为
     \begin{equation}
         \mathrm{WT}_{f,\psi}(a,b)=\abs{a}^{-1/2}\int_{-\infty}^{\infty}f(t)\overline{\psi\paren{\frac{t-b}{a}}}\,\dd t=\abs{a}^{-1/2}\paren{f*\overline{\sigma_{-1/a}\psi}}(b),
     \end{equation}
@@ -359,7 +359,7 @@
     \end{equation}
 \end{theorem}
 \begin{proof}
-    仍先用普朗歇尔定理处理内层积分。根据上一定理证明过程中的结果，有：
+    仍先用Plancherel定理处理内层积分。根据上一定理证明过程中的结果，有：
     \begin{align}
         \mathcal{F}_b\sbr{\mathrm{WT}_{f,\psi}(a,b)}(\xi)&=\abs{a}^{1/2}\hat{f}(\xi)\overline{\hat{\psi}(a\xi)},\\
         \mathcal{F}_b\sbr{\overline{\psi_{a,b}(t)}}(\xi)&=\abs{a}\e^{-2\pi\im\xi b}\hat{\psi}(a\xi).
@@ -429,4 +429,4 @@
 \begin{equation}
     C_{\psi}=\int_{0}^{\infty}\frac{\abs{\hat{\psi}(\xi)}^2}{\xi}\,\dd\xi<\infty,
 \end{equation}
-于是Haar小波的容许性常数变为$\displaystyle C_{\psi}=\frac{\ln 2}{2}$，并且普朗歇尔公式与反演公式也需要做相应调整。
+于是Haar小波的容许性常数变为$\displaystyle C_{\psi}=\frac{\ln 2}{2}$，并且Plancherel公式与反演公式也需要做相应调整。

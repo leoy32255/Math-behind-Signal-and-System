@@ -145,7 +145,7 @@
             \frac{\pi}{2}\cdot\frac{(k-1)!!}{k!!}, & k\text{为偶数}.
         \end{dcases}
     \end{equation}
-    这个结果称为\textbf{沃利斯公式}(Wallis formula)。
+    这个结果称为\textbf{Wallis公式}。
 \end{proposition}
 \begin{proof}
     我们仅对后两个公式进行一些说明。对于$m=2k,\ n=2l$的情况，有
@@ -172,7 +172,7 @@
 
 \subsection{正弦积分函数}\label{sub:int_sin}
 
-本小节介绍\textbf{正弦积分函数}及\textbf{狄利克雷积分}。正弦积分函数是作为采样函数的反导数\footnote{反导数(antiderivative)可以粗略地理解为变限积分，因为变限积分的导数是被积函数，但在复变函数中它具有更深刻的意义。}定义的：
+本小节介绍\textbf{正弦积分函数}及\textbf{Dirichlet积分}。正弦积分函数是作为采样函数的反导数\footnote{反导数(antiderivative)可以粗略地理解为变限积分，因为变限积分的导数是被积函数，但在复变函数中它具有更深刻的意义。}定义的：
 
 \begin{definition}[正弦积分函数]
     \begin{equation}
@@ -203,8 +203,8 @@ $\displaystyle \frac{\sin t}{t}$是\refsub{signal}中介绍的采样函数，在
 \end{align}
 是交错级数，其各项绝对值单调递减且趋于0，根据Leibniz判别法可知该级数收敛，即积分收敛。由于正弦积分函数是奇函数，$\mathrm{Si}(-\infty)$也是收敛的，综上我们说明了正弦积分函数的有界性。
 
-进一步，正弦积分函数在$\infty$处收敛于$\pi/2$，这个结果称为\textbf{狄利克雷积分}，它可以通过留数定理或傅里叶变换来证明，我们将在\refsub{fourier_of_signal}中给出基于傅里叶变换的证明。
-\begin{theorem}[狄利克雷积分]
+进一步，正弦积分函数在$\infty$处收敛于$\pi/2$，这个结果称为\textbf{Dirichlet积分}，它可以通过留数定理或傅里叶变换来证明，我们将在\refsub{fourier_of_signal}中给出基于傅里叶变换的证明。
+\begin{theorem}[Dirichlet积分]
     \label{thm:dirichlet_int}
     \begin{equation}
         \int_{0}^{\infty}\frac{\sin t}{t}\,\dd t=\mathrm{Si}(\infty)=\frac{\pi}{2}.
@@ -223,7 +223,7 @@ $\displaystyle \frac{\sin t}{t}$是\refsub{signal}中介绍的采样函数，在
     在$a<0$时，积分值为$-\pi$，因此上述积分的结果可统一表示为$\pi\sgn(a)$。
 \end{corollary}
 
-然而，狄利克雷积分不是绝对收敛的。考虑$[0,\infty)$的等长的子区间族
+然而，Dirichlet积分不是绝对收敛的。考虑$[0,\infty)$的等长的子区间族
 \begin{equation}
     I_n=\sbr{\paren{n+\frac{1}{6}}\pi,\paren{n+\frac{5}{6}}\pi},\quad n=0,1,2,\cdots
 \end{equation}
@@ -231,7 +231,7 @@ $\displaystyle \frac{\sin t}{t}$是\refsub{signal}中介绍的采样函数，在
 \begin{equation}
     t\leq n+1,\quad |\sin t|\geq \frac{1}{2},\quad \int_{I_n}\abs{\frac{\sin t}{t}}\,\dd t \geq \int_{I_n}\frac{1}{2t}\,\dd t\geq\frac{\pi}{3}\sum_{n=1}^{\infty}\frac{1}{n+1}.
 \end{equation}
-$\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明了狄利克雷积分条件收敛，但不绝对收敛：
+$\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明了Dirichlet积分条件收敛，但不绝对收敛：
 \begin{equation}
     \int_{0}^{\infty}\abs{\frac{\sin t}{t}}\,\dd t=\infty.
 \end{equation}
@@ -259,7 +259,7 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
 %\end{align*}
 %误差函数、补误差函数
 
-\subsection{三角多项式与切比雪夫多项式}\label{sub:chebychev_polynomial}
+\subsection{三角多项式与Chebyshev多项式}\label{sub:chebychev_polynomial}
 
 \subsubsection{三角多项式}
 
@@ -297,13 +297,13 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
 \end{equation}
 可见，$n$次的三角多项式总能表示为$2n+1$个复指数函数$\{\e^{\im k\omega t}\}_{k=-n}^n$的有限线性组合。
 
-\subsubsection{切比雪夫多项式}
+\subsubsection{Chebyshev多项式}
 
-我们熟悉的代数多项式可以通过第一类切比雪夫多项式与三角多项式联系起来。
+我们熟悉的代数多项式可以通过第一类Chebyshev多项式与三角多项式联系起来。
 
-\begin{definition}[第一类切比雪夫多项式]
+\begin{definition}[第一类Chebyshev多项式]
     \label{def:chebychev_polynomial}
-    \textbf{第一类切比雪夫多项式}(Chebychev Polynomial of the First Kind)是定义在$[-1,1]$上的多项式：
+    \textbf{第一类Chebyshev多项式}是定义在$[-1,1]$上的多项式：
     \begin{equation}
         T_n(x)=\cos(n\arccos(x)).
     \end{equation}
@@ -329,7 +329,7 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
     &=2T_n(\cos\theta)\cos\theta-T_{n-1}(\cos\theta).
 \end{align}
 由此我们得到：
-\begin{theorem}[第一类切比雪夫多项式的递推公式]
+\begin{theorem}[第一类Chebyshev多项式的递推公式]
     \begin{equation}
         T_{n+1}(x)=2xT_n(x)-T_{n-1}(x).
     \end{equation}
@@ -351,10 +351,10 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{chebychev}
-    \caption{第一类切比雪夫多项式$T_n(x),\ n=2,3,4,5$的图像}
+    \caption{第一类Chebyshev多项式$T_n(x),\ n=2,3,4,5$的图像}
 \end{figure}
 
-可以看到，第一类切比雪夫多项式在$|x|>1$时的增长是非常迅速的。我们可以使用最高次项来估计$T_n(x)$在$|x|$比较大时的增长速度，根据递推关系，不难得到：
+可以看到，第一类Chebyshev多项式在$|x|>1$时的增长是非常迅速的。我们可以使用最高次项来估计$T_n(x)$在$|x|$比较大时的增长速度，根据递推关系，不难得到：
 \begin{equation}
     T_n(x)\sim 2^{n-1}x^n,\quad |x|\to\infty.
 \end{equation}
@@ -371,7 +371,7 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
 
 尽管表达式不同，但从多项式形式的表达式可以看出$T_n(x)$在三段定义域之间是平滑衔接的，即$T_n(x)$无限阶可导。
 
-第一类切比雪夫多项式揭示了余弦多项式与代数多项式之间的联系。考虑余弦多项式：
+第一类Chebyshev多项式揭示了余弦多项式与代数多项式之间的联系。考虑余弦多项式：
 \begin{equation}
     C(x)=\frac{a_0}{2}+\sum_{k=1}^n a_k\cos(k\omega x).
 \end{equation}
@@ -381,21 +381,21 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
 \end{equation}
 可以归纳证明，$T_n(x)$是$n$次多项式，因此以上关系式表明$n$次余弦多项式总能表示为$\cos(\omega x)$的$n$次多项式，因此用$n$作为余弦多项式的“次数”是合理的。
 
-更一般地，一个$n$次的三角多项式$P_n(x)$总能写成关于$\sin(\omega x)$和$\cos(\omega x)$的$n$次二元多项式。其中正弦函数的转化可以借助第二类切比雪夫多项式：
-\begin{definition}[第二类切比雪夫多项式]
-    \textbf{第二类切比雪夫多项式}(Chebychev Polynomial of the Second Kind)是定义在$(-1,1)$上的多项式：
+更一般地，一个$n$次的三角多项式$P_n(x)$总能写成关于$\sin(\omega x)$和$\cos(\omega x)$的$n$次二元多项式。其中正弦函数的转化可以借助第二类Chebyshev多项式：
+\begin{definition}[第二类Chebyshev多项式]
+    \textbf{第二类Chebyshev多项式}是定义在$(-1,1)$上的多项式：
     \begin{equation}
         U_n(x)=\frac{\sin((n+1)\arccos x)}{\sin(\arccos x)}.
     \end{equation}
     $U_n(x)$是关于$x$的$n$次多项式。
 \end{definition}
 
-它的初始值与第一类切比雪夫多项式不同：
+它的初始值与第一类Chebyshev多项式不同：
 \begin{equation}
     U_0(x)=1,\quad U_1(x)=2x.
 \end{equation}
-切比雪夫多项式具有相同的递推式：
-\begin{theorem}[第二类切比雪夫多项式的递推公式]
+Chebyshev多项式具有相同的递推式：
+\begin{theorem}[第二类Chebyshev多项式的递推公式]
     \begin{equation}
         U_{n+1}(x)=2xU_n(x)-U_{n-1}(x).
     \end{equation}
@@ -407,36 +407,36 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
     &=\frac{a_0}{2}+\sum_{k=1}^n a_k T_k(\cos(\omega x))+\sin(\omega x)\sum_{k=1}^n b_k U_{k-1}(\cos(\omega x)).
 \end{align}
 
-\subsection{*贝塞尔函数}\label{sub:bessel}
+\subsection{*Bessel函数}\label{sub:bessel}
 
-贝塞尔函数是研究物理和工程问题时时常遇到的一种特殊函数，尤其是在涉及圆柱对称问题时。贝塞尔函数是贝塞尔方程的解，贝塞尔方程定义为：
-\begin{definition}[贝塞尔方程]
+Bessel函数是研究物理和工程问题时时常遇到的一种特殊函数，尤其是在涉及圆柱对称问题时。Bessel函数是Bessel方程的解，Bessel方程定义为：
+\begin{definition}[Bessel方程]
     形如
     \begin{equation}
         x^2\frac{\dd^2 y}{\dd x^2}+x\frac{\dd y}{\dd x}+(x^2-\nu^2)y=0
     \end{equation}
-    的微分方程称为\textbf{贝塞尔方程}(Bessel equation)，其中常数$\nu\in\mathbb{C}$称为方程的\textbf{阶数}。
+    的微分方程称为\textbf{Bessel方程}，其中常数$\nu\in\mathbb{C}$称为方程的\textbf{阶数}。
 \end{definition}
-\begin{definition}[贝塞尔函数]
-    $\nu$阶贝塞尔微分方程的解称为$\nu$阶\textbf{贝塞尔函数}(Bessel function)。当$\nu\in\mathbb{N}$时，称为\textbf{第一类贝塞尔函数}，记为$J_n(x)$，他是我们本小节的主要研究对象。
+\begin{definition}[Bessel函数]
+    $\nu$阶Bessel微分方程的解称为$\nu$阶\textbf{Bessel函数}。当$\nu\in\mathbb{N}$时，称为\textbf{第一类Bessel函数}，记为$J_n(x)$，他是我们本小节的主要研究对象。
 \end{definition}
 
-贝塞尔方程无法用初等积分法求解，但可以使用幂级数法求解，即假设解可以表示为幂级数的形式，带入方程中，比较各阶系数，从而确定幂级数的系数。取定常数项
+Bessel方程无法用初等积分法求解，但可以使用幂级数法求解，即假设解可以表示为幂级数的形式，带入方程中，比较各阶系数，从而确定幂级数的系数。取定常数项
 \begin{equation}
     a_0=\frac{1}{2^\nu\Gamma(\nu+1)},
 \end{equation}
-则可唯一确定贝塞尔函数的幂级数展开式如下：
+则可唯一确定Bessel函数的幂级数展开式如下：
 \begin{theorem}
-    贝塞尔函数的幂级数展开式为
+    Bessel函数的幂级数展开式为
     \begin{equation}
         J_{\nu}(x)=\sum_{k=0}^{\infty}\frac{(-1)^k}{k!\Gamma(\nu+k+1)}\paren{\frac{x}{2}}^{\nu+2k}.
     \end{equation}
-    特别地，第一类$n$阶贝塞尔函数为
+    特别地，第一类$n$阶Bessel函数为
     \begin{equation}
         J_{n}(x)=\sum_{k=0}^{\infty}\frac{(-1)^k}{k!(n+k)!}\paren{\frac{x}{2}}^{n+2k}.
     \end{equation}
 \end{theorem}
-其推导过程可以参考\cite{folland}。下面指出贝塞尔函数的一些性质：
+其推导过程可以参考\cite{folland}。下面指出Bessel函数的一些性质：
 
 \begin{claim}[递推公式]
     \label{claim:bessel_recursion}
@@ -451,7 +451,7 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
     \end{align}
 \end{claim}
 
-这些性质是通过对贝塞尔函数的幂级数展开式逐项求导得到的。利用递推公式，可以计算出一些特殊值，例如：
+这些性质是通过对Bessel函数的幂级数展开式逐项求导得到的。利用递推公式，可以计算出一些特殊值，例如：
 \begin{align}
     J_n(0)&=0,\quad n\in\mathbb{N},\\
     J'_0(0)&=0,\\
@@ -459,7 +459,7 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
     J'_n(0)&=0,\quad n\geq 2.
 \end{align}
 
-下面着重讨论第一类贝塞尔函数的性质。首先，贝塞尔函数满足公式：
+下面着重讨论第一类Bessel函数的性质。首先，Bessel函数满足公式：
 \begin{proposition}
     任给$x$及$n\in\mathbb{N}$，有
     \begin{equation}
@@ -471,7 +471,7 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
     \begin{equation}
         \frac{1}{\Gamma(z)}=0,\quad z\in \mathbb{Z}_-.
     \end{equation}
-    因此，当$n$为正整数时，根据贝塞尔函数的级数形式的定义式，可以写出$J_{-n}(x)$的幂级数展开式：
+    因此，当$n$为正整数时，根据Bessel函数的级数形式的定义式，可以写出$J_{-n}(x)$的幂级数展开式：
     \begin{equation}
         J_{-n}(x)=\sum_{k=0}^{\infty}\frac{(-1)^k}{k!\Gamma(-n+k+1)}\paren{\frac{x}{2}}^{-n+2k}=\sum_{k=n}^{\infty}\frac{(-1)^k}{k!(k-n)!}\paren{\frac{x}{2}}^{-n+2k}.
     \end{equation}
@@ -484,7 +484,7 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
 \end{proof}
 
 \begin{proposition}
-    第一类贝塞尔函数在$n$为偶数时是偶函数，在$n$为奇数时是奇函数。
+    第一类Bessel函数在$n$为偶数时是偶函数，在$n$为奇数时是奇函数。
 \end{proposition}
 \begin{proof}
     带入级数形式的定义式，有
@@ -495,14 +495,14 @@ $\sum_{n=1}^{\infty}\frac{1}{n}$是发散的调和级数。综上，我们说明
     \end{align}
 \end{proof}
 
-下图给出了几个常见的第一类贝塞尔函数的图像。总体而言，贝塞尔函数以$\pi$为周期振荡，并且振幅随着$x$的增大而缓慢减小。
+下图给出了几个常见的第一类Bessel函数的图像。总体而言，Bessel函数以$\pi$为周期振荡，并且振幅随着$x$的增大而缓慢减小。
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{bessel}
-    \caption{第一类贝塞尔函数$J_n(x),\ n=0,1,2,3$的图像}
+    \caption{第一类Bessel函数$J_n(x),\ n=0,1,2,3$的图像}
 \end{figure}
 
-\begin{proposition}[贝塞尔积分公式]
+\begin{proposition}[Bessel积分公式]
     任给$x$及$n\in\mathbb{N}$，有
     \begin{equation}
         J_n(x)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\exp(\im x\sin\theta - \im n\theta)\,\dd\theta=\frac{1}{\pi}\int_{0}^{\pi}\cos(x\sin\theta - n\theta)\,\dd\theta.

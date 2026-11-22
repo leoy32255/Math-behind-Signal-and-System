@@ -1,9 +1,9 @@
 % !TeX root = ../../MainBook.tex
 \section{与傅里叶变换有关的其他变换}\label{sec:Other_Transforms}
 
-\subsection{梅林变换}\label{sub:mellin}
+\subsection{Mellin变换}\label{sub:mellin}
 
-\textbf{梅林变换}(Mellin transform)是一种定义在正半轴上的积分变换。回忆可测集上$L^p$空间的定义，给出$L^1(\mathbb{R}^+)$的定义：
+\textbf{Mellin变换}是一种定义在正半轴上的积分变换。回忆可测集上$L^p$空间的定义，给出$L^1(\mathbb{R}^+)$的定义：
 \begin{definition}
     $L^1(\mathbb{R}^+)$是定义在$\mathbb{R}^+=(0,\infty)$上的可积函数空间，即
     \begin{equation}
@@ -11,10 +11,10 @@
     \end{equation}
 \end{definition}
 
-在$L^1(\mathbb{R}^+)$上定义梅林变换：
+在$L^1(\mathbb{R}^+)$上定义Mellin变换：
 
-\begin{definition}[梅林变换]
-    设$f\in L^1(\mathbb{R}^+)$，则$f$的梅林变换定义为
+\begin{definition}[Mellin变换]
+    设$f\in L^1(\mathbb{R}^+)$，则$f$的Mellin变换定义为
     \begin{equation}
         \mathcal{M}f(s)=\int_0^{\infty}f(x)x^{s-1}\,\dd x,
     \end{equation}
@@ -29,10 +29,10 @@
 \begin{equation}
     \mathcal{M}f(\im\omega)=\int_{-\infty}^{\infty}f(\e^{-t})\e^{-\im\omega t}\,\dd t.
 \end{equation}
-可以通过傅里叶变换的性质研究梅林变换的性质。显然，梅林变换是线性的。
+可以通过傅里叶变换的性质研究Mellin变换的性质。显然，Mellin变换是线性的。
 
-首先，利用傅里叶反演公式（见\cref{claim:fourier_inversion}或\cref{thm:fourier_inversion}），可以得到梅林变换的反变换：
-\begin{proposition}[梅林反变换]
+首先，利用傅里叶反演公式（见\cref{claim:fourier_inversion}或\cref{thm:fourier_inversion}），可以得到Mellin变换的反变换：
+\begin{proposition}[Mellin反变换]
     设$f\in L^1(\mathbb{R}^+)$，则有
     \begin{equation}
         f(x)=\frac{1}{2\pi\im}\int_{-\infty}^{\infty}\mathcal{M}f(\im\omega)x^{-\im\omega}\,\dd\omega.
@@ -49,17 +49,17 @@
     \end{equation}
 \end{proof}
 
-在学习\refsub{laplace_inversion}后，也可以用类似的方法，将梅林反变换的求解转化为留数的计算，不过我们不打算深入讨论这个话题。
+在学习\refsub{laplace_inversion}后，也可以用类似的方法，将Mellin反变换的求解转化为留数的计算，不过我们不打算深入讨论这个话题。
 
-梅林变换可以看作是傅里叶变换在对数坐标系下的对应。从这个视角来看，梅林变换在时域发生变化时，频域的变化方式会与傅里叶变换有所不同。具体来说，我们给出以下命题：
-\begin{proposition}[梅林变换的尺度变换性质]
+Mellin变换可以看作是傅里叶变换在对数坐标系下的对应。从这个视角来看，Mellin变换在时域发生变化时，频域的变化方式会与傅里叶变换有所不同。具体来说，我们给出以下命题：
+\begin{proposition}[Mellin变换的尺度变换性质]
     设$f\in L^1(\mathbb{R}^+)$，则对于任意$a>0$，都有
     \begin{equation}
         \mathcal{M}\sbr{f(ax)}(s)=a^{-s}\mathcal{M}f(s).
     \end{equation}
 \end{proposition}
 \begin{proof}
-    由梅林变换的定义，有
+    由Mellin变换的定义，有
     \begin{align}
         \mathcal{M}\sbr{f(ax)}(s)&=\int_0^{\infty}f(ax)x^{s-1}\,\dd x\nonumber\\
         &=\int_0^{\infty}f(u)a^{-1}(u/a)^{s-1}\,\dd u\quad (u=ax,\ \dd x=\dd u/a)\nonumber\\
@@ -68,16 +68,16 @@
     \end{align}
 \end{proof}
 
-这表明时域上的尺度变换对应频域上的指数变换，这与傅里叶变换中时域的尺度变换对应频域的反比例变换不同。此外，梅林变换没有时移性质，不过我们还是可以提出变换域上的平移性质：
+这表明时域上的尺度变换对应频域上的指数变换，这与傅里叶变换中时域的尺度变换对应频域的反比例变换不同。此外，Mellin变换没有时移性质，不过我们还是可以提出变换域上的平移性质：
 
-\begin{proposition}[梅林变换的乘幂性质]
+\begin{proposition}[Mellin变换的乘幂性质]
     设$f\in L^1(\mathbb{R}^+)$，则对于任意$c\in\mathbb{C}$，都有
     \begin{equation}
         \mathcal{M}\sbr{x^c f(x)}(s)=\mathcal{M}f(s+c).
     \end{equation}
 \end{proposition}
 \begin{proof}
-    由梅林变换的定义，有
+    由Mellin变换的定义，有
     \begin{align}
         \mathcal{M}\sbr{x^c f(x)}(s)&=\int_0^{\infty}x^c f(x)x^{s-1}\,\dd x\nonumber\\
         &=\int_0^{\infty}f(x)x^{s+c-1}\,\dd x\nonumber\\
@@ -85,26 +85,26 @@
     \end{align}
 \end{proof}
 
-对于傅里叶变换，频域或角频域上的平移对应时域上的调制，即乘以某个复指数函数；而梅林变换中，频域上的平移对应时域上的乘幂。
+对于傅里叶变换，频域或角频域上的平移对应时域上的调制，即乘以某个复指数函数；而Mellin变换中，频域上的平移对应时域上的乘幂。
 
-此外，梅林变换还有卷积性质，不过这里的卷积不是通常意义下的卷积，而是\textbf{梅林卷积}，定义为：
-\begin{definition}[梅林卷积]
-    设$f,g\in L^1(\mathbb{R}^+)$，则它们的\textbf{梅林卷积}(Mellin convolution)定义为
+此外，Mellin变换还有卷积性质，不过这里的卷积不是通常意义下的卷积，而是\textbf{Mellin卷积}，定义为：
+\begin{definition}[Mellin卷积]
+    设$f,g\in L^1(\mathbb{R}^+)$，则它们的\textbf{Mellin卷积}定义为
     \begin{equation}
         (f\star g)(x)=\int_0^{\infty}f\paren{\frac{x}{t}}g(t)\frac{\dd t}{t}.
     \end{equation}
 \end{definition}
 
-梅林卷积是变换域乘法在时域中的体现：
+Mellin卷积是变换域乘法在时域中的体现：
 
-\begin{proposition}[梅林卷积的变换性质]
+\begin{proposition}[Mellin卷积的变换性质]
     设$f,g\in L^1(\mathbb{R}^+)$，则有
     \begin{equation}
         \mathcal{M}[f\star g](s)=\mathcal{M}f(s)\cdot\mathcal{M}g(s).
     \end{equation}
 \end{proposition}
 \begin{proof}
-    由梅林卷积的定义，有
+    由Mellin卷积的定义，有
     \begin{align}
         \mathcal{M}[f\star g](s)&=\int_0^{\infty}(f\star g)(x)x^{s-1}\,\dd x\nonumber\\
         &=\int_0^{\infty}\int_0^{\infty}f\paren{\frac{x}{t}}g(t)\frac{\dd t}{t}x^{s-1}\,\dd x\nonumber\\
@@ -115,18 +115,18 @@
     \end{align}
 \end{proof}
 
-\subsection{拉东变换}\label{sub:radon}
+\subsection{Radon变换}\label{sub:radon}
 
-拉东变换在医疗成像领域有着重要的应用，它使得我们可以通过x射线对人体进行扫描，进而重建人体内部的结构图像。本小节将介绍x射线成像的基本原理，读者将看到，一些资料中将这种技术描述为“x光透视”是不准确的。
+Radon变换在医疗成像领域有着重要的应用，它使得我们可以通过x射线对人体进行扫描，进而重建人体内部的结构图像。本小节将介绍x射线成像的基本原理，读者将看到，一些资料中将这种技术描述为“x光透视”是不准确的。
 
 考虑一束光强为$I_0$的光线穿过浑浊的水，则光线强度会随穿过水的距离增加而减小，如果浑浊程度是均匀的，我们可以用$I=I_0 \e^{-\mu x}$来描述光线强度的变化，其中$x$为光线穿过水的距离，$\mu$描述了水的浑浊程度。如果水的浑浊程度不均匀，则在光线所在线段$L$上，$\mu$是空间位置的函数$\mu(x)$，出射光线的强度为：
 \begin{equation}
     I=I_0 \exp\paren{-\int_{L}\mu(x)\,\dd x}.
 \end{equation}
 
-类似地，我们考虑一个水平移动的x射线源穿过人体，对人体进行扫描，而另一侧为探测器阵列，用于测量穿过人体后x射线的强度变化。这样，每一次扫描，我们都将获得若干直线上的x射线的总衰减量，可以想象，在适当的数据处理下，我们可以重建人体内部的衰减系数分布$\mu(x,y)$，进而得到人体内部的二维截面的结构图像。这就是\textbf{拉东变换}(Radon transform)做的工作。
+类似地，我们考虑一个水平移动的x射线源穿过人体，对人体进行扫描，而另一侧为探测器阵列，用于测量穿过人体后x射线的强度变化。这样，每一次扫描，我们都将获得若干直线上的x射线的总衰减量，可以想象，在适当的数据处理下，我们可以重建人体内部的衰减系数分布$\mu(x,y)$，进而得到人体内部的二维截面的结构图像。这就是\textbf{Radon变换}做的工作。
 
-拉东变换是一种广义的积分变换。积分变换通常将函数与某个权函数（例如，傅里叶变换时，权函数为$\e^{-2\pi\im\xi t}$或$\e^{-\im\omega t}$）相乘再积分，而拉东变换则将函数与“权分布”相乘（这并不是一个标准的术语）。在给出它的定义之前，我们先来约定本小节中的符号。
+Radon变换是一种广义的积分变换。积分变换通常将函数与某个权函数（例如，傅里叶变换时，权函数为$\e^{-2\pi\im\xi t}$或$\e^{-\im\omega t}$）相乘再积分，而Radon变换则将函数与“权分布”相乘（这并不是一个标准的术语）。在给出它的定义之前，我们先来约定本小节中的符号。
 
 \begin{definition}[二维平面上的直线系]
     二维平面上的直线$L:ax+by+c=0$可以由参数组$(\rho,\phi)$唯一确定，其中$\rho\geq 0$为原点到直线的距离，$\phi\in[0,\pi)$为$L$与$x$轴正方向的夹角。
@@ -149,7 +149,7 @@
     \begin{equation}
         \delta_{L(\rho,\phi)}=\delta(l(x,y))=\delta(x\cos\phi+y\sin\phi-\rho),
     \end{equation}
-    其中$\delta$为一维狄拉克函数。尽管它只是一个形式上的函数，但借助它来理解拉东变换是方便的。
+    其中$\delta$为一维Dirac函数。尽管它只是一个形式上的函数，但借助它来理解Radon变换是方便的。
 \end{definition}
 
 以上我们给出了线脉冲在形式上的定义，作为分布而言，线脉冲的作用为：
@@ -180,30 +180,30 @@
     在三维空间中，它就是我们所熟知的平面，而在$n$维空间中为$n-1$维流形，可以用参数对$(\rho,\hat{\mathbf{n}})$表示，其中$\rho$为原点到超平面的距离，$\hat{\mathbf{n}}$为单位法向量。我们又将超平面$P$记为$P(\rho,\hat{\mathbf{n}})$。尽管这样使用了$n$个参量，但$\hat{\mathbf{n}}$的参量不是独立的。
 \end{definition}
 
-现在，终于可以给出拉东变换的定义。
-\begin{definition}[拉东变换]
-    给定平面上的二元函数$f(x,y)$，它的拉东变换定义为：
+现在，终于可以给出Radon变换的定义。
+\begin{definition}[Radon变换]
+    给定平面上的二元函数$f(x,y)$，它的Radon变换定义为：
     \begin{equation}
         \mathcal{R}f(\rho,\phi)=\braket{\delta_{L(\rho,\phi)},f}=\int_{\mathbb{R}^2}\delta(l(x,y))f(x,y)\,\dd x\,\dd y=\int_{L(\rho,\phi)}f(x,y)\,\dd s.
     \end{equation}
 \end{definition}
 \begin{remark}
-    我们也没有对$f$的范围进行讨论。一般而言，我们需要要求$f$分段连续，并且是紧支的或至少在无穷远处快速衰减至$0$的（例如施瓦兹函数），这样才能保证线积分存在。这个函数空间的精确描述由Cormack定理给出，我们不对它进行讨论，仅仅指出：这个函数空间构成线性空间。
+    我们也没有对$f$的范围进行讨论。一般而言，我们需要要求$f$分段连续，并且是紧支的或至少在无穷远处快速衰减至$0$的（例如Schwartz函数），这样才能保证线积分存在。这个函数空间的精确描述由Cormack定理给出，我们不对它进行讨论，仅仅指出：这个函数空间构成线性空间。
 \end{remark}
 \begin{remark}
-    沿用前面对超平面的记号，对于$n$元函数$f(\mathbf{x})$及超平面$P(\rho,\hat{\mathbf{n}})$，拉东变换定义为
+    沿用前面对超平面的记号，对于$n$元函数$f(\mathbf{x})$及超平面$P(\rho,\hat{\mathbf{n}})$，Radon变换定义为
     \begin{equation}
         \mathcal{R}f(\rho,\hat{\mathbf{n}})=\int_{\mathbb{R}^n}f(\mathbf{x})\delta(\rho-\mathbf{x}\cdot\hat{\mathbf{n}})\,\dd\mathbf{x}=\int_{P}f(\mathbf{x})\,\dd\Omega,
     \end{equation}
-    其中$\dd\Omega$是$n-1$维流形上的体积元。高维的拉东变换不是本小节的主要目标。
+    其中$\dd\Omega$是$n-1$维流形上的体积元。高维的Radon变换不是本小节的主要目标。
 \end{remark}
 
-\begin{example}[圆形特征函数的拉东变换]
+\begin{example}[圆形特征函数的Radon变换]
     设有一以原点为中心，半径为$r$的圆形区域
     \begin{equation}
         D=\{(x,y)\mid x^2+y^2\leq r^2\}.
     \end{equation}
-    考虑它的特征函数$\chi_D(x,y)$，则它的拉东变换为：
+    考虑它的特征函数$\chi_D(x,y)$，则它的Radon变换为：
     \begin{align}
         \mathcal{R}\chi_D(\rho,\phi)&=\int_{\mathbb{R}^2}\chi_D(x,y)\delta(x\cos\phi+y\sin\phi-\rho)\,\dd x\,\dd y\nonumber\\
         &=\int_{L(\rho,\phi)}\chi_D(x,y)\,\dd s.
@@ -212,7 +212,7 @@
     \begin{equation}
         \mathcal{R}\chi_D(\rho,\phi)=\int_{L(\rho,\phi)}\chi_D(x,y)\,\dd s=\abs{AB}=2\sqrt{r^2-\rho^2}.
     \end{equation}
-    综上所述，圆形区域的特征函数的拉东变换为：
+    综上所述，圆形区域的特征函数的Radon变换为：
     \begin{equation}
         \mathcal{R}\chi_D(\rho,\phi)=\begin{dcases}
             2\sqrt{r^2-\rho^2}, & \abs{\rho}\leq r,\\
@@ -220,8 +220,8 @@
         \end{dcases}
     \end{equation}
 \end{example}
-\begin{example}[高斯函数的拉东变换]
-    二维高斯函数$\e^{-\pi(x^2+y^2)}=\e^{-\pi\abs{\mathbf{x}}^2}$的拉东变换为：
+\begin{example}[高斯函数的Radon变换]
+    二维高斯函数$\e^{-\pi(x^2+y^2)}=\e^{-\pi\abs{\mathbf{x}}^2}$的Radon变换为：
     \begin{align}
         \mathcal{R}\sbr{\e^{-\pi\abs{\mathbf{x}}^2}}(\rho,\phi)&=\int_{\mathbb{R}^2}\e^{-\pi(x^2+y^2)}\delta(x\cos\phi+y\sin\phi-\rho)\,\dd x\,\dd y\nonumber\\
         &=\int_{L(\rho,\phi)}\e^{-\pi(x^2+y^2)}\,\dd s.
@@ -239,13 +239,13 @@
         &=\e^{-\pi\rho^2}\int_{-\infty}^{\infty}\e^{-\pi v^2}\,\dd v\nonumber\\
         &=\e^{-\pi\rho^2}.
     \end{align}
-    高斯函数的拉东变换仍是高斯函数，令人惊讶。
+    高斯函数的Radon变换仍是高斯函数，令人惊讶。
 \end{example}
 
-下面，我们首先给出一些二维拉东变换的基本性质，再使用傅里叶变换来研究拉东变换。
+下面，我们首先给出一些二维Radon变换的基本性质，再使用傅里叶变换来研究Radon变换。
 
 \begin{proposition}[线性性]
-    拉东变换是线性的，即任给$f,g:\mathbb{R}^2\to\mathbb{C}$及常数$a,b\in\mathbb{C}$，有
+    Radon变换是线性的，即任给$f,g:\mathbb{R}^2\to\mathbb{C}$及常数$a,b\in\mathbb{C}$，有
     \begin{equation}
         \mathcal{R}[af+bg](\rho,\phi)=a\mathcal{R}f(\rho,\phi)+b\mathcal{R}g(\rho,\phi).
     \end{equation}
@@ -281,7 +281,7 @@ $\rho-\hat{\mathbf{n}}\cdot\mathbf{b}<0$的情况，将在下一性质指出处�
         &=\int_{\mathbb{R}^2}f(x,y)\delta(\rho+x\cos(\phi+\pi)+y\sin(\phi+\pi))\,\dd x\,\dd y\nonumber\\
         &=\mathcal{R}f(\rho,\phi+\pi).
     \end{align}
-    在拉东变换的分布定义$\braket{\delta_{L(\rho,\phi)},f}$中，$\rho$下，这个命题的严格证明也是容易给出的，不过至此已经能看出拉东变换中使用$\delta$函数的好处。
+    在Radon变换的分布定义$\braket{\delta_{L(\rho,\phi)},f}$中，$\rho$下，这个命题的严格证明也是容易给出的，不过至此已经能看出Radon变换中使用$\delta$函数的好处。
 \end{proof}
 
 \begin{theorem}[投影切片定理]
@@ -299,7 +299,7 @@ $\rho-\hat{\mathbf{n}}\cdot\mathbf{b}<0$的情况，将在下一性质指出处�
         &=\int_{\mathbb{R}^2}f(x,y)\e^{-2\pi\im r(x\cos\phi+y\sin\phi)}\,\dd x\,\dd y\nonumber\\
         &=\mathcal{F}f(r\cos\phi,r\sin\phi).
     \end{align}
-    要将这个证明严格化，需要限定$f\in\mathcal{S}(\mathbb{R}^2)$，其中$\mathcal{S}(\mathbb{R}^2)$为二维施瓦兹函数空间，将$\delta$用类似\refsub{approach}的方法进行逼近，这个过程比较复杂，本书不进行讨论。
+    要将这个证明严格化，需要限定$f\in\mathcal{S}(\mathbb{R}^2)$，其中$\mathcal{S}(\mathbb{R}^2)$为二维Schwartz函数空间，将$\delta$用类似\refsub{approach}的方法进行逼近，这个过程比较复杂，本书不进行讨论。
 \end{proof}
 
 根据投影切片定理，如果我们能够对$[0,\pi)$区间内的每个角度，对足够宽范围内的$\rho$进行测量，就可以得到$\mathcal{R}f(\rho,\phi)$，于是
@@ -308,9 +308,9 @@ $\rho-\hat{\mathbf{n}}\cdot\mathbf{b}<0$的情况，将在下一性质指出处�
 \end{equation}
 在充分大的采样频率下，我们可以还原出清晰度足够的图像。这就是x射线成像的基本原理。
 
-\subsection{汉克尔变换}\label{sub:hankel}
+\subsection{Hankel变换}\label{sub:hankel}
 
-如果说多维傅里叶变换是一维傅里叶变换在多维直角坐标系下的版本，那么\textbf{汉克尔变换}(Hankel transform)则是从一维傅里叶变换的“圆形版本”，它适用于具有\textbf{辐射对称}(radial symmetry)或称\textbf{循环对称}(circular symmetry)特性的函数。汉克尔变换需要用到\refsub{bessel}中介绍的第一类贝塞尔函数。
+如果说多维傅里叶变换是一维傅里叶变换在多维直角坐标系下的版本，那么\textbf{Hankel变换}则是从一维傅里叶变换的“圆形版本”，它适用于具有\textbf{辐射对称}(radial symmetry)或称\textbf{循环对称}(circular symmetry)特性的函数。Hankel变换需要用到\refsub{bessel}中介绍的第一类Bessel函数。
 
 \begin{definition}[辐射对称性]
     $f:\mathbb{R}^n\to\mathbb{C}$具有\textbf{辐射对称性}(radial symmetry)，如果
@@ -320,15 +320,15 @@ $\rho-\hat{\mathbf{n}}\cdot\mathbf{b}<0$的情况，将在下一性质指出处�
     即$f$的极坐标表示仅仅依赖于径向变量$r=\norm{\mathbf{x}}$，而与角度无关。
 \end{definition}
 
-\begin{definition}[汉克尔变换]
-    设$f:[0,\infty)\to\mathbb{C}$，$n\in\mathbb{Z}^+$，则$f$的\textbf{$n$阶汉克尔变换}(n-th order Hankel transform)定义为：
+\begin{definition}[Hankel变换]
+    设$f:[0,\infty)\to\mathbb{C}$，$n\in\mathbb{Z}^+$，则$f$的\textbf{$n$阶Hankel变换}定义为：
     \begin{equation}
         \mathcal{H}_n f(k)=\int_0^{\infty}f(r)J_n(kr)r\,\dd r,
     \end{equation}
-    其中$J_n$为第一类贝塞尔函数。
+    其中$J_n$为第一类Bessel函数。
 \end{definition}
 
-本小节主要介绍$0$阶汉克尔变换，因为它与二维傅里叶变换有着密切的联系，简洁起见，本小节使用角频率形式的二维傅里叶变换。
+本小节主要介绍$0$阶Hankel变换，因为它与二维傅里叶变换有着密切的联系，简洁起见，本小节使用角频率形式的二维傅里叶变换。
 
 \begin{lemma}
     设$f:\mathbb{R}^2\to\mathbb{C}$具有辐射对称性，则其傅里叶变换$\mathcal{F}f$也具有辐射对称性。
@@ -388,4 +388,4 @@ $\rho-\hat{\mathbf{n}}\cdot\mathbf{b}<0$的情况，将在下一性质指出处�
     \end{equation}
 \end{claim}
 
-这意味着，在高维空间中，辐射对称函数的傅里叶变换可以用半整数阶汉克尔变换表示，仅仅使用第一类贝塞尔函数是无法处理奇数维空间的情况的。
+这意味着，在高维空间中，辐射对称函数的傅里叶变换可以用半整数阶Hankel变换表示，仅仅使用第一类Bessel函数是无法处理奇数维空间的情况的。

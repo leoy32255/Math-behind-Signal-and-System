@@ -22,8 +22,8 @@
     单位脉冲响应为实函数的线性时不变系统的频率响应满足$H(-\omega)=\overline{H(\omega)}$，这表明幅频特性$\abs{H(\omega)}$是偶函数，相频特性$\varphi(\omega)$是奇函数。
 \end{proposition}
 
-一个物理可实现的线性时不变系统必须是因果的，即$h(t)=0,\quad t<0$。此外，系统的频率响应$H(\omega)$还必须满足\textbf{佩利-维纳准则}(Paley-Wiener criterion)\cite{signal_systems}：
-\begin{definition}[佩利-维纳准则]\label{def:paley_winner}
+一个物理可实现的线性时不变系统必须是因果的，即$h(t)=0,\quad t<0$。此外，系统的频率响应$H(\omega)$还必须满足\textbf{Paley-Wiener准则}\cite{signal_systems}：
+\begin{definition}[Paley-Wiener准则]\label{def:paley_winner}
     可实现的因果系统，其频率响应$H(\omega)$必然满足：
     \begin{equation}
         \int_{-\infty}^{\infty}\frac{\abs{\ln|H(\omega)|}}{1+\omega^2}\,\dd\omega<\infty.
@@ -36,15 +36,15 @@
     \end{equation}
     即$H(\omega)\in L^2(\mathbb{R})$，就称该系统是\textbf{能量有限}的。
 \end{definition}
-通常来说，我们希望系统是能量有限的，因为在输入冲激$\delta$时，输出为$h(t)$，根据帕塞瓦尔定理（\cref{thm:plancherel}），$h(t)$与$H(\omega)$的能量仅相差一个常系数$2\pi$，所以上述条件实际上是要求单位脉冲响应$h(t)$能量有限。
+通常来说，我们希望系统是能量有限的，因为在输入冲激$\delta$时，输出为$h(t)$，根据Parseval定理（\cref{thm:plancherel}），$h(t)$与$H(\omega)$的能量仅相差一个常系数$2\pi$，所以上述条件实际上是要求单位脉冲响应$h(t)$能量有限。
 \begin{claim}
-    对于因果系统，如果$h(t)\in L^1(\mathbb{R})$，则能量有限是满足佩利-维纳准则的充分不必要条件：
+    对于因果系统，如果$h(t)\in L^1(\mathbb{R})$，则能量有限是满足Paley-Wiener准则的充分不必要条件：
     \begin{equation}
         \int_{-\infty}^{\infty}\abs{H(\omega)}^2\,\dd\omega<\infty\implies\int_{-\infty}^{\infty}\frac{\abs{\ln|H(\omega)|}}{1+\omega^2}\,\dd\omega<\infty.
     \end{equation}
 \end{claim}
 
-佩利-维纳准则表明系统的对数幅度响应$\abs{\ln|H(\omega)|}$不能“陡峭截止”：
+Paley-Wiener准则表明系统的对数幅度响应$\abs{\ln|H(\omega)|}$不能“陡峭截止”：
 \begin{example}
     高斯滤波器的单位冲激响应和频率响应特性分别为
     \begin{equation}
@@ -58,12 +58,12 @@
     \begin{equation}
         \int_{-\infty}^{\infty}\frac{\abs{\ln|H(\omega)|}}{1+\omega^2}\,\dd\omega=\infty.
     \end{equation}
-    高斯滤波器不满足佩利-维纳准则，且不是因果系统，因此不是可实现的。
+    高斯滤波器不满足Paley-Wiener准则，且不是因果系统，因此不是可实现的。
 \end{example}
 
-佩利-维纳准则表明$\abs{H(\omega)}$是能量有限的，并且衰减速度不能过快，特别地，$\abs{H(\omega)}$不能紧支，于是下一小节中提到的理想滤波器（\cref{def:ideal_filter}）都是不可能实现的。要求能量有限，是因为有限能量输入对应有限能量输出。激励$e(t)=\delta(t)$时，输入能量是有限的，$h(t)$的能量也是有限的，根据帕塞瓦尔定理，$H(\omega)$的能量也是有限的；另一方面，$H\in L^2(\mathbb{R})$是得到佩利-维纳准则的第二条所必需的。
+Paley-Wiener准则表明$\abs{H(\omega)}$是能量有限的，并且衰减速度不能过快，特别地，$\abs{H(\omega)}$不能紧支，于是下一小节中提到的理想滤波器（\cref{def:ideal_filter}）都是不可能实现的。要求能量有限，是因为有限能量输入对应有限能量输出。激励$e(t)=\delta(t)$时，输入能量是有限的，$h(t)$的能量也是有限的，根据Parseval定理，$H(\omega)$的能量也是有限的；另一方面，$H\in L^2(\mathbb{R})$是得到Paley-Wiener准则的第二条所必需的。
 
-佩利-维纳准则是因果性能量有限系统的必要特性，它没有对系统引入额外的要求。但是，得到这一条件需要比较复杂的数学知识，本书不作讨论。
+Paley-Wiener准则是因果性能量有限系统的必要特性，它没有对系统引入额外的要求。但是，得到这一条件需要比较复杂的数学知识，本书不作讨论。
 
 在分析电路时曾见过频率响应的另一种引入方式\cite{electronic_circuits}：
 \begin{definition}[频率响应]
@@ -166,7 +166,7 @@
     \caption{理想滤波器的幅频特性}
 \end{figure}
 
-以上滤波器的单位脉冲响应是采样函数的经平移、伸缩和线性组合的结果，不具有因果性，因此是无法实现的（也可以用佩利-维纳准则验证这一点）。实际设计滤波器时，只能逼近理想滤波器，例如巴特沃斯滤波器、切比雪夫滤波器等。
+以上滤波器的单位脉冲响应是采样函数的经平移、伸缩和线性组合的结果，不具有因果性，因此是无法实现的（也可以用Paley-Wiener准则验证这一点）。实际设计滤波器时，只能逼近理想滤波器，例如Butterworth滤波器、Chebyshev滤波器等。
 
 一般而言，理想滤波器的单位脉冲响应是实函数，这样激励是实信号时，响应也是实信号。这也是为什么以上滤波器的幅频特性都是偶函数。
 \begin{example}
@@ -359,7 +359,7 @@
         r(t)&=\frac{1}{2}\abs{H(\omega_c+\omega_m)}\cos\paren{(\omega_c+\omega_m)t+\varphi(\omega_c+\omega_m)}\nonumber\\
         &\quad+\frac{1}{2}\abs{H(\omega_c-\omega_m)}\cos\paren{(\omega_c-\omega_m)t+\varphi(\omega_c-\omega_m)}.
     \end{align}
-    由于$\omega_c\gg \omega_m$，可以将$\abs{H(\omega)}$近似为$\abs{H(\omega_c)}$，将$\varphi(\omega)$在$\omega_c$处做泰勒展开：
+    由于$\omega_c\gg \omega_m$，可以将$\abs{H(\omega)}$近似为$\abs{H(\omega_c)}$，将$\varphi(\omega)$在$\omega_c$处做Taylor展开：
     \begin{equation}
         \varphi(\omega_c+\omega)\approx \varphi(\omega_c)+\left.\frac{\dd\varphi(\omega)}{\dd\omega}\right|_{\omega=\omega_c}\omega.
     \end{equation}
@@ -471,7 +471,7 @@
     \begin{equation}
         \psi(x,t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{A}(\omega)\e^{\im(\omega t-k(\omega)x)}\,\dd\omega.
     \end{equation}
-    对$k(\omega)$在$\omega_0$处做泰勒展开：
+    对$k(\omega)$在$\omega_0$处做Taylor展开：
     \begin{equation}
         k(\omega)\approx k(\omega_0)+k'(\omega_0)(\omega-\omega_0).
     \end{equation}

@@ -234,7 +234,7 @@
         \rho(f,g)=\frac{(f,g)}{\|f\|\cdot\|g\|}.
     \end{equation}
 \end{definition}
-其中$(f,g)=\int_{-\infty}^{\infty}f(x)\overline{g(x)}\,\dd x$是$f$和$g$的内积，$\|f\|=\sqrt{(f,f)}$是$f$的范数。根据柯西-施瓦茨不等式，相关系数的绝对值不超过1，且当且仅当$f$与$g$几乎处处成比例时取等，因此我们说，$\rho(f,g)=\pm 1$时两信号\textbf{线性相关}；$\rho(f,g)=0$时两信号\textbf{线性无关}，这相当于两函数正交。
+其中$(f,g)=\int_{-\infty}^{\infty}f(x)\overline{g(x)}\,\dd x$是$f$和$g$的内积，$\|f\|=\sqrt{(f,f)}$是$f$的范数。根据Cauchy-Schwarz不等式，相关系数的绝对值不超过1，且当且仅当$f$与$g$几乎处处成比例时取等，因此我们说，$\rho(f,g)=\pm 1$时两信号\textbf{线性相关}；$\rho(f,g)=0$时两信号\textbf{线性无关}，这相当于两函数正交。
 
 有时信号之间存在时延差，这时我们可以定义\textbf{互相关}(cross-correlation)来描述它们之间的相关程度。
 \begin{definition}[互相关]
@@ -295,11 +295,11 @@
 
 从相关的第一条性质可见，相关也可以看作卷积，利用卷积定理可得：
 
-\begin{theorem}[维纳-辛钦定理]\label{thm:winner-khinchin}
+\begin{theorem}[Wiener-Khinchin定理]\label{thm:winner-khinchin}
     设$f,g\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，则$\mathcal{F} R_{fg} =\mathcal{F} f\overline{\mathcal{F} g}$。
 \end{theorem}
 \begin{remark}
-    一般来说，\textbf{维纳-辛钦定理}(Wiener-Khinchin Theorem)是令$f=g$得到的
+    一般来说，\textbf{Wiener-Khinchin定理}是令$f=g$得到的
     \begin{equation}
         \mathcal{F}[R_f]=|\mathcal{F} f|^2.
     \end{equation}
@@ -323,7 +323,7 @@
 \begin{equation}
     R_{fg}(x)=\int_{-\infty}^{\infty}f(y)\overline{g(x+y)}\,\dd y.
 \end{equation}
-这与上面讨论的互相关没有太大的区别，但维纳-辛钦定理的形式会更加复杂。
+这与上面讨论的互相关没有太大的区别，但Wiener-Khinchin定理的形式会更加复杂。
 
 对于功率信号，我们需要对以上互相关的定义略作修改，以避免趋于无穷的情况发生。
 \begin{definition}[功率信号的互相关]
@@ -332,7 +332,7 @@
         R_{fg}=R_{fg}(x)=\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}f(x+y)\overline{g(y)}\,\dd y.
     \end{equation}
 \end{definition}
-容易根据柯西-施瓦兹不等式证明其有界性，然而有界不代表极限存在。我们将在\refsub{power_corelation}中讨论它。
+容易根据Cauchy-Schwarz不等式证明其有界性，然而有界不代表极限存在。我们将在\refsub{power_corelation}中讨论它。
 
 最后我们给出一个互相关的应用\cite{brad_osgood_ee261}。
 \begin{example}[雷达测距]
@@ -342,7 +342,7 @@
     \end{equation}
     $C$为常数（对于随机信号来说，这是可以做到的），因此可以考虑求发射信号与接收信号的互相关函数：
     \begin{align}
-        R_{f,f_r}(t) & =R_{f,\tau_{2T}f}(t)+R_{fn}(t)\nonumber  \\
+        R_{f,f_r}(t) & =\alpha R_{f,\tau_{2T}f}(t)+R_{fn}(t)\nonumber  \\
                      & =\alpha\tau_{-2T}R_f(t)+C.
     \end{align}
     根据前面得到的性质3，$R_f(t)$在0处取最大值，因此$R_{f,f_r}(t)$在$-2T$处取最大值，于是我们只需要观察这个互相关函数的最大值点，就可以得到$T$。

@@ -2,7 +2,7 @@
 \section{z变换}\label{sec:z_Transform}
 
 \subsection{z变换的引出}\label{sub:inteoduction_of_z}
-中学数学中处理递推数列的一种经典方法是使用生成函数，将数列转化为形式幂级数，从而利用级数的性质来分析数列。z变换可以看作生成函数的推广，它将数列推广为序列，将形式幂级数推广为洛朗级数（我们将在\refsub{meromorphic_function}中详细讨论这个洛朗级数的收敛域），从而可以利用复变函数的理论来分析序列与离散系统。
+中学数学中处理递推数列的一种经典方法是使用生成函数，将数列转化为形式幂级数，从而利用级数的性质来分析数列。z变换可以看作生成函数的推广，它将数列推广为序列，将形式幂级数推广为Laurent级数（我们将在\refsub{meromorphic_function}中详细讨论这个Laurent级数的收敛域），从而可以利用复变函数的理论来分析序列与离散系统。
 \begin{definition}[z变换]\label{def:z}
     将序列$x[n]$的z变换记为$X(z)$或$\mathcal{Z}x(z)$，它的定义为
     \begin{equation}
@@ -10,7 +10,7 @@
     \end{equation}
     我们记$x[n]\overset{\mathcal{Z}}{\longleftrightarrow}X(z)$。
 \end{definition}
-作为一个洛朗级数，z变换所得函数$X(z)$的收敛域应为一个圆环$\mathcal{A}_0(r,R)$，在圆环内级数是绝对收敛、内闭一致收敛的。根据圆环上全纯函数的洛朗级数的存在性和唯一性，洛朗级数与序列一一对应，因此可以使用上面的记号$x[n]\overset{\mathcal{Z}}{\longleftrightarrow}X(z)$。
+作为一个Laurent级数，z变换所得函数$X(z)$的收敛域应为一个圆环$\mathcal{A}_0(r,R)$，在圆环内级数是绝对收敛、内闭一致收敛的。根据圆环上全纯函数的Laurent级数的存在性和唯一性，Laurent级数与序列一一对应，因此可以使用上面的记号$x[n]\overset{\mathcal{Z}}{\longleftrightarrow}X(z)$。
 
 下面给出一些常用序列的z变换作为例子：
 \begin{example}[单位脉冲序列的z变换]
@@ -42,11 +42,11 @@
     \begin{align}
         \mathcal{Z}\braces{\sin(\Omega n)u[n]} & =\frac{1}{2\im}\paren{\mathcal{Z}\braces{\e^{\im\Omega n}u[n]}-\mathcal{Z}\braces{\e^{-\im\Omega n}u[n]}}\nonumber \\
                                                & =\frac{1}{2\im}\paren{\frac{z}{z-\e^{\im\Omega}}-\frac{z}{z-\e^{-\im\Omega}}}\nonumber                             \\
-                                               & =-\frac{z\sin\Omega}{z^2-2z\cos\Omega+1},\quad \abs{z}>1.
+                                               & =\frac{z\sin\Omega}{z^2-2z\cos\Omega+1},\quad \abs{z}>1.
     \end{align}
 \end{example}
 
-根据\refsub{laurant_series}中介绍的洛朗级数理论，z变换的收敛域为一个环状区域：
+根据\refsub{laurant_series}中介绍的Laurent级数理论，z变换的收敛域为一个环状区域：
 \begin{definition}[z变换的收敛域]\label{def:ROC}
     设序列$x[n]$的z变换为$X(z)=\sum_{n=-\infty}^{\infty}x[n]z^{-n}$，则其\textbf{收敛域}(region of convergence, ROC)定义为
     \begin{equation}
@@ -68,7 +68,7 @@
           \end{equation}
 \end{itemize}
 
-和洛朗级数一样，更常用的确定收敛域的方法是分析$X(z)$的奇点位置。在z变换中，我们需要结合信号特征确定收敛域的范围，为此重写\cref{def:casual_signal}如下：
+和Laurent级数一样，更常用的确定收敛域的方法是分析$X(z)$的奇点位置。在z变换中，我们需要结合信号特征确定收敛域的范围，为此重写\cref{def:casual_signal}如下：
 \begin{definition}
     \textbf{左边信号（反因果信号）}：$x[n]=0,\ n\geq 0$，或$x[n]=x[n]u[-n-1]$；
 
@@ -127,7 +127,7 @@
         \item 反转性质：$\displaystyle x[-n]\xleftrightarrow{\mathcal{Z}}X\paren{\frac{1}{z}}$；
         \item 升采样定理：$x[n/L]\xleftrightarrow{\mathcal{Z}}X(z^L)$，收敛域变为$r^{1/L}<\abs{z}<R^{1/L}$；
         \item 降采样定理：$\displaystyle x[nM]\xleftrightarrow{\mathcal{Z}}\frac{1}{M}\sum_{k=0}^{M-1}X\paren{z^{\frac{1}{M}}\e^{-\im\frac{2\pi}{M}k}}$，收敛域为$r^M<\abs{z}<R^M$；
-        \item $z$域微分性质：$\displaystyle nx[n]\xleftrightarrow{\mathcal{Z}}-z\frac{\dd X(z)}{\dd z}$。
+        \item z域微分性质：$\displaystyle nx[n]\xleftrightarrow{\mathcal{Z}}-z\frac{\dd X(z)}{\dd z}$。
     \end{itemize}
 \end{proposition}
 \begin{proof}
@@ -155,7 +155,7 @@
         r<\abs{z^{\frac{1}{M}}\e^{-\im\frac{2\pi}{M}k}}<R\iff r^M<\abs{z}<R^M.
     \end{equation}
 
-    2.\ $z$域微分：在洛朗级数的收敛域内，级数是内闭一致收敛的，因此可以逐项求导，即
+    2.\ z域微分：在Laurent级数的收敛域内，级数是内闭一致收敛的，因此可以逐项求导，即
     \begin{equation}
         -z\frac{\dd X(z)}{\dd z}=-z\frac{\dd}{\dd z}\paren{\sum_{n=-\infty}^{\infty}x[n]z^{-n}}=-z\sum_{n=-\infty}^{\infty}x[n](-n)z^{-n-1}=\sum_{n=-\infty}^{\infty}nx[n]z^{-n}.
     \end{equation}
@@ -194,17 +194,17 @@
     \end{align}
     但是$x[n]=x_1[n]+x_2[n]=\delta[n]$，其z变换为$X(z)=1$，收敛域为$\mathbb{C}$。
 
-    设$y_1[n]=\delta[n]-a\delta[n-1],\ y_2[n]=a^{n}u[n-1]$，则
+    设$y_1[n]=\delta[n]-a\delta[n-1],\ y_2[n]=a^{n}u[n]$，则
     \begin{align}
         Y_1(z) & =1-az^{-1},\quad z\in\mathbb{C}\backslash\{0\},                            \\
-        Y_2(z) & =\sum_{n=1}^{\infty}a^{n}z^{-n}=\frac{1}{1-az^{-1}},\quad \abs{z}>\abs{a}.
+        Y_2(z) & =\sum_{n=0}^{\infty}a^{n}z^{-n}=\frac{1}{1-az^{-1}},\quad \abs{z}>\abs{a}.
     \end{align}
     但是
     \begin{align}
         y[n] & =(y_1*y_2)[n]\nonumber                            \\
              & =\sum_{k=-\infty}^{\infty}y_1[k]y_2[n-k]\nonumber \\
              & =y_2[n]-a y_2[n-1]\nonumber                       \\
-             & =a^{n}u[n-1]-a^{n}u[n-2]\nonumber                 \\
+             & =a^{n}u[n]-a^{n}u[n-1]\nonumber                 \\
              & =\delta[n],
     \end{align}
     其z变换为$Y(z)=1$，收敛域为$\mathbb{C}$。
@@ -212,24 +212,24 @@
 
 \subsection{亚纯函数}\label{sub:meromorphic_function}
 
-本小节介绍亚纯函数来为逆z变换做准备。逆z变换即由$X(z)$求$x[n]$，根据洛朗级数展开的唯一性，容易想到有两种常用的方法：
+本小节介绍亚纯函数来为逆z变换做准备。逆z变换即由$X(z)$求$x[n]$，根据Laurent级数展开的唯一性，容易想到有两种常用的方法：
 \begin{itemize}
-    \item 将$X(z)$展开为洛朗级数，直接读取系数；
+    \item 将$X(z)$展开为Laurent级数，直接读取系数；
     \item 利用留数的计算公式，$z^{n-1}X(z)=\sum_{m=-\infty}^{\infty}x[m]z^{n-m-1}$在$z=0$处的留数即为$x[n]$。
 \end{itemize}
 
-在前面的\cref{exmp:ROC}中，我们已经展示了前一种方法，可以看出，在完成部分分式展开之后，这个方法是非常有效的。但是，在$X(z)$收敛域不同的情况下展开，我们得到了三种洛朗级数，这似乎与洛朗级数的唯一性矛盾；在$x[n]$为右边信号的情况下，展开式的负幂次项构成级数，$z=0$为本性奇点，这与原信号在$z=0$处全纯的结果矛盾。实际上，这是因为在收敛域不是$\abs{z}<1/2$的情况下，我们将分式$1/(2z-1)$展开为负幂次项级数时，是在做$z=\infty$处的洛朗展开，这样展开得到的洛朗级数不能用来判定$z=0$处的奇点类型。
+在前面的\cref{exmp:ROC}中，我们已经展示了前一种方法，可以看出，在完成部分分式展开之后，这个方法是非常有效的。但是，在$X(z)$收敛域不同的情况下展开，我们得到了三种Laurent级数，这似乎与Laurent级数的唯一性矛盾；在$x[n]$为右边信号的情况下，展开式的负幂次项构成级数，$z=0$为本性奇点，这与原信号在$z=0$处全纯的结果矛盾。实际上，这是因为在收敛域不是$\abs{z}<1/2$的情况下，我们将分式$1/(2z-1)$展开为负幂次项级数时，是在做$z=\infty$处的Laurent展开，这样展开得到的Laurent级数不能用来判定$z=0$处的奇点类型。
 
 为了说明这个问题，我们需要引入亚纯函数的概念\cite{Function_Theory}：
 \begin{definition}[亚纯函数]
     设$U\subset\mathbb{C}$为开集，$S\subset U$没有极限点，函数$f:U\backslash S\to\mathbb{C}$称为\textbf{亚纯函数}，如果$f$在$U\backslash S$内全纯，且在$S$中没有本性奇点。
 \end{definition}
 
-初学者往往对$S$没有极限点这一要求感到困惑。实际上，这一条件使得我们对每个奇点都能指出一个小邻域，在这个邻域内能够定义洛朗级数、能够定义极点的留数。
+初学者往往对$S$没有极限点这一要求感到困惑。实际上，这一条件使得我们对每个奇点都能指出一个小邻域，在这个邻域内能够定义Laurent级数、能够定义极点的留数。
 
 亚纯函数是全纯函数的推广，它允许孤立极点和可去奇点的存在。如果将开集$U\subset\mathbb{C}$上的全纯函数集视为环$\mathcal{O}(U)$，则亚纯函数集构成$\mathcal{O}(U)$的分式域$\mathrm{Frac}(\mathcal{O}(U))$，记为$\mathcal{M}(U)$。
 
-对扩展复平面$\hat{\mathbb{C}}=\mathbb{C}\cup\{\infty\}$，标准的做法是通过球极投影将扩展平面同胚映射至单位球，即黎曼球面，采用球面拓扑来定义扩展复平面的拓扑。本书不详细讲述这一点，感兴趣的读者请自行阅读复变函数的教材。简单来说，对于无穷远点，我们定义：
+对扩展复平面$\hat{\mathbb{C}}=\mathbb{C}\cup\{\infty\}$，标准的做法是通过球极投影将扩展平面同胚映射至单位球，即Riemann球面，采用球面拓扑来定义扩展复平面的拓扑。本书不详细讲述这一点，感兴趣的读者请自行阅读复变函数的教材。简单来说，对于无穷远点，我们定义：
 \begin{definition}[无穷远点的邻域]
     无穷远点$\infty$的邻域定义为
     \begin{equation}
@@ -269,35 +269,35 @@ $f(z)$在$\infty$处的性质是通过$f(1/z)$在$z=0$处的性质来研究的�
     对于有理函数$f(z)=P(z)/Q(z)$，其中$P(z),Q(z)$为多项式，$f(z)$是$\hat{\mathbb{C}}$上的亚纯函数。进一步，如果$\deg P\leq\deg Q$，则$f(z)$在$\infty$处有可去奇点；如果$\deg P>\deg Q$，则$f(z)$在$\infty$处有$\deg P-\deg Q$阶极点。
 \end{example}
 
-我们称$g(z)=f(1/z)$在$0$处的洛朗展开为$f(z)$在$\infty$处的洛朗展开，奇点类型可通过洛朗展开判断：
-\begin{definition}[无穷远点的洛朗展开与奇点类型]\label{def:singular_point_infty}
-    设$g(z)=f(1/z)$在$z=0$处的洛朗展开为
+我们称$g(z)=f(1/z)$在$0$处的Laurent展开为$f(z)$在$\infty$处的Laurent展开，奇点类型可通过Laurent展开判断：
+\begin{definition}[无穷远点的Laurent展开与奇点类型]\label{def:singular_point_infty}
+    设$g(z)=f(1/z)$在$z=0$处的Laurent展开为
     \begin{equation}
         g(z)=\sum_{n=-\infty}^{\infty}c_n z^n,
     \end{equation}
-    $g(z)$在$z=0$处的奇点类型定义与\cref{def:singular_point}一致。代回$f(z)=g(1/z)$，则$f(z)$在$\infty$处的洛朗展开为
+    $g(z)$在$z=0$处的奇点类型定义与\cref{def:singular_point}一致。代回$f(z)=g(1/z)$，则$f(z)$在$\infty$处的Laurent展开为
     \begin{equation}
         f(z)=\sum_{n=-\infty}^{\infty}c_n z^{-n},
     \end{equation}
     因此，$f(z)$在$\infty$处的奇点类型为：
     \begin{itemize}
-        \item 如果$c_n=0,\ \forall n<0$，即$f$的洛朗级数无正幂次项，则$f(z)$在$\infty$处有可去奇点；
-        \item 如果$\exists m\in\mathbb{N}_+$使得$c_{-m}\neq 0,\ c_{-n}=0,\ \forall n>m$，即$f$的洛朗级数的正幂次项只有有限个，则$f(z)$在$\infty$处有极点；
-        \item 如果$c_n\neq 0$对无穷多个负整数$n$成立，即$f$的洛朗级数正幂次项有无穷多个，则$f(z)$在$\infty$处有本性奇点。
+        \item 如果$c_n=0,\ \forall n<0$，即$f$的Laurent级数无正幂次项，则$f(z)$在$\infty$处有可去奇点；
+        \item 如果$\exists m\in\mathbb{N}_+$使得$c_{-m}\neq 0,\ c_{-n}=0,\ \forall n>m$，即$f$的Laurent级数的正幂次项只有有限个，则$f(z)$在$\infty$处有极点；
+        \item 如果$c_n\neq 0$对无穷多个负整数$n$成立，即$f$的Laurent级数正幂次项有无穷多个，则$f(z)$在$\infty$处有本性奇点。
     \end{itemize}
 \end{definition}
 
-需要注意，无穷远点的留数并不是$c_{-1}$。本质上，留数就是在环绕数为$1$的围道上进行复线积分的结果。取充分大的\textbf{顺时针}圆周$C^-_R:t\mapsto R\e^{-\im t},\ t\in[0,2\pi]$为围道，使得$C^-_R$外只有$\infty$一个极点（可行性由奇点孤立保证），则$\mathrm{Ind}_{C^-_R}(\infty)=1$\footnote{从围道内部看上去，围道的正向是顺时针时，从围道外部（包括无穷远点）看上去是逆时针的，因此环绕数为$1$。学过球极投影的读者可以更好地理解这一点：在黎曼球面上，如果两点位于围道两侧（例如这里的无穷远点与有限极点），计算环绕数时，曲线的正向是相反的。}，根据留数定理，有
+需要注意，无穷远点的留数并不是$c_{-1}$。本质上，留数就是在环绕数为$1$的围道上进行复线积分的结果。取充分大的\textbf{顺时针}圆周$C^-_R:t\mapsto R\e^{-\im t},\ t\in[0,2\pi]$为围道，使得$C^-_R$外只有$\infty$一个极点（可行性由奇点孤立保证），则$\mathrm{Ind}_{C^-_R}(\infty)=1$\footnote{从围道内部看上去，围道的正向是顺时针时，从围道外部（包括无穷远点）看上去是逆时针的，因此环绕数为$1$。学过球极投影的读者可以更好地理解这一点：在Riemann球面上，如果两点位于围道两侧（例如这里的无穷远点与有限极点），计算环绕数时，曲线的正向是相反的。}，根据留数定理，有
 \begin{equation}\label{eq:res_infty}
     \Res(f,\infty)=\frac{1}{2\pi\im}\oint_{C^-_R}f(z)\,\dd z.
 \end{equation}
-尽管现在要把$f$展开为$\infty$处的洛朗级数，但在做积分时我们仅仅切换了围道的定向，保留下来的是$f$在$\infty$处的展开式中$1/z$的系数的相反数，即\textbf{无穷远点的留数是$-c_{1}$}。
+尽管现在要把$f$展开为$\infty$处的Laurent级数，但在做积分时我们仅仅切换了围道的定向，保留下来的是$f$在$\infty$处的展开式中$1/z$的系数的相反数，即\textbf{无穷远点的留数是$-c_{1}$}。
 
 在\refeqn{res_infty}中，做变量代换
 \begin{equation}
     w=\frac{1}{z},\quad \dd z=-\frac{1}{w^2}\,\dd w,
 \end{equation}
-由于$R$充分大，围道变为逆时针的$\displaystyle C_{1/R}:t\mapsto\frac{1}{R}\e^{-\im t},\quad t\in[0,2\pi]$，它的内部只有$z=0$一个极点（可行性仍由奇点孤立保证），于是
+由于$R$充分大，围道变为逆时针的$\displaystyle C_{1/R}:t\mapsto\frac{1}{R}\e^{\im t},\quad t\in[0,2\pi]$，它的内部只有$z=0$一个极点（可行性仍由奇点孤立保证），于是
 \begin{equation}
     \Res(f,\infty)=\frac{1}{2\pi\im}\oint_{C_{1/R}}f(1/w)\frac{-1}{w^2}\,\dd w=-\Res\paren{\frac{f(1/w)}{w^2},0}.
 \end{equation}
@@ -309,18 +309,18 @@ $f(z)$在$\infty$处的性质是通过$f(1/z)$在$z=0$处的性质来研究的�
     \end{equation}
 \end{proposition}
 
-现在也就不难理解为什么\cref{exmp:ROC}中，在不同收敛域上展开的洛朗级数会有不同的形式，并且在某些收敛域上无法判定$z=0$处的奇点类型了——在$\abs{z}>1/2$的收敛域上，我们其实是将$1/(2z-1)$展开为$z=\infty$处的洛朗级数，这个级数只能说明$1/(2z-1)$在$\infty$处为可去奇点，而不能用于判断$z=0$处的奇点类型。
+现在也就不难理解为什么\cref{exmp:ROC}中，在不同收敛域上展开的Laurent级数会有不同的形式，并且在某些收敛域上无法判定$z=0$处的奇点类型了——在$\abs{z}>1/2$的收敛域上，我们其实是将$1/(2z-1)$展开为$z=\infty$处的Laurent级数，这个级数只能说明$1/(2z-1)$在$\infty$处为可去奇点，而不能用于判断$z=0$处的奇点类型。
 
 \subsection{逆z变换}\label{sub:z_inverse}
-经验上，在做逆z变换时，我们更多地使用洛朗级数展开，直接对比系数的方法，这种方法还可以处理本性奇点的情况。
+经验上，在做逆z变换时，我们更多地使用Laurent级数展开，直接对比系数的方法，这种方法还可以处理本性奇点的情况。
 \begin{example}
     设$X(z)=\e^{1/z}$，求$x[n]$。
 
-    解：$X(z)$在$z=0$处有本性奇点，因此不能使用留数计算（注意我们获得留数计算公式的方法，是将洛朗级数乘以$z^{n-1}$，从而化为泰勒级数）。但它的展开式很容易获得：
+    解：$X(z)$在$z=0$处有本性奇点，因此不能使用留数计算（注意我们获得留数计算公式的方法，是将Laurent级数乘以$z^{n-1}$，从而化为Taylor级数）。但它的展开式很容易获得：
     \begin{equation}
         X(z)=\sum_{n=0}^{\infty}\frac{1}{n!}z^{-n},
     \end{equation}
-    因此$\displaystyle x[n]=\frac{1}{n!}u[-n-1]$。可以验证其收敛域为$\hat{\mathbb{C}}\backslash\{0\}$，并且在$\infty$处展开与上式一致（在没有$0$以外的奇点时，这是必然的，因为同一收敛域上的洛朗级数展开唯一）。
+    因此$\displaystyle x[n]=\frac{1}{n!}u[n]$。可以验证其收敛域为$\hat{\mathbb{C}}\backslash\{0\}$，并且在$\infty$处展开与上式一致（在没有$0$以外的奇点时，这是必然的，因为同一收敛域上的Laurent级数展开唯一）。
 \end{example}
 
 如果$X(z)$是亚纯函数，计算留数仍然是一个有效的方法，因为要将有理函数展开为部分分式的计算量可能比较大（如\cref{exmp:partial_fraction}）。在$X(z)z^{n-1}=\sum_{m=-\infty}^{\infty}x[m]z^{n-m-1}$中，对比$1/z$项系数，就得到使用该公式计算右边信号的逆z变换公式：
@@ -355,11 +355,11 @@ $f(z)$在$\infty$处的性质是通过$f(1/z)$在$z=0$处的性质来研究的�
     \end{align}
     又已知$x[n]$是右边信号，因此
     \begin{equation}
-        x[n]=-\Res\paren{X(z)z^{n-1},1}=-\frac{(n+1)n}{2}u[n].
+        x[n]=\Res\paren{X(z)z^{n-1},1}=\frac{(n+1)n}{2}u[n].
     \end{equation}
 \end{example}
 
-左边信号对应经典的泰勒级数情况，我们已经在前面说明，$x[n]=\Res\paren{X(z)z^{n-1},0}$。不过实际计算时，使用留数定理将高阶极点的留数转化为其他低阶极点的留数会更加方便。注意考虑围道外的点时，需要将$\infty$处的留数也计算进去。
+左边信号对应经典的Taylor级数情况，我们已经在前面说明，$x[n]=\Res\paren{X(z)z^{n-1},0}$。不过实际计算时，使用留数定理将高阶极点的留数转化为其他低阶极点的留数会更加方便。注意考虑围道外的点时，需要将$\infty$处的留数也计算进去。
 \begin{example}
     设左边信号$x[n]$的z变换为
     \begin{equation}
@@ -446,12 +446,12 @@ $n<-1$时，\textbf{无穷远处的留数为$0$}，这并不是偶然现象，�
     \end{equation}
 \end{theorem}
 
-前面的几个例子已经说明了它的道理，但严格的证明写起来较为复杂，因此本书不再单独给出证明。围道的任意性是由柯西积分定理保证的，因为$X(z)$在$\mathcal{A}_0(r,R)$内全纯。请读者注意：$z^{n-1}\ (n<0)$可能会在$z=0$处产生高阶极点，此时就必须转化为计算围道外的留数，但无需考虑$\infty$处的留数。
+前面的几个例子已经说明了它的道理，但严格的证明写起来较为复杂，因此本书不再单独给出证明。围道的任意性是由Cauchy积分定理保证的，因为$X(z)$在$\mathcal{A}_0(r,R)$内全纯。请读者注意：$z^{n-1}\ (n<0)$可能会在$z=0$处产生高阶极点，此时就必须转化为计算围道外的留数，但无需考虑$\infty$处的留数。
 
-\subsection{$z$域卷积定理}\label{sub:z_convolution}
+\subsection{z域卷积定理}\label{sub:z_convolution}
 
-使用逆z变换公式，我们还可以得到\textbf{$z$域卷积定理}：
-\begin{theorem}[$z$域卷积定理]
+使用逆z变换公式，我们还可以得到\textbf{z域卷积定理}：
+\begin{theorem}[z域卷积定理]
     设序列$x[n],y[n]$的z变换分别为$X(z),Y(z)$，收敛域分别为$\mathcal{A}_0(r_1,R_1),\ \mathcal{A}_0(r_2,R_2)$，则在$\mathcal{A}_0(r_1 r_2,R_1 R_2)$内取围道$C$，有
     \begin{equation}
         x[n]y[n]\xleftrightarrow{\mathcal{Z}}\frac{1}{2\pi\im}\oint_{C}X(\nu)Y\paren{\frac{z}{\nu}}\nu^{-1}\,\dd\nu.
@@ -469,7 +469,7 @@ $n<-1$时，\textbf{无穷远处的留数为$0$}，这并不是偶然现象，�
                                                               & =\sum_{m=-\infty}^{\infty}\sum_{k=-\infty}^{\infty}x[m]y[k]z^{-k}\oint_{C}\nu^{-(m-k+1)}\,\dd\nu\nonumber                                       \\
                                                               & =2\pi\im\sum_{n=-\infty}^{\infty}x[n]y[n]z^{-n}.
     \end{align}
-    积分与求和的交换是由收敛域内洛朗级数的内闭一致收敛性保证的。因此，
+    积分与求和的交换是由收敛域内Laurent级数的内闭一致收敛性保证的。因此，
     \begin{equation}
         x[n]y[n]\xleftrightarrow{\mathcal{Z}}\frac{1}{2\pi\im}\oint_{C}X(\nu)Y\paren{\frac{z}{\nu}}\nu^{-1}\,\dd\nu.
     \end{equation}
