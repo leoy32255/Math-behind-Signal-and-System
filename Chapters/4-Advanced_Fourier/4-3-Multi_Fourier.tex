@@ -1,109 +1,109 @@
 \section{多维傅里叶变换}\label{sec:Multi_Fourier}
 
-这一节中，我们将傅里叶变换推广到高维。由于时间总是一维的，高维傅里叶变换往往指空间域，因此我们将用$\mathbf{x}=(x_1,x_2,\cdots,x_n)$表示n维的空间变量，$\boldsymbol{\xi}=(\xi_1,\xi_2,\cdots,\xi_n)$表示n维的空间频率，$\boldsymbol{\omega}=(\omega_1,\omega_2,\cdots,\omega_n)$表示n维的空间角频率。多维傅里叶变换在图像处理、计算机视觉等领域有着重要的应用。
+这一节中，我们将傅里叶变换推广到高维。由于时间总是一维的，高维傅里叶变换往往指空间域，因此我们将用$\mathbf{x}=(x_1,x_2,\cdots,x_n)$表示$n$维的空间变量，$\boldsymbol{\xi}=(\xi_1,\xi_2,\cdots,\xi_n)$表示$n$维的空间频率，$\boldsymbol{\omega}=(\omega_1,\omega_2,\cdots,\omega_n)$表示$n$维的空间角频率。多维傅里叶变换在图像处理、计算机视觉等领域有着重要的应用。
 
 \subsection{多维傅里叶变换的定义}\label{sub:multi_fourier}
 
-\begin{definition}[n维傅里叶变换]
-设$f\in L^1(\mathbb{R}^n)$，则其n维傅里叶变换定义为：
-\begin{lralign}
-    \mathcal{F} f(\boldsymbol{\xi})&=\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}
-\switch
-    \mathcal{F} f(\boldsymbol{\omega})&=\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}
-\end{lralign}
-我们仍记$f\overset{\mathcal{F} }{\longleftrightarrow}F$并称$f$与$F$构成\textbf{傅里叶变换对}。
+\begin{definition}[$n$维傅里叶变换]
+    设$f\in L^1(\mathbb{R}^n)$，则其$n$维傅里叶变换定义为：
+    \begin{lralign}
+        \mathcal{F}f(\boldsymbol{\xi})&=\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x},
+        \switch
+        \mathcal{F}f(\boldsymbol{\omega})&=\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}.
+    \end{lralign}
+    我们仍记$f\overset{\mathcal{F}}{\longleftrightarrow}F$并称$f$与$F$构成\textbf{傅里叶变换对}。
 \end{definition}
 
 类似一维傅里叶变换，我们来验证$f\in L^1(\mathbb{R}^n)$时，其多维傅里叶变换是有界的、一致连续的。
 \begin{proposition}
-    设$f\in L^1(\mathbb{R}^n)$，则其n维傅里叶变换$\mathcal{F} f$是有界的、一致连续的。
+    设$f\in L^1(\mathbb{R}^n)$，则其$n$维傅里叶变换$\mathcal{F}f$是有界的、一致连续的。
 \end{proposition}
 \begin{proof}
     有界性：由定义，有
-\begin{lralign}
-    |\mathcal{F} f(\boldsymbol{\xi})|&=\left|\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\right|\\
-    &\leq \int_{\mathbb{R}^n}|f(\mathbf{x})||\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\xi}}|\,d\mathbf{x}\\
-    &= \int_{\mathbb{R}^n}|f(\mathbf{x})|\,d\mathbf{x}=\|f\|_1<\infty
-\switch
-    |\mathcal{F} f(\boldsymbol{\omega})|&=\left|\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\right|\\
-    &\leq \int_{\mathbb{R}^n}|f(\mathbf{x})||\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\omega}}|\,d\mathbf{x}\\
-    &= \int_{\mathbb{R}^n}|f(\mathbf{x})|\,d\mathbf{x}=\|f\|_1<\infty
-\end{lralign}
-一致连续性：设$\boldsymbol{\xi},\boldsymbol{\eta}\in\mathbb{R}^n$，则
-\begin{lralign}
-    &|\mathcal{F} f(\boldsymbol{\xi})-\mathcal{F} f(\boldsymbol{\eta})|\\
-    =&\left|\int_{\mathbb{R}^n}f(\mathbf{x})\left(\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\xi}}-\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\eta}}\right)\,d\mathbf{x}\right|\\
-    \leq& \int_{\mathbb{R}^n}|f(\mathbf{x})|\left|\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\xi}}-\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\eta}}\right|\,d\mathbf{x}
-\switch
-    &|\mathcal{F} f(\boldsymbol{\omega})-\mathcal{F} f(\boldsymbol{\nu})|\\
-    =&\left|\int_{\mathbb{R}^n}f(\mathbf{x})\left(\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\omega}}-\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\nu}}\right)\,d\mathbf{x}\right|\\
-    \leq& \int_{\mathbb{R}^n}|f(\mathbf{x})|\left|\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\omega}}-\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\nu}}\right|\,d\mathbf{x}
-\end{lralign}
-由于$\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\xi}}$与$\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\omega}}$均为一致连续函数，$\forall\epsilon>0,\exists\delta>0$，使得\begin{lralign}
-    &|\boldsymbol{\xi}-\boldsymbol{\eta}|<\delta\\
-    \implies &|\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\xi}}-\mathrm{e}^{-2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\eta}}|<\frac{\epsilon}{\|f\|_1},\forall \mathbf{x}\in\mathbb{R}^n\\
-    \implies &|\mathcal{F} f(\boldsymbol{\xi})-\mathcal{F} f(\boldsymbol{\eta})|<\epsilon
-\switch
-    &|\boldsymbol{\omega}-\boldsymbol{\nu}|<\delta\\
-    \implies &|\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\omega}}-\mathrm{e}^{-\mathrm{i}\mathbf{x}\cdot\boldsymbol{\nu}}|<\frac{\epsilon}{\|f\|_1},\forall \mathbf{x}\in\mathbb{R}^n\\
-    \implies &|\mathcal{F} f(\boldsymbol{\omega})-\mathcal{F} f(\boldsymbol{\nu})|<\epsilon
-\end{lralign}
+    \begin{lralign}
+        \abs{\mathcal{F}f(\boldsymbol{\xi})}&=\abs{\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}}\\
+        &\leq \int_{\mathbb{R}^n}\abs{f(\mathbf{x})}\abs{\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}\abs{f(\mathbf{x})}\,\dd\mathbf{x}=\norm{f}_1<\infty,
+        \switch
+        \abs{\mathcal{F}f(\boldsymbol{\omega})}&=\abs{\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}}\\
+        &\leq \int_{\mathbb{R}^n}\abs{f(\mathbf{x})}\abs{\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}\abs{f(\mathbf{x})}\,\dd\mathbf{x}=\norm{f}_1<\infty.
+    \end{lralign}
+    一致连续性：设$\boldsymbol{\xi},\boldsymbol{\eta},\boldsymbol{\omega},\boldsymbol{\nu}\in\mathbb{R}^n$，则
+    \begin{lralign}
+        \abs{\mathcal{F}f(\boldsymbol{\xi})-\mathcal{F}f(\boldsymbol{\eta})}
+        &=\abs{\int_{\mathbb{R}^n}f(\mathbf{x})\paren{\e^{-2\pi \im\mathbf{x}\cdot\boldsymbol{\xi}}-\e^{-2\pi \im\mathbf{x}\cdot\boldsymbol{\eta}}}\,\dd\mathbf{x}}\\
+        &\leq\int_{\mathbb{R}^n}\abs{f(\mathbf{x})}\abs{\e^{-2\pi \im\mathbf{x}\cdot\boldsymbol{\xi}}-\e^{-2\pi \im\mathbf{x}\cdot\boldsymbol{\eta}}}\,\dd\mathbf{x}.
+        \switch
+        \abs{\mathcal{F}f(\boldsymbol{\omega})-\mathcal{F}f(\boldsymbol{\nu})}
+        &=\abs{\int_{\mathbb{R}^n}f(\mathbf{x})\paren{\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}-\e^{-\im\mathbf{x}\cdot\boldsymbol{\nu}}}\,\dd\mathbf{x}}\\
+        &\leq\int_{\mathbb{R}^n}\abs{f(\mathbf{x})}\abs{\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}-\e^{-\im\mathbf{x}\cdot\boldsymbol{\nu}}}\,\dd\mathbf{x}.
+    \end{lralign}
+    由于$\e^{-2\pi \im\mathbf{x}\cdot\boldsymbol{\xi}}$与$\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}$均为一致连续函数，$\forall\epsilon>0,\ \exists\delta>0$，使得
+    \begin{lralign}
+        &\abs{\boldsymbol{\xi}-\boldsymbol{\eta}}<\delta\\
+        \implies &\abs{\e^{-2\pi \im\mathbf{x}\cdot\boldsymbol{\xi}}-\e^{-2\pi \im\mathbf{x}\cdot\boldsymbol{\eta}}}<\frac{\epsilon}{\norm{f}_1},\quad \forall \mathbf{x}\in\mathbb{R}^n\\
+        \implies &\abs{\mathcal{F}f(\boldsymbol{\xi})-\mathcal{F}f(\boldsymbol{\eta})}<\epsilon
+        \switch
+        &\abs{\boldsymbol{\omega}-\boldsymbol{\nu}}<\delta\\
+        \implies &\abs{\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}-\e^{-\im\mathbf{x}\cdot\boldsymbol{\nu}}}<\frac{\epsilon}{\norm{f}_1},\quad \forall \mathbf{x}\in\mathbb{R}^n\\
+        \implies &\abs{\mathcal{F}f(\boldsymbol{\omega})-\mathcal{F}f(\boldsymbol{\nu})}<\epsilon.
+    \end{lralign}
 \end{proof}
 
 此外，黎曼-勒贝格引理仍然成立：
-\begin{claim}[n维黎曼-勒贝格引理]
-    设$f\in L^1(\mathbb{R}^n)$，则其n维傅里叶变换$\mathcal{F} f$满足
+\begin{claim}[$n$维黎曼-勒贝格引理]
+    设$f\in L^1(\mathbb{R}^n)$，则其$n$维傅里叶变换$\mathcal{F}f$满足
     \begin{lralign}
-    \lim_{|\boldsymbol{\xi}|\to\infty}\mathcal{F} f(\boldsymbol{\xi})&=0
-\switch
-    \lim_{|\boldsymbol{\omega}|\to\infty}\mathcal{F} f(\boldsymbol{\omega})&=0
-\end{lralign}
+        \lim_{\abs{\boldsymbol{\xi}}\to\infty}\mathcal{F}f(\boldsymbol{\xi})&=0.
+        \switch
+        \lim_{\abs{\boldsymbol{\omega}}\to\infty}\mathcal{F}f(\boldsymbol{\omega})&=0.
+    \end{lralign}
 \end{claim}
 
 不难想到，傅里叶逆变换为：
-\begin{definition}[n维傅里叶逆变换]
-    设$F\in L^1(\mathbb{R}^n)$，则其n维傅里叶逆变换为：
+\begin{definition}[$n$维傅里叶逆变换]
+    设$F\in L^1(\mathbb{R}^n)$，则其$n$维傅里叶逆变换为：
     \begin{lralign}
-    \mathcal{F} ^{-1} F(\mathbf{x})&=\int_{\mathbb{R}^n}F(\boldsymbol{\xi})\mathrm{e}^{2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\xi}}\,d\boldsymbol{\xi}
-\switch
-    \mathcal{F} ^{-1} F(\mathbf{x})&=\frac{1}{(2\pi)^n}\int_{\mathbb{R}^n}F(\boldsymbol{\omega})\mathrm{e}^{\mathrm{i}\mathbf{x}\cdot\boldsymbol{\omega}}\,d\boldsymbol{\omega}
-\end{lralign}
+        \mathcal{F}^{-1}F(\mathbf{x})&=\int_{\mathbb{R}^n}F(\boldsymbol{\xi})\e^{2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\boldsymbol{\xi}.
+        \switch
+        \mathcal{F}^{-1}F(\mathbf{x})&=\frac{1}{(2\pi)^n}\int_{\mathbb{R}^n}F(\boldsymbol{\omega})\e^{\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\boldsymbol{\omega}.
+    \end{lralign}
 \end{definition}
 
-傅里叶反演公式仍然成立，因此n维傅里叶变换也是一一的，从而前文中傅里叶变换对的记号$f\overset{\mathcal{F} }{\longleftrightarrow}F$是合理的。
-\begin{claim}[n维傅里叶反演公式]
-    设$f\in L^1(\mathbb{R}^n)$且$\mathcal{F} f\in L^1(\mathbb{R}^n)$，则
+傅里叶反演公式仍然成立，因此$n$维傅里叶变换也是一一的，从而前文中傅里叶变换对的记号$f\overset{\mathcal{F}}{\longleftrightarrow}F$是合理的。
+\begin{claim}[$n$维傅里叶反演公式]
+    设$f\in L^1(\mathbb{R}^n)$且$\mathcal{F}f\in L^1(\mathbb{R}^n)$，则
     \begin{lralign}
-    f(\mathbf{x})&=\int_{\mathbb{R}^n}\mathcal{F} f(\boldsymbol{\xi})\mathrm{e}^{2\pi \mathrm{i}\mathbf{x}\cdot\boldsymbol{\xi}}\,d\boldsymbol{\xi}
-\switch
-    f(\mathbf{x})&=\frac{1}{(2\pi)^n}\int_{\mathbb{R}^n}\mathcal{F} f(\boldsymbol{\omega})\mathrm{e}^{\mathrm{i}\mathbf{x}\cdot\boldsymbol{\omega}}\,d\boldsymbol{\omega}
-\end{lralign}
+        f(\mathbf{x})&=\int_{\mathbb{R}^n}\mathcal{F}f(\boldsymbol{\xi})\e^{2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\boldsymbol{\xi}.
+        \switch
+        f(\mathbf{x})&=\frac{1}{(2\pi)^n}\int_{\mathbb{R}^n}\mathcal{F}f(\boldsymbol{\omega})\e^{\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\boldsymbol{\omega}.
+    \end{lralign}
 \end{claim}
 \begin{remark}
-    多维情况下很难讲清楚什么是“左右极限平均值”，一种处理方式是通过球平均在半径趋于0时的极限来替代$\dfrac{f(t+)+f(t-)}{2}$，但这样比较复杂，因此我们不妨说$\mathcal{F} f$的傅里叶逆变换几乎处处收敛到$f$，或者要求$f\in C(\mathbb{R}^n)$。
+    多维情况下很难讲清楚什么是“左右极限平均值”，一种处理方式是通过球平均在半径趋于$0$时的极限来替代$\displaystyle\frac{f(t+)+f(t-)}{2}$，但这样比较复杂，因此我们不妨说$\mathcal{F}f$的傅里叶逆变换几乎处处收敛到$f$，或者要求$f\in C(\mathbb{R}^n)$。
 \end{remark}
 
-为了说明空间角频率形式的傅里叶逆变换的系数$\dfrac{1}{(2\pi)^n}$的由来，我们可以令$\boldsymbol{\omega}=2\pi\boldsymbol{\xi}$，则$d\boldsymbol{\omega}=(2\pi)^n d\boldsymbol{\xi}$，以上两种傅里叶逆变换的公式是等价的。
+为了说明空间角频率形式的傅里叶逆变换的系数$\displaystyle\frac{1}{(2\pi)^n}$的由来，我们可以令$\boldsymbol{\omega}=2\pi\boldsymbol{\xi}$，则$\dd\boldsymbol{\omega}=(2\pi)^n\,\dd\boldsymbol{\xi}$，以上两种傅里叶逆变换的公式是等价的。
 
 下面给出几个例子来建立多维傅里叶变换的直观。
 \begin{definition}[可分函数]
-    $f(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$是一个可分函数，即如果存在$n$个一维函数$f_i(x_i):\mathbb{R}\to\mathbb{C},\mathrm{i}=1,2,\cdots,n$，使得
-    \begin{align*}
-        f(\mathbf{x})=f_1(x_1)f_2(x_2)\cdots f_n(x_n)
-    \end{align*}
+    $f(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$是一个可分函数，即如果存在$n$个一维函数$f_i(x_i):\mathbb{R}\to\mathbb{C},\ i=1,2,\cdots,n$，使得
+    \begin{equation}
+        f(\mathbf{x})=f_1(x_1)f_2(x_2)\cdots f_n(x_n).
+    \end{equation}
 \end{definition}
 $f(\mathbf{x})$的傅里叶变换为（以频率为例）：
-{\color{blue}
-\begin{align*}
-\mathcal{F} f(\boldsymbol{\xi})&=\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-&=\int_{-\infty}^{\infty}\cdots \int_{-\infty}^{\infty}f_1(x_1)f_2(x_2)\cdots f_n(x_n)\mathrm{e}^{-2\pi \mathrm{i} (x_1\xi_1+x_2\xi_2+\cdots +x_n\xi_n)}\,dx_1 dx_2\cdots dx_n\\
-&=\left(\int_{-\infty}^{\infty}f_1(x_1)\mathrm{e}^{-2\pi \mathrm{i} x_1\xi_1}\,dx_1\right)\left(\int_{-\infty}^{\infty}f_2(x_2)\mathrm{e}^{-2\pi \mathrm{i} x_2\xi_2}\,dx_2\right)\cdots \left(\int_{-\infty}^{\infty}f_n(x_n)\mathrm{e}^{-2\pi \mathrm{i} x_n\xi_n}\,dx_n\right)\\
-&=\mathcal{F} f_1(\xi_1)\mathcal{F} f_2(\xi_2)\cdots \mathcal{F} f_n(\xi_n)
-\end{align*}}
+\begin{align}
+    \color{freqcolor}\mathcal{F}f(\boldsymbol{\xi})&\color{freqcolor}=\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\nonumber\\
+    &\color{freqcolor}=\int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty}f_1(x_1)f_2(x_2)\cdots f_n(x_n)\e^{-2\pi\im(x_1\xi_1+x_2\xi_2+\cdots+x_n\xi_n)}\,\dd x_1\,\dd x_2\cdots\dd x_n\nonumber\\
+    &\color{freqcolor}=\paren{\int_{-\infty}^{\infty}f_1(x_1)\e^{-2\pi\im x_1\xi_1}\,\dd x_1}\paren{\int_{-\infty}^{\infty}f_2(x_2)\e^{-2\pi\im x_2\xi_2}\,\dd x_2}\cdots\paren{\int_{-\infty}^{\infty}f_n(x_n)\e^{-2\pi\im x_n\xi_n}\,\dd x_n}\nonumber\\
+    &\color{freqcolor}=\mathcal{F}f_1(\xi_1)\mathcal{F}f_2(\xi_2)\cdots\mathcal{F}f_n(\xi_n),
+\end{align}
 %{\color{red}
 %\begin{align*}
 %\mathcal{F} f(\boldsymbol{\omega})&=\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-%&=\int_{-\infty}^{\infty}\cdots \int_{-\infty}^{\infty}f_1(x_1)f_2(x_2)\cdots f_n(x_n)\mathrm{e}^{-\mathrm{i} (x_1\omega_1+x_2\omega_2+\cdots +x_n\omega_n)}\,dx_1 dx_2\cdots dx_n\\  
+%&=\int_{-\infty}^{\infty}\cdots \int_{-\infty}^{\infty}f_1(x_1)f_2(x_2)\cdots f_n(x_n)\mathrm{e}^{-\mathrm{i} (x_1\omega_1+x_2\omega_2+\cdots +x_n\omega_n)}\,dx_1 dx_2\cdots dx_n\\
 %&=\left(\int_{-\infty}^{\infty}f_1(x_1)\mathrm{e}^{-\mathrm{i} x_1\omega_1}\,dx_1\right)\left(\int_{-\infty}^{\infty}f_2(x_2)\mathrm{e}^{-\mathrm{i} x_2\omega_2}\,dx_2\right)\cdots \left(\int_{-\infty}^{\infty}f_n(x_n)\mathrm{e}^{-\mathrm{i} x_n\omega_n}\,dx_n\right)\\
 %&=\mathcal{F} f_1(\omega_1)\mathcal{F} f_2(\omega_2)\cdots \mathcal{F} f_n(\omega_n)
 %\end{align*}}
@@ -111,44 +111,44 @@ $f(\mathbf{x})$的傅里叶变换为（以频率为例）：
 
 \begin{example}[高斯函数]
     高斯函数是可分的：
-    \begin{align*}
-        f(\mathbf{x})=\mathrm{e}^{-\pi(x_1^2+x_2^2+\cdots +x_n^2)}=\mathrm{e}^{-\pi x_1^2}\mathrm{e}^{-\pi x_2^2}\cdots \mathrm{e}^{-\pi x_n^2}
-    \end{align*}
+    \begin{equation}
+        f(\mathbf{x})=\e^{-\pi(x_1^2+x_2^2+\cdots+x_n^2)}=\e^{-\pi x_1^2}\e^{-\pi x_2^2}\cdots\e^{-\pi x_n^2}.
+    \end{equation}
     我们仍考虑这个特殊的高斯函数，并指出其他高斯函数可以通过下一小节中介绍的运算性质得到。一维高斯函数的傅里叶变换为：
     \begin{lralign}
-    \mathcal{F} \left(\mathrm{e}^{-\pi x^2}\right)(\xi)&=\mathrm{e}^{-\pi \xi^2}
-\switch
-    \mathcal{F} \left(\mathrm{e}^{-\pi x^2}\right)(\omega)&=\mathrm{e}^{-\frac{\omega^2}{4\pi}}
+        \mathcal{F}\sbr{\e^{-\pi x^2}}(\xi)&=\e^{-\pi\xi^2}.
+        \switch
+        \mathcal{F}\sbr{\e^{-\pi x^2}}(\omega)&=\e^{-\frac{\omega^2}{4\pi}}.
     \end{lralign}
-    因此，n维高斯函数的傅里叶变换仍为高斯函数：
+    因此，$n$维高斯函数的傅里叶变换仍为高斯函数：
     \begin{lralign}
-    \mathcal{F} f(\boldsymbol{\xi})=\mathrm{e}^{-\pi(\xi_1^2+\xi_2^2+\cdots +\xi_n^2)}=\mathrm{e}^{-\pi |\boldsymbol{\xi}|^2}\quad
-\switch
-    \mathcal{F} f(\boldsymbol{\omega})=\mathrm{e}^{-(\omega_1^2+\omega_2^2+\cdots +\omega_n^2)/4\pi}=\mathrm{e}^{-|\boldsymbol{\omega}|^2/4\pi}\quad
+        \mathcal{F}f(\boldsymbol{\xi})&=\e^{-\pi(\xi_1^2+\xi_2^2+\cdots+\xi_n^2)}=\e^{-\pi\abs{\boldsymbol{\xi}}^2}.
+        \switch
+        \mathcal{F}f(\boldsymbol{\omega})&=\e^{-(\omega_1^2+\omega_2^2+\cdots+\omega_n^2)/4\pi}=\e^{-\abs{\boldsymbol{\omega}}^2/4\pi}.
     \end{lralign}
-    \end{example}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{n_gauss.jpeg}
-        \caption{二维高斯函数的图像}
-    \end{figure}
+\end{example}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{n_gauss.jpeg}
+    \caption{二维高斯函数的图像}
+\end{figure}
 
 \begin{example}[矩形函数]
-    n维空间中的矩形函数是n维“长方体”的特征函数。由于这种长方体是区间(Interval)的笛卡尔积，是n维空间中区间的推广，我们仍称之为区间并用$I$表示：
-    \begin{align*}
-        I=[a_1,b_1]\times[a_2,b_2]\times\cdots \times[a_n,b_n]
-    \end{align*}
-    n维矩形函数记为$\chi_I$。简洁起见，这里计算一个特殊的矩形函数$\chi_I$，其中$I=[-T/2,T/2]^n$。已知一维矩形函数的傅里叶变换为：
+    $n$维空间中的矩形函数是$n$维“长方体”的特征函数。由于这种长方体是区间(Interval)的笛卡尔积，是$n$维空间中区间的推广，我们仍称之为区间并用$I$表示：
+    \begin{equation}
+        I=[a_1,b_1]\times[a_2,b_2]\times\cdots\times[a_n,b_n].
+    \end{equation}
+    $n$维矩形函数记为$\chi_I$。简洁起见，这里计算一个特殊的矩形函数$\chi_I$，其中$I=[-T/2,T/2]^n$。已知一维矩形函数的傅里叶变换为：
     \begin{lralign}
-    \mathcal{F} \left(\chi_{[-T/2,T/2]}\right)(\xi)&=T\mathrm{sinc}(T\xi)
-\switch
-    \mathcal{F} \left(\chi_{[-T/2,T/2]}\right)(\omega)&=T\mathrm{Sa}\left(\frac{T\omega}{2}\right)
+        \mathcal{F}\sbr{\chi_{[-T/2,T/2]}}(\xi)&=T\sinc(T\xi).
+        \switch
+        \mathcal{F}\sbr{\chi_{[-T/2,T/2]}}(\omega)&=T\Sa\paren{\frac{T\omega}{2}}.
     \end{lralign}
-    因此，n维矩形函数的傅里叶变换为：
+    因此，$n$维矩形函数的傅里叶变换为：
     \begin{lralign}
-    \mathcal{F} \chi_I(\boldsymbol{\xi})&=T^n \prod_{j=1}^n \mathrm{sinc}(T\xi_j)
-\switch
-    \mathcal{F} \chi_I(\boldsymbol{\omega})&=T^n \prod_{j=1}^n \mathrm{Sa}\left(\frac{T\omega_j}{2}\right)
+        \mathcal{F}\chi_I(\boldsymbol{\xi})&=T^n\prod_{j=1}^n\sinc(T\xi_j).
+        \switch
+        \mathcal{F}\chi_I(\boldsymbol{\omega})&=T^n\prod_{j=1}^n\Sa\paren{\frac{T\omega_j}{2}}.
     \end{lralign}
 \end{example}
 
@@ -156,15 +156,22 @@ $f(\mathbf{x})$的傅里叶变换为（以频率为例）：
     \centering
     \vspace{-20pt}
     \includegraphics[width=0.48\textwidth]{zero_phase.jpeg}
-    \caption{二维空间中$\mathrm{e}^{2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}$的等相面示意图}
+    \caption{二维空间中$\e^{2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}$的等相面示意图}
     \vspace{4em}
 \end{wrapfigure}
-下面考察$\mathrm{e}^{2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}$和$\mathrm{e}^{\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}$的性质。以$\mathrm{e}^{2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}$为例，对于给定的$\mathbf{\xi}$，令$$\boldsymbol{x\cdot\xi}=k(k\in\mathbb{Z})$$
-则$$\mathrm{e}^{2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}=1$$
-这时称$\mathrm{e}^{2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}$是\textbf{零相}(zero phase)的。
-这些点构成了过原点且法向量为$\boldsymbol{\xi_0}$的超平面族，相邻零相面之间的距离为$1/|\boldsymbol{\xi}|$。类似地，可以定义\textbf{等相面}(constant phase surface)为
-$$\left\{\mathbf{x}\in\mathbb{R}^n \mid \mathbf{x}\cdot\boldsymbol{\xi}=k+\theta,k\in\mathbb{Z},\theta\in[0,1)\right\}$$
-的超平面族，法向量为$\boldsymbol{\xi_0}$，相邻等相面距离为$1/|\boldsymbol{\xi}|$。
+下面考察$\e^{2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}$和$\e^{\im\mathbf{x}\cdot\boldsymbol{\omega}}$的性质。以$\e^{2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}$为例，对于给定的$\boldsymbol{\xi}$，令
+\begin{equation}
+    \mathbf{x}\cdot\boldsymbol{\xi}=k\quad(k\in\mathbb{Z}),
+\end{equation}
+则
+\begin{equation}
+    \e^{2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}=1,
+\end{equation}
+这时称$\e^{2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}$是\textbf{零相}(zero phase)的。这些点构成了过原点且法向量为$\boldsymbol{\xi_0}$的超平面族，相邻零相面之间的距离为$1/\abs{\boldsymbol{\xi}}$。类似地，可以定义\textbf{等相面}(constant phase surface)为
+\begin{equation}
+    \braces{\mathbf{x}\in\mathbb{R}^n\mid\mathbf{x}\cdot\boldsymbol{\xi}=k+\theta,\ k\in\mathbb{Z},\ \theta\in[0,1)}
+\end{equation}
+的超平面族，法向量为$\boldsymbol{\xi_0}$，相邻等相面距离为$1/\abs{\boldsymbol{\xi}}$。
 
 \subsection{多维傅里叶变换的运算性质}\label{sub:operation_of_multi_fourier}
 
@@ -173,54 +180,57 @@ $$\left\{\mathbf{x}\in\mathbb{R}^n \mid \mathbf{x}\cdot\boldsymbol{\xi}=k+\theta
 \begin{proposition}[对偶性]
     设$f(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$，则有：
     \begin{lralign}
-    &\mathcal{F} f^- =\mathcal{F} (f^-)=\mathcal{F} ^{-1} f\\
-    &\mathcal{F} \left(\mathcal{F} f\right)=f
-\switch
-    &\mathcal{F} f^-=(2\pi)^n \mathcal{F} ^{-1} f\\
-    &\mathcal{F} \left(\mathcal{F} f\right)=(2\pi)^n f^-
+        \mathcal{F}f^-=\mathcal{F}[f^-]=\mathcal{F}^{-1}f,
+        \switch
+        \mathcal{F}f^-=(2\pi)^n\mathcal{F}^{-1}f,
+    \end{lralign}
+    \begin{lralign}
+        \mathcal{F}\sbr{\mathcal{F}f}=f^-.
+        \switch
+        \mathcal{F}\sbr{\mathcal{F}f}=(2\pi)^n f^-.
     \end{lralign}
     进一步，如果$f$是实函数，则有：
     \begin{lralign}
-    \mathcal{F} f^-&=\overline{\mathcal{F} f}
-\switch
-    \mathcal{F} f^-&=(2\pi)^n \overline{\mathcal{F} f}
+        \mathcal{F}f^-&=\overline{\mathcal{F}f}.
+        \switch
+        \mathcal{F}f^-&=(2\pi)^n\overline{\mathcal{F}f}.
     \end{lralign}
 \end{proposition}
 \begin{proof}
     类似一维的情况（\cref{thm:FT_dual}），带入定义可立即得到：
     \begin{lralign}
-        \mathcal{F} f^-=\mathcal{F} (f^-)=\mathcal{F} ^{-1} f
-    \switch
-        \mathcal{F} f^-=(2\pi)^n \mathcal{F} ^{-1} f
+        \mathcal{F}f^-=\mathcal{F}[f^-]=\mathcal{F}^{-1}f.
+        \switch
+        \mathcal{F}f^-=(2\pi)^n\mathcal{F}^{-1}f.
     \end{lralign}
     同时取傅里叶变换，即得：
     \begin{lralign}
-        \mathcal{F} \left(\mathcal{F} f\right)=f^-
-\switch
-        \mathcal{F} \left(\mathcal{F} f\right)=(2\pi)^n f^-
+        \mathcal{F}\sbr{\mathcal{F}f}=f^-.
+        \switch
+        \mathcal{F}\sbr{\mathcal{F}f}=(2\pi)^n f^-.
     \end{lralign}
     如果$f$是实函数，则$f=\overline{f}$，因此：
     \begin{lralign}
-    \mathcal{F} f^-(\mathbf{\xi})&=\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-    &=\overline{\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}}\\
-    &=\overline{\mathcal{F} f(\boldsymbol{\xi})}
-\switch
-    \mathcal{F} f^-(\boldsymbol{\omega})&=\int_{\mathbb{R}^n}f(-\mathbf{x})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    &=\overline{\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}}\\
-    &=(2\pi)^n \overline{\mathcal{F} f(\boldsymbol{\omega})}
+        \mathcal{F}f^-(\boldsymbol{\xi})&=\int_{\mathbb{R}^n}f(\mathbf{x})\e^{2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\\
+        &=\overline{\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}}\\
+        &=\overline{\mathcal{F}f(\boldsymbol{\xi})}.
+        \switch
+        \mathcal{F}f^-(\boldsymbol{\omega})&=\int_{\mathbb{R}^n}f(-\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=\overline{\int_{\mathbb{R}^n}f(\mathbf{x})\e^{\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}}\\
+        &=(2\pi)^n\overline{\mathcal{F}f(\boldsymbol{\omega})}.
     \end{lralign}
 \end{proof}
 
 \begin{corollary}[对称性]
-    可仿照一维函数定义函数的奇偶性：如果$f(\mathbf{x})=f(-\mathbf{x})$，则称$f$为偶函数；如果$f(\mathbf{x})=-f(-\mathbf{x})$，则称$f$为奇函数。$\mathcal{F} f$与$f$具有相同的奇偶性；$f$是实函数时，如果$f$为偶函数，则$\mathcal{F} f$为实函数；如果$f$为奇函数，则$\mathcal{F} f$为纯虚函数。
+    可仿照一维函数定义函数的奇偶性：如果$f(\mathbf{x})=f(-\mathbf{x})$，则称$f$为偶函数；如果$f(\mathbf{x})=-f(-\mathbf{x})$，则称$f$为奇函数。$\mathcal{F}f$与$f$具有相同的奇偶性；$f$是实函数时，如果$f$为偶函数，则$\mathcal{F}f$为实函数；如果$f$为奇函数，则$\mathcal{F}f$为纯虚函数。
 \end{corollary}
 
 \begin{proposition}[线性性]
     设$f(\mathbf{x}),g(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$，则有：
     \begin{lralign}
-    \mathcal{F} [af(\mathbf{x})+bg(\mathbf{x})](\boldsymbol{\xi})&=a\mathcal{F} f(\boldsymbol{\xi})+b\mathcal{F} g(\boldsymbol{\xi})    
-\switch
-    \mathcal{F} [af(\mathbf{x})+bg(\mathbf{x})](\boldsymbol{\omega})&=a\mathcal{F} f(\boldsymbol{\omega})+b\mathcal{F} g(\boldsymbol{\omega})
+        \mathcal{F}\sbr{af(\mathbf{x})+bg(\mathbf{x})}(\boldsymbol{\xi})&=a\mathcal{F}f(\boldsymbol{\xi})+b\mathcal{F}g(\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}\sbr{af(\mathbf{x})+bg(\mathbf{x})}(\boldsymbol{\omega})&=a\mathcal{F}f(\boldsymbol{\omega})+b\mathcal{F}g(\boldsymbol{\omega}).
     \end{lralign}
 \end{proposition}
 这个性质是显然的，它直接得自积分的线性性。
@@ -228,82 +238,82 @@ $$\left\{\mathbf{x}\in\mathbb{R}^n \mid \mathbf{x}\cdot\boldsymbol{\xi}=k+\theta
 \begin{proposition}[平移定理]
     设$f(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$，时域上：
     \begin{lralign}
-    \mathcal{F} \left[f(\mathbf{x}-\mathbf{a})\right](\boldsymbol{\xi})&=\mathrm{e}^{-2\pi \mathrm{i} \mathbf{a}\cdot\boldsymbol{\xi}}\mathcal{F} f(\boldsymbol{\xi})
-\switch
-    \mathcal{F} \left[f(\mathbf{x}-\mathbf{a})\right](\boldsymbol{\omega})&=\mathrm{e}^{-\mathrm{i} \mathbf{a}\cdot\boldsymbol{\omega}}\mathcal{F} f(\boldsymbol{\omega})
+        \mathcal{F}\sbr{f(\mathbf{x}-\mathbf{a})}(\boldsymbol{\xi})&=\e^{-2\pi\im\mathbf{a}\cdot\boldsymbol{\xi}}\mathcal{F}f(\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}\sbr{f(\mathbf{x}-\mathbf{a})}(\boldsymbol{\omega})&=\e^{-\im\mathbf{a}\cdot\boldsymbol{\omega}}\mathcal{F}f(\boldsymbol{\omega}).
     \end{lralign}
     频域上：
     \begin{lralign}
-    \mathcal{F} \left[\mathrm{e}^{2\pi \mathrm{i} \mathbf{a}\cdot\boldsymbol{\xi}}f(\mathbf{x})\right](\boldsymbol{\xi})&=f(\boldsymbol{\xi}-\mathbf{a})
-\switch
-    \mathcal{F} \left[\mathrm{e}^{\mathrm{i} \mathbf{a}\cdot\boldsymbol{\omega}}f(\mathbf{x})\right](\boldsymbol{\omega})&=f(\boldsymbol{\omega}-\mathbf{a})
+        \mathcal{F}\sbr{\e^{2\pi\im\mathbf{a}\cdot\boldsymbol{\xi}}f(\mathbf{x})}(\boldsymbol{\xi})&=f(\boldsymbol{\xi}-\mathbf{a}).
+        \switch
+        \mathcal{F}\sbr{\e^{\im\mathbf{a}\cdot\boldsymbol{\omega}}f(\mathbf{x})}(\boldsymbol{\omega})&=f(\boldsymbol{\omega}-\mathbf{a}).
     \end{lralign}
 \end{proposition}
 \begin{proof}
-    \ding{172}时移性质，
+    \ding{172} 时移性质：
     \begin{lralign}
-    &\mathcal{F} \left[f(\mathbf{x}-\mathbf{a})\right](\boldsymbol{\xi})\\
-    &=\int_{\mathbb{R}^n}f(\mathbf{x}-\mathbf{a})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-2\pi \mathrm{i} (\mathbf{y}+\mathbf{a})\cdot\boldsymbol{\xi}}\,d\mathbf{y}(\mathbf{y}=\mathbf{x}-\mathbf{a})\\
-    =&\mathrm{e}^{-2\pi \mathrm{i} \mathbf{a}\cdot\boldsymbol{\xi}}\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{y}\cdot\boldsymbol{\xi}}\,d\mathbf{y}\\
-    =&\mathrm{e}^{-2\pi \mathrm{i} \mathbf{a}\cdot\boldsymbol{\xi}}\mathcal{F} f(\boldsymbol{\xi})
-\switch
-    &\mathcal{F} \left[f(\mathbf{x}-\mathbf{a})\right](\boldsymbol{\omega})\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{x}-\mathbf{a})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-\mathrm{i} (\mathbf{y}+\mathbf{a})\cdot\boldsymbol{\omega}}\,d\mathbf{y}(\mathbf{y}=\mathbf{x}-\mathbf{a})\\
-    =&\mathrm{e}^{-\mathrm{i} \mathbf{a}\cdot\boldsymbol{\omega}}\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-\mathrm{i} \mathbf{y}\cdot\boldsymbol{\omega}}\,d\mathbf{y}\\
-    =&\mathrm{e}^{-\mathrm{i} \mathbf{a}\cdot\boldsymbol{\omega}}\mathcal{F} f(\boldsymbol{\omega})
+        \mathcal{F}\sbr{f(\mathbf{x}-\mathbf{a})}(\boldsymbol{\xi})
+        &=\int_{\mathbb{R}^n}f(\mathbf{x}-\mathbf{a})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-2\pi\im(\mathbf{y}+\mathbf{a})\cdot\boldsymbol{\xi}}\,\dd\mathbf{y}\quad(\mathbf{y}=\mathbf{x}-\mathbf{a})\\
+        &=\e^{-2\pi\im\mathbf{a}\cdot\boldsymbol{\xi}}\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-2\pi\im\mathbf{y}\cdot\boldsymbol{\xi}}\,\dd\mathbf{y}\\
+        &=\e^{-2\pi\im\mathbf{a}\cdot\boldsymbol{\xi}}\mathcal{F}f(\boldsymbol{\xi}),
+        \switch
+        \mathcal{F}\sbr{f(\mathbf{x}-\mathbf{a})}(\boldsymbol{\omega})
+        &=\int_{\mathbb{R}^n}f(\mathbf{x}-\mathbf{a})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-\im(\mathbf{y}+\mathbf{a})\cdot\boldsymbol{\omega}}\,\dd\mathbf{y}\quad(\mathbf{y}=\mathbf{x}-\mathbf{a})\\
+        &=\e^{-\im\mathbf{a}\cdot\boldsymbol{\omega}}\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-\im\mathbf{y}\cdot\boldsymbol{\omega}}\,\dd\mathbf{y}\\
+        &=\e^{-\im\mathbf{a}\cdot\boldsymbol{\omega}}\mathcal{F}f(\boldsymbol{\omega}).
     \end{lralign}
-    \ding{173}频移性质，
+    \ding{173} 频移性质：
     \begin{lralign}
-    &\mathcal{F} \left[\mathrm{e}^{2\pi \mathrm{i} \mathbf{a}\cdot\boldsymbol{\xi}}f(\mathbf{x})\right](\boldsymbol{\xi})\\
-    =&\int_{\mathbb{R}^n}\mathrm{e}^{2\pi \mathrm{i} \mathbf{a}\cdot\boldsymbol{\xi}}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} (\mathbf{x}-\mathbf{a})\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-    =&f(\boldsymbol{\xi}-\mathbf{a})
-\switch
-    &\mathcal{F} \left[\mathrm{e}^{\mathrm{i} \mathbf{a}\cdot\boldsymbol{\omega}}f(\mathbf{x})\right](\boldsymbol{\omega})\\
-    =&\int_{\mathbb{R}^n}\mathrm{e}^{\mathrm{i} \mathbf{a}\cdot\boldsymbol{\omega}}f(\mathbf{x})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-\mathrm{i} (\mathbf{x}-\mathbf{a})\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    =&f(\boldsymbol{\omega}-\mathbf{a})
+        \mathcal{F}\sbr{\e^{2\pi\im\mathbf{a}\cdot\boldsymbol{\xi}}f(\mathbf{x})}(\boldsymbol{\xi})
+        &=\int_{\mathbb{R}^n}\e^{2\pi\im\mathbf{a}\cdot\boldsymbol{\xi}}f(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-2\pi\im(\mathbf{x}-\mathbf{a})\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\\
+        &=f(\boldsymbol{\xi}-\mathbf{a}).
+        \switch
+        \mathcal{F}\sbr{\e^{\im\mathbf{a}\cdot\boldsymbol{\omega}}f(\mathbf{x})}(\boldsymbol{\omega})
+        &=\int_{\mathbb{R}^n}\e^{\im\mathbf{a}\cdot\boldsymbol{\omega}}f(\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-\im(\mathbf{x}-\mathbf{a})\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=f(\boldsymbol{\omega}-\mathbf{a}).
     \end{lralign}
 \end{proof}
 
 \begin{proposition}[伸缩定理]
     设$f(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$，$A$为$n$阶可逆矩阵，则有：
     \begin{lralign}
-    \mathcal{F} \left[f(A\mathbf{x})\right](\boldsymbol{\xi})&=\frac{1}{|\det A|}\mathcal{F} f\left(A^{-T}\boldsymbol{\xi}\right)
-    \switch
-    \mathcal{F} \left[f(A\mathbf{x})\right](\boldsymbol{\omega})&=\frac{1}{|\det A|}\mathcal{F} f\left(A^{-T}\boldsymbol{\omega}\right)
+        \mathcal{F}\sbr{f(A\mathbf{x})}(\boldsymbol{\xi})&=\frac{1}{\abs{\det A}}\mathcal{F}f\paren{A^{-T}\boldsymbol{\xi}}.
+        \switch
+        \mathcal{F}\sbr{f(A\mathbf{x})}(\boldsymbol{\omega})&=\frac{1}{\abs{\det A}}\mathcal{F}f\paren{A^{-T}\boldsymbol{\omega}}.
     \end{lralign}
-    特别地，当$A$是对角阵时，设$A=\mathrm{diag}(a_1,a_2,\cdots,a_n)$，则有：
+    特别地，当$A$是对角阵时，设$A=\diag(a_1,a_2,\cdots,a_n)$，则有：
     \begin{lralign}
-    &\mathcal{F} \left[f(a_1 x_1,a_2 x_2,\cdots,a_n x_n)\right](\boldsymbol{\xi})\\
-    =&\frac{1}{|a_1 a_2\cdots a_n|}\mathcal{F} f\left(\frac{\xi_1}{a_1},\frac{\xi_2}{a_2},\cdots,\frac{\xi_n}{a_n}\right)
-\switch
-    &\mathcal{F} \left[f(a_1 x_1,a_2 x_2,\cdots,a_n x_n)\right](\boldsymbol{\omega})\\
-    =&\frac{1}{|a_1 a_2\cdots a_n|}\mathcal{F} f\left(\frac{\omega_1}{a_1},\frac{\omega_2}{a_2},\cdots,\frac{\omega_n}{a_n}\right)
+        \mathcal{F}\sbr{f(a_1 x_1,a_2 x_2,\cdots,a_n x_n)}(\boldsymbol{\xi})
+        &=\frac{1}{\abs{a_1 a_2\cdots a_n}}\mathcal{F}f\paren{\frac{\xi_1}{a_1},\frac{\xi_2}{a_2},\cdots,\frac{\xi_n}{a_n}}.
+        \switch
+        \mathcal{F}\sbr{f(a_1 x_1,a_2 x_2,\cdots,a_n x_n)}(\boldsymbol{\omega})
+        &=\frac{1}{\abs{a_1 a_2\cdots a_n}}\mathcal{F}f\paren{\frac{\omega_1}{a_1},\frac{\omega_2}{a_2},\cdots,\frac{\omega_n}{a_n}}.
     \end{lralign}
     对于旋转矩阵$R$（即满足$R^T R=I$的矩阵），有：
     \begin{lralign}
-    \mathcal{F} \left[f(R\mathbf{x})\right](\boldsymbol{\xi})&=\mathcal{F} f\left(R\boldsymbol{\xi}\right)
-\switch
-    \mathcal{F} \left[f(R\mathbf{x})\right](\mathbf{\omega})&=\mathcal{F} f\left(R\mathbf{\omega}\right)
+        \mathcal{F}\sbr{f(R\mathbf{x})}(\boldsymbol{\xi})&=\mathcal{F}f(R\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}\sbr{f(R\mathbf{x})}(\boldsymbol{\omega})&=\mathcal{F}f(R\boldsymbol{\omega}).
     \end{lralign}
     这表明时域旋转，频域也会做相应旋转。
 \end{proposition}
 \begin{proof}
     \begin{lralign}
-    &\mathcal{F} \left[f(A\mathbf{x})\right](\boldsymbol{\xi})\\
-    =&\int_{\mathbb{R}^n}f(A\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-2\pi \mathrm{i} A^{-1}\mathbf{y}\cdot\boldsymbol{\xi}}\,\frac{d\mathbf{y}}{|\det A|}(\mathbf{y}=A\mathbf{x})\\
-    =&\frac{1}{|\det A|}\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{y}\cdot A^{-T}\boldsymbol{\xi}}\,d\mathbf{y}\\
-    =&\frac{1}{|\det A|}\mathcal{F} f\left(A^{-T}\boldsymbol{\xi}\right)
-\switch
-    &\mathcal{F} \left[f(A\mathbf{x})\right](\boldsymbol{\omega})\\
-    =&\int_{\mathbb{R}^n}f(A\mathbf{x})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-\mathrm{i} A^{-1}\mathbf{y}\cdot\boldsymbol{\omega}}\,\frac{d\mathbf{y}}{|\det A|}(\mathbf{y}=A\mathbf{x})\\
-    =&\frac{1}{|\det A|}\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-\mathrm{i} \mathbf{y}\cdot A^{-T}\boldsymbol{\omega}}\,d\mathbf{y}\\
-    =&\frac{1}{|\det A|}\mathcal{F} f\left(A^{-T}\boldsymbol{\omega}\right)
+        \mathcal{F}\sbr{f(A\mathbf{x})}(\boldsymbol{\xi})
+        &=\int_{\mathbb{R}^n}f(A\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-2\pi\im A^{-1}\mathbf{y}\cdot\boldsymbol{\xi}}\,\frac{\dd\mathbf{y}}{\abs{\det A}}\quad(\mathbf{y}=A\mathbf{x})\\
+        &=\frac{1}{\abs{\det A}}\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-2\pi\im\mathbf{y}\cdot A^{-T}\boldsymbol{\xi}}\,\dd\mathbf{y}\\
+        &=\frac{1}{\abs{\det A}}\mathcal{F}f\paren{A^{-T}\boldsymbol{\xi}}.
+        \switch
+        \mathcal{F}\sbr{f(A\mathbf{x})}(\boldsymbol{\omega})
+        &=\int_{\mathbb{R}^n}f(A\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-\im A^{-1}\mathbf{y}\cdot\boldsymbol{\omega}}\,\frac{\dd\mathbf{y}}{\abs{\det A}}\quad(\mathbf{y}=A\mathbf{x})\\
+        &=\frac{1}{\abs{\det A}}\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-\im\mathbf{y}\cdot A^{-T}\boldsymbol{\omega}}\,\dd\mathbf{y}\\
+        &=\frac{1}{\abs{\det A}}\mathcal{F}f\paren{A^{-T}\boldsymbol{\omega}}.
     \end{lralign}
     请读者自行验证$A$为对角矩阵和旋转矩阵情况下的公式。
 \end{proof}
@@ -311,131 +321,129 @@ $$\left\{\mathbf{x}\in\mathbb{R}^n \mid \mathbf{x}\cdot\boldsymbol{\xi}=k+\theta
 \begin{proposition}[微分性质]
     设$f(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$一阶连续可导，则有：
     \begin{lralign}
-    \mathcal{F} \left(\frac{\partial f}{\partial x_j}\right)(\boldsymbol{\xi})&=2\pi \mathrm{i} \xi_j \mathcal{F} f(\boldsymbol{\xi})
-\switch
-    \mathcal{F} \left(\frac{\partial f}{\partial x_j}\right)(\boldsymbol{\omega})&=\mathrm{i} \omega_j \mathcal{F} f(\boldsymbol{\omega})
+        \mathcal{F}\sbr{\frac{\partial f}{\partial x_j}}(\boldsymbol{\xi})&=2\pi\im\xi_j\mathcal{F}f(\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}\sbr{\frac{\partial f}{\partial x_j}}(\boldsymbol{\omega})&=\im\omega_j\mathcal{F}f(\boldsymbol{\omega}).
     \end{lralign}
     易见在高阶混合偏导数存在时，有：
     \begin{lralign}
-    \mathcal{F} \left(\frac{\partial^{\alpha} f}{\partial x_1^{\alpha_1}\partial x_2^{\alpha_2}\cdots \partial x_n^{\alpha_n}}\right)(\boldsymbol{\xi})\\
-    =(2\pi \mathrm{i})^{\alpha} \xi_1^{\alpha_1}\xi_2^{\alpha_2}\cdots \xi_n^{\alpha_n} \mathcal{F} f(\boldsymbol{\xi})
-\switch
-    \mathcal{F} \left(\frac{\partial^{\alpha} f}{\partial x_1^{\alpha_1}\partial x_2^{\alpha_2}\cdots \partial x_n^{\alpha_n}}\right)(\boldsymbol{\omega})\\
-    =\mathrm{i}^{\alpha} \omega_1^{\alpha_1}\omega_2^{\alpha_2}\cdots \omega_n^{\alpha_n} \mathcal{F} f(\boldsymbol{\omega})
+        \mathcal{F}\sbr{\frac{\partial^{\alpha} f}{\partial x_1^{\alpha_1}\partial x_2^{\alpha_2}\cdots\partial x_n^{\alpha_n}}}(\boldsymbol{\xi})=(2\pi\im)^{\alpha}\xi_1^{\alpha_1}\xi_2^{\alpha_2}\cdots\xi_n^{\alpha_n}\mathcal{F}f(\boldsymbol{\xi}),
+        \switch
+        \mathcal{F}\sbr{\frac{\partial^{\alpha} f}{\partial x_1^{\alpha_1}\partial x_2^{\alpha_2}\cdots\partial x_n^{\alpha_n}}}(\boldsymbol{\omega})=\im^{\alpha}\omega_1^{\alpha_1}\omega_2^{\alpha_2}\cdots\omega_n^{\alpha_n}\mathcal{F}f(\boldsymbol{\omega}),
     \end{lralign}
-    其中$\alpha=\alpha_1+\alpha_2+\cdots +\alpha_n$。
+    其中$\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n$。
 \end{proposition}
 \begin{proof}
-    以$j=1$为例，其他分量类似。简洁起见，以下不区分重积分时$d\mathbf{x}$的含义。
-    {\color{blue}\begin{align*}
-    \mathcal{F} \left(\frac{\partial f}{\partial x_1}\right)(\boldsymbol{\xi})=&\int_{\mathbb{R}^n}\frac{\partial f}{\partial x_1}(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^{n-1}}\mathrm{e}^{-2\pi \mathrm{i} (x_2\xi_2+\cdots +x_n\xi_n)}\,d\mathbf{x}\int_{-\infty}^{\infty}\frac{\partial f}{\partial x_1}(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} x_1 \xi_1}\,dx_1\\
-    =&\int_{\mathbb{R}^{n-1}}\mathrm{e}^{-2\pi \mathrm{i} (x_2\xi_2+\cdots +x_n\xi_n)}\left[f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} x_1 \xi_1}\Big|_{x_1=-\infty}^{x_1=\infty}+2\pi \mathrm{i} \xi_1 \int_{-\infty}^{\infty}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} x_1 \xi_1}\,dx_1\right]\,d\mathbf{x}\\
-    =&2\pi \mathrm{i} \xi_1 \int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-    =&2\pi \mathrm{i} \xi_1 \mathcal{F} f(\boldsymbol{\xi})
-    \end{align*}}
-    {\color{red}
-    \begin{align*}
-    \mathcal{F} \left(\frac{\partial f}{\partial x_1}\right)(\boldsymbol{\omega})=&\int_{\mathbb{R}^n}\frac{\partial f}{\partial x_1}(\mathbf{x})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^{n-1}}\mathrm{e}^{-\mathrm{i} (x_2\omega_2+\cdots +x_n\omega_n)}\,d\mathbf{x}\int_{-\infty}^{\infty}\frac{\partial f}{\partial x_1}(\mathbf{x})\mathrm{e}^{-\mathrm{i} x_1 \omega_1}\,dx_1\\
-    =&\int_{\mathbb{R}^{n-1}}\mathrm{e}^{-\mathrm{i} (x_2\omega_2+\cdots +x_n\omega_n)}\left[f(\mathbf{x})\mathrm{e}^{-\mathrm{i} x_1 \omega_1}\Big|_{x_1=-\infty}^{x_1=\infty}+\mathrm{i} \omega_1 \int_{-\infty}^{\infty}f(\mathbf{x})\mathrm{e}^{-\mathrm{i} x_1 \omega_1}\,dx_1\right]\,d\mathbf{x}\\
-    =&\mathrm{i} \omega_1 \int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    =&\mathrm{i} \omega_1 \mathcal{F} f(\boldsymbol{\omega})
-    \end{align*}}
+    以$j=1$为例，其他分量类似。简洁起见，以下不区分重积分时$\dd\mathbf{x}$的含义。
+    \begin{lralign}
+        \mathcal{F}\sbr{\frac{\partial f}{\partial x_1}}(\boldsymbol{\xi})
+        &=\int_{\mathbb{R}^n}\frac{\partial f}{\partial x_1}(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^{n-1}}\e^{-2\pi\im(x_2\xi_2+\cdots+x_n\xi_n)}\,\dd\mathbf{x}\int_{-\infty}^{\infty}\frac{\partial f}{\partial x_1}(\mathbf{x})\e^{-2\pi\im x_1\xi_1}\,\dd x_1\\
+        &=\int_{\mathbb{R}^{n-1}}\e^{-2\pi\im(x_2\xi_2+\cdots+x_n\xi_n)}\sbr{f(\mathbf{x})\e^{-2\pi\im x_1\xi_1}\Big|_{x_1=-\infty}^{x_1=\infty}+2\pi\im\xi_1\int_{-\infty}^{\infty}f(\mathbf{x})\e^{-2\pi\im x_1\xi_1}\,\dd x_1}\,\dd\mathbf{x}\\
+        &=2\pi\im\xi_1\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\\
+        &=2\pi\im\xi_1\mathcal{F}f(\boldsymbol{\xi}),
+        \switch
+        \mathcal{F}\sbr{\frac{\partial f}{\partial x_1}}(\boldsymbol{\omega})
+        &=\int_{\mathbb{R}^n}\frac{\partial f}{\partial x_1}(\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^{n-1}}\e^{-\im(x_2\omega_2+\cdots+x_n\omega_n)}\,\dd\mathbf{x}\int_{-\infty}^{\infty}\frac{\partial f}{\partial x_1}(\mathbf{x})\e^{-\im x_1\omega_1}\,\dd x_1\\
+        &=\int_{\mathbb{R}^{n-1}}\e^{-\im(x_2\omega_2+\cdots+x_n\omega_n)}\sbr{f(\mathbf{x})\e^{-\im x_1\omega_1}\Big|_{x_1=-\infty}^{x_1=\infty}+\im\omega_1\int_{-\infty}^{\infty}f(\mathbf{x})\e^{-\im x_1\omega_1}\,\dd x_1}\,\dd\mathbf{x}\\
+        &=\im\omega_1\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=\im\omega_1\mathcal{F}f(\boldsymbol{\omega}).
+    \end{lralign}
 \end{proof}
 
 \begin{definition}[场论中的算子]
-    $\nabla$为哈密顿算子（或称nabla算子），$\Delta=\nabla\cdot \nabla$为拉普拉斯算子，
-    \begin{align*}
-        \nabla=\left(\frac{\partial }{\partial x_1},\frac{\partial }{\partial x_2},\cdots,\frac{\partial }{\partial x_n}\right),
-        \Delta=\frac{\partial^2 }{\partial x_1^2}+\frac{\partial^2 }{\partial x_2^2}+\cdots+\frac{\partial^2 }{\partial x_n^2}
-    \end{align*}
+    $\nabla$为哈密顿算子（或称nabla算子），$\Delta=\nabla\cdot\nabla$为拉普拉斯算子，
+    \begin{align}
+        \nabla&=\paren{\frac{\partial}{\partial x_1},\frac{\partial}{\partial x_2},\cdots,\frac{\partial}{\partial x_n}},\\
+        \Delta&=\frac{\partial^2}{\partial x_1^2}+\frac{\partial^2}{\partial x_2^2}+\cdots+\frac{\partial^2}{\partial x_n^2}.
+    \end{align}
     场论中，梯度、散度、旋度等运算都可以用$\nabla$表示：
     \begin{itemize}
-        \item 梯度：$\nabla f=\mathrm{grad}f$
-        \item 散度：$\nabla\cdot \mathbf{F}=\mathrm{div}\mathbf{F}$，其中$\mathbf{F}=(F_1,F_2,\cdots,F_n)$
-        \item 旋度（仅在$\mathbb{R}^3$中定义）：$\nabla\times \mathbf{F}=\mathrm{curl}\mathbf{F}$（一些文献中也将旋度算子记为$\mathrm{rot}$）
+        \item 梯度：$\nabla f=\mathrm{grad}f$；
+        \item 散度：$\nabla\cdot\mathbf{F}=\mathrm{div}\mathbf{F}$，其中$\mathbf{F}=(F_1,F_2,\cdots,F_n)$；
+        \item 旋度（仅在$\mathbb{R}^3$中定义）：$\nabla\times\mathbf{F}=\mathrm{curl}\mathbf{F}$（一些文献中也将旋度算子记为$\mathrm{rot}$）。
     \end{itemize}
 \end{definition}
 
 \begin{corollary}[场论中的微分性质]
     由微分性质，我们依次对比向量值函数的各个分量。对于梯度$\nabla f=\mathrm{grad}f$，有：
     \begin{lralign}
-    \mathcal{F} \left(\nabla f\right)(\boldsymbol{\xi})&=2\pi \mathrm{i} \boldsymbol{\xi} \mathcal{F} f(\boldsymbol{\xi})
-\switch
-    \mathcal{F} \left(\nabla f\right)(\boldsymbol{\omega})&=\mathrm{i} \boldsymbol{\omega} \mathcal{F} f(\boldsymbol{\omega})
+        \mathcal{F}\sbr{\nabla f}(\boldsymbol{\xi})&=2\pi\im\boldsymbol{\xi}\mathcal{F}f(\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}\sbr{\nabla f}(\boldsymbol{\omega})&=\im\boldsymbol{\omega}\mathcal{F}f(\boldsymbol{\omega}).
     \end{lralign}
-    对于散度$\nabla\cdot \mathbf{F}=\mathrm{div}\mathbf{F}$，其中$\mathbf{F}=(F_1,F_2,\cdots,F_n)$，有：
+    对于散度$\nabla\cdot\mathbf{F}=\mathrm{div}\mathbf{F}$，其中$\mathbf{F}=(F_1,F_2,\cdots,F_n)$，有：
     \begin{lralign}
-    \mathcal{F} \left(\nabla\cdot \mathbf{F}\right)(\boldsymbol{\xi})&=2\pi \mathrm{i} \boldsymbol{\xi}\cdot \mathcal{F} \mathbf{F}(\boldsymbol{\xi})
-\switch
-    \mathcal{F} \left(\nabla\cdot \mathbf{F}\right)(\boldsymbol{\omega})&=\mathrm{i} \boldsymbol{\omega}\cdot \mathcal{F} \mathbf{F}(\boldsymbol{\omega})
+        \mathcal{F}\sbr{\nabla\cdot\mathbf{F}}(\boldsymbol{\xi})&=2\pi\im\boldsymbol{\xi}\cdot\mathcal{F}\mathbf{F}(\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}\sbr{\nabla\cdot\mathbf{F}}(\boldsymbol{\omega})&=\im\boldsymbol{\omega}\cdot\mathcal{F}\mathbf{F}(\boldsymbol{\omega}).
     \end{lralign}
-    在$\mathbb{R}^3$中，对于旋度$\nabla\times \mathbf{F}=\mathrm{curl}\mathbf{F}$，有：
+    在$\mathbb{R}^3$中，对于旋度$\nabla\times\mathbf{F}=\mathrm{curl}\mathbf{F}$，有：
     \begin{lralign}
-    \mathcal{F} \left(\nabla\times \mathbf{F}\right)(\boldsymbol{\xi})&=2\pi \mathrm{i} \boldsymbol{\xi}\times \mathcal{F} \mathbf{F}(\boldsymbol{\xi})
-\switch
-    \mathcal{F} \left(\nabla\times \mathbf{F}\right)(\boldsymbol{\omega})&=\mathrm{i} \boldsymbol{\omega}\times \mathcal{F} \mathbf{F}(\boldsymbol{\omega})
+        \mathcal{F}\sbr{\nabla\times\mathbf{F}}(\boldsymbol{\xi})&=2\pi\im\boldsymbol{\xi}\times\mathcal{F}\mathbf{F}(\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}\sbr{\nabla\times\mathbf{F}}(\boldsymbol{\omega})&=\im\boldsymbol{\omega}\times\mathcal{F}\mathbf{F}(\boldsymbol{\omega}).
     \end{lralign}
     对于拉普拉斯算子$\Delta f$，有：
     \begin{lralign}
-    \mathcal{F} \left(\Delta f\right)(\boldsymbol{\xi})&=-(2\pi)^2 |\boldsymbol{\xi}|^2 \mathcal{F} f(\boldsymbol{\xi})
-\switch
-    \mathcal{F} \left(\Delta f\right)(\boldsymbol{\omega})&=-|\boldsymbol{\omega}|^2 \mathcal{F} f(\boldsymbol{\omega})
+        \mathcal{F}\sbr{\Delta f}(\boldsymbol{\xi})&=-(2\pi)^2\abs{\boldsymbol{\xi}}^2\mathcal{F}f(\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}\sbr{\Delta f}(\boldsymbol{\omega})&=-\abs{\boldsymbol{\omega}}^2\mathcal{F}f(\boldsymbol{\omega}).
     \end{lralign}
 \end{corollary}
 
-换言之，频域上，$\nabla$算子相当于$2\pi\mathrm{i}\boldsymbol{\xi}=\mathrm{i}\boldsymbol{\omega}$。
+换言之，频域上，$\nabla$算子相当于$2\pi\im\boldsymbol{\xi}=\im\boldsymbol{\omega}$。
 
-我们还可以定义n维空间$\mathbb{R}^n$上的\textbf{卷积}。与一维的情况类似，由于卷积的存在性可以由多种充分条件保证，我们直接从形式上给出卷积的定义，而不讨论$f,g$具体的范围。
+我们还可以定义$n$维空间$\mathbb{R}^n$上的\textbf{卷积}。与一维的情况类似，由于卷积的存在性可以由多种充分条件保证，我们直接从形式上给出卷积的定义，而不讨论$f,g$具体的范围。
 \begin{definition}[卷积]
     设$f(\mathbf{x}),g(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$，它们的卷积定义为：
-    \begin{align*}
-        (f*g)(\mathbf{x})=\int_{\mathbb{R}^n}f(\mathbf{y})g(\mathbf{x}-\mathbf{y})\,d\mathbf{y}
-    \end{align*}
+    \begin{equation}
+        (f*g)(\mathbf{x})=\int_{\mathbb{R}^n}f(\mathbf{y})g(\mathbf{x}-\mathbf{y})\,\dd\mathbf{y}.
+    \end{equation}
 \end{definition}
 
 \begin{theorem}[卷积定理]
     设$f(\mathbf{x}),g(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$，则有：
     \begin{lralign}
-    &\mathcal{F} (f*g)(\boldsymbol{\xi})=\mathcal{F} f(\boldsymbol{\xi})\cdot \mathcal{F} g(\boldsymbol{\xi})\\
-    &\mathcal{F} f(\boldsymbol{\xi})\mathcal{F} g(\boldsymbol{\xi})=\mathcal{F} (f*g)(\boldsymbol{\xi})
-\switch
-    &\mathcal{F} (f*g)(\boldsymbol{\omega})=\mathcal{F} f(\boldsymbol{\omega})\cdot \mathcal{F} g(\boldsymbol{\omega})\\
-    &\mathcal{F} f(\boldsymbol{\omega})\mathcal{F} g(\boldsymbol{\omega})=\frac{1}{(2\pi)^n}\mathcal{F} (f*g)(\boldsymbol{\omega})
+        \mathcal{F}[f*g](\boldsymbol{\xi})&=\mathcal{F}f(\boldsymbol{\xi})\cdot\mathcal{F}g(\boldsymbol{\xi}),
+        \switch
+        \mathcal{F}[f*g](\boldsymbol{\omega})&=\mathcal{F}f(\boldsymbol{\omega})\cdot\mathcal{F}g(\boldsymbol{\omega}),
+    \end{lralign}
+    \begin{lralign}
+        \mathcal{F}f(\boldsymbol{\xi})\mathcal{F}g(\boldsymbol{\xi})&=\mathcal{F}[f*g](\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}f(\boldsymbol{\omega})\mathcal{F}g(\boldsymbol{\omega})&=\frac{1}{(2\pi)^n}\mathcal{F}[f*g](\boldsymbol{\omega}).
     \end{lralign}
 \end{theorem}
 \begin{proof}
-    \ding{172}时域卷积：
-\begin{lralign}
-    &\mathcal{F} (f*g)(\boldsymbol{\xi})\\
-    =&\int_{\mathbb{R}^n}(f*g)(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\int_{\mathbb{R}^n}f(\mathbf{y})g(\mathbf{x}-\mathbf{y})\,d\mathbf{y}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\,d\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{x}-\mathbf{y})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\,d\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{z})\mathrm{e}^{-2\pi \mathrm{i} (\mathbf{z}+\mathbf{y})\cdot\boldsymbol{\xi}}\,d\mathbf{z}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{y}\cdot\boldsymbol{\xi}}\,d\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{z})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{z}\cdot\boldsymbol{\xi}}\,d\mathbf{z}\\
-    =&\mathcal{F} f(\boldsymbol{\xi})\cdot \mathcal{F} g(\boldsymbol{\xi})
-    \switch
-    &\mathcal{F} (f*g)(\boldsymbol{\omega})\\
-    =&\int_{\mathbb{R}^n}(f*g)(\mathbf{x})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\,d\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{x}-\mathbf{y})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\,d\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{x}-\mathbf{y})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\,d\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{z})\mathrm{e}^{-\mathrm{i} (\mathbf{z}+\mathbf{y})\cdot\boldsymbol{\omega}}\,d\mathbf{z}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{y})\mathrm{e}^{-\mathrm{i} \mathbf{y}\cdot\boldsymbol{\omega}}\,d\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{z})\mathrm{e}^{-\mathrm{i} \mathbf{z}\cdot\boldsymbol{\omega}}\,d\mathbf{z}\\
-    =&\mathcal{F} f(\boldsymbol{\omega})\cdot \mathcal{F} g(\boldsymbol{\omega})
+    \ding{172} 时域卷积：
+    \begin{lralign}
+        \mathcal{F}[f*g](\boldsymbol{\xi})
+        &=\int_{\mathbb{R}^n}(f*g)(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\int_{\mathbb{R}^n}f(\mathbf{y})g(\mathbf{x}-\mathbf{y})\,\dd\mathbf{y}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\,\dd\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{x}-\mathbf{y})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\,\dd\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{z})\e^{-2\pi\im(\mathbf{z}+\mathbf{y})\cdot\boldsymbol{\xi}}\,\dd\mathbf{z}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-2\pi\im\mathbf{y}\cdot\boldsymbol{\xi}}\,\dd\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{z})\e^{-2\pi\im\mathbf{z}\cdot\boldsymbol{\xi}}\,\dd\mathbf{z}\\
+        &=\mathcal{F}f(\boldsymbol{\xi})\cdot\mathcal{F}g(\boldsymbol{\xi}),
+        \switch
+        \mathcal{F}[f*g](\boldsymbol{\omega})
+        &=\int_{\mathbb{R}^n}(f*g)(\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\,\dd\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{x}-\mathbf{y})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\,\dd\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{z})\e^{-\im(\mathbf{z}+\mathbf{y})\cdot\boldsymbol{\omega}}\,\dd\mathbf{z}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\e^{-\im\mathbf{y}\cdot\boldsymbol{\omega}}\,\dd\mathbf{y}\int_{\mathbb{R}^n}g(\mathbf{z})\e^{-\im\mathbf{z}\cdot\boldsymbol{\omega}}\,\dd\mathbf{z}\\
+        &=\mathcal{F}f(\boldsymbol{\omega})\cdot\mathcal{F}g(\boldsymbol{\omega}),
     \end{lralign}
-\ding{173}频域卷积：\\
-仿照\cref{thm:conv}的证明。根据时域卷积定理$\mathcal{F} (f*g)=\mathcal{F} f\mathcal{F} g$，
-令$f=\mathcal{F} \mathfrak{f},g=\mathcal{F} \mathfrak{g}$，则
-\begin{lralign}
-    \mathcal{F} \mathfrak{f}*\mathcal{F} \mathfrak{g}&=\mathcal{F} ^{-1}\left[\mathcal{F}\mathcal{F} \mathfrak{f}\cdot\mathcal{F} \mathcal{F} \mathfrak{g}\right]\\
-    &=\mathcal{F} ^{-1}\left(\mathfrak{f}^- \mathfrak{g}^- \right)\\
-    &=\mathcal{F} (\mathfrak{fg})
-\switch
-    \mathcal{F} \mathfrak{f}*\mathcal{F} \mathfrak{g}&=\mathcal{F} ^{-1}\left[\mathcal{F}\mathcal{F} \mathfrak{f}\cdot\mathcal{F} \mathcal{F} \mathfrak{g}\right]\\
-    &=\mathcal{F} ^{-1}\left((2\pi)^{2n} \mathfrak{f}^- \mathfrak{g}^- \right)\\
-    &= (2\pi)^n\mathcal{F} (\mathfrak{fg})
-\end{lralign}
+    \ding{173} 频域卷积：仿照\cref{thm:conv}的证明。根据时域卷积定理$\mathcal{F}[f*g]=\mathcal{F}f\mathcal{F}g$，令$f=\mathcal{F}\mathfrak{f},\ g=\mathcal{F}\mathfrak{g}$，则
+    \begin{lralign}
+        \mathcal{F}\mathfrak{f}*\mathcal{F}\mathfrak{g}&=\mathcal{F}^{-1}\sbr{\mathcal{F}\mathcal{F}\mathfrak{f}\cdot\mathcal{F}\mathcal{F}\mathfrak{g}}\\
+        &=\mathcal{F}^{-1}\sbr{\mathfrak{f}^-\mathfrak{g}^-}\\
+        &=\mathcal{F}\sbr{\mathfrak{fg}}.
+        \switch
+        \mathcal{F}\mathfrak{f}*\mathcal{F}\mathfrak{g}&=\mathcal{F}^{-1}\sbr{\mathcal{F}\mathcal{F}\mathfrak{f}\cdot\mathcal{F}\mathcal{F}\mathfrak{g}}\\
+        &=\mathcal{F}^{-1}\sbr{(2\pi)^{2n}\mathfrak{f}^-\mathfrak{g}^-}\\
+        &=(2\pi)^n\mathcal{F}\sbr{\mathfrak{fg}}.
+    \end{lralign}
 \end{proof}
 
 与一维的情况下的\cref{thm:plancherel}类似，我们给出更一般的普朗歇尔定理，它实际上指出空间域与变换域上的内积的数量关系。
@@ -443,25 +451,25 @@ $$\left\{\mathbf{x}\in\mathbb{R}^n \mid \mathbf{x}\cdot\boldsymbol{\xi}=k+\theta
 \begin{theorem}[普朗歇尔定理]
     设$f(\mathbf{x})\in L^1(\mathbb{R}^n)\cap L^2(\mathbb{R}^n)$，则有：
     \begin{lralign}
-    \int_{\mathbb{R}^n}|f(\mathbf{x})|^2\,d\mathbf{x}&=\int_{\mathbb{R}^n}|\mathcal{F} f(\boldsymbol{\xi})|^2\,d\boldsymbol{\xi}
-\switch
-    \int_{\mathbb{R}^n}|f(\mathbf{x})|^2\,d\mathbf{x}&=\frac{1}{(2\pi)^n}\int_{\mathbb{R}^n}|\mathcal{F} f(\boldsymbol{\omega})|^2\,d\boldsymbol{\omega}
+        \int_{\mathbb{R}^n}\abs{f(\mathbf{x})}^2\,\dd\mathbf{x}&=\int_{\mathbb{R}^n}\abs{\mathcal{F}f(\boldsymbol{\xi})}^2\,\dd\boldsymbol{\xi}.
+        \switch
+        \int_{\mathbb{R}^n}\abs{f(\mathbf{x})}^2\,\dd\mathbf{x}&=\frac{1}{(2\pi)^n}\int_{\mathbb{R}^n}\abs{\mathcal{F}f(\boldsymbol{\omega})}^2\,\dd\boldsymbol{\omega}.
     \end{lralign}
 \end{theorem}
 \begin{proof}
     设$f,g\in L^1(\mathbb{R}^n)\cap L^2(\mathbb{R}^n)$，则有：
     \begin{lralign}
-    &\int_{\mathbb{R}^n}\mathcal{F} f(\boldsymbol{\xi})\overline{\mathcal{F} g(\boldsymbol{\xi})}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}\,d\boldsymbol{\xi}\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{x}\cdot\boldsymbol{\xi}}\,d\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\mathrm{e}^{2\pi \mathrm{i} \mathbf{y}\cdot\boldsymbol{\xi}}\,d\mathbf{y}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{x})\,d\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\,d\mathbf{y}\int_{\mathbb{R}^n}\mathrm{e}^{-2\pi \mathrm{i} (\mathbf{x}-\mathbf{y})\cdot\boldsymbol{\xi}}\,d\boldsymbol{\xi}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{x})\,d\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\delta(\mathbf{x}-\mathbf{y})\,d\mathbf{y}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{x})\overline{g(\mathbf{x})}\,d\mathbf{x}
-\switch
-    &\int_{\mathbb{R}^n}\mathcal{F} f(\boldsymbol{\omega})\overline{\mathcal{F} g(\boldsymbol{\omega})}\,d\mathbf{x}\\
-    =&\int_{\mathbb{R}^n}\,d\boldsymbol{\omega}\int_{\mathbb{R}^n}f(\mathbf{x})\mathrm{e}^{-\mathrm{i} \mathbf{x}\cdot\boldsymbol{\omega}}\,d\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\mathrm{e}^{\mathrm{i} \mathbf{y}\cdot\boldsymbol{\omega}}\,d\mathbf{y}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{x})\,d\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\,d\mathbf{y}\int_{\mathbb{R}^n}\mathrm{e}^{-\mathrm{i} (\mathbf{x}-\mathbf{y})\cdot\boldsymbol{\omega}}\,d\boldsymbol{\omega}\\
-    =&\int_{\mathbb{R}^n}f(\mathbf{x})\,d\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}(2\pi)^n \delta(\mathbf{x}-\mathbf{y})\,d\mathbf{y}\\
-    =&(2\pi)^n \int_{\mathbb{R}^n}f(\mathbf{x})\overline{g(\mathbf{x})}\,d\mathbf{x}
+        \int_{\mathbb{R}^n}\mathcal{F}f(\boldsymbol{\xi})\overline{\mathcal{F}g(\boldsymbol{\xi})}\,\dd\boldsymbol{\xi}
+        &=\int_{\mathbb{R}^n}\dd\boldsymbol{\xi}\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-2\pi\im\mathbf{x}\cdot\boldsymbol{\xi}}\,\dd\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\e^{2\pi\im\mathbf{y}\cdot\boldsymbol{\xi}}\,\dd\mathbf{y}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{x})\,\dd\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\,\dd\mathbf{y}\int_{\mathbb{R}^n}\e^{-2\pi\im(\mathbf{x}-\mathbf{y})\cdot\boldsymbol{\xi}}\,\dd\boldsymbol{\xi}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{x})\,\dd\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\delta(\mathbf{x}-\mathbf{y})\,\dd\mathbf{y}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{x})\overline{g(\mathbf{x})}\,\dd\mathbf{x}.
+        \switch
+        \int_{\mathbb{R}^n}\mathcal{F}f(\boldsymbol{\omega})\overline{\mathcal{F}g(\boldsymbol{\omega})}\,\dd\boldsymbol{\omega}
+        &=\int_{\mathbb{R}^n}\dd\boldsymbol{\omega}\int_{\mathbb{R}^n}f(\mathbf{x})\e^{-\im\mathbf{x}\cdot\boldsymbol{\omega}}\,\dd\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\e^{\im\mathbf{y}\cdot\boldsymbol{\omega}}\,\dd\mathbf{y}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{x})\,\dd\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}\,\dd\mathbf{y}\int_{\mathbb{R}^n}\e^{-\im(\mathbf{x}-\mathbf{y})\cdot\boldsymbol{\omega}}\,\dd\boldsymbol{\omega}\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{x})\,\dd\mathbf{x}\int_{\mathbb{R}^n}\overline{g(\mathbf{y})}(2\pi)^n\delta(\mathbf{x}-\mathbf{y})\,\dd\mathbf{y}\\
+        &=(2\pi)^n\int_{\mathbb{R}^n}f(\mathbf{x})\overline{g(\mathbf{x})}\,\dd\mathbf{x}.
     \end{lralign}
     取$g=f$即得所需结论。
 \end{proof}
@@ -470,73 +478,90 @@ $$\left\{\mathbf{x}\in\mathbb{R}^n \mid \mathbf{x}\cdot\boldsymbol{\xi}=k+\theta
 
 首先，我们将\textbf{施瓦兹函数}的定义推广到多维空间$\mathbb{R}^n$中。
 \begin{definition}[多维施瓦兹函数]
-    设$\varphi(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$，如果\begin{itemize}
+    设$\varphi(\mathbf{x}):\mathbb{R}^n\to\mathbb{C}$，如果
+    \begin{itemize}
         \item $\varphi(\mathbf{x})\in C^{\infty}(\mathbb{R}^n)$；
         \item 对任意多重指标$\mathcal{J}=(j_1,j_2,\ldots,j_n)$，都有
-        \[\lim_{|\mathbf{x}|\to\infty}|\mathbf{x}^{\mathcal{J}} \partial_{\mathcal{J}} \varphi(\mathbf{x})|=0\]
+        \begin{equation}
+            \lim_{\abs{\mathbf{x}}\to\infty}\abs{\mathbf{x}^{\mathcal{J}}\partial_{\mathcal{J}}\varphi(\mathbf{x})}=0,
+        \end{equation}
     \end{itemize}
-    其中$$\partial_{\mathcal{J}}=\frac{\partial^{j_1+j_2+\cdots +j_n}}{\partial x_1^{j_1}\partial x_2^{j_2}\cdots \partial x_n^{j_n}}$$
-    则称$\varphi(\mathbf{x})$为\textbf{多维施瓦兹函数}，所有多维施瓦兹函数构成的空间记为$\mathcal{S}(\mathbb{R}^n)$，在不引起歧义的前提下，也可直接记作$\mathcal{S}$。
+    其中
+    \begin{equation}
+        \partial_{\mathcal{J}}=\frac{\partial^{j_1+j_2+\cdots+j_n}}{\partial x_1^{j_1}\partial x_2^{j_2}\cdots\partial x_n^{j_n}},
+    \end{equation}
+    则称$\varphi(\mathbf{x})$为\textbf{多维施瓦兹函数}，所有多维施瓦兹函数构成的空间记为$\mathcal{S}(\mathbb{R}^n)$。
 \end{definition}
 
-$\mathcal{S} $是线性空间，因此可以定义其对偶空间，即\textbf{多维缓增分布空间}，$\mathcal{T} $中的元素称为\textbf{多维缓增分布}：
+$\mathcal{S}(\mathbb{R}^n)$是线性空间，因此可以定义其对偶空间，即\textbf{多维缓增分布空间}，$\mathcal{T}(\mathbb{R}^n)$中的元素称为\textbf{多维缓增分布}：
 \begin{definition}[多维缓增分布]
-    泛函$T:\mathcal{S} \to \mathbb{C}$为线性映射，将施瓦兹函数$\varphi\in \mathcal{S} $映射为复数$T(\varphi)\in \mathbb{C}$。对于正则分布$T_f$，有
-    $$T_f(\varphi)=\langle T_f,\varphi\rangle=\int_{\mathbb{R}^n}f(\mathbf{x})\varphi(\mathbf{x})\,d\mathbf{x}$$
-    将缓增分布组成的线性空间记作$\mathcal{T} (\mathbb{R}^n)$，在不引起歧义的前提下，也可直接记作$\mathcal{T} $。
+    泛函$T:\mathcal{S}(\mathbb{R}^n)\to\mathbb{C}$为线性映射，将施瓦兹函数$\varphi\in\mathcal{S}(\mathbb{R}^n)$映射为复数$T(\varphi)\in\mathbb{C}$。对于正则分布$T_f$，有
+    \begin{equation}
+        T_f(\varphi)=\braket{T_f,\varphi}=\int_{\mathbb{R}^n}f(\mathbf{x})\varphi(\mathbf{x})\,\dd\mathbf{x}.
+    \end{equation}
+    将缓增分布组成的线性空间记作$\mathcal{T}(\mathbb{R}^n)$。
 \end{definition}
 
-容易验证$\mathcal{S} $上的卷积总是有定义的；用类似于\cref{thm:schwartz_close}的证明方法，可以证明$\mathcal{S} $在傅里叶变换下是封闭的，我们仍然定义$\langle \mathcal{F} T,\varphi\rangle=\langle T,\mathcal{F} \varphi\rangle$，从而$\mathcal{T} $在傅里叶变换下也是封闭的。典型的施瓦兹函数例如高斯函数$f(\mathbf{x})=\mathrm{e}^{-\pi |\mathbf{x}|^2}$。
+容易验证$\mathcal{S}(\mathbb{R}^n)$上的卷积总是有定义的；用类似于\cref{thm:schwartz_close}的证明方法，可以证明$\mathcal{S}(\mathbb{R}^n)$在傅里叶变换下是封闭的，我们仍然定义$\braket{\mathcal{F}T,\varphi}=\braket{T,\mathcal{F}\varphi}$，从而$\mathcal{T}(\mathbb{R}^n)$在傅里叶变换下也是封闭的。典型的施瓦兹函数例如高斯函数$f(\mathbf{x})=\e^{-\pi\abs{\mathbf{x}}^2}$。
 
 我们不再一一讨论作用于分布的各算子，因为它们与一维的情况没有多少差异。对于分布而言，平移与伸缩需要用算子来表示，只是这时平移算子$\tau_{\mathbf{b}}$（其中$\mathbf{b}$为向量）定义为：
-\begin{align*}
-    (\tau_{\mathbf{b}} f)(\mathbf{x})=f(\mathbf{x}-\mathbf{b})
-\end{align*}
+\begin{equation}
+    (\tau_{\mathbf{b}}f)(\mathbf{x})=f(\mathbf{x}-\mathbf{b}),
+\end{equation}
 伸缩算子$\sigma_A$（其中$A$为矩阵）定义为：
-\begin{align*}
-    (\sigma_A f)(\mathbf{x})=f(A\mathbf{x})
-\end{align*}
+\begin{equation}
+    (\sigma_A f)(\mathbf{x})=f(A\mathbf{x}).
+\end{equation}
 
-下面以这两个算子为例，给出它们作用于缓增分布$T\in\mathcal{T} $的定义，从而看出它们与一维情况下的相似性。
+下面以这两个算子为例，给出它们作用于缓增分布$T\in\mathcal{T}(\mathbb{R}^n)$的定义，从而看出它们与一维情况下的相似性。
 \begin{example}[平移算子]
-    设$f,\varphi\in\mathcal{S} ,T_f\in\mathcal{T} $，自然可以定义$\tau_{\mathbf{b}} T_f=T_{\tau_{\mathbf{b}} f}$，
-    \begin{align*}
-        \langle \tau_{\mathbf{b}} T_f,\varphi\rangle=&\int_{\mathbb{R}^n}f(\mathbf{x}-\mathbf{b})\varphi(\mathbf{x})\,d\mathbf{x}\\
-        =&\int_{\mathbb{R}^n}f(\mathbf{y})\varphi(\mathbf{y}+\mathbf{b})\,d\mathbf{y}\quad (\mathbf{y}=\mathbf{x}-\mathbf{b})\\
-        =&\langle T_f,\tau_{-\mathbf{b}}\varphi\rangle
-    \end{align*}
+    设$f,\varphi\in\mathcal{S}(\mathbb{R}^n),\ T_f\in\mathcal{T}(\mathbb{R}^n)$，自然可以定义$\tau_{\mathbf{b}}T_f=T_{\tau_{\mathbf{b}}f}$，
+    \begin{align}
+        \braket{\tau_{\mathbf{b}}T_f,\varphi}&=\int_{\mathbb{R}^n}f(\mathbf{x}-\mathbf{b})\varphi(\mathbf{x})\,\dd\mathbf{x}\nonumber\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\varphi(\mathbf{y}+\mathbf{b})\,\dd\mathbf{y}\quad(\mathbf{y}=\mathbf{x}-\mathbf{b})\nonumber\\
+        &=\braket{T_f,\tau_{-\mathbf{b}}\varphi},
+    \end{align}
     因此我们定义：
-    \[\langle \tau_{\mathbf{b}} T,\quad \varphi\rangle=\langle T,\tau_{-\mathbf{b}}\varphi\rangle,T\in\mathcal{T} ,\varphi\in\mathcal{S} \]
+    \begin{equation}
+        \braket{\tau_{\mathbf{b}}T,\varphi}=\braket{T,\tau_{-\mathbf{b}}\varphi},\quad T\in\mathcal{T}(\mathbb{R}^n),\ \varphi\in\mathcal{S}(\mathbb{R}^n).
+    \end{equation}
 \end{example}
 
 \begin{example}[伸缩算子]
-    设$f,\varphi\in\mathcal{S} ,T_f\in\mathcal{T} $，自然可以定义$\sigma_A T_f=T_{\sigma_A f}$，
-    \begin{align*}
-        \langle \sigma_A T_f,\varphi\rangle=&\int_{\mathbb{R}^n}f(A\mathbf{x})\varphi(\mathbf{x})\,d\mathbf{x}\\
-        =&\int_{\mathbb{R}^n}f(\mathbf{y})\varphi(A^{-1}\mathbf{y})\,\frac{d\mathbf{y}}{|\det A|}\quad (\mathbf{y}=A\mathbf{x})\\
-        =&\frac{1}{|\det A|}\langle T_f,\sigma_{A^{-1}}\varphi\rangle
-    \end{align*}
+    设$f,\varphi\in\mathcal{S}(\mathbb{R}^n),\ T_f\in\mathcal{T}(\mathbb{R}^n)$，自然可以定义$\sigma_A T_f=T_{\sigma_A f}$，
+    \begin{align}
+        \braket{\sigma_A T_f,\varphi}&=\int_{\mathbb{R}^n}f(A\mathbf{x})\varphi(\mathbf{x})\,\dd\mathbf{x}\nonumber\\
+        &=\int_{\mathbb{R}^n}f(\mathbf{y})\varphi(A^{-1}\mathbf{y})\,\frac{\dd\mathbf{y}}{\abs{\det A}}\quad(\mathbf{y}=A\mathbf{x})\nonumber\\
+        &=\frac{1}{\abs{\det A}}\braket{T_f,\sigma_{A^{-1}}\varphi},
+    \end{align}
     因此我们定义：
-    \[\langle \sigma_A T,\varphi\rangle=\frac{1}{|\det A|}\langle T,\sigma_{A^{-1}}\varphi\rangle,\quad T\in\mathcal{T} ,\varphi\in\mathcal{S} \]
+    \begin{equation}
+        \braket{\sigma_A T,\varphi}=\frac{1}{\abs{\det A}}\braket{T,\sigma_{A^{-1}}\varphi},\quad T\in\mathcal{T}(\mathbb{R}^n),\ \varphi\in\mathcal{S}(\mathbb{R}^n).
+    \end{equation}
 \end{example}
 在一维情况下，我们有：
-
-\[\langle \tau_a T,\varphi\rangle=\langle T,\tau_{-a}\varphi\rangle,\langle\sigma_{a} T,\varphi\rangle=\frac{1}{|a|}\langle T,\sigma_{1/a}\varphi\rangle,\quad T\in\mathcal{T} ,\varphi\in\mathcal{S} \]
+\begin{equation}
+    \braket{\tau_a T,\varphi}=\braket{T,\tau_{-a}\varphi},\quad\braket{\sigma_{a}T,\varphi}=\frac{1}{\abs{a}}\braket{T,\sigma_{1/a}\varphi},\quad T\in\mathcal{T}(\mathbb{R}),\ \varphi\in\mathcal{S}(\mathbb{R})
+\end{equation}
 可以看到，如果将标量$b$推广为向量$\mathbf{b}$，而将线性变换（的矩阵表示）由一维矩阵$a$推广为$n$维矩阵$A$，则一维情况下的平移和伸缩算子的定义就是多维空间中的特例。
 
 借助上一小节中对函数的傅里叶变换的讨论，读者可以自行构建出分布的傅里叶变换的各种性质。
 
 下面，我们来讨论一些典型的分布。首先是多维狄拉克分布：
 \begin{definition}[多维狄拉克分布]
-    设$\mathbf{x}_0\in\mathbb{R}^n$，则多维狄拉克分布$\delta_{\mathbf{x}_0}\in\mathcal{T} $定义为：
-    \[\langle \delta_{\mathbf{x}_0},\varphi\rangle=\varphi(\mathbf{x}_0),\forall \varphi\in\mathcal{S} \]
+    设$\mathbf{x}_0\in\mathbb{R}^n$，则多维狄拉克分布$\delta_{\mathbf{x}_0}\in\mathcal{T}(\mathbb{R}^n)$定义为：
+    \begin{equation}
+        \braket{\delta_{\mathbf{x}_0},\varphi}=\varphi(\mathbf{x}_0),\quad \forall\varphi\in\mathcal{S}(\mathbb{R}^n).
+    \end{equation}
     特别地，$\delta_{\mathbf{0}}$记为$\delta$，称为\textbf{多维狄拉克分布}。
 
     形式上，可以将多维狄拉克分布表示为：
-    \[\delta_{\mathbf{x}_0}(\mathbf{x})=\begin{cases}
-    \infty,&\mathbf{x}=\mathbf{x}_0\\
-    0,&\mathbf{x}\neq \mathbf{x}_0
-    \end{cases},\quad \int_{\mathbb{R}^n}\delta(\mathbf{x})\,d\mathbf{x}=1\]
+    \begin{equation}
+        \delta_{\mathbf{x}_0}(\mathbf{x})=\begin{dcases}
+            \infty, & \mathbf{x}=\mathbf{x}_0,\\
+            0, & \mathbf{x}\neq\mathbf{x}_0,
+        \end{dcases}\quad \int_{\mathbb{R}^n}\delta(\mathbf{x})\,\dd\mathbf{x}=1,
+    \end{equation}
     即$\delta_{\mathbf{x}_0}(\mathbf{x})=\tau_{\mathbf{x}_0}\delta(\mathbf{x})$。
 \end{definition}
 \begin{proposition}[多维狄拉克分布的性质]
@@ -544,88 +569,97 @@ $\mathcal{S} $是线性空间，因此可以定义其对偶空间，即\textbf{�
     \begin{itemize}
         \item 多维狄拉克分布仍为卷积幺元，即$f*\delta=\delta*f=f$；
         \item 多维狄拉克分布是可分的，即
-        \[\delta(\mathbf{x})=\delta(x_1,x_2,\ldots,x_n)=\delta(x_1)\delta(x_2)\cdots \delta(x_n)\]
+        \begin{equation}
+            \delta(\mathbf{x})=\delta(x_1,x_2,\ldots,x_n)=\delta(x_1)\delta(x_2)\cdots\delta(x_n);
+        \end{equation}
         \item 多维狄拉克分布的伸缩性质：
-        \[\sigma_A \delta=\frac{1}{|\det A|}\delta\]
-        特别地，\[\delta(a_1 x_1,a_2 x_2,\ldots,a_n x_n)=\frac{1}{|a_1 a_2 \cdots a_n|}\delta(x_1,x_2,\ldots,x_n)\]
+        \begin{equation}
+            \sigma_A\delta=\frac{1}{\abs{\det A}}\delta,
+        \end{equation}
+        特别地，
+        \begin{equation}
+            \delta(a_1 x_1,a_2 x_2,\ldots,a_n x_n)=\frac{1}{\abs{a_1 a_2\cdots a_n}}\delta(x_1,x_2,\ldots,x_n),
+        \end{equation}
         并且$\delta$是偶分布，即$\delta^-=\delta$；
         \item 多维狄拉克分布的傅里叶变换：
         \begin{lralign}
-        \mathcal{F} \delta(\boldsymbol{\xi})&=\mathds{1}
-\switch
-        \mathcal{F} \delta(\boldsymbol{\omega})&=\mathds{1}
+            \mathcal{F}\delta(\boldsymbol{\xi})&=\mathds{1}.
+            \switch
+            \mathcal{F}\delta(\boldsymbol{\omega})&=\mathds{1}.
         \end{lralign}
     \end{itemize}
 \end{proposition}
 \begin{proof}
     分布与函数的卷积定义为：
-    \[\langle f*T,\varphi\rangle=\langle T,(f^-)*\varphi\rangle,\quad f,\varphi\in\mathcal{S} ,T\in\mathcal{T} \]
+    \begin{equation}
+        \braket{f*T,\varphi}=\braket{T,(f^-)*\varphi},\quad f,\varphi\in\mathcal{S}(\mathbb{R}^n),\ T\in\mathcal{T}(\mathbb{R}^n),
+    \end{equation}
     并且这种卷积总满足交换律，即$f*T=T*f$。因此有：
-    \begin{align*}
-        \langle f*\delta,\varphi\rangle=\langle \delta,(f^-)*\varphi\rangle=((f^-)*\varphi)(\mathbf{0})=\int_{\mathbb{R}^n}f(\mathbf{y})\varphi(\mathbf{y})\,d\mathbf{y}=\langle f,\varphi\rangle
-    \end{align*}
-    这就证明了$f*\delta=\delta*f=f$.
+    \begin{equation}
+        \braket{f*\delta,\varphi}=\braket{\delta,(f^-)*\varphi}=\paren{(f^-)*\varphi}(\mathbf{0})=\int_{\mathbb{R}^n}f(\mathbf{y})\varphi(\mathbf{y})\,\dd\mathbf{y}=\braket{f,\varphi}.
+    \end{equation}
+    这就证明了$f*\delta=\delta*f=f$。
 
     类似地，有：
-    \begin{align*}
-        \langle \delta(x_1)\delta(x_2)\cdots \delta(x_n),\varphi(\mathbf{x})\rangle&=\int_{\mathbb{R}^n}\delta(x_1)\delta(x_2)\cdots \delta(x_n)\varphi(\mathbf{x})\,d\mathbf{x}\\
-        &=\int_{\mathbb{R}^{n-1}}\delta(x_2)\cdots \delta(x_n)\,dx_2\cdots dx_n\int_{-\infty}^{\infty}\delta(x_1)\varphi(\mathbf{x})\,dx_1\\
-        &=\int_{\mathbb{R}^{n-1}}\delta(x_2)\cdots \delta(x_n)\varphi(0,x_2,\ldots,x_n)\,dx_2\cdots dx_n\\
-        &\vdots\\
-        &=\varphi(0,0,\ldots,0)\\
-        &=\langle \delta(\mathbf{x}),\varphi(\mathbf{x})\rangle
-    \end{align*}
-    即$\delta(\mathbf{x})=\delta(x_1)\delta(x_2)\cdots \delta(x_n)$。
+    \begin{align}
+        \braket{\delta(x_1)\delta(x_2)\cdots\delta(x_n),\varphi(\mathbf{x})}&=\int_{\mathbb{R}^n}\delta(x_1)\delta(x_2)\cdots\delta(x_n)\varphi(\mathbf{x})\,\dd\mathbf{x}\nonumber\\
+        &=\int_{\mathbb{R}^{n-1}}\delta(x_2)\cdots\delta(x_n)\,\dd x_2\cdots\dd x_n\int_{-\infty}^{\infty}\delta(x_1)\varphi(\mathbf{x})\,\dd x_1\nonumber\\
+        &=\int_{\mathbb{R}^{n-1}}\delta(x_2)\cdots\delta(x_n)\varphi(0,x_2,\ldots,x_n)\,\dd x_2\cdots\dd x_n\nonumber\\
+        &\vdotswithin{=}\nonumber\\
+        &=\varphi(0,0,\ldots,0)\nonumber\\
+        &=\braket{\delta(\mathbf{x}),\varphi(\mathbf{x})},
+    \end{align}
+    即$\delta(\mathbf{x})=\delta(x_1)\delta(x_2)\cdots\delta(x_n)$。
 
     对于伸缩性质，直接套用作用于分布的伸缩算子的定义：
-    \begin{align*}
-        \langle \sigma_A \delta,\varphi\rangle=&\frac{1}{|\det A|}\langle \delta,\sigma_{A^{-1}}\varphi\rangle\\
-        =&\frac{1}{|\det A|}(\sigma_{A^{-1}}\varphi)(\mathbf{0})\\
-        =&\frac{1}{|\det A|}\varphi(A^{-1}\mathbf{0})\\
-        =&\frac{1}{|\det A|}\varphi(\mathbf{0})\\
-        =&\left\langle \frac{1}{|\det A|}\delta,\varphi\right\rangle
-    \end{align*}
+    \begin{align}
+        \braket{\sigma_A\delta,\varphi}&=\frac{1}{\abs{\det A}}\braket{\delta,\sigma_{A^{-1}}\varphi}\nonumber\\
+        &=\frac{1}{\abs{\det A}}(\sigma_{A^{-1}}\varphi)(\mathbf{0})\nonumber\\
+        &=\frac{1}{\abs{\det A}}\varphi(A^{-1}\mathbf{0})\nonumber\\
+        &=\frac{1}{\abs{\det A}}\varphi(\mathbf{0})\nonumber\\
+        &=\braket{\frac{1}{\abs{\det A}}\delta,\varphi}.
+    \end{align}
 
     最后，求多维狄拉克分布的傅里叶变换：
     \begin{lralign}
-    \langle \mathcal{F} \delta,\varphi\rangle&=\langle \delta,\mathcal{F} \varphi\rangle\\
-    &=(\mathcal{F} \varphi)(\mathbf{0})\\
-    &=\int_{\mathbb{R}^n}\varphi(\mathbf{x})\,d\mathbf{x}\\
-    &=\langle \mathds{1},\varphi\rangle
-\switch
-    \langle \mathcal{F} \delta,\varphi\rangle&=\langle \delta,\mathcal{F} \varphi\rangle\\
-    &=(\mathcal{F} \varphi)(\mathbf{0})\\
-    &=\frac{1}{(2\pi)^n}\int_{\mathbb{R}^n}\varphi(\mathbf{x})\,d\mathbf{x}\\
-    &=\langle \mathds{1},\varphi\rangle
+        \braket{\mathcal{F}\delta,\varphi}&=\braket{\delta,\mathcal{F}\varphi}\\
+        &=(\mathcal{F}\varphi)(\mathbf{0})\\
+        &=\int_{\mathbb{R}^n}\varphi(\mathbf{x})\,\dd\mathbf{x}\\
+        &=\braket{\mathds{1},\varphi}.
+        \switch
+        \braket{\mathcal{F}\delta,\varphi}&=\braket{\delta,\mathcal{F}\varphi}\\
+        &=(\mathcal{F}\varphi)(\mathbf{0})\\
+        &=\frac{1}{(2\pi)^n}\int_{\mathbb{R}^n}\varphi(\mathbf{x})\,\dd\mathbf{x}\\
+        &=\braket{\mathds{1},\varphi}.
     \end{lralign}
-因此多维狄拉克分布的傅里叶变换是常函数1。
+    因此多维狄拉克分布的傅里叶变换是常函数$1$。
 \end{proof}
 
 \begin{corollary}
     利用傅里叶变换的对偶性，可以得到：
     \begin{lralign}
-    \mathcal{F} \mathds{1}(\boldsymbol{\xi})&=\delta(\boldsymbol{\xi})
-\switch
-    \mathcal{F} \mathds{1}(\boldsymbol{\omega})&=(2\pi)^n \delta(\boldsymbol{\omega})
+        \mathcal{F}\mathds{1}(\boldsymbol{\xi})&=\delta(\boldsymbol{\xi}).
+        \switch
+        \mathcal{F}\mathds{1}(\boldsymbol{\omega})&=(2\pi)^n\delta(\boldsymbol{\omega}).
     \end{lralign}
 
     再利用傅里叶变换的频移性质，得到：
     \begin{lralign}
-        \mathcal{F} [\mathrm{e}^{2\pi \mathrm{i} \boldsymbol{\xi}_0\cdot\mathbf{x}}](\boldsymbol{\xi})&=\delta_{\boldsymbol{\xi}_0}
-\switch
-        \mathcal{F} [\mathrm{e}^{\mathrm{i} \boldsymbol{\omega}_0\cdot\mathbf{x}}](\boldsymbol{\omega})&=(2\pi)^n \delta_{\boldsymbol{\omega}_0}
+        \mathcal{F}\sbr{\e^{2\pi\im\boldsymbol{\xi}_0\cdot\mathbf{x}}}(\boldsymbol{\xi})&=\delta_{\boldsymbol{\xi}_0}.
+        \switch
+        \mathcal{F}\sbr{\e^{\im\boldsymbol{\omega}_0\cdot\mathbf{x}}}(\boldsymbol{\omega})&=(2\pi)^n\delta_{\boldsymbol{\omega}_0}.
     \end{lralign}
     利用欧拉公式求得三角函数的傅里叶变换：
     \begin{lralign}
-        \mathcal{F} [\cos(2\pi \boldsymbol{\xi}_0\cdot\mathbf{x})](\boldsymbol{\xi})&=\frac{1}{2}[\delta_{\boldsymbol{\xi}_0}+\delta_{-\boldsymbol{\xi}_0}]
-\switch
-        \mathcal{F} [\cos(\boldsymbol{\omega}_0\cdot\mathbf{x})](\boldsymbol{\omega})&=\frac{(2\pi)^n}{2}[\delta_{\boldsymbol{\omega}_0}+\delta_{-\boldsymbol{\omega}_0}]
+        \mathcal{F}\sbr{\cos(2\pi\boldsymbol{\xi}_0\cdot\mathbf{x})}(\boldsymbol{\xi})&=\frac{1}{2}\sbr{\delta_{\boldsymbol{\xi}_0}+\delta_{-\boldsymbol{\xi}_0}},
+        \switch
+        \mathcal{F}\sbr{\cos(\boldsymbol{\omega}_0\cdot\mathbf{x})}(\boldsymbol{\omega})&=\frac{(2\pi)^n}{2}\sbr{\delta_{\boldsymbol{\omega}_0}+\delta_{-\boldsymbol{\omega}_0}},
     \end{lralign}
     以及
     \begin{lralign}
-        \mathcal{F} [\sin(2\pi \boldsymbol{\xi}_0\cdot\mathbf{x})](\boldsymbol{\xi})&=\frac{1}{2\mathrm{i}}[\delta_{\boldsymbol{\xi}_0}-\delta_{-\boldsymbol{\xi}_0}]
-\switch
-        \mathcal{F} [\sin(\boldsymbol{\omega}_0\cdot\mathbf{x})](\boldsymbol{\omega})&=\frac{(2\pi)^n}{2\mathrm{i}}[\delta_{\boldsymbol{\omega}_0}-\delta_{-\boldsymbol{\omega}_0}]
+        \mathcal{F}\sbr{\sin(2\pi\boldsymbol{\xi}_0\cdot\mathbf{x})}(\boldsymbol{\xi})&=\frac{1}{2\im}\sbr{\delta_{\boldsymbol{\xi}_0}-\delta_{-\boldsymbol{\xi}_0}}.
+        \switch
+        \mathcal{F}\sbr{\sin(\boldsymbol{\omega}_0\cdot\mathbf{x})}(\boldsymbol{\omega})&=\frac{(2\pi)^n}{2\im}\sbr{\delta_{\boldsymbol{\omega}_0}-\delta_{-\boldsymbol{\omega}_0}}.
     \end{lralign}
 \end{corollary}
 
@@ -633,17 +667,23 @@ $\mathcal{S} $是线性空间，因此可以定义其对偶空间，即\textbf{�
 
 为了直观性，我们再这一小节中将仅考虑$\mathbb{R}^2$中的情况。我们首先给出\textbf{格}的定义，讨论它的一些性质，再介绍它在信号与系统中的应用。
 \begin{definition}[格]
-    任取$\mathbb{R}^2$，的一组基$\{\mathbf{u}_1,\mathbf{u}_2\}$，称形如
-    \[\mathbf{p}=p_1\mathbf{u}_1+p_2\mathbf{u}_2,\quad p_1,p_2\in\mathbb{Z}\]
-    的点为\textbf{格点}(lattice point)，所有格点组成的集合称为由基$\{\mathbf{u}_1,\mathbf{u}_2\}$生成的\textbf{格}(lattice)，记为$\mathcal{L}$，$\mathcal{L} $构成$\mathbb{Z}$模。
+    任取$\mathbb{R}^2$的一组基$\{\mathbf{u}_1,\mathbf{u}_2\}$，称形如
+    \begin{equation}
+        \mathbf{p}=p_1\mathbf{u}_1+p_2\mathbf{u}_2,\quad p_1,p_2\in\mathbb{Z}
+    \end{equation}
+    的点为\textbf{格点}(lattice point)，所有格点组成的集合称为由基$\{\mathbf{u}_1,\mathbf{u}_2\}$生成的\textbf{格}(lattice)，记为$\mathcal{L}$，$\mathcal{L}$构成$\mathbb{Z}$模。
 
-    以$\mathbf{u}_1,\mathbf{u}_2$为邻边的平行四边形称为该格的\textbf{基本单元}或\textbf{基本平行四边形}(fundamental parallelogram)，基本单元的面积为$|\det(\mathbf{u}_1,\mathbf{u}_2)|$，定义为该格的\textbf{面积}（体积），记为$\mathrm{Area}(\mathcal{L} )$。
+    以$\mathbf{u}_1,\mathbf{u}_2$为邻边的平行四边形称为该格的\textbf{基本单元}或\textbf{基本平行四边形}(fundamental parallelogram)，基本单元的面积为$\abs{\det(\mathbf{u}_1,\mathbf{u}_2)}$，定义为该格的\textbf{面积}（体积），记为$\mathrm{Area}(\mathcal{L})$。
 
     记$A=(\mathbf{u}_1,\mathbf{u}_2)$为由基向量组成的可逆矩阵，则
-    \[\mathbf{u}_1=A \mathbf{e}_1,\quad \mathbf{u}_2=A \mathbf{e}_2\]
+    \begin{equation}
+        \mathbf{u}_1=A\mathbf{e}_1,\quad \mathbf{u}_2=A\mathbf{e}_2,
+    \end{equation}
     其中$\mathbf{e}_1,\mathbf{e}_2$为标准正交基。作为列向量，格点可以表示为
-    \[\mathbf{p}=A\mathbf{n},\quad \mathbf{n}\in\mathbb{Z}^2\]
-    因此，我们也将格$\mathcal{L} $记为$\mathcal{L} =A(\mathbb{Z}^2)$，$\mathrm{Area}(\mathcal{L} )=|\det A|$。
+    \begin{equation}
+        \mathbf{p}=A\mathbf{n},\quad \mathbf{n}\in\mathbb{Z}^2,
+    \end{equation}
+    因此，我们也将格$\mathcal{L}$记为$\mathcal{L}=A(\mathbb{Z}^2)$，$\mathrm{Area}(\mathcal{L})=\abs{\det A}$。
 \end{definition}
 
 \begin{figure}[H]
@@ -654,20 +694,19 @@ $\mathcal{S} $是线性空间，因此可以定义其对偶空间，即\textbf{�
 
 \begin{definition}[狄拉克梳状分布]
     设$\mathcal{L}=A(\mathbb{Z}^2)$为$\mathbb{R}^2$中的格，则由该格生成的\textbf{二维狄拉克梳状分布}(Dirac comb distribution)定义为
-    \[\shah_{\mathcal{L} }=\sum_{\mathbf{p}\in\mathcal{L} }\delta_{\mathbf{p}}\]
-    特别地，当$\mathcal{L} =\mathbb{Z}^2$时，我们直接记为$\shah$。$\shah_{\mathcal{L} }=\dfrac{1}{|\det A|}\sigma_{A^{-1}}\shah$。
+    \begin{equation}
+        \shah_{\mathcal{L}}=\sum_{\mathbf{p}\in\mathcal{L}}\delta_{\mathbf{p}}.
+    \end{equation}
+    特别地，当$\mathcal{L}=\mathbb{Z}^2$时，我们直接记为$\shah$。$\displaystyle\shah_{\mathcal{L}}=\frac{1}{\abs{\det A}}\sigma_{A^{-1}}\shah$。
 
     狄拉克梳状分布看起来像一个钉床，因此又称为\textbf{钉床分布}(bed of nails)。
 \end{definition}
 \begin{remark}
-    $\shah_{\mathcal{L} }=\dfrac{1}{|\det A|}\sigma_{A^{-1}}\shah$的证明如下：
-    \begin{align*}
-        \frac{1}{|\det A|}\langle \sigma_{A^{-1}}\shah,\varphi\rangle=\frac{1}{|\det A^{-1}|}\langle \shah,\sigma_A \varphi\rangle
-        =\sum_{\mathbf{n}\in\mathbb{Z}^2}(\sigma_A \varphi)(\mathbf{n})
-        =\sum_{\mathbf{n}\in\mathbb{Z}^2}\varphi(A\mathbf{n})
-        =\sum_{\mathbf{p}\in\mathcal{L} }\varphi(\mathbf{p})
-        =\langle \shah_{\mathcal{L} },\varphi\rangle
-    \end{align*}
+    $\displaystyle\shah_{\mathcal{L}}=\frac{1}{\abs{\det A}}\sigma_{A^{-1}}\shah$的证明如下：
+    \begin{align}
+        \frac{1}{\abs{\det A}}\braket{\sigma_{A^{-1}}\shah,\varphi}&=\frac{1}{\abs{\det A^{-1}}}\braket{\shah,\sigma_A\varphi}\nonumber\\
+        &=\sum_{\mathbf{n}\in\mathbb{Z}^2}(\sigma_A\varphi)(\mathbf{n})=\sum_{\mathbf{n}\in\mathbb{Z}^2}\varphi(A\mathbf{n})=\sum_{\mathbf{p}\in\mathcal{L}}\varphi(\mathbf{p})=\braket{\shah_{\mathcal{L}},\varphi}.
+    \end{align}
 \end{remark}
 
 我们将再一次使用狄拉克梳状分布来分析采样信号，只不过这时信号是二维的（例如图像信号），而采样是在格点上进行的。在本小节中，我们仍然使用频率形式的傅里叶变换。
@@ -675,128 +714,188 @@ $\mathcal{S} $是线性空间，因此可以定义其对偶空间，即\textbf{�
 首先，我们给出二维情况下的\textbf{傅里叶级数}以及\textbf{泊松求和公式}：
 \begin{definition}[二维傅里叶级数]
     设$f(x_1,x_2)$为$\mathbb{R}^2$中周期为$(T_1,T_2)$的周期函数，即
-    \[f(x_1,x_2)=f(x_1+T_1,x_2)=f(x_1,x_2+T_2),\quad \forall (x_1,x_2)\in\mathbb{R}^2\]
+    \begin{equation}
+        f(x_1,x_2)=f(x_1+T_1,x_2)=f(x_1,x_2+T_2),\quad \forall(x_1,x_2)\in\mathbb{R}^2,
+    \end{equation}
     设$f\in L^2([0,T_1]\times[0,T_2])$，则$f$的\textbf{二维傅里叶级数}为
-    \[f(x_1,x_2)=\sum_{k_1,k_2=-\infty}^{\infty}c_{k_1,k_2}\mathrm{e}^{2\pi \mathrm{i}\left(\frac{1}{T_1}k_1 x_1+\frac{1}{T_2}k_2 x_2\right)}\]
+    \begin{equation}
+        f(x_1,x_2)=\sum_{k_1,k_2=-\infty}^{\infty}c_{k_1,k_2}\e^{2\pi\im\paren{\frac{1}{T_1}k_1 x_1+\frac{1}{T_2}k_2 x_2}},
+    \end{equation}
     其中
-    \[c_{k_1,k_2}=\frac{1}{T_1 T_2}\int_0^{T_1}\int_0^{T_2}f(x_1,x_2)\mathrm{e}^{-2\pi \mathrm{i}\left(\frac{1}{T_1}k_1 x_1+\frac{1}{T_2}k_2 x_2\right)}\,dx_1 dx_2\]
+    \begin{equation}
+        c_{k_1,k_2}=\frac{1}{T_1 T_2}\int_0^{T_1}\int_0^{T_2}f(x_1,x_2)\e^{-2\pi\im\paren{\frac{1}{T_1}k_1 x_1+\frac{1}{T_2}k_2 x_2}}\,\dd x_1\,\dd x_2.
+    \end{equation}
     特别地，设$T_1=T_2=1$，则有
-    \[f(x_1,x_2)=\sum_{k_1,k_2=-\infty}^{\infty}c_{k_1,k_2}\mathrm{e}^{2\pi \mathrm{i}(k_1 x_1+k_2 x_2)}=\sum_{\mathbf{k}\in\mathbb{Z}^2}c_{\mathbf{k}}\mathrm{e}^{2\pi \mathrm{i}\mathbf{k\cdot x}}\]
+    \begin{equation}
+        f(x_1,x_2)=\sum_{k_1,k_2=-\infty}^{\infty}c_{k_1,k_2}\e^{2\pi\im(k_1 x_1+k_2 x_2)}=\sum_{\mathbf{k}\in\mathbb{Z}^2}c_{\mathbf{k}}\e^{2\pi\im\mathbf{k}\cdot\mathbf{x}},
+    \end{equation}
     其中
-    \[c_{k_1,k_2}=\int_{[0,1]^2}f(x_1,x_2)\mathrm{e}^{-2\pi \mathrm{i}(k_1 x_1+k_2 x_2)}\,dx_1 dx_2=\int_{[0,1]^2}f(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i} \mathbf{k}\cdot \mathbf{x}}\,d\mathbf{x}\]
+    \begin{equation}
+        c_{k_1,k_2}=\int_{[0,1]^2}f(x_1,x_2)\e^{-2\pi\im(k_1 x_1+k_2 x_2)}\,\dd x_1\,\dd x_2=\int_{[0,1]^2}f(\mathbf{x})\e^{-2\pi\im\mathbf{k}\cdot\mathbf{x}}\,\dd\mathbf{x}.
+    \end{equation}
 \end{definition}
 \begin{theorem}[二维泊松求和公式]
-    \[\sum_{\mathbf{k}\in\mathbb{Z}^2}\mathcal{F} \varphi(\mathbf{k})=\sum_{\mathbf{k}\in\mathbb{Z}^2}\varphi(\mathbf{k}),\varphi\in\mathcal{S} \]
+    \begin{equation}
+        \sum_{\mathbf{k}\in\mathbb{Z}^2}\mathcal{F}\varphi(\mathbf{k})=\sum_{\mathbf{k}\in\mathbb{Z}^2}\varphi(\mathbf{k}),\quad \varphi\in\mathcal{S}(\mathbb{R}^2).
+    \end{equation}
 \end{theorem}
 \begin{proof}
-    仿照一维情况下的证明（见\refsub{poisson_summation}），令$\Phi(\mathbf{x})=(\shah *\varphi)(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}\varphi(\mathbf{x}-\mathbf{k})$，则$\Phi$为周期为1的二维函数，可以展开为傅里叶级数：
-    \[\Phi(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}\hat{\Phi}(\mathbf{k})\mathrm{e}^{2\pi \mathrm{i} \mathbf{k}\cdot \mathbf{x}}\]
-    其中\begin{align*}
-        \hat{\Phi}(\mathbf{k})&=\int_{[0,1]^2}\Phi(\mathbf{x})\mathrm{e}^{-2\pi \mathrm{i}\mathbf{k}\cdot \mathbf{x}}\,d\mathbf{x}\\
-        &=\int_{[0,1]^2}\sum_{\mathbf{m}\in\mathbb{Z}^2}\varphi(\mathbf{x}-\mathbf{m})\mathrm{e}^{-2\pi \mathrm{i}\mathbf{k}\cdot \mathbf{x}}\,d\mathbf{x}\\
-        &=\int_{\mathbb{R}^2}\varphi(\mathbf{y})\mathrm{e}^{-2\pi \mathrm{i}\mathbf{k}\cdot \mathbf{y}}\,d\mathbf{y}\quad (\mathbf{y}=\mathbf{x}-\mathbf{m})\\
-        &=\mathcal{F} \varphi(\mathbf{k})
-    \end{align*}
+    仿照一维情况下的证明（见\refsub{poisson_summation}），令$\Phi(\mathbf{x})=(\shah*\varphi)(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}\varphi(\mathbf{x}-\mathbf{k})$，则$\Phi$为周期为$1$的二维函数，可以展开为傅里叶级数：
+    \begin{equation}
+        \Phi(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}\hat{\Phi}(\mathbf{k})\e^{2\pi\im\mathbf{k}\cdot\mathbf{x}},
+    \end{equation}
+    其中
+    \begin{align}
+        \hat{\Phi}(\mathbf{k})&=\int_{[0,1]^2}\Phi(\mathbf{x})\e^{-2\pi\im\mathbf{k}\cdot\mathbf{x}}\,\dd\mathbf{x}\nonumber\\
+        &=\int_{[0,1]^2}\sum_{\mathbf{m}\in\mathbb{Z}^2}\varphi(\mathbf{x}-\mathbf{m})\e^{-2\pi\im\mathbf{k}\cdot\mathbf{x}}\,\dd\mathbf{x}\nonumber\\
+        &=\int_{\mathbb{R}^2}\varphi(\mathbf{y})\e^{-2\pi\im\mathbf{k}\cdot\mathbf{y}}\,\dd\mathbf{y}\quad(\mathbf{y}=\mathbf{x}-\mathbf{m})\nonumber\\
+        &=\mathcal{F}\varphi(\mathbf{k}),
+    \end{align}
     因此，有
-    \[\Phi(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}\mathcal{F} \varphi(\mathbf{k})\mathrm{e}^{2\pi \mathrm{i} \mathbf{k}\cdot \mathbf{x}}\]
+    \begin{equation}
+        \Phi(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}\mathcal{F}\varphi(\mathbf{k})\e^{2\pi\im\mathbf{k}\cdot\mathbf{x}},
+    \end{equation}
     令$\mathbf{x}=\mathbf{0}$，即得所需结论。
 \end{proof}
 
 通过二维泊松求和公式，可以得到狄拉克梳状分布的傅里叶变换：
 \begin{proposition}[二维狄拉克梳状分布的傅里叶变换]
-    \[\mathcal{F} \shah=\shah\]
+    \begin{equation}
+        \mathcal{F}\shah=\shah.
+    \end{equation}
 \end{proposition}
 
 考虑使用傅里叶变换的伸缩性质，可以得到：
 \begin{proposition}
-    设$\mathcal{L} =A(\mathbb{Z}^2)$为$\mathbb{R}^2$中的格，则由该格生成的二维狄拉克梳状分布的傅里叶变换为
-    \[\mathcal{F} \shah_{\mathcal{L} }=\frac{1}{|\det A|}\shah_{A^{-T}(\mathbb{Z}^2)}\]
+    设$\mathcal{L}=A(\mathbb{Z}^2)$为$\mathbb{R}^2$中的格，则由该格生成的二维狄拉克梳状分布的傅里叶变换为
+    \begin{equation}
+        \mathcal{F}\shah_{\mathcal{L}}=\frac{1}{\abs{\det A}}\shah_{A^{-T}(\mathbb{Z}^2)}.
+    \end{equation}
 \end{proposition}
 
 可以看到，空间域上，线性变换$A:\mathbb{R}^2\to\mathbb{R}^2$作用于格$\mathbb{Z}^2$，对应频域上，线性变换$A^{-T}:\mathbb{R}^2\to\mathbb{R}^2$作用于格$\mathbb{Z}^2$。这启发我们定义：
 \begin{definition}[对偶格]
-    设$\mathcal{L} =A(\mathbb{Z}^2)$为$\mathbb{R}^2$中的格，则由线性变换$A^{-T}$作用于$\mathbb{Z}^2$生成的格称为$\mathcal{L} $的\textbf{对偶格}(dual lattice)，记为$\mathcal{L} ^*$，即
-    \[\mathcal{L} ^*=A^{-T}(\mathbb{Z}^2)\]
+    设$\mathcal{L}=A(\mathbb{Z}^2)$为$\mathbb{R}^2$中的格，则由线性变换$A^{-T}$作用于$\mathbb{Z}^2$生成的格称为$\mathcal{L}$的\textbf{对偶格}(dual lattice)，记为$\mathcal{L}^*$，即
+    \begin{equation}
+        \mathcal{L}^*=A^{-T}(\mathbb{Z}^2),
+    \end{equation}
     在这种记号下，二维狄拉克梳状分布的傅里叶变换可以记为
-    \[\mathcal{F} \shah_{\mathcal{L} }=\frac{1}{\mathrm{Area}(\mathcal{L} )}\shah_{\mathcal{L} ^*}\]
+    \begin{equation}
+        \mathcal{F}\shah_{\mathcal{L}}=\frac{1}{\mathrm{Area}(\mathcal{L})}\shah_{\mathcal{L}^*}.
+    \end{equation}
 
     对偶格的等价定义为：
-    \[\mathcal{L} ^*=\{\mathbf{y}\in\mathbb{R}^2\left|\mathbf{y}\cdot \mathbf{x}\in\mathbb{Z},\forall \mathbf{x}\in\mathcal{L}\right. \}\]
+    \begin{equation}
+        \mathcal{L}^*=\braces{\mathbf{y}\in\mathbb{R}^2\;\middle|\;\mathbf{y}\cdot\mathbf{x}\in\mathbb{Z},\ \forall\mathbf{x}\in\mathcal{L}}.
+    \end{equation}
 \end{definition}
 \begin{definition}[对偶基与对偶线性泛函]
     考虑对偶格的基向量。令
-    \[A=\begin{bmatrix}
-        \mathbf{u}_1&\mathbf{u}_2
-    \end{bmatrix},A^{-T}=\begin{bmatrix}
-        \mathbf{u}^*_1&\mathbf{u}^*_2
-    \end{bmatrix}\]
-    其中$\mathbf{u}^*_1,\mathbf{u}^*_2$为对偶格$\mathcal{L} ^*$的基向量，它们满足：
-    \[A^{-1}A=\begin{bmatrix}
-        \mathbf{u}^*_1&\mathbf{u}^*_2
-    \end{bmatrix}^T\begin{bmatrix}
-        \mathbf{u}_1&\mathbf{u}_2
-    \end{bmatrix}=I=\begin{bmatrix}
-        1&0\\
-        0&1
-    \end{bmatrix}\]
-    即\[\mathbf{u}^*_i\cdot \mathbf{u}_j=\begin{cases}
-    1,&\mathrm{i}=j\\
-    0,&\mathrm{i}\neq j
-    \end{cases}=\delta^i_{j}\]
+    \begin{equation}
+        A=\begin{bmatrix}
+            \mathbf{u}_1 & \mathbf{u}_2
+        \end{bmatrix},\quad A^{-T}=\begin{bmatrix}
+            \mathbf{u}^*_1 & \mathbf{u}^*_2
+        \end{bmatrix},
+    \end{equation}
+    其中$\mathbf{u}^*_1,\mathbf{u}^*_2$为对偶格$\mathcal{L}^*$的基向量，它们满足：
+    \begin{equation}
+        A^{-1}A=\begin{bmatrix}
+            \mathbf{u}^*_1 & \mathbf{u}^*_2
+        \end{bmatrix}^T\begin{bmatrix}
+            \mathbf{u}_1 & \mathbf{u}_2
+        \end{bmatrix}=I=\begin{bmatrix}
+            1 & 0\\
+            0 & 1
+        \end{bmatrix},
+    \end{equation}
+    即
+    \begin{equation}
+        \mathbf{u}^*_i\cdot\mathbf{u}_j=\begin{dcases}
+            1, & i=j,\\
+            0, & i\neq j
+        \end{dcases}=\delta^i_{j},
+    \end{equation}
     $\delta^i_{j}$为克罗内克$\delta$符号。我们将$\mathbf{u}^*_1,\mathbf{u}^*_2$称为$\mathbf{u}_1,\mathbf{u}_2$的\textbf{对偶基}。\textbf{对偶基生成了对偶格}。此外，与对偶基做内积，定义了内积空间上唯一一组满足正交归一化条件，即$f_i(\mathbf{u}_j)=\delta^i_{j}$的线性泛函，这组线性泛函称为\textbf{对偶线性泛函}。
 \end{definition}
 
-$\shah_{\mathcal{L} }$的$\delta$分布位于格$\mathcal{L} $的格点上，而其傅里叶变换$\mathcal{F} \shah_{\mathcal{L} }$的$\delta$分布位于对偶格$\mathcal{L} ^*$的格点上。这为我们展示了一种理解空间域与频域关系的方式，并从更高的视角解释了我们在\refsub{fourier_of_dirac_comb}最后所发现的现象，即一维狄拉克梳状分布经过傅里叶变换，$\delta$的位置具有“倒数”关系。
+$\shah_{\mathcal{L}}$的$\delta$分布位于格$\mathcal{L}$的格点上，而其傅里叶变换$\mathcal{F}\shah_{\mathcal{L}}$的$\delta$分布位于对偶格$\mathcal{L}^*$的格点上。这为我们展示了一种理解空间域与频域关系的方式，并从更高的视角解释了我们在\refsub{fourier_of_dirac_comb}最后所发现的现象，即一维狄拉克梳状分布经过傅里叶变换，$\delta$的位置具有“倒数”关系。
 
 最后，我们来讨论二维信号的采样与重建问题。
 \begin{definition}[二维带限函数]
-    设$f\in L^1(\mathbb{R}^2)$，如果存在矩形区域$$B=\{( \xi_1,\xi_2)\left| |\xi_1|\leq \xi_{m1},|\xi_2|\leq \xi_{m2}\right.\}$$
-    使得$\mathrm{supp}(\mathcal{F}f)\subset B$，就说$f$为二维\textbf{带限函数}(bandlimited function)，带宽为$(\xi_{m1},\xi_{m2})$。
+    设$f\in L^1(\mathbb{R}^2)$，如果存在矩形区域
+    \begin{equation}
+        B=\braces{(\xi_1,\xi_2)\;\middle|\;\abs{\xi_1}\leq\xi_{m1},\ \abs{\xi_2}\leq\xi_{m2}}
+    \end{equation}
+    使得$\supp(\mathcal{F}f)\subset B$，就说$f$为二维\textbf{带限函数}(bandlimited function)，带宽为$(\xi_{m1},\xi_{m2})$。
 \end{definition}
 特别地，我们考虑
-$$\mathrm{supp}\mathcal{F} f\subset\left\{( \xi_1,\xi_2)\left| |\xi_1|\leq \dfrac{1}{2},|\xi_2|\leq \dfrac{1}{2}\right.\right\}$$
+\begin{equation}
+    \supp\mathcal{F}f\subset\left\{(\xi_1,\xi_2)\;\middle|\;\abs{\xi_1}\leq\frac{1}{2},\ \abs{\xi_2}\leq\frac{1}{2}\right\}
+\end{equation}
 的情况。由恒等式
-\[\mathcal{F} f(\boldsymbol{\xi})=\chi_{[-1/2,1/2]^2}(\boldsymbol{\xi})(\mathcal{F} f(\boldsymbol{\xi})*\shah)\]
-取傅里叶逆变换，由\refsub{multi_fourier}中的结果可知$\mathcal{F} ^{-1}\chi_{[-1/2,1/2]}(\mathbf{x})=\mathrm{sinc}(\mathbf{x})$，我们得到：\begin{align*}
-    f(\mathbf{x})&=\mathcal{F} ^{-1}[\chi_{[-1/2,1/2]^2}(\boldsymbol{\xi})(\mathcal{F} f(\boldsymbol{\xi})*\shah)](\mathbf{x})\\
-    &=\mathcal{F} ^{-1}\chi_{[-1/2,1/2]^2}(\mathbf{x})*(f(\mathbf{x})*\shah(\mathbf{x}))\\
-    &=\mathrm{sinc}(\mathbf{x})*(f(\mathbf{x})*\shah(\mathbf{x}))\\
-    &=\sum_{\mathbf{k}\in\mathbb{Z}^2}f(\mathbf{k})\mathrm{sinc}(x_1-k_1)\mathrm{sinc}(x_2-k_2)
-\end{align*}
+\begin{equation}
+    \mathcal{F}f(\boldsymbol{\xi})=\chi_{[-1/2,1/2]^2}(\boldsymbol{\xi})\paren{\mathcal{F}f(\boldsymbol{\xi})*\shah}
+\end{equation}
+取傅里叶逆变换，由\refsub{multi_fourier}中的结果可知$\mathcal{F}^{-1}\chi_{[-1/2,1/2]^2}(\mathbf{x})=\sinc(\mathbf{x})$，我们得到：
+\begin{align}
+    f(\mathbf{x})&=\mathcal{F}^{-1}\braces{\chi_{[-1/2,1/2]^2}(\boldsymbol{\xi})(\mathcal{F}f(\boldsymbol{\xi})*\shah)}(\mathbf{x})\nonumber\\
+    &=\mathcal{F}^{-1}\chi_{[-1/2,1/2]^2}(\mathbf{x})*\paren{f(\mathbf{x})*\shah(\mathbf{x})}\nonumber\\
+    &=\sinc(\mathbf{x})*\paren{f(\mathbf{x})*\shah(\mathbf{x})}\nonumber\\
+    &=\sum_{\mathbf{k}\in\mathbb{Z}^2}f(\mathbf{k})\sinc(x_1-k_1)\sinc(x_2-k_2).
+\end{align}
 最后一行用到了卷积的结合律，见\refsub{properties_of_convolution}。综上得到以下引理：
 \begin{lemma}[方形采样公式]
-    设$$f\in L^1(\mathbb{R}^2),\mathrm{supp}(\mathcal{F} f)\subset\left\{( \xi_1,\xi_2)\left| |\xi_1|\leq \dfrac{1}{2},|\xi_2|\leq \dfrac{1}{2}\right.\right\}$$
+    设
+    \begin{equation}
+        f\in L^1(\mathbb{R}^2),\quad \supp(\mathcal{F}f)\subset\left\{(\xi_1,\xi_2)\;\middle|\;\abs{\xi_1}\leq\frac{1}{2},\ \abs{\xi_2}\leq\frac{1}{2}\right\},
+    \end{equation}
     则有
-    \[f(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}f(\mathbf{k})\mathrm{sinc}(x_1-k_1)\mathrm{sinc}(x_2-k_2)\]
+    \begin{equation}
+        f(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}f(\mathbf{k})\sinc(x_1-k_1)\sinc(x_2-k_2).
+    \end{equation}
 \end{lemma}
 
-更一般地，我们考虑$\mathrm{supp}(\mathcal{F} f)$属于格$\mathcal{L} =A(\mathbb{Z}^2),A=[\mathbf{u}_1,\mathbf{u}_2]$的某个基本平行四边形内。显而易见，带限等价于存在这样一个平行四边形，使得频域信号$\mathcal{F} f$支于它。由于我们通常考虑实信号，不妨设这个基本平行四边形是关于原点对称的。
+更一般地，我们考虑$\supp(\mathcal{F}f)$属于格$\mathcal{L}=A(\mathbb{Z}^2),\ A=[\mathbf{u}_1,\mathbf{u}_2]$的某个基本平行四边形内。显而易见，带限等价于存在这样一个平行四边形，使得频域信号$\mathcal{F}f$支于它。由于我们通常考虑实信号，不妨设这个基本平行四边形是关于原点对称的。
 
-我们希望利用已经得到的方形采样公式来推导格采样公式。为此，考虑将频域信号$\mathcal{F} f$进行伸缩变换，这对应时域上“对偶”的伸缩变换：
-\[\mathcal{F} f(A\boldsymbol{\xi})=\frac{1}{|\det A|}\mathcal{F}[f(A^{-T}\mathbf{x})](\boldsymbol{\xi})\]
+我们希望利用已经得到的方形采样公式来推导格采样公式。为此，考虑将频域信号$\mathcal{F}f$进行伸缩变换，这对应时域上“对偶”的伸缩变换：
+\begin{equation}
+    \mathcal{F}f(A\boldsymbol{\xi})=\frac{1}{\abs{\det A}}\mathcal{F}\sbr{f(A^{-T}\mathbf{x})}(\boldsymbol{\xi}).
+\end{equation}
 
-令$g(\mathbf{x})=f(A^{-T}\mathbf{x})$，则$\mathrm{supp}(\mathcal{F} g)\in[-1/2,1/2]^2$，因此可以应用方形采样公式：
-\[g(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}g(\mathbf{k})\mathrm{sinc}(x_1-k_1)\mathrm{sinc}(x_2-k_2)\]
+令$g(\mathbf{x})=f(A^{-T}\mathbf{x})$，则$\supp(\mathcal{F}g)\subset[-1/2,1/2]^2$，因此可以应用方形采样公式：
+\begin{equation}
+    g(\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}g(\mathbf{k})\sinc(x_1-k_1)\sinc(x_2-k_2).
+\end{equation}
 将$g$的定义代入上式，得到：
-\[f(A^{-T}\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}f(A^{-T}\mathbf{k})\mathrm{sinc}(x_1-k_1)\mathrm{sinc}(x_2-k_2)\]
+\begin{equation}
+    f(A^{-T}\mathbf{x})=\sum_{\mathbf{k}\in\mathbb{Z}^2}f(A^{-T}\mathbf{k})\sinc(x_1-k_1)\sinc(x_2-k_2).
+\end{equation}
 
 以上结果可以改写为\textbf{格采样公式}：
 \begin{theorem}[格采样公式]
-    设$$f\in L^1(\mathbb{R}^2),\mathrm{supp}(\mathcal{F} f)\subset\left\{( \xi_1,\xi_2)\left| \mathbf{\xi}=A\boldsymbol{\eta},\boldsymbol{\eta}\in[-1/2,1/2]^2\right.\right\}$$
+    设
+    \begin{equation}
+        f\in L^1(\mathbb{R}^2),\quad \supp(\mathcal{F}f)\subset\braces{(\xi_1,\xi_2)\;\middle|\;\boldsymbol{\xi}=A\boldsymbol{\eta},\ \boldsymbol{\eta}\in[-1/2,1/2]^2},
+    \end{equation}
     则有
-    \[f(\mathbf{y})=\sum_{k_1,k_2\in\mathbb{Z}}f(k_1\mathbf{u}^*_1+k_2\mathbf{u}^*_2)\mathrm{sinc}(\mathbf{u}_1\cdot \mathbf{y}-k_1)\mathrm{sinc}(\mathbf{u}_2\cdot \mathbf{y}-k_2)\]
+    \begin{equation}
+        f(\mathbf{y})=\sum_{k_1,k_2\in\mathbb{Z}}f(k_1\mathbf{u}^*_1+k_2\mathbf{u}^*_2)\sinc(\mathbf{u}_1\cdot\mathbf{y}-k_1)\sinc(\mathbf{u}_2\cdot\mathbf{y}-k_2).
+    \end{equation}
 \end{theorem}
 \begin{proof}
     令$\mathbf{y}=A^{-T}\mathbf{x}$，则$\mathbf{x}=A^T\mathbf{y}$，于是
-    \[x_1=\mathbf{u}_1\cdot \mathbf{y},\quad x_2=\mathbf{u}_2\cdot \mathbf{y}\]
+    \begin{equation}
+        x_1=\mathbf{u}_1\cdot\mathbf{y},\quad x_2=\mathbf{u}_2\cdot\mathbf{y}.
+    \end{equation}
     对$A^{-T}\mathbf{k}$，我们知道$A^{-T}$的行向量分别为$\mathbf{u}^*_1,\mathbf{u}^*_2$，因此$A^{-T}\mathbf{k}=k_1\mathbf{u}^*_1+k_2\mathbf{u}^*_2$。综上得到：
-    \begin{align*}
-        f(\mathbf{y})&=\sum_{\mathbf{k}\in\mathbb{Z}^2}f(A^{-T}\mathbf{k})\mathrm{sinc}(\mathbf{u}_1\cdot \mathbf{y}-k_1)\mathrm{sinc}(\mathbf{u}_2\cdot \mathbf{y}-k_2)\\
-        &=\sum_{k_1,k_2\in\mathbb{Z}}f(k_1\mathbf{u}^*_1+k_2\mathbf{u}^*_2)\mathrm{sinc}(\mathbf{u}_1\cdot \mathbf{y}-k_1)\mathrm{sinc}(\mathbf{u}_2\cdot \mathbf{y}-k_2)
-    \end{align*}
+    \begin{align}
+        f(\mathbf{y})&=\sum_{\mathbf{k}\in\mathbb{Z}^2}f(A^{-T}\mathbf{k})\sinc(\mathbf{u}_1\cdot\mathbf{y}-k_1)\sinc(\mathbf{u}_2\cdot\mathbf{y}-k_2)\nonumber\\
+        &=\sum_{k_1,k_2\in\mathbb{Z}}f(k_1\mathbf{u}^*_1+k_2\mathbf{u}^*_2)\sinc(\mathbf{u}_1\cdot\mathbf{y}-k_1)\sinc(\mathbf{u}_2\cdot\mathbf{y}-k_2).
+    \end{align}
 \end{proof}
 
-称之为格采样公式，是因为采样点位于对偶格$\mathcal{L} ^*=A^{-T}(\mathbb{Z}^2)$上。下面左图绘制了空间域上的采样点，而右图则绘制了频域上的带限区域。频域上的限制越强，频域上的格的基本平行四边形就越小，基向量越短，这样，空间域上的格就越大，基向量越长，节点也越稀疏，即重建信号所需的采样点就越少。这符合我们的直观认识。
+称之为格采样公式，是因为采样点位于对偶格$\mathcal{L}^*=A^{-T}(\mathbb{Z}^2)$上。下面左图绘制了空间域上的采样点，而右图则绘制了频域上的带限区域。频域上的限制越强，频域上的格的基本平行四边形就越小，基向量越短，这样，空间域上的格就越大，基向量越长，节点也越稀疏，即重建信号所需的采样点就越少。这符合我们的直观认识。
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{lattice_sample}

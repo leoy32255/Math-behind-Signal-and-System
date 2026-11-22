@@ -8,30 +8,37 @@
 
 \begin{definition}[常系数线性微分方程]
     一个形如
-    \[y^{(n)}(t)+a_{1}y^{(n-1)}(t)+\cdots +a_{n-1} y'(t)+a_n y(t)=f(t)\]
-    的微分方程称为\textbf{n阶常系数线性微分方程}，其中$f(t)\in C(a,b)$，将$f(t)$称为\textbf{非齐次项}。特别地，如果$f(t)=0$，称之为\textbf{n阶常系数线性齐次微分方程}。
+    \begin{equation}
+        y^{(n)}(t)+a_{1}y^{(n-1)}(t)+\cdots +a_{n-1} y'(t)+a_n y(t)=f(t)
+    \end{equation}
+    的微分方程称为\textbf{$n$阶常系数线性微分方程}，其中$f(t)\in C(a,b)$，将$f(t)$称为\textbf{非齐次项}。特别地，如果$f(t)=0$，称之为\textbf{$n$阶常系数线性齐次微分方程}。
 \end{definition}
 
-不难看出，如果找到了n阶常系数线性齐次微分方程的两个解$y_1,y_2$，则$ay_1+by_2$也是齐次方程的解；另外，如果带入$y=\mathrm{e}^{\lambda t}$并消去这一项，则微分方程化为其\textbf{特征方程}：
+不难看出，如果找到了$n$阶常系数线性齐次微分方程的两个解$y_1,y_2$，则$ay_1+by_2$也是齐次方程的解；另外，如果带入$y=\e^{\lambda t}$并消去这一项，则微分方程化为其\textbf{特征方程}：
 \begin{definition}[特征方程]
     上述方程对应的特征方程为
-    \[\lambda^n+a_{1}\lambda^{n-1}+\cdots+a_{n-1}\lambda+a_n=0\]
+    \begin{equation}
+        \lambda^n+a_{1}\lambda^{n-1}+\cdots+a_{n-1}\lambda+a_n=0.
+    \end{equation}
 \end{definition}
 
-根据代数基本定理，$\lambda$在复数域$\mathbb{C}$中有n个解（称之为\textbf{特征根}），即微分方程对应的齐次方程一定有n个形如$\mathrm{e}^{\lambda t}$的解。因此，对于常系数线性微分方程，我们的标准处理方法是：
+根据代数基本定理，$\lambda$在复数域$\mathbb{C}$中有$n$个解（称之为\textbf{特征根}），即微分方程对应的齐次方程一定有$n$个形如$\e^{\lambda t}$的解。因此，对于常系数线性微分方程，我们的标准处理方法是：
 \begin{enumerate}
-    \item 先令$f(t)=0$，得到其对应的\textbf{齐次方程}，解其方程的特征方程得到n个\textbf{齐次解}(homogeneous solution)，记为$y_{\text{h}}(t)$；
+    \item 先令$f(t)=0$，得到其对应的\textbf{齐次方程}，解其方程的特征方程得到$n$个\textbf{齐次解}(homogeneous solution)，记为$y_{\text{h}}(t)$；
     \item 找到一个\textbf{特解}(particular solution)使得它恰好满足原方程，记为$y_{\text{p}}(t)$；
     \item 将齐次解的线性组合与特解相加，得到\textbf{完全解}：$y(t)=y_{\text{h}}(t)+y_{\text{p}}(t)$。
 \end{enumerate}
-对于特解，需要一定的配凑技巧，特别地，如果f为一个t的多项式与某个齐次解的乘积，则需要带入固定形式的特解求解其中的参数（以下默认P、Q为多项式）：\begin{itemize}
-    \item 如果$f(t)=c$，c为常数，则特解$y_{\text{p}}(t)$也为常数；
-    \item 如果$f(t)=\mathrm{e}^{\beta t}$，$\beta$不是特征根，则特解$y_{\text{p}}(t)=c\e^{\beta t}$，c为常数；
-    \item 如果$f(t)$为关于t的n次多项式，则特解$y_{\text{p}}(t)$也为t的n次多项式；
-    \item 如果$f(t)=P(t)\mathrm{e}^{\lambda t}$，$\lambda$为k重特征根，则特解$y_{\text{p}}(t)=t^k Q(t)\mathrm{e}^{\lambda t}$，其中Q是与P次数相同的多项式，即$\deg Q=\deg P$；
-    \item 如果$f(t)=(P_1(t)\cos(\omega t)+P_2(t)\sin(\omega t))\mathrm{e}^{\lambda t}$，$\lambda\pm \mathrm{i}\omega$是k重特征根，则特解为
-    $$y_{\text{p}}(t)=t^k(Q_1(t)\cos(\omega t)+Q_2(t)\sin(\omega t))\mathrm{e}^{\lambda t}$$
-    其中$\deg Q_1=\deg Q_2=\max\{\deg P_1,\deg P_2\}$
+对于特解，需要一定的配凑技巧，特别地，如果$f$为一个$t$的多项式与某个齐次解的乘积，则需要带入固定形式的特解求解其中的参数（以下默认$P$、$Q$为多项式）：
+\begin{itemize}
+    \item 如果$f(t)=c$，$c$为常数，则特解$y_{\text{p}}(t)$也为常数；
+    \item 如果$f(t)=\e^{\beta t}$，$\beta$不是特征根，则特解$y_{\text{p}}(t)=c\e^{\beta t}$，$c$为常数；
+    \item 如果$f(t)$为关于$t$的$n$次多项式，则特解$y_{\text{p}}(t)$也为$t$的$n$次多项式；
+    \item 如果$f(t)=P(t)\e^{\lambda t}$，$\lambda$为$k$重特征根，则特解$y_{\text{p}}(t)=t^k Q(t)\e^{\lambda t}$，其中$Q$是与$P$次数相同的多项式，即$\deg Q=\deg P$；
+    \item 如果$f(t)=\paren{P_1(t)\cos(\omega t)+P_2(t)\sin(\omega t)}\e^{\lambda t}$，$\lambda\pm \im\omega$是$k$重特征根，则特解为
+    \begin{equation}
+        y_{\text{p}}(t)=t^k\paren{Q_1(t)\cos(\omega t)+Q_2(t)\sin(\omega t)}\e^{\lambda t},
+    \end{equation}
+    其中$\deg Q_1=\deg Q_2=\max\{\deg P_1,\deg P_2\}$。
 \end{itemize}
 此外，若非齐次项是以上几种形式的线性组合，则可以将方程拆分为几个子方程分别求解，再将各子方程的特解相加得到原方程的特解。
 
@@ -39,60 +46,83 @@
 
 下面给出一个常系数线性微分方程的求解例子：
 \begin{example}
-    求解微分方程\[y''-3y'+2y=2\mathrm{e}^{-x}\cos x+\mathrm{e}^{2x}(4x+5)\]
-解：特征方程为$\lambda^2-3\lambda+2=0$，有两个特征根$\lambda_1=1,\lambda_2=2$，
-齐次解为$$y_{\text{h}}(t)=C_1\mathrm{e}^{\lambda_1 t}+C_2\mathrm{e}^{\lambda_2 t}$$
-根据解的线性性，可以将方程拆分为：\begin{align*}
-    y''-3y'+2y=2\mathrm{e}^{-x}\cos x,y''-3y'+2y=\mathrm{e}^{2x}(4x+5)
-\end{align*}
-对于前一个方程，$-1+\mathrm{i}$不是特征根，设方程特解为$y_{\text{p}}(t)=\mathrm{e}^{-x}(A\cos x+B\sin x)$，带入原方程可得$A=\dfrac{1}{5},B=-\dfrac{1}{5}$，即$y_{\text{p}}(t)=\dfrac{1}{5}\mathrm{e}^{-x}(\cos x-\sin x)$。\\
-对后一个方程，2是一重特征根，设方程特解为$y_{\text{p}}(t)=\mathrm{e}^{2x}x(ax+b)$，带入原方程可得$a=2,b=1$，即$y_{\text{p}}(t)=\mathrm{e}^{2x}x(2x+1)$。\\
-将齐次解与特解相加，得到完全解：\begin{align*}
-    y(t)&=C_1\mathrm{e}^{\lambda_1 t}+C_2\mathrm{e}^{\lambda_2 t}+\frac{1}{5}\mathrm{e}^{-x}(\cos x-\sin x)+\mathrm{e}^{2x}x(2x+1)\\
-    &=C_1 \mathrm{e}^{x}+\frac{1}{5}\mathrm{e}^{-x}(\cos x-\sin x)+\mathrm{e}^{2x}(2x^2+x+C_2)
-\end{align*}
+    求解微分方程
+    \begin{equation}
+        y''-3y'+2y=2\e^{-x}\cos x+\e^{2x}(4x+5).
+    \end{equation}
+    解：特征方程为$\lambda^2-3\lambda+2=0$，有两个特征根$\lambda_1=1,\ \lambda_2=2$，齐次解为
+    \begin{equation}
+        y_{\text{h}}(t)=C_1\e^{\lambda_1 t}+C_2\e^{\lambda_2 t}.
+    \end{equation}
+    根据解的线性性，可以将方程拆分为：
+    \begin{equation}
+        y''-3y'+2y=2\e^{-x}\cos x,\quad y''-3y'+2y=\e^{2x}(4x+5).
+    \end{equation}
+    对于前一个方程，$-1+\im$不是特征根，设方程特解为$y_{\text{p}}(t)=\e^{-x}(A\cos x+B\sin x)$，带入原方程可得$\displaystyle A=\frac{1}{5},\ B=-\frac{1}{5}$，即$\displaystyle y_{\text{p}}(t)=\frac{1}{5}\e^{-x}(\cos x-\sin x)$。
+
+    对后一个方程，$2$是一重特征根，设方程特解为$y_{\text{p}}(t)=\e^{2x}x(ax+b)$，带入原方程可得$a=2,\ b=1$，即$y_{\text{p}}(t)=\e^{2x}x(2x+1)$。
+
+    将齐次解与特解相加，得到完全解：
+    \begin{align}
+        y(t)&=C_1\e^{\lambda_1 t}+C_2\e^{\lambda_2 t}+\frac{1}{5}\e^{-x}(\cos x-\sin x)+\e^{2x}x(2x+1)\nonumber\\
+        &=C_1 \e^{x}+\frac{1}{5}\e^{-x}(\cos x-\sin x)+\e^{2x}(2x^2+x+C_2).
+    \end{align}
 \end{example}
 
 \subsection{信号与系统中的一些术语}\label{sub:term_in_ODE}
 
-由于我们对输入激励建模时，常常认为激励是在0时刻瞬间施加到系统上的，使用初始条件这一术语就会带来歧义，我们必须区分0的左、右邻域内的系统状态，为此定义\cite{signal_systems}：
+由于我们对输入激励建模时，常常认为激励是在$0$时刻瞬间施加到系统上的，使用初始条件这一术语就会带来歧义，我们必须区分$0$的左、右邻域内的系统状态，为此定义\cite{signal_systems}：
 \begin{definition}[起始状态和初始状态]\label{def:initial_state}
     将激励接入之前的瞬间系统的状态称为\textbf{$0_-$状态}或\textbf{起始状态}，记为
-    \[y^{(k)}(0-)=[y(0-),y'(0-),\cdots,y^{(n-1)}(0-)]\]
+    \begin{equation}
+        y^{(k)}(0-)=[y(0-),y'(0-),\cdots,y^{(n-1)}(0-)].
+    \end{equation}
     将激励接入之后的瞬间系统的状态称为\textbf{$0_+$状态}或\textbf{初始状态}，记为
-    \[y^{(k)}(0+)=[y(0+),y'(0+),\cdots,y^{(n-1)}(0+)]\]
+    \begin{equation}
+        y^{(k)}(0+)=[y(0+),y'(0+),\cdots,y^{(n-1)}(0+)].
+    \end{equation}
 \end{definition}
 
 \begin{example}[换路定则]
-    RLC振荡电路中，对于电感，$u_L=Ldi_L/dt$，施加于电感两侧的电压不会无穷大，其电流$i_L(t)$总是连续的，即$i_L(0_-)=i_L(0_+)=i_L(0)$，而其电压则可以不连续；对于电容，$i_C=Cdu_C/dt$，通过电容的电流不会无穷大，其电压$u_C(t)$总是连续的，即$u_C(0_-)=u_C(0_+)=u_C(0)$，而其电流可以不连续。电感电流、电容电压不突变的这个结果，称为换路定则。
+    RLC振荡电路中，对于电感，$u_L=L\,\dd i_L/\dd t$，施加于电感两侧的电压不会无穷大，其电流$i_L(t)$总是连续的，即$i_L(0_-)=i_L(0_+)=i_L(0)$，而其电压则可以不连续；对于电容，$i_C=C\,\dd u_C/\dd t$，通过电容的电流不会无穷大，其电压$u_C(t)$总是连续的，即$u_C(0_-)=u_C(0_+)=u_C(0)$，而其电流可以不连续。电感电流、电容电压不突变的这个结果，称为换路定则。
 \end{example}
 
-激励$f(t)$不连续，意味着$y(t)$（或它的某阶导数）不连续，这时需要将y视为一个分布来求导，见\refsub{general_distributions}。例如$f(t)=g(t)u(t)$时，完全解中可能含有$u(t)$及其导数$\delta(t)$。
+激励$f(t)$不连续，意味着$y(t)$（或它的某阶导数）不连续，这时需要将$y$视为一个分布来求导，见\refsub{general_distributions}。例如$f(t)=g(t)u(t)$时，完全解中可能含有$u(t)$及其导数$\delta(t)$。
 
-\begin{definition}[自由响应与强迫相应]
-    由于齐次解$y_h(t)$仅依赖于方程的形式，不依起始状态和激励，又将它称为\textbf{自由响应}(natural response)；由于特解是由起始状态和激励共同决定的，又将它称为\textbf{强迫响应}(forced response)。
+\begin{definition}[自由响应与强迫响应]
+    由于齐次解$y_{\text{h}}(t)$仅依赖于方程的形式，不依起始状态和激励，又将它称为\textbf{自由响应}(natural response)；由于特解是由起始状态和激励共同决定的，又将它称为\textbf{强迫响应}(forced response)。
 \end{definition}
 
 我们还可以将响应划分为稳态响应和暂态响应：
 \begin{definition}[稳态响应和暂态响应]
-完全解中，$t\to\infty$时保留下来的分量称为\textbf{稳态响应}(steady state response)，记为$y_{ss}(t)$，例如一个常数；$t\to\infty$时趋于0的分量为\textbf{暂态响应}(transient state response)，记为$y_{\text{ts}}(t)$，例如$\mathrm{e}^{-\lambda t}$。
+    完全解中，$t\to\infty$时保留下来的分量称为\textbf{稳态响应}(steady state response)，记为$y_{\text{ss}}(t)$，例如一个常数；$t\to\infty$时趋于$0$的分量为\textbf{暂态响应}(transient state response)，记为$y_{\text{ts}}(t)$，例如$\e^{-\lambda t}$。
 \end{definition}
 
 注意区分它们和\refsub{concepts_of_system}中介绍的零状态响应、零输入响应：
 
 \begin{example}[三种响应划分方式的区别]
     由微分方程及初始条件
-    \[y'+2y=10+e^{-t},\quad y(0)=1\]
+    \begin{equation}
+        y'+2y=10+\e^{-t},\quad y(0)=1,
+    \end{equation}
     特征方程$\lambda+2=0$的解为$\lambda=-2$，从而有齐次解（自由响应）$y_{\text{h}}(t)=C\e^{-2t}$（$C$为常数）及特解（强迫响应）$y_{\text{p}}(t)=5+\e^{-t}$，完全解为
-    $$y(t)=y_{\text{h}}(t)+y_{\text{p}}(t)=C\e^{-2t}+5+\e^{-t}$$
-    带入$y(0)=0$得$C+6=1,C=-5$，因此齐次解为$y_{\text{h}}(t)=-5\e^{-2t}$，完全解为
-    \[y(t)=-5\e^{-2t}+5+\e^{-t}\]
-    其中，稳态响应为$y_{ss}(t)=5$，暂态响应为$y_{\text{ts}}(t)=\e^{-t}-5\e^{-2t}$.
+    \begin{equation}
+        y(t)=y_{\text{h}}(t)+y_{\text{p}}(t)=C\e^{-2t}+5+\e^{-t}.
+    \end{equation}
+    带入$y(0)=1$得$C+6=1,\ C=-5$，因此齐次解为$y_{\text{h}}(t)=-5\e^{-2t}$，完全解为
+    \begin{equation}
+        y(t)=-5\e^{-2t}+5+\e^{-t}.
+    \end{equation}
+    其中，稳态响应为$y_{\text{ss}}(t)=5$，暂态响应为$y_{\text{ts}}(t)=\e^{-t}-5\e^{-2t}$。
 
     求零输入响应时，应求齐次方程满足初始条件的解，即
-    $$y_{\zi}(0)=C=1\implies C=1,y_{\zi}(t)=\mathrm{e}^{-2t}$$
-    而求零状态响应时，则应该求原方程在初始条件为0时的解，即在完全解$y(t)=y_{\text{h}}(t)+y_{\text{p}}(t)=Ce^{-2t}+5+\e^{-t}$中，令$y(0)=C+6=0$得到$C=-6$，于是
-    $$y_{\zs}(t)=-6\mathrm{e}^{-2t}+5+\e^{-t}$$
+    \begin{equation}
+        y_{\zi}(0)=C=1\implies C=1,\quad y_{\zi}(t)=\e^{-2t},
+    \end{equation}
+    而求零状态响应时，则应该求原方程在初始条件为$0$时的解，即在完全解$y(t)=y_{\text{h}}(t)+y_{\text{p}}(t)=C\e^{-2t}+5+\e^{-t}$中，令$y(0)=C+6=0$得到$C=-6$，于是
+    \begin{equation}
+        y_{\zs}(t)=-6\e^{-2t}+5+\e^{-t}.
+    \end{equation}
     将零输入响应、零状态响应相加，又得到了原来的解$y(t)=-5\e^{-2t}+5+\e^{-t}$。
 
     可见，这三种响应的划分方式互不相同。
@@ -101,7 +131,7 @@
 
 \subsection{基本解}\label{sub:fundamental_solution}
 
-在\refsub{concepts_of_system}中，我们提到了以下结论:
+在\refsub{concepts_of_system}中，我们提到了以下结论：
 
 \begin{proposition}
     由常系数线性齐次微分方程描述的系统是因果线性时不变系统。
@@ -109,90 +139,110 @@
 这里，我们先来说明此类系统的线性性与时不变性。
 \begin{proof}
     设一个系统描述为
-\[r^{(n)}+a_{1}r^{(n-1)}+\cdots +a_{n-1} r'+a_n r=e\]
-考察零状态响应，令起始状态为0，对于任意激励信号$e(t)$，响应$r(t)$满足上述微分方程。现在考察激励信号延时b后的系统响应：
-\begin{align*}
-    \tau_b e&=\tau_b(r^{(n)}+a_{1}r^{(n-1)}+\cdots +a_{n-1} r'+a_n r)\\
-    &=\tau_b r^{(n)}+a_{1}\tau_b r^{(n-1)}+\cdots +a_{n-1} \tau_b r'+a_n \tau_b r\\
-    &= (\tau_b r)^{(n)}+a_{1}(\tau_b r)^{(n-1)}+\cdots +a_{n-1} (\tau_b r)'+a_n (\tau_b r)
-\end{align*}
-即激励产生延时b时，零状态响应也产生延时b，系统是时不变的。
+    \begin{equation}
+        r^{(n)}+a_{1}r^{(n-1)}+\cdots +a_{n-1} r'+a_n r=e.
+    \end{equation}
+    考察零状态响应，令起始状态为$0$，对于任意激励信号$e(t)$，响应$r(t)$满足上述微分方程。现在考察激励信号延时$b$后的系统响应：
+    \begin{align}
+        \tau_b e&=\tau_b\paren{r^{(n)}+a_{1}r^{(n-1)}+\cdots +a_{n-1} r'+a_n r}\nonumber\\
+        &=\tau_b r^{(n)}+a_{1}\tau_b r^{(n-1)}+\cdots +a_{n-1} \tau_b r'+a_n \tau_b r\nonumber\\
+        &= (\tau_b r)^{(n)}+a_{1}(\tau_b r)^{(n-1)}+\cdots +a_{n-1} (\tau_b r)'+a_n (\tau_b r),
+    \end{align}
+    即激励产生延时$b$时，零状态响应也产生延时$b$，系统是时不变的。
 
-线性性是显然的，任给激励$e_1,e_2$及对应零状态响应$r_1,r_2$，显然$ar_1+br_2$是激励为$ae_1+be_2$时的零状态响应。
+    线性性是显然的，任给激励$e_1,e_2$及对应零状态响应$r_1,r_2$，显然$ar_1+br_2$是激励为$ae_1+be_2$时的零状态响应。
 \end{proof}
-至于零输入响应，它不会由于激励的改变而改变，不仅会破坏系统的时不变性，还会破坏系统的线性性，因为在初始状态非0时，直接将两个完全解相加，则所得信号的初始条件变为给定初始条件的两倍，但由于零输入响应是易于研究的，并且只要指出了零输入响应，就可以认为系统的初始状态为n维零向量来进行研究，最后将所得的零状态响应与零输入响应叠加，因此我们约定：
+至于零输入响应，它不会由于激励的改变而改变，不仅会破坏系统的时不变性，还会破坏系统的线性性，因为在初始状态非$0$时，直接将两个完全解相加，则所得函数的初始条件变为给定初始条件的两倍，但由于零输入响应是易于研究的，并且只要指出了零输入响应，就可以认为系统的初始状态为$n$维零向量来进行研究，最后将所得的零状态响应与零输入响应叠加，因此我们约定：
 \begin{definition}
-    由常系数线性微分方程描述的系统总是因果线性时不变系统，不论初始状态是否为0。
+    由常系数线性微分方程描述的系统总是因果线性时不变系统，不论初始状态是否为$0$。
 \end{definition}
 
 以线性时不变系统的视角来看微分方程，自然会想到求这个系统的单位脉冲响应，也就是说，令方程右侧的激励信号为$\delta$，看所得响应$h(t)$，这样，根据\cref{prop:LTI_conv}，不论方程右侧的激励$e(t)$变为何种形式，都可以直接求出零状态响应$r_{\zs}(t)=(h*e)(t)$，只要再叠加上零输入响应，就可以得到任意给定初始状态下方程的解，这是一个一劳永逸的工作。
 
 这种处理常系数线性微分方程的方法称为\textbf{基本解法}或\textbf{格林函数法}，单位脉冲响应$h(t)$被称为\textbf{基本解}(fundamental solution)或\textbf{格林函数}(Green's function)。历史上，数学家格林在1828年关于电势和磁势的论文中首次提出了这种方法并用它来处理带有边界条件的偏微分方程（如泊松方程）。
 
-那么，如何求这个单位脉冲响应呢？我们直接考虑初始条件为0的情况，对于微分方程
-\[r^{(n)}+a_{1}r^{(n-1)}+\cdots +a_{n-1} r'+a_n r=\delta\]
-要使等式右边出现$\delta$，$r(t)$中一定含有$\delta$及其导数、积分，根据\refsub{general_distributions}中的结果，$u'=\delta$，而$u(t)$的各阶积分都可以用$P(t)u(t)$来表示，其中$P(t)$是t的多项式，因此可以假定
-\begin{align*}
-    r(t)=f_1(t)u(t)+f_2(t)\delta(t)+f_3(t)\delta'(t)+\cdots\tag{$*$}
-\end{align*}
+那么，如何求这个单位脉冲响应呢？我们直接考虑初始条件为$0$的情况，对于微分方程
+\begin{equation}
+    r^{(n)}+a_{1}r^{(n-1)}+\cdots +a_{n-1} r'+a_n r=\delta,
+\end{equation}
+要使等式右边出现$\delta$，$r(t)$中一定含有$\delta$及其导数、积分，根据\refsub{general_distributions}中的结果，$u'=\delta$，而$u(t)$的各阶积分都可以用$P(t)u(t)$来表示，其中$P(t)$是$t$的多项式，因此可以假定
+\begin{equation}\label{eq:ode_ansatz}
+    r(t)=f_1(t)u(t)+f_2(t)\delta(t)+f_3(t)\delta'(t)+\cdots.
+\end{equation}
 我们知道，$\delta$具有采样性质：$\delta(t)f(t)=\delta(t)f(0)$，还推导过$\delta'$与函数的乘积公式：
-$$g\delta'=g(0)\delta'-g'(0)\delta$$
-不难想象，$\delta$的各阶导数与函数的乘积都是类似的（可以通过归纳法验证这一点），于是$(*)$简化为
-\[r(t)=f(t)u(t)+a_1\delta+a_2\delta'+\cdots\]
+\begin{equation}
+    g\delta'=g(0)\delta'-g'(0)\delta.
+\end{equation}
+不难想象，$\delta$的各阶导数与函数的乘积都是类似的（可以通过归纳法验证这一点），于是\refeqn{ode_ansatz}简化为
+\begin{equation}
+    r(t)=f(t)u(t)+a_1\delta+a_2\delta'+\cdots.
+\end{equation}
 我们知道，分布与函数乘积的求导也满足莱布尼兹法则，运用这一点，将上式带入激励取为$\delta$的微分方程，可以通过待定系数法求出各个系数，并得到关于$f(t)$的常规的微分方程。很明显，我们不总是需要$\delta$及其高阶导数项，为此需要研究取到$u(t)$的几阶导数就足以完成基于待定系数法的求解，我们通过一个简单的例子来说明这个问题。
 
 \begin{example}
     求微分方程
-\[r''(t)+3r'(t)+2r(t)=e(t)\]
-的单位脉冲响应。
+    \begin{equation}
+        r''(t)+3r'(t)+2r(t)=e(t)
+    \end{equation}
+    的单位脉冲响应。
 
-解：令$r''(t)+3r'(t)+2r(t)=\delta$，如果$r(t)$中含有$\delta$，则
-$r''(t)$中会含有$\delta''$，这不是我们所需要的，因此，令
-$r(t)=f(t)u(t)$，求出其一阶、二阶导数：\begin{align*}
-    r'(t)&=f'(t)u(t)+f(t)\delta=f'(t)u(t)+f(0)\delta\\
-    r''(t)&=f''(t)u(t)+f'(t)\delta+f(0)\delta'=f''(t)u(t)+f'(0)\delta+f(0)\delta'
-\end{align*}
-再带入原方程：\begin{align*}
-    &r''(t)+3r'(t)+2r(t)\\
-    =&\left[f''(t)u(t)+f'(0)\delta+f(0)\delta'\right]+3\left[f'(t)u(t)+f(0)\delta\right]+2\left[f(t)u(t)+\right]\\
-    =&\left[f''(t)+3f'(t)+2f(t)\right]u(t)+\left[f'(0)+3f(0)\right]\delta+f(0)\delta'
-\end{align*}
-对比系数，得到：\begin{align*}\begin{cases}
-    &f''(t)+3f'(t)+2f(t)=0\\
-    &f'(0)+3f(0)=1\\
-    &f(0)=0
-\end{cases}
-\end{align*}
-因此问题转化为求解微分方程
-\[f''(t)+3f'(t)+2f(t)=0,\quad f(0)=0,\quad f'(0)=1\]
-这个方程正是一开始的微分方程的齐次方程,可以立即得到它的解：
-\begin{align*}
-    f(t)=\mathrm{e}^{-t}-\mathrm{e}^{-2t},\quad h(t)=\left(\mathrm{e}^{-t}-\mathrm{e}^{-2t}\right)u(t)
-\end{align*}
-总之，只要将齐次解乘以$u(t)$，求出对应阶导数并带回原方程对比系数，即可得到单位脉冲响应；由于单位阶跃响应形如$h(t)=y_h(t)u(t)$，满足$h(t)=0,t<0$，微分方程描述的
-系统还具有因果性。
+    解：令$r''(t)+3r'(t)+2r(t)=\delta$，如果$r(t)$中含有$\delta$，则$r''(t)$中会含有$\delta''$，这不是我们所需要的，因此，令$r(t)=f(t)u(t)$，求出其一阶、二阶导数：
+    \begin{align}
+        r'(t)&=f'(t)u(t)+f(t)\delta=f'(t)u(t)+f(0)\delta,\\
+        r''(t)&=f''(t)u(t)+f'(t)\delta+f(0)\delta'=f''(t)u(t)+f'(0)\delta+f(0)\delta'.
+    \end{align}
+    再带入原方程：
+    \begin{align}
+        &\phantom{=}r''(t)+3r'(t)+2r(t)\nonumber\\
+        &=\sbr{f''(t)u(t)+f'(0)\delta+f(0)\delta'}+3\sbr{f'(t)u(t)+f(0)\delta}+2\sbr{f(t)u(t)}\nonumber\\
+        &=\sbr{f''(t)+3f'(t)+2f(t)}u(t)+\sbr{f'(0)+3f(0)}\delta+f(0)\delta'.
+    \end{align}
+    对比系数，得到：
+    \begin{equation}
+        \begin{dcases}
+            f''(t)+3f'(t)+2f(t)=0,\\
+            f'(0)+3f(0)=1,\\
+            f(0)=0.
+        \end{dcases}
+    \end{equation}
+    因此问题转化为求解微分方程
+    \begin{equation}
+        f''(t)+3f'(t)+2f(t)=0,\quad f(0)=0,\quad f'(0)=1.
+    \end{equation}
+    这个方程正是一开始的微分方程的齐次方程，可以立即得到它的解：
+    \begin{equation}
+        f(t)=\e^{-t}-\e^{-2t},\quad h(t)=\paren{\e^{-t}-\e^{-2t}}u(t).
+    \end{equation}
+    总之，只要将齐次解乘以$u(t)$，求出对应阶导数并带回原方程对比系数，即可得到单位脉冲响应；由于单位脉冲响应形如$h(t)=y_{\text{h}}(t)u(t)$，满足$h(t)=0,\quad t<0$，微分方程描述的系统还具有因果性。
 \end{example}
 
-对于以上例子中多次的出现满足$h(t)=y_\text{h}(t)u(t)$的信号，我们有一个专门的术语来称呼它们：
+对于以上例子中多次的出现满足$h(t)=y_{\text{h}}(t)u(t)$的信号，我们有一个专门的术语来称呼它们：
 
-\begin{definition}
-    \label{def:casual_signal}
-    如果信号满足$h(t)=y_\text{h}(t)u(t)$，或等价的，$h(t)=0,\forall t<0$，则称之为\textbf{因果信号}(causal signal)；
-    
-    如果信号满足$h(t)=y_\text{h}(t)u(-t)$，则称之为\textbf{反因果信号}(anti-causal signal)。
+\begin{definition}\label{def:casual_signal}
+    如果信号满足$h(t)=y_{\text{h}}(t)u(t)$，或等价的，$h(t)=0,\quad \forall t<0$，则称之为\textbf{因果信号}(causal signal)；
+
+    如果信号满足$h(t)=y_{\text{h}}(t)u(-t)$，则称之为\textbf{反因果信号}(anti-causal signal)。
 \end{definition}
 
 更一般地，基本解的求法如下：
 \begin{theorem}
     由微分方程
-    \[\sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(n-l)}(t)\]
+    \begin{equation}
+        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(n-l)}(t)
+    \end{equation}
     描述的系统（其中$a_0=b_0=1$），其单位脉冲响应满足：
-    \[\sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \delta^{(n-l)}\]
+    \begin{equation}
+        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \delta^{(n-l)}.
+    \end{equation}
 \end{theorem}
 当$r(t)$的最高次导数的阶数大于$\delta$的最高阶导数的阶数，即$n>m$时，解为
-$$y_{\text{h}}(t)u(t)$$
+\begin{equation}
+    y_{\text{h}}(t)u(t).
+\end{equation}
 当$r(t)$的最高次导数的阶数不小于$\delta$的最高阶导数的阶数，即$n\leq m$时，解为
-$$y_{\text{h}}(t)u(t)+\sum_{k=0}^{m-n}c_k \delta^{(k)}$$
+\begin{equation}
+    y_{\text{h}}(t)u(t)+\sum_{k=0}^{m-n}c_k \delta^{(k)}.
+\end{equation}
 换言之，\textbf{需要利用方程左侧的最高阶导，让方程右侧所需的$\delta$的最高阶导数项出现}。
 
 从基本解的形式可以看出$h(t)$总是因果信号，这就解释了上一小节中所断言的“\textbf{由常系数线性微分方程描述的系统是因果的}”。
@@ -201,57 +251,97 @@ $$y_{\text{h}}(t)u(t)+\sum_{k=0}^{m-n}c_k \delta^{(k)}$$
 
 这种基本解的求解方法可以进一步优化。\cref{prop:step_response}表明：单位脉冲响应是单位阶跃响应的导数，因此可以通过单位脉冲响应求出单位阶跃响应。相比带入$\delta$，将$u(t)$带入方程右侧时，所出现的$\delta$的最高阶导数会低一阶，因此用待定系数法求单位阶跃响应再求导，将比直接求单位脉冲响应少处理一个待定系数。我们通过一个例子来比较这两种方法：
 \begin{example}
-    设系统由微分方程\[r''(t)+3r'(t)+2r(t)=e''(t)+e(t)\]描述，求其单位脉冲响应。\\
-    解：齐次方程的特征方程为$\lambda^2+3\lambda+2=0$，因此$\lambda_1=-1,\lambda_2=-2$，齐次解为$$r_{\text{h}}(t)=C_1 \mathrm{e}^{-t}+C_2 \mathrm{e}^{-2t}$$
-    首先，我们按照已有的方法直接求解单位脉冲响应。将$\delta$带入右式得到$\delta''+\delta$，为了使左式也出现$\delta''$，设单位脉冲响应为$$h(t)=r_{\text{h}}(t)u(t)+C\delta$$
-    则$$h'(t)=r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta+C\delta',\quad h''(t)=r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'+C\delta''$$
-    带入原方程左侧得到：\begin{align*}
-        \text{LHS}=&\left(r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'+C\delta''\right)\\
-        &\quad+3\left(r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta+C\delta'\right)\\
-        &\quad+2\left(r_{\text{h}}(t)u(t)+C\delta\right)\\
-        =&\left(r''_{\text{h}}(t)+3r'_{\text{h}}(t)+2r_{\text{h}}(t)\right)u(t)+\left(r'_{\text{h}}(0)+3r_{\text{h}}(0)+2C\right)\delta+\left(r_{\text{h}}(0)+3C\right)\delta'+C\delta''
-    \end{align*}
-    对比$\delta$及其各阶导数的系数，得到：\begin{align*}
-        \begin{cases}
-            r'_{\text{h}}(0)+3r_{\text{h}}(0)+2C=1\\
-            r_{\text{h}}(0)+3C=0\\
-            C=1
-        \end{cases}
-    \end{align*}
-    所以$$C=1,\quad r_{\text{h}}(0)=-3,\quad r'_{\text{h}}(0)=8$$
-    注意$u(t)$的系数自然为0，这是由齐次解的性质保证的。满足上述条件的$C_1=2,C_2=-5$，因此单位脉冲响应为
-    $$h(t)=\left(2\mathrm{e}^{-t}-5\mathrm{e}^{-2t}\right)u(t)+\delta$$
+    设系统由微分方程
+    \begin{equation}
+        r''(t)+3r'(t)+2r(t)=e''(t)+e(t)
+    \end{equation}
+    描述，求其单位脉冲响应。
 
-    下面我们尝试用单位阶跃响应来求解单位脉冲响应。将$u(t)$带入右式得到$u(t)+\delta'$，为例使左式也出现$\delta'$，只需设单位阶跃响应为
-    $$h_1(t)=r_{\text{h}}(t)u(t)$$
+    解：齐次方程的特征方程为$\lambda^2+3\lambda+2=0$，因此$\lambda_1=-1,\ \lambda_2=-2$，齐次解为
+    \begin{equation}
+        r_{\text{h}}(t)=C_1 \e^{-t}+C_2 \e^{-2t}.
+    \end{equation}
+    首先，我们按照已有的方法直接求解单位脉冲响应。将$\delta$带入右式得到$\delta''+\delta$，为了使左式也出现$\delta''$，设单位脉冲响应为
+    \begin{equation}
+        h(t)=r_{\text{h}}(t)u(t)+C\delta,
+    \end{equation}
     则
-    $$h_1'(t)=r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta,h_1''(t)=r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'$$
-    带入原方程左侧得到：\begin{align*}
-        \text{LHS}=&\left(r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'\right)\\
-        &+3\left(r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta\right)\\
-        &+2r_{\text{h}}(t)u(t)\\
-        =&\left(r''_{\text{h}}(t)+3r'_{\text{h}}(t)+2r_{\text{h}}(t)\right)u(t)+\left(r'_{\text{h}}(0)+3r_{\text{h}}(0)\right)\delta+r_{\text{h}}(0)\delta'
-    \end{align*}
-    对比$\delta$及其各阶导数的系数，得到：\begin{align*}
-        \begin{cases}
-            r'_{\text{h}}(0)+3r_{\text{h}}(0)=0\\
-            r_{\text{h}}(0)=1\\
-        \end{cases}
-    \end{align*}
-    所以$$r_{\text{h}}(0)=1,\quad r'_{\text{h}}(0)=-3$$
-    满足上述条件的$C_1=-1,C_2=2$，因此单位阶跃响应为
-    $$g(t)=(-\mathrm{e}^{-t}+2\mathrm{e}^{-2t})u(t)$$
+    \begin{align}
+        h'(t)&=r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta+C\delta',\\
+        h''(t)&=r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'+C\delta''.
+    \end{align}
+    带入原方程左侧得到：
+    \begin{align}
+        \LHS&=\paren{r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'+C\delta''}\nonumber\\
+        &\quad+3\paren{r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta+C\delta'}\nonumber\\
+        &\quad+2\paren{r_{\text{h}}(t)u(t)+C\delta}\nonumber\\
+        &=\paren{r''_{\text{h}}(t)+3r'_{\text{h}}(t)+2r_{\text{h}}(t)}u(t)+\paren{r'_{\text{h}}(0)+3r_{\text{h}}(0)+2C}\delta+\paren{r_{\text{h}}(0)+3C}\delta'+C\delta''.
+    \end{align}
+    对比$\delta$及其各阶导数的系数，得到：
+    \begin{equation}
+        \begin{dcases}
+            r'_{\text{h}}(0)+3r_{\text{h}}(0)+2C=1,\\
+            r_{\text{h}}(0)+3C=0,\\
+            C=1.
+        \end{dcases}
+    \end{equation}
+    所以
+    \begin{equation}
+        C=1,\quad r_{\text{h}}(0)=-3,\quad r'_{\text{h}}(0)=8.
+    \end{equation}
+    注意$u(t)$的系数自然为$0$，这是由齐次解的性质保证的。满足上述条件的$C_1=2,\ C_2=-5$，因此单位脉冲响应为
+    \begin{equation}
+        h(t)=\paren{2\e^{-t}-5\e^{-2t}}u(t)+\delta.
+    \end{equation}
+
+    下面我们尝试用单位阶跃响应来求解单位脉冲响应。将$u(t)$带入右式得到$u(t)+\delta'$，为了使左式也出现$\delta'$，只需设单位阶跃响应为
+    \begin{equation}
+        h_1(t)=r_{\text{h}}(t)u(t),
+    \end{equation}
+    则
+    \begin{align}
+        h_1'(t)&=r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta,\\
+        h_1''(t)&=r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'.
+    \end{align}
+    带入原方程左侧得到：
+    \begin{align}
+        \LHS&=\paren{r_{\text{h}}''(t)u(t)+r_{\text{h}}'(0)\delta+r_{\text{h}}(0)\delta'}\nonumber\\
+        &\quad+3\paren{r_{\text{h}}'(t)u(t)+r_{\text{h}}(0)\delta}\nonumber\\
+        &\quad+2r_{\text{h}}(t)u(t)\nonumber\\
+        &=\paren{r''_{\text{h}}(t)+3r'_{\text{h}}(t)+2r_{\text{h}}(t)}u(t)+\paren{r'_{\text{h}}(0)+3r_{\text{h}}(0)}\delta+r_{\text{h}}(0)\delta'.
+    \end{align}
+    对比$\delta$及其各阶导数的系数，得到：
+    \begin{equation}
+        \begin{dcases}
+            r'_{\text{h}}(0)+3r_{\text{h}}(0)=0,\\
+            r_{\text{h}}(0)=1.
+        \end{dcases}
+    \end{equation}
+    所以
+    \begin{equation}
+        r_{\text{h}}(0)=1,\quad r'_{\text{h}}(0)=-3.
+    \end{equation}
+    满足上述条件的$C_1=-1,\ C_2=2$，因此单位阶跃响应为
+    \begin{equation}
+        g(t)=\paren{-\e^{-t}+2\e^{-2t}}u(t),
+    \end{equation}
     单位脉冲响应为
-    $$h(t)=g'(t)=\left(2\mathrm{e}^{-t}-5\mathrm{e}^{-2t}\right)u(t)+\delta$$
+    \begin{equation}
+        h(t)=g'(t)=\paren{2\e^{-t}-5\e^{-2t}}u(t)+\delta,
+    \end{equation}
     与之前的结果一致。显然，当单位脉冲响应中含有$\delta$时，\textbf{通过单位阶跃响应求解单位脉冲响应的计算更为简洁}。
 \end{example}
 
 利用“全响应=零输入响应+零状态响应”，可以提出常系数线性微分方程的通解公式：
 \begin{theorem}
     设$h(t)$为微分方程
-    \[\sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(n-l)}(t)\]
+    \begin{equation}
+        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(n-l)}(t)
+    \end{equation}
     的单位脉冲响应（其中$a_0=b_0=1$），则该微分方程的通解为
-    \[r(t)=(h*e)(t)+y_{\text{h}}(t)\]
+    \begin{equation}
+        r(t)=(h*e)(t)+y_{\text{h}}(t),
+    \end{equation}
     其中$y_{\text{h}}(t)$是对应齐次方程的齐次解。
 \end{theorem}
 
@@ -259,22 +349,28 @@ $$y_{\text{h}}(t)u(t)+\sum_{k=0}^{m-n}c_k \delta^{(k)}$$
 
 \begin{theorem}
     设$h(t)$为微分方程
-    \[\sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(n-l)}(t)\]
+    \begin{equation}
+        \sum_{k=0}^{n}a_{k} r^{(n-k)}(t)=\sum_{l=0}^{m}b_{l} \mathrm{e}^{(n-l)}(t)
+    \end{equation}
     的单位脉冲响应（其中$a_0=b_0=1$），满足初始条件
-    $$r(0)=r_0,r'(0)=r_1,\cdots,r^{(n-1)}(0)=r_{n-1}$$
+    \begin{equation}
+        r(0)=r_0,\quad r'(0)=r_1,\quad \cdots,\quad r^{(n-1)}(0)=r_{n-1}
+    \end{equation}
     的齐次解为$y_{\text{h}}(t)$，则这个带初值条件的微分方程的通解为
-    \[r(t)=\int_{0}^{t}h(s)e(t-s)\,ds + y_{\text{h}}(t)\]
+    \begin{equation}
+        r(t)=\int_{0}^{t}h(s)e(t-s)\,\dd s + y_{\text{h}}(t).
+    \end{equation}
 \end{theorem}
 \begin{proof}
     我们说明，为什么带初值条件的情况下，卷积积分可以化为有限区间上的积分：
-    \begin{align*}
-        (h*e)(t)=\int_{-\infty}^{\infty} h(s)e(t-s)\,ds=\int_{0}^{t} h(s)e(t-s)\,ds
-    \end{align*}
+    \begin{equation}
+        (h*e)(t)=\int_{-\infty}^{\infty} h(s)e(t-s)\,\dd s=\int_{0}^{t} h(s)e(t-s)\,\dd s.
+    \end{equation}
 
-    一方面，单位脉冲响应$h(t)$是因果信号，因此上式中积分的下限可以改为0；另一方面，在使用系统对方程进行建模时，我们认为\textbf{激励信号是从0时刻开始施加的}，因此，$e(t)=0,t<0$，令$t-s\geq 0$，得到$s\geq t$，即上式中积分的上限也可以改为t。因此，卷积项$(h*e)(t)$可以写成$\int_{0}^{t} h(s)e(t-s)\,ds$。
+    一方面，单位脉冲响应$h(t)$是因果信号，因此上式中积分的下限可以改为$0$；另一方面，在使用系统对方程进行建模时，我们认为\textbf{激励信号是从$0$时刻开始施加的}，因此，$e(t)=0,\quad t<0$，令$t-s\geq 0$，得到$s\leq t$，即上式中积分的上限也可以改为$t$。因此，卷积项$(h*e)(t)$可以写成$\int_{0}^{t} h(s)e(t-s)\,\dd s$。
 \end{proof}
 
-数学上，激励信号，即方程的非齐次项，往往是在全时域上都存在的，但是将方程视作一个系统时，认为激励在0时刻才开始施加是合理的。这是因为$t=0$时刻的初值条件就是由$t<0$时刻的激励引起的，有了起始条件就不再需要激励在$t<0$时刻的信息，这体现出\textbf{常系数线性微分方程所描述的系统具有马尔可夫性}。如果我们希望考虑全时域上的非齐次项$e(t)$，将$\int_{-\infty}^0 h(s)e(t-s)\,ds$也放在响应$r(t)$的公式中，则$y_{\text{h}}(t)$应根据系统在“$-\infty$时刻”的零状态来确定，它当然应该是全为0的，这样，通解为：
-\begin{align*}
-    r(t)=\int_{-\infty}^{t} h(s)e(t-s)\,ds
-\end{align*}
+数学上，激励信号，即方程的非齐次项，往往是在全时域上都存在的，但是将方程视作一个系统时，认为激励在$0$时刻才开始施加是合理的。这是因为$t=0$时刻的初值条件就是由$t<0$时刻的激励引起的，有了起始条件就不再需要激励在$t<0$时刻的信息，这体现出\textbf{常系数线性微分方程所描述的系统具有马尔可夫性}。如果我们希望考虑全时域上的非齐次项$e(t)$，将$\int_{-\infty}^0 h(s)e(t-s)\,\dd s$也放在响应$r(t)$的公式中，则$y_{\text{h}}(t)$应根据系统在“$-\infty$时刻”的零状态来确定，它当然应该是全为$0$的，这样，通解为：
+\begin{equation}
+    r(t)=\int_{-\infty}^{t} h(s)e(t-s)\,\dd s.
+\end{equation}

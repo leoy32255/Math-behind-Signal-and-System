@@ -5,26 +5,32 @@
 \subsection{带限函数}\label{sub:band_limit}
 
 \begin{definition}[时限函数与带限函数]
-    时域上紧支（即支集$\mathrm{supp}\ f$有界）的函数称为\textbf{时限函数}；相应的，在频域上紧支的函数称为\textbf{带限函数}。
+    时域上紧支（即支集$\supp f$有界）的函数称为\textbf{时限函数}；相应的，在频域上紧支的函数称为\textbf{带限函数}。
 \end{definition}
 
 对于带限函数，有以下恒等式：
-\[\mathcal{F} f=\chi_{[-\nu_m,\nu_m]}\mathcal{F} f\]
+\begin{equation}
+    \mathcal{F}f=\chi_{[-\nu_m,\nu_m]}\mathcal{F}f.
+\end{equation}
 取傅里叶逆变换可得
 \begin{theorem}[采样函数的“卷积幺元”作用]
-    设带限函数$f(t)$满足$$\mathrm{supp}(\mathcal{F} f)\subset [-\nu_m,\nu_m]$$
-    则采样信号能够起到类似$\delta$的卷积幺元的作用：\begin{align*}
-        f(t)=2\nu_m\mathrm{sinc}(2\nu_m t)*f(t)
-    \end{align*}
+    设带限函数$f(t)$满足
+    \begin{equation}
+        \supp(\mathcal{F}f)\subset [-\nu_m,\nu_m],
+    \end{equation}
+    则采样函数能够起到类似$\delta$的卷积幺元的作用：
+    \begin{equation}
+        f(t)=2\nu_m\sinc(2\nu_m t)*f(t).
+    \end{equation}
 \end{theorem}
 \begin{proof}
-    由恒等式$\mathcal{F} f=\chi_{[-\nu_m,\nu_m]}\mathcal{F} f$，对两边同时取傅里叶逆变换，得到
-    \begin{align*}
-        f(t)&=\mathcal{F} ^{-1}(\chi_{[-\nu_m,\nu_m]}\mathcal{F} f)(t)\\
-               &=\left(\mathcal{F} ^{-1}\chi_{[-\nu_m,\nu_m]}\right)*\left(\mathcal{F} ^{-1}\mathcal{F} f\right)(t)\\
-               &=\left(\mathcal{F} ^{-1}\chi_{[-\nu_m,\nu_m]}\right)*f(t)\\
-               &=2\nu_m\mathrm{sinc}(2\nu_m t)*f(t)
-    \end{align*}
+    由恒等式$\mathcal{F}f=\chi_{[-\nu_m,\nu_m]}\mathcal{F}f$，对两边同时取傅里叶逆变换，得到
+    \begin{align}
+        f(t)&=\mathcal{F}^{-1}\sbr{\chi_{[-\nu_m,\nu_m]}\mathcal{F}f}(t)\nonumber\\
+        &=\paren{\mathcal{F}^{-1}\chi_{[-\nu_m,\nu_m]}}*\paren{\mathcal{F}^{-1}\mathcal{F}f}(t)\nonumber\\
+        &=\paren{\mathcal{F}^{-1}\chi_{[-\nu_m,\nu_m]}}*f(t)\nonumber\\
+        &=2\nu_m\sinc(2\nu_m t)*f(t).
+    \end{align}
 \end{proof}
 
 \subsection{香农采样定理}\label{sub:shannon}
@@ -37,44 +43,49 @@
 香农采样定理基于以下事实：
 \begin{theorem}[采样定理]
     设带限函数$f$的频谱支于$[-\nu_m,\nu_m]$，则有
-    \[\mathcal{F} f(x)=\chi_{[-\nu_m,\nu_m]}(\mathcal{F} f*\shah_{1/T})(x)\]
+    \begin{equation}
+        \mathcal{F}f(x)=\chi_{[-\nu_m,\nu_m]}(\mathcal{F}f*\shah_{1/T})(x),
+    \end{equation}
     其中$f_s=1/T\geq 2\nu_m$为采样频率，$T$为采样间隔，临界的采样频率$f_N=2\nu_m$被称为\textbf{奈奎斯特频率}(Nyquist frequency)。
 \end{theorem}
 
 采样频率、采样间隔的名称及关系，来自于\refsub{fourier_of_dirac_comb}中提出的关键观点：\textbf{在时域以$f_s=1/T$进行采样，在频域上表现为以$1/T$为周期进行周期化}。这一事实实质上就是将频谱先周期化再截取低频成分。
 
-对其做傅里叶反变换，有\begin{align*}
-    f(t)&=\mathcal{F} ^{-1} [\chi_{[-\nu_m,\nu_m]}(\mathcal{F} f*\shah_{1/T})](t)\\
-    &=2\nu_m\mathrm{sinc}(2\nu_m t)*\mathcal{F} ^{-1} \left(\mathcal{F} f*\shah_{1/T}\right)\\
-    &=2\nu_m T\mathrm{sinc}(2\nu_m t)*\left(f\cdot\shah_T\right)(t)\\
-    &=2\nu_m T\mathrm{sinc}(2\nu_m t)*\left(\sum_{k=-\infty}^{\infty}f(kT)\delta_{kT}\right)(t)\\
-    &=2\nu_m T\sum_{k=-\infty}^{\infty}f(kT)\mathrm{sinc}(2\nu_m (t-kT))
-\end{align*}
+对其做傅里叶反变换，有
+\begin{align}
+    f(t)&=\mathcal{F}^{-1}\sbr{\chi_{[-\nu_m,\nu_m]}(\mathcal{F}f*\shah_{1/T})}(t)\nonumber\\
+    &=2\nu_m\sinc(2\nu_m t)*\mathcal{F}^{-1}\sbr{\mathcal{F}f*\shah_{1/T}}\nonumber\\
+    &=2\nu_m T\sinc(2\nu_m t)*\paren{f\cdot\shah_T}(t)\nonumber\\
+    &=2\nu_m T\sinc(2\nu_m t)*\paren{\sum_{k=-\infty}^{\infty}f(kT)\delta_{kT}}(t)\nonumber\\
+    &=2\nu_m T\sum_{k=-\infty}^{\infty}f(kT)\sinc\paren{2\nu_m (t-kT)}.
+\end{align}
 如果令采样频率$f_s$等于奈奎斯特频率$f_N=2\nu_m$，就得到\textbf{香农采样定理}(Shannon Sampling theorem)：
 \begin{theorem}[香农采样定理]
-    设带限函数$f$的频谱支于$[-\nu_m,\nu_m]$，$\forall \frac{1}{T}\geq f_N=2\nu_m$，有
-    \begin{align*}
-        f(t)=2\nu_m T\sum_{k=-\infty}^{\infty}f(kT)\mathrm{sinc}(2\nu_m (t-kT))\xlongequal{f_s=2\nu_m} \sum_{k=-\infty}^{\infty}f\left(kT\right)\mathrm{sinc}\left(f_s(t-kT)\right)
-    \end{align*}
+    设带限函数$f$的频谱支于$[-\nu_m,\nu_m]$，$\forall \displaystyle\frac{1}{T}\geq f_N=2\nu_m$，有
+    \begin{equation}
+        f(t)=2\nu_m T\sum_{k=-\infty}^{\infty}f(kT)\sinc\paren{2\nu_m (t-kT)}\xlongequal{f_s=2\nu_m} \sum_{k=-\infty}^{\infty}f(kT)\sinc\paren{f_s(t-kT)}.
+    \end{equation}
 \end{theorem}
-当$T$表示采样周期时，$1/T=f_s$为采样频率，于是这一定理表明：\textbf{对于采样率足够的理想采样，可以由采样函数恢复出原函数}。这种插值方式与上一节中讨论的拉格朗日插值有一定的相似之处。采样函数$\mathrm{sinc}$在非零整数点处的值为0，在0处的值为1，于是可以直接利用每个数据点处的值限定所还原出信号在这一点的值，换言之，在以下这种公式所代表的插值方式下，数据点处的值是不会产生偏移的，$\mathrm{Sa}$函数同理。不同的是，拉格朗日插值法在数据点以外的位置往往会有误差，而以上插值方法在没有产生混叠现象时是精确的。
+当$T$表示采样周期时，$1/T=f_s$为采样频率，于是这一定理表明：\textbf{对于采样率足够的理想采样，可以由采样函数恢复出原函数}。这种插值方式与上一节中讨论的拉格朗日插值有一定的相似之处。采样函数$\sinc$在非零整数点处的值为$0$，在$0$处的值为$1$，于是可以直接利用每个数据点处的值限定所还原出信号在这一点的值，换言之，在以下这种公式所代表的插值方式下，数据点处的值是不会产生偏移的，$\Sa$函数同理。不同的是，拉格朗日插值法在数据点以外的位置往往会有误差，而以上插值方法在没有产生混叠现象时是精确的。
 
 必须指出，工程上很少使用香农采样定理还原信号，它仅仅指出采样不丢失模拟信号信息的最低要求。在\refsub{finite_sampling}的\cref{exmp:finite_sum}中，我们将看到物理可实现的有限项模拟信号求和
-$$\sum_{k=-N}^{N}f\left(kT\right)\mathrm{sinc}\left(f_s(t-kT)\right)$$
-可能会出现吉布斯现象。此外函数在时刻$t$的值要依赖于后续的采样点$f(kT),kT>t$，本质上这是在频域上通过理想滤波器$\chi_{[-\nu_m,\nu_m]}$非因果导致的，这使得我们无法进行实时的信号恢复。工程上，通常采用的插值方式例如零阶采样保持、线性插值等，都要求\textbf{采样率远高于奈奎斯特频率}，这样才能使得模拟信号失真不明显。
+\begin{equation}
+    \sum_{k=-N}^{N}f(kT)\sinc\paren{f_s(t-kT)}
+\end{equation}
+可能会出现吉布斯现象。此外函数在时刻$t$的值要依赖于后续的采样点$f(kT)\ (kT>t)$，本质上这是在频域上通过理想滤波器$\chi_{[-\nu_m,\nu_m]}$非因果导致的，这使得我们无法进行实时的信号恢复。工程上，通常采用的插值方式例如零阶采样保持、线性插值等，都要求\textbf{采样率远高于奈奎斯特频率}，这样才能使得模拟信号失真不明显。
 
 \subsection{混叠现象}\label{sub:alias}
-我们已经说明了采样率不低于奈奎斯特频率时的信号还原方法，下面来说明为什么奈奎斯特频率时极限情况。直观上，采样频率越高，所需要的成本就越高，提供的信息就越多，而如果采样频率低于$f_N$，将发生\textbf{混叠}(alias)现象，还原所得的信号将产生失真。下图展示了正弦波的混叠：
+我们已经说明了采样率不低于奈奎斯特频率时的信号还原方法，下面来说明为什么奈奎斯特频率是极限情况。直观上，采样频率越高，所需要的成本就越高，提供的信息就越多，而如果采样频率低于$f_N$，将发生\textbf{混叠}(alias)现象，还原所得的信号将产生失真。下图展示了正弦波的混叠：
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{cos.jpeg}
     \caption{正弦波的混叠现象}
 \end{figure}
 
-从频域上不难理解它。我们来看抽样时到底发生了什么。以采样频率$f_s=1/T$对$f(t)$进行采样，相当于将$f(t)$与$\shah_{1/T}$相乘，在频域上则相当于$\mathcal{F} f(\xi)$与$\mathcal{F} \shah_{1/T}$的卷积，即
-\begin{align*}
-    \mathcal{F} (f\cdot\shah_{1/T})(\xi)=\mathcal{F} f(\xi)*\mathcal{F} \shah_{1/T}(\xi)=\mathcal{F} f(\xi)*T\shah_{T}(\xi)=T\sum_{k=-\infty}^{\infty}\mathcal{F} f\left(\xi-\frac{k}{T}\right)
-\end{align*}
+从频域上不难理解它。我们来看抽样时到底发生了什么。以采样频率$f_s=1/T$对$f(t)$进行采样，相当于将$f(t)$与$\shah_{1/T}$相乘，在频域上则相当于$\mathcal{F}f(\xi)$与$\mathcal{F}\shah_{1/T}$的卷积，即
+\begin{equation}
+    \mathcal{F}\sbr{f\cdot\shah_{1/T}}(\xi)=\mathcal{F}f(\xi)*\mathcal{F}\shah_{1/T}(\xi)=\mathcal{F}f(\xi)*T\shah_{T}(\xi)=T\sum_{k=-\infty}^{\infty}\mathcal{F}f\paren{\xi-\frac{k}{T}}.
+\end{equation}
 这就是我们反复强调的：在时域以$f_s=1/T$进行采样，在频域上表现为以$1/T$为周期进行周期化。如果采样频率不低于奈奎斯特频率$f_N=2\nu_m$，则频谱在周期化的过程中未发生交叠，可以用特征函数$\chi_{[-\nu_m,\nu_m]}$还原；而如果采样频率$f_s$低于奈奎斯特频率$f_N$，则周期化后的频谱会发生重叠，如图所示：
 \begin{figure}[H]
     \centering
@@ -82,10 +93,10 @@ $$\sum_{k=-N}^{N}f\left(kT\right)\mathrm{sinc}\left(f_s(t-kT)\right)$$
     \caption{混叠的频域分析}
 \end{figure}
 
-在建立采样定理时我们曾要求$\mathrm{supp}(\mathcal{F} f)\subset[-\nu_m,\nu_m]$.如果频谱在周期化时重叠，那么用先前得到的公式
-\begin{align*}
-    f(t)=\sum_{k=-\infty}^{\infty}f\left(kT\right)\mathrm{sinc}\left(\frac{1}{T}(t-kT)\right)
-\end{align*}
+在建立采样定理时我们曾要求$\supp(\mathcal{F}f)\subset[-\nu_m,\nu_m]$。如果频谱在周期化时重叠，那么用先前得到的公式
+\begin{equation}
+    f(t)=\sum_{k=-\infty}^{\infty}f(kT)\sinc\paren{\frac{1}{T}(t-kT)}
+\end{equation}
 还原函数当然是有误差的，乘以$\chi_{[-\nu_m,\nu_m]}$，会丢掉一部分原有频谱，并叠加一部分平移后的频谱。这就是混叠现象的原理，它构成香农采样定理的另一部分，即\textbf{采样频率必须不低于奈奎斯特频率才能无失真地还原信号}。
 
 \subsection{*有限采样公式}\label{sub:finite_sampling}
@@ -93,84 +104,89 @@ $$\sum_{k=-N}^{N}f\left(kT\right)\mathrm{sinc}\left(f_s(t-kT)\right)$$
 使用香农采样定理要求有无穷多个采样点，这是不可实现的。工程上，常假设实际信号是带限的，并且只关注有限的时间范围。我们不妨认为信号支于这个时间区间，这样就能借助有限采样公式，利用有限的采样点数还原局部的信号（的周期延拓）。
 
 \begin{lemma}
-    设$f_s,T>0$，正整数$N$为严格小于$\dfrac{T f_s}{2}$的最大整数，则$\forall t\in\mathbb{R}$，有
-    \begin{align*}
-        \mathrm{sinc}\left(f_s t\right)*\shah_T=\frac{1}{T f_s}\frac{\sin\left((2N+1)\pi t/T\right)}{\sin\left(\pi t/T\right)}=\frac{2N+1}{T f_s}\frac{\mathrm{sinc}\left((2N+1)t/T\right)}{\mathrm{sinc}\left(t/T\right)}
-    \end{align*}
+    设$f_s,T>0$，正整数$N$为严格小于$\displaystyle\frac{T f_s}{2}$的最大整数，则$\forall t\in\mathbb{R}$，有
+    \begin{equation}
+        \sinc(f_s t)*\shah_T=\frac{1}{T f_s}\frac{\sin\paren{(2N+1)\pi t/T}}{\sin(\pi t/T)}=\frac{2N+1}{T f_s}\frac{\sinc\paren{(2N+1)t/T}}{\sinc(t/T)},
+    \end{equation}
     特别地，$T f_s=2N+1$时，有
-    \begin{align*}
-        \mathrm{sinc}\left(f_s t\right)*\shah_T=\frac{\mathrm{sinc}\left(f_s t\right)}{\mathrm{sinc}\left(t/T\right)}
-    \end{align*}
+    \begin{equation}
+        \sinc(f_s t)*\shah_T=\frac{\sinc(f_s t)}{\sinc(t/T)}.
+    \end{equation}
 \end{lemma}
 \begin{proof}
     取傅里叶变换：
-\begin{align*}
-    \mathcal{F} \left[\mathrm{sinc}\left(f_s t\right)*\shah_T\right](\xi)&=\mathcal{F} \left[\mathrm{sinc}\left(f_s t\right)\right](\xi)\cdot\mathcal{F} \shah_T(\xi)\\
-    &=\frac{1}{f_s}\chi_{[-f_s/2,f_s/2]}(\xi)\cdot\frac{1}{T}\shah_{1/T}(\xi)\\
-    &=\frac{1}{T f_s}\sum_{k=-\infty}^{\infty}\chi_{[-f_s/2,f_s/2]}\left(\xi-\frac{k}{T}\right)\delta_{k/T}\\
-    &=\frac{1}{T f_s}\sum_{k=-N}^{N}\delta_{k/T}(\xi)
-\end{align*}
-对上式取傅里叶逆变换，有
-\begin{align*}
-    \mathrm{sinc}\left(f_s t\right)*\shah_T&=\mathcal{F} ^{-1}\left(\frac{1}{T f_s}\sum_{k=-N}^{N}\delta_{k/T}(\xi)\right)(t)\\
-    &=\frac{1}{T f_s}\sum_{k=-N}^{N}\mathrm{e}^{2\pi \mathrm{i}kt/T}\\
-    &=\frac{1}{T f_s}\frac{\sin\left((2N+1)\pi t/T\right)}{\sin\left(\pi t/T\right)}\\
-    &=\frac{2N+1}{T f_s}\frac{\mathrm{sinc}\left((2N+1)t/T\right)}{\mathrm{sinc}\left(t/T\right)}
-\end{align*}
-第二行到第三行其实就是狄利克雷核的相关公式，见\refsub{dirichlet_kernel}，可以通过等比数列求和公式得到：\begin{align*}
-    \sum_{k=-N}^{N}\mathrm{e}^{2\pi \mathrm{i}kt/T}&=\mathrm{e}^{-2\pi \mathrm{i}Nt/T}\frac{1-\mathrm{e}^{2\pi \mathrm{i}(2N+1)t/T}}{1-\mathrm{e}^{2\pi \mathrm{i}t/T}}\\
-    &=\frac{\mathrm{e}^{-\pi \mathrm{i}(2N+1)t/T}-\mathrm{e}^{\pi \mathrm{i}(2N+1)t/T}}{\mathrm{e}^{-\pi \mathrm{i}t/T}-\mathrm{e}^{\pi \mathrm{i}t/T}}\\
-    &=\frac{\sin\left((2N+1)\pi t/T\right)}{\sin\left(\pi t/T\right)}
-\end{align*}
+    \begin{align}
+        \mathcal{F}\sbr{\sinc(f_s t)*\shah_T}(\xi)&=\mathcal{F}\sbr{\sinc(f_s t)}(\xi)\cdot\mathcal{F}\shah_T(\xi)\nonumber\\
+        &=\frac{1}{f_s}\chi_{[-f_s/2,f_s/2]}(\xi)\cdot\frac{1}{T}\shah_{1/T}(\xi)\nonumber\\
+        &=\frac{1}{T f_s}\sum_{k=-\infty}^{\infty}\chi_{[-f_s/2,f_s/2]}\paren{\xi-\frac{k}{T}}\delta_{k/T}\nonumber\\
+        &=\frac{1}{T f_s}\sum_{k=-N}^{N}\delta_{k/T}(\xi).
+    \end{align}
+    对上式取傅里叶逆变换，有
+    \begin{align}
+        \sinc(f_s t)*\shah_T&=\mathcal{F}^{-1}\sbr{\frac{1}{T f_s}\sum_{k=-N}^{N}\delta_{k/T}(\xi)}(t)\nonumber\\
+        &=\frac{1}{T f_s}\sum_{k=-N}^{N}\e^{2\pi\im kt/T}\nonumber\\
+        &=\frac{1}{T f_s}\frac{\sin\paren{(2N+1)\pi t/T}}{\sin(\pi t/T)}\nonumber\\
+        &=\frac{2N+1}{T f_s}\frac{\sinc\paren{(2N+1)t/T}}{\sinc(t/T)}.
+    \end{align}
+    第二行到第三行其实就是狄利克雷核的相关公式，见\refsub{dirichlet_kernel}，可以通过等比数列求和公式得到：
+    \begin{align}
+        \sum_{k=-N}^{N}\e^{2\pi\im kt/T}&=\e^{-2\pi\im Nt/T}\frac{1-\e^{2\pi\im(2N+1)t/T}}{1-\e^{2\pi\im t/T}}\nonumber\\
+        &=\frac{\e^{-\pi\im(2N+1)t/T}-\e^{\pi\im(2N+1)t/T}}{\e^{-\pi\im t/T}-\e^{\pi\im t/T}}\nonumber\\
+        &=\frac{\sin\paren{(2N+1)\pi t/T}}{\sin(\pi t/T)}.
+    \end{align}
 \end{proof}
 \begin{example}\label{exmp:finite_sum}
-    取$f_s=T=1,N=0$，可得$\mathrm{sinc}(t)*\shah=1$。这里给出前$N$项和的图像：
+    取$f_s=T=1,\ N=0$，可得$\sinc(t)*\shah=1$。这里给出前$N$项和的图像：
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.75\textwidth]{sinc_shah.jpeg}
-        \caption{$\mathrm{sinc}(t)*\shah$的前N项和}
+        \caption{$\sinc(t)*\shah$的前$N$项和}
     \end{figure}
-    它与方波很接近，并且出现了吉布斯现象。将部分和$S_N(t)=\sum_{k=-N}^{N}\mathrm{sinc}(t-k)$视为采样率为1的情况下，对时宽为$2N$的方波进行还原的结果，则随着$N$的增大，采样点增多，结果越来越接近$\mathds{1}$。方波不是带限信号，吉布斯现象可以视为混叠的结果，但由于频带能量集中于低频，所以在大部分区域上，这种还原结果仍然较好地逼近了方波。
+    它与方波很接近，并且出现了吉布斯现象。将部分和$S_N(t)=\sum_{k=-N}^{N}\sinc(t-k)$视为采样率为$1$的情况下，对时宽为$2N$的方波进行还原的结果，则随着$N$的增大，采样点增多，结果越来越接近$\mathds{1}$。方波不是带限信号，吉布斯现象可以视为混叠的结果，但由于频带能量集中于低频，所以在大部分区域上，这种还原结果仍然较好地逼近了方波。
 \end{example}
 \begin{proposition}[有限采样公式]
     设$f(t)$周期为$T$，且带限于$[-\nu_m,\nu_m]$，取$f_s$满足
-    $$f_s=1/T_s=\frac{2N+1}{T}\geq 2\nu_m$$
-    则$f(t)$可以用一个周期内的有限个采样点$t_k=kT_s,k\in\{0,1,\cdots,2N\}$还原：
-    \begin{align*}
-        f(t)=\sum_{k=0}^{2N}f(t_k)\frac{\mathrm{sinc}\left(f_s(t-t_k)\right)}{\mathrm{sinc}\left(\frac{1}{T}(t-t_k)\right)}
-    \end{align*}
+    \begin{equation}
+        f_s=1/T_s=\frac{2N+1}{T}\geq 2\nu_m,
+    \end{equation}
+    则$f(t)$可以用一个周期内的有限个采样点$t_k=kT_s,\ k\in\{0,1,\cdots,2N\}$还原：
+    \begin{equation}
+        f(t)=\sum_{k=0}^{2N}f(t_k)\frac{\sinc\paren{f_s(t-t_k)}}{\sinc\paren{\frac{1}{T}(t-t_k)}},
+    \end{equation}
     其中，$2N+1$为采样点数，可由上面对$f_s$提出的要求算得：
-    $$N\geq T\nu_m-\dfrac{1}{2}$$
+    \begin{equation}
+        N\geq T\nu_m-\frac{1}{2}.
+    \end{equation}
 \end{proposition}
 \begin{proof}
-由于$f$是周期的带限函数，可以设$f(t)$的傅里叶级数为
-\begin{align*}
-    f(t)=\sum_{n=-N}^{N}c_n \mathrm{e}^{2\pi \mathrm{i}nt/T}
-\end{align*}
-这样，其频域是支于$[-N/T,N/T]\subset[-\nu_m,\nu_m]$的：
-\begin{align*}
-    \mathcal{F}f(\xi)=\sum_{n=-N}^{N}c_n \delta\left(\xi-\frac{n}{T}\right)
-\end{align*}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{finite_Sample.jpeg}
-    \caption{有限采样公式示意图}
-\end{figure}
+    由于$f$是周期的带限函数，可以设$f(t)$的傅里叶级数为
+    \begin{equation}
+        f(t)=\sum_{n=-N}^{N}c_n \e^{2\pi\im nt/T}.
+    \end{equation}
+    这样，其频域是支于$[-N/T,N/T]\subset[-\nu_m,\nu_m]$的：
+    \begin{equation}
+        \mathcal{F}f(\xi)=\sum_{n=-N}^{N}c_n \delta\paren{\xi-\frac{n}{T}}.
+    \end{equation}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{finite_Sample.jpeg}
+        \caption{有限采样公式示意图}
+    \end{figure}
 
-用$\shah_{T_s}$进行采样，在频域上相当于以$f_s$为周期进行周期化，由香农采样定理，有
-\begin{align*}
-    f(t)=\sum_{k=-\infty}^{\infty}f(t_k)\mathrm{sinc}\left(f_s(t-t_k)\right)
-\end{align*}
-其中采样点$t_k=kT_s$。由于$f(t)$周期为$T$，我们可以对上式进行分组求和：
-\begin{align*}
-    f(t)&=\sum_{m=-\infty}^{\infty}\sum_{k=0}^{2N}f\left(t_{k+m(2N+1)}\right)\mathrm{sinc}\left(f_s(t-t_{k+m(2N+1)})\right)\\
-    &=f(t_0)\sum_{m=-\infty}^{\infty}\mathrm{sinc}\left(f_s(t-mT)\right)+f(t_1)\sum_{m=-\infty}^{\infty}\mathrm{sinc}\left(f_s(t-mT-T_s)\right)+\cdots\\
-    &\qquad +f(t_{2N})\sum_{m=-\infty}^{\infty}\mathrm{sinc}\left(f_s(t-mT-2N T_s)\right)\\
-    &=f(t_0)\mathrm{sinc}\left(f_s t\right)*\shah_T+f(t_1)\mathrm{sinc}\left(f_s (t-T_s)\right)*\shah_T+\cdots\\
-    &\qquad +f(t_{2N})\mathrm{sinc}\left(f_s (t-2N T_s)\right)*\shah_T\\
-    &=\sum_{m=0}^{2N}f(t_m)\left[\mathrm{sinc}\left(f_s (t-m T_s)\right)*\shah_T\right]
-\end{align*}
-再使用本小节前面的引理即证。
+    用$\shah_{T_s}$进行采样，在频域上相当于以$f_s$为周期进行周期化，由香农采样定理，有
+    \begin{equation}
+        f(t)=\sum_{k=-\infty}^{\infty}f(t_k)\sinc\paren{f_s(t-t_k)},
+    \end{equation}
+    其中采样点$t_k=kT_s$。由于$f(t)$周期为$T$，我们可以对上式进行分组求和：
+    \begin{align}
+        f(t)&=\sum_{m=-\infty}^{\infty}\sum_{k=0}^{2N}f\paren{t_{k+m(2N+1)}}\sinc\paren{f_s(t-t_{k+m(2N+1)})}\nonumber\\
+        &=f(t_0)\sum_{m=-\infty}^{\infty}\sinc\paren{f_s(t-mT)}+f(t_1)\sum_{m=-\infty}^{\infty}\sinc\paren{f_s(t-mT-T_s)}+\cdots\nonumber\\
+        &\qquad +f(t_{2N})\sum_{m=-\infty}^{\infty}\sinc\paren{f_s(t-mT-2N T_s)}\nonumber\\
+        &=f(t_0)\sinc(f_s t)*\shah_T+f(t_1)\sinc\paren{f_s (t-T_s)}*\shah_T+\cdots\nonumber\\
+        &\qquad +f(t_{2N})\sinc\paren{f_s (t-2N T_s)}*\shah_T\nonumber\\
+        &=\sum_{m=0}^{2N}f(t_m)\sbr{\sinc\paren{f_s (t-m T_s)}*\shah_T}.
+    \end{align}
+    再使用本小节前面的引理即证。
 \end{proof}
 
 这表明，\textbf{只要信号是带限的，在有限次采样下，一定可以在局部上无失真地还原信号}，且所得信号周期（也即\textbf{局部还原的长度}）至多为$T_{\max}=(2N+1)/2\nu_m$，采样点数越多、带宽越小，还原出的信号就越长。从另一个角度理解，这表明\textbf{带限周期信号仅仅具有$2N+1=2T\nu_m$个自由度}。

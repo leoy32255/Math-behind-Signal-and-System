@@ -8,145 +8,173 @@
 
 \subsubsection{三角级数}
 
-我们首先回顾数学分析中学过的几个计算傅里叶级数的公式。将周期为T的函数f展开为三角函数形式的傅里叶级数：
-\begin{align*}
-    f(t) & =\frac{a_0}{2}+\sum_{k = 1}^{\infty} a_k \cos(k\omega t)+b_k\sin(k\omega t) \\
-         & =\frac{c_0}{2}+\sum_{k = 1}^{\infty} c_k\cos(k\omega t+\varphi _k)
-\end{align*}
-其中$\omega =\dfrac{2\pi }{T}$为\textbf{基波角频率}(fundamental angular frequency)，$k\omega (k>1,k\in \mathbb{N} )$为k次\textbf{谐波角频率}(harmonic angular frequency)。
+我们首先回顾数学分析中学过的几个计算傅里叶级数的公式。将周期为$T$的函数$f$展开为三角函数形式的傅里叶级数：
+\begin{align}
+    f(t) & =\frac{a_0}{2}+\sum_{k = 1}^{\infty}\paren{a_k \cos(k\omega t)+b_k\sin(k\omega t)} \nonumber\\
+         & =\frac{c_0}{2}+\sum_{k = 1}^{\infty} c_k\cos(k\omega t+\varphi _k),
+\end{align}
+其中$\displaystyle \omega =\frac{2\pi}{T}$为\textbf{基波角频率}(fundamental angular frequency)，$k\omega\ (k>1,\ k\in \mathbb{N})$为$k$次\textbf{谐波角频率}(harmonic angular frequency)。
 \begin{theorem}[三角函数形式的傅里叶系数公式]
-\[a_k=\frac{2}{T}\int_T f(t)\cos(k\omega t)\,dt\]
-\[b_k=\frac{2}{T}\int_T f(t)\sin(k\omega t)\,dt\]
-\[c_k=\sqrt{a_k^2+b_k^2}\]
+    \begin{align}
+        a_k&=\frac{2}{T}\int_T f(t)\cos(k\omega t)\,\dd t,\\
+        b_k&=\frac{2}{T}\int_T f(t)\sin(k\omega t)\,\dd t,\\
+        c_k&=\sqrt{a_k^2+b_k^2}.
+    \end{align}
 \end{theorem}
-下面用完备标准正交函数系的观点来得到以上公式。在学习数学分析时，我们已经看到三角函数系$1,\sin(\omega t),\cos(\omega t),\sin(2\omega t),\cos(2\omega t),\dots\left(\omega =\dfrac{2\pi}{T}\right)$是正交的（读者可以自行验证），但不是单位正交的，因为
-\[(\sin(k\omega t),\sin(k\omega t))=\int_{T}\sin^2(k\omega t)\,dt=\int_{T}\frac{1-\cos(2k\omega t)}{2}=\frac{T}{2}\]
-\[(\cos(k\omega t),\cos(k\omega t))=\int_{T}\cos^2(k\omega t)\,dt=\int_{T}\frac{1+\cos(2k\omega t)}{2}=\frac{T}{2}\]
+下面用完备标准正交函数系的观点来得到以上公式。在学习数学分析时，我们已经看到三角函数系$1,\sin(\omega t),\cos(\omega t),\sin(2\omega t),\cos(2\omega t),\dots$（$\displaystyle \omega =\frac{2\pi}{T}$）是正交的（读者可以自行验证），但不是单位正交的，因为
+\begin{align}
+    (\sin(k\omega t),\sin(k\omega t))&=\int_{T}\sin^2(k\omega t)\,\dd t=\int_{T}\frac{1-\cos(2k\omega t)}{2}\,\dd t=\frac{T}{2},\\
+    (\cos(k\omega t),\cos(k\omega t))&=\int_{T}\cos^2(k\omega t)\,\dd t=\int_{T}\frac{1+\cos(2k\omega t)}{2}\,\dd t=\frac{T}{2}.
+\end{align}
 可以将它们单位化，也可以直接采用正交基分解的公式（\cref{thm:vector_decomposition}）：
-\[a_k=\frac{(f(t),\cos(k\omega t))}{(\cos(k\omega t),\cos(k\omega t))}=\frac{\int_{T}f(t)\overline{\cos(k\omega t)}\,dt}{\int_{T}|\cos(k\omega t)|^2\,dt}
-    =\frac{2}{T}\int_{T}f(t)\cos(k\omega t)\,dt\]
-\[b_k=\frac{(f(t),\sin(k\omega t))}{(\sin(k\omega t),\sin(k\omega t))}=\frac{\int_{T}f(t)\overline{\sin(k\omega t)}\,dt}{\int_{T}|\sin(k\omega t)|^2\,dt}
-    =\frac{2}{T}\int_{T}f(t)\sin(k\omega t)\,dt\]
+\begin{align}
+    a_k&=\frac{(f(t),\cos(k\omega t))}{(\cos(k\omega t),\cos(k\omega t))}=\frac{\int_{T}f(t)\overline{\cos(k\omega t)}\,\dd t}{\int_{T}|\cos(k\omega t)|^2\,\dd t}
+        =\frac{2}{T}\int_{T}f(t)\cos(k\omega t)\,\dd t,\\
+    b_k&=\frac{(f(t),\sin(k\omega t))}{(\sin(k\omega t),\sin(k\omega t))}=\frac{\int_{T}f(t)\overline{\sin(k\omega t)}\,\dd t}{\int_{T}|\sin(k\omega t)|^2\,\dd t}
+        =\frac{2}{T}\int_{T}f(t)\sin(k\omega t)\,\dd t.
+\end{align}
 不难发现，如果将常数项写为$a_0/2$的形式，则$k=0$时上述公式仍然适用，这也是我们这样做的原因。
 
 如果将傅里叶级数展开式写为
-\begin{align*}
-    f(t) =  \frac{a_0}{2}&+\sum_{k = 1}^{\infty} a_k \cos(k\omega t) \\
-           & +\sum_{k = 1}^{\infty} b_k \sin(k\omega t)
-\end{align*}
-则前半部分为偶函数，称之为$f(t)$的\textbf{偶分量}$f_\e(t)$；后半部分为奇函数，称之为$f(t)$的\textbf{奇分量}$f_\text{o}(t)$.函数的偶分量和奇分量都是唯一的，并且\begin{align*}
-    f_\e(t)=\frac{f(t)+f(-t)}{2} \\
-    f_\text{o}(t)=\frac{f(t)-f(-t)}{2}
-\end{align*}
+\begin{align}
+    f(t) = \frac{a_0}{2}&+\sum_{k = 1}^{\infty} a_k \cos(k\omega t) \nonumber\\
+           &+\sum_{k = 1}^{\infty} b_k \sin(k\omega t),
+\end{align}
+则前半部分为偶函数，称之为$f(t)$的\textbf{偶分量}$f_{\e}(t)$；后半部分为奇函数，称之为$f(t)$的\textbf{奇分量}$f_{\mathrm{o}}(t)$。函数的偶分量和奇分量都是唯一的，并且
+\begin{align}
+    f_{\e}(t)&=\frac{f(t)+f(-t)}{2}, \\
+    f_{\mathrm{o}}(t)&=\frac{f(t)-f(-t)}{2}.
+\end{align}
 
 容易利用对称性得到：
 \begin{theorem}[偶函数的傅里叶展开]
-当$f(t)$为偶函数，或者由$f(t)$做偶延拓时,展开式为
-\[f(t)=\frac{a_0}{2}+\sum_{k = 1}^{\infty} a_k\cos(k\omega t)\]
-其中
-\[a_k=\frac{4}{T}\int_{0}^{T/2} f(t)\cos(k\omega t)\,dt\]
-\[b_k=0\]
+    当$f(t)$为偶函数，或者由$f(t)$做偶延拓时，展开式为
+    \begin{equation}
+        f(t)=\frac{a_0}{2}+\sum_{k = 1}^{\infty} a_k\cos(k\omega t),
+    \end{equation}
+    其中
+    \begin{align}
+        a_k&=\frac{4}{T}\int_{0}^{T/2} f(t)\cos(k\omega t)\,\dd t,\\
+        b_k&=0.
+    \end{align}
 \end{theorem}
 
 \begin{theorem}[奇函数的傅里叶展开]
-当$f(t)$为奇函数，或者由$f(t)$做奇延拓时,展开式为
-\[f(t)=\sum_{k = 1}^{\infty} b_k \sin(k\omega t)\]
-其中
-\[a_k=0\]
-\[b_k=\frac{4}{T}\int_{0}^{T/2} f(t)\sin(k\omega t)\,dt\]
+    当$f(t)$为奇函数，或者由$f(t)$做奇延拓时，展开式为
+    \begin{equation}
+        f(t)=\sum_{k = 1}^{\infty} b_k \sin(k\omega t),
+    \end{equation}
+    其中
+    \begin{align}
+        a_k&=0,\\
+        b_k&=\frac{4}{T}\int_{0}^{T/2} f(t)\sin(k\omega t)\,\dd t.
+    \end{align}
 \end{theorem}
 
 除了奇偶性，还可以从奇次谐波、偶次谐波的角度来理解函数。
 \begin{definition}[奇谐函数]
-    函数$f(t)$称为\textbf{奇谐函数}(quasiharmonic function)，如果后半个周期的函数是前半个周期的负镜像，即\begin{equation*}
-    f\left(t+\frac{T}{2}\right)=-f(t)
-\end{equation*}
+    函数$f(t)$称为\textbf{奇谐函数}(quasiharmonic function)，如果后半个周期的函数是前半个周期的负镜像，即
+    \begin{equation}
+        f\paren{t+\frac{T}{2}}=-f(t).
+    \end{equation}
 \end{definition}
 奇谐函数的傅里叶级数展开只有奇次谐波分量：
-\begin{align*}
-    a_k &=\frac{2}{T}\int_{T}f(t)\cos(k\omega t)\,dt\\
-    &=\frac{2}{T}\int_{-T/2}^{0}f(t)\cos(k\omega t)\,dt+\frac{2}{T}\int_{0}^{T/2}f(t)\cos(k\omega t)\,dt\\
-    &=\frac{2}{T}\int_{0}^{T/2}\left(f(t)\cos(k\omega t)+f(t-T/2)\cos(k\omega(t-T/2))\right)\,dt\\
-    &=(1-\cos(k\pi))\frac{2}{T}\int_{0}^{T/2}f(t)\cos(k\omega t)\,dt\\
-    &=\begin{cases}
-        0,&\text{if }k\text{为偶数}\\
-        \frac{4}{T}\int_{0}^{T/2}f(t)\cos(k\omega t)\,dt,&\text{if }k\text{为奇数}
-    \end{cases}
-\end{align*}
-同理有\begin{align*}
-    b_k=\begin{cases}
-        0,&\text{if }k\text{为偶数}\\
-        \frac{4}{T}\int_{0}^{T/2}f(t)\sin(k\omega t)\,dt,&\text{if }k\text{为奇数}
-    \end{cases}
-\end{align*}
-有了奇谐函数自然也能够定义偶谐函数：$f\left(t+\dfrac{T}{2}\right)=f(t)$，容易验证它只有偶次谐波分量，但从定义式可以看出这只是周期减半的函数。
+\begin{align}
+    a_k &=\frac{2}{T}\int_{T}f(t)\cos(k\omega t)\,\dd t\nonumber\\
+    &=\frac{2}{T}\int_{-T/2}^{0}f(t)\cos(k\omega t)\,\dd t+\frac{2}{T}\int_{0}^{T/2}f(t)\cos(k\omega t)\,\dd t\nonumber\\
+    &=\frac{2}{T}\int_{0}^{T/2}\paren{f(t)\cos(k\omega t)+f(t-T/2)\cos(k\omega(t-T/2))}\,\dd t\nonumber\\
+    &=(1-\cos(k\pi))\frac{2}{T}\int_{0}^{T/2}f(t)\cos(k\omega t)\,\dd t\nonumber\\
+    &=\begin{dcases}
+        0,                                           & \text{if }k\text{为偶数}, \\
+        \frac{4}{T}\int_{0}^{T/2}f(t)\cos(k\omega t)\,\dd t, & \text{if }k\text{为奇数}.
+    \end{dcases}
+\end{align}
+同理有
+\begin{equation}
+    b_k=\begin{dcases}
+        0,                                           & \text{if }k\text{为偶数}, \\
+        \frac{4}{T}\int_{0}^{T/2}f(t)\sin(k\omega t)\,\dd t, & \text{if }k\text{为奇数}.
+    \end{dcases}
+\end{equation}
+有了奇谐函数自然也能够定义偶谐函数：$\displaystyle f\paren{t+\frac{T}{2}}=f(t)$，容易验证它只有偶次谐波分量，但从定义式可以看出这只是周期减半的函数。
 
 \subsubsection{复指数级数}
 
 类似\refsub{chebychev_polynomial}中对于三角多项式的处理，对于三角级数，我们同样可以代入：
-\[\cos(k\omega t)=\frac{\mathrm{e}^{\mathrm{i}k\omega t}+\mathrm{e}^{-\mathrm{i}k\omega t}}{2},\quad \sin(k\omega t)=\frac{\mathrm{e}^{\mathrm{i}k\omega t}-\mathrm{e}^{-\mathrm{i}k\omega t}}{2\mathrm{i}}\]
-
+\begin{equation}
+    \cos(k\omega t)=\frac{\e^{\im k\omega t}+\e^{-\im k\omega t}}{2},\quad \sin(k\omega t)=\frac{\e^{\im k\omega t}-\e^{-\im k\omega t}}{2\im},
+\end{equation}
 从而得到复指数形式的傅里叶级数：
 
 \begin{definition}[复指数形式傅里叶展开]
-    \[f(t)=\sum_{k = -\infty}^{\infty}  c_k \mathrm{e}^{\mathrm{i}k\omega t} ,\quad c_k=\frac{a_k-\mathrm{i}b_k}{2},c_{-k}=\frac{a_k+\mathrm{i}b_k}{2}=\overline{c_k},\quad k\in \mathbb{N}\]
-特别地，$c_0=\overline{c_0}\implies c_0\in\mathbb{R} $.
+    \begin{equation}
+        f(t)=\sum_{k = -\infty}^{\infty} c_k \e^{\im k\omega t},\quad c_k=\frac{a_k-\im b_k}{2},\quad c_{-k}=\frac{a_k+\im b_k}{2}=\overline{c_k},\quad k\in \mathbb{N}.
+    \end{equation}
+    特别地，$c_0=\overline{c_0}\implies c_0\in\mathbb{R}$。
 \end{definition}
 我们又一次使用了符号$c_k$，请注意它与本小节开头给出的三角级数中的符号$c_k$的区别。本书的后续内容中，$c_k$总是表示复指数级数的系数。
 
-容易验证$\{\mathrm{e}^{\mathrm{i}k\omega t}\}_{k=0}^{\infty}$是正交函数系：
-\begin{align*}
-    (\mathrm{e}^{\mathrm{i}k_1\omega t},\mathrm{e}^{\mathrm{i}k_2\omega t})&=\int_{T}\mathrm{e}^{\mathrm{i}k_1\omega t}(\mathrm{e}^{\mathrm{i}k_2\omega t})^*\,dt\\
-    &=\int_{T}\mathrm{e}^{\mathrm{i}(k_1-k_2)\omega t}\\
-    &=\frac{2}{\mathrm{i}\omega (k_1-k_2)}\evalat{\mathrm{e}^{\mathrm{i}(k_1-k_2)\omega t}}{0}{T}\\
-    &=0\quad (k_1,k_2\in \mathbb{Z},k_1\neq k_2)
-\end{align*}
-\begin{align*}
-    (\mathrm{e}^{\mathrm{i}k\omega t},\mathrm{e}^{\mathrm{i}k\omega t})&=\int_{T}\mathrm{e}^{\mathrm{i}k\omega t}\overline{\mathrm{e}^{\mathrm{i}k\omega t}}\,dt\\
-    &=\int_{T}\,dt\\
-    &=T\quad (k\in \mathbb{Z} )
-\end{align*}
+容易验证$\{\e^{\im k\omega t}\}_{k=0}^{\infty}$是正交函数系：
+\begin{align}
+    (\e^{\im k_1\omega t},\e^{\im k_2\omega t})&=\int_{T}\e^{\im k_1\omega t}(\e^{\im k_2\omega t})^*\,\dd t\nonumber\\
+    &=\int_{T}\e^{\im(k_1-k_2)\omega t}\,\dd t\nonumber\\
+    &=\frac{2}{\im\omega (k_1-k_2)}\evalat{\e^{\im(k_1-k_2)\omega t}}{0}{T}\nonumber\\
+    &=0,\quad k_1,k_2\in \mathbb{Z},\ k_1\neq k_2,
+\end{align}
+\begin{align}
+    (\e^{\im k\omega t},\e^{\im k\omega t})&=\int_{T}\e^{\im k\omega t}\overline{\e^{\im k\omega t}}\,\dd t\nonumber\\
+    &=\int_{T}\,\dd t\nonumber\\
+    &=T,\quad k\in \mathbb{Z}.
+\end{align}
 和三角函数系的情况一样，可以由\cref{thm:vector_decomposition}得到$c_k$的计算公式：
-\begin{align*}
-    c_k & =\frac{(f(t),\mathrm{e}^{\mathrm{i}k\omega t})}{(\mathrm{e}^{\mathrm{i}k\omega t},\mathrm{e}^{\mathrm{i}k\omega t})} \\
-        & =\frac{1}{T}\int_{T}f(t)\overline{\mathrm{e}^{\mathrm{i}k\omega t}}\,dt                 \\
-        & =\frac{1}{T}\int_{T}f(t)\mathrm{e}^{-\mathrm{i}k\omega t}\,dt
-\end{align*}
-有时也将$c_k$记作$\hat{f}(k\omega)$或$\hat{F}(k)$，表示f在频域中的点$k\omega$处的值。一般而言，我们只将最小正周期称为一个函数的周期，但\textbf{周期为T的函数可以有多个频率$k\omega(k \in \mathbb{Z})$}。
+\begin{align}
+    c_k & =\frac{(f(t),\e^{\im k\omega t})}{(\e^{\im k\omega t},\e^{\im k\omega t})}\nonumber \\
+        & =\frac{1}{T}\int_{T}f(t)\overline{\e^{\im k\omega t}}\,\dd t\nonumber                 \\
+        & =\frac{1}{T}\int_{T}f(t)\e^{-\im k\omega t}\,\dd t.
+\end{align}
+有时也将$c_k$记作$\hat{f}(k\omega)$或$\hat{F}(k)$，表示$f$在频域中的点$k\omega$处的值。一般而言，我们只将最小正周期称为一个函数的周期，但\textbf{周期为$T$的函数可以有多个频率$k\omega\ (k \in \mathbb{Z})$}。
 
 \subsection{频谱}\label{sub:spectrum}
 
-为了直观地看出周期信号的各个频率分量的大小与相位，可以绘制\textbf{频谱} (spectrum)来表征函数的频域信息。频谱指函数频域图像，通常用其指数形式的傅里叶系数$c_k$来表征。由于难以画出复数，将频谱拆分为\textbf{幅度谱}$|\hat{f}(k\omega)|-\omega$和\textbf{相位谱}$\phi_k-\omega$，其中$\phi_k=\arg \hat{f}(k\omega)$。
+为了直观地看出周期函数的各个频率分量的大小与相位，可以绘制\textbf{频谱}(spectrum)来表征函数的频域信息。频谱指函数频域图像，通常用其指数形式的傅里叶系数$c_k$来表征。由于难以画出复数，将频谱拆分为\textbf{幅度谱}$|\hat{f}(k\omega)|-\omega$和\textbf{相位谱}$\phi_k-\omega$，其中$\phi_k=\arg \hat{f}(k\omega)$。
 
-对于实信号，
-\[\hat{f}(k\omega)=\overline{\hat{f}(-k\omega)}\implies |\hat{f}(k\omega)|=|\hat{f}(-k\omega)|,\phi_{-k}=-\phi_k\]
-即幅度谱为偶函数，相位谱为奇函数，所以实信号的频谱中有一半是冗余的。因此，有时也按照三角形式的傅里叶展开式
-\[\frac{c_0}{2}+\sum_{k = 1}^{\infty} c_k\cos(k\omega t+\varphi _k)\]
+对于实函数，
+\begin{equation}
+    \hat{f}(k\omega)=\overline{\hat{f}(-k\omega)}\implies |\hat{f}(k\omega)|=|\hat{f}(-k\omega)|,\quad \phi_{-k}=-\phi_k,
+\end{equation}
+即幅度谱为偶函数，相位谱为奇函数，所以实函数的频谱中有一半是冗余的。因此，有时也按照三角形式的傅里叶展开式
+\begin{equation}
+    \frac{c_0}{2}+\sum_{k = 1}^{\infty} c_k\cos(k\omega t+\varphi _k)
+\end{equation}
 绘制频谱$|c_k|-\omega$（注意此时$c_k$不是指数函数形式的傅里叶系数）和$\phi_k-\omega$，称之为\textbf{单边频谱}，而完整的频谱称为\textbf{双边频谱}，根据欧拉公式，
-\begin{align*}
-    c_k\cos(k\omega t+\varphi _k)&=\frac{c_k}{2}\mathrm{e}^{\mathrm{i}(k\omega t+\varphi_k)}+\frac{c_k}{2}\mathrm{e}^{-\mathrm{i}(k\omega t+\varphi_k)}\\
-    &=\frac{c_k}{2}\mathrm{e}^{\mathrm{i}(k\omega t+\varphi_k)}+\frac{\overline{c_{-k}}}{2}\mathrm{e}^{\mathrm{i}(-k\omega t+\varphi_{-k})}\\
-    \implies c_k&=2\hat{f}(k\omega),\quad k>0
-\end{align*}
+\begin{align}
+    c_k\cos(k\omega t+\varphi _k)&=\frac{c_k}{2}\e^{\im(k\omega t+\varphi_k)}+\frac{c_k}{2}\e^{-\im(k\omega t+\varphi_k)}\nonumber\\
+    &=\frac{c_k}{2}\e^{\im(k\omega t+\varphi_k)}+\frac{\overline{c_{-k}}}{2}\e^{\im(-k\omega t+\varphi_{-k})}\nonumber\\
+    &\implies c_k=2\hat{f}(k\omega),\quad k>0.
+\end{align}
 因此\textbf{对于实函数，单边频谱相比双边频谱，在正频率处的幅值加倍，相位不变，展示频域信息的效果不变，但没有冗余}。
 
-\begin{example}[周期矩形脉冲信号的傅里叶级数展开和频谱图]
+\begin{example}[周期矩形脉冲函数的傅里叶级数展开和频谱图]
     \label{exmp:rect_FS}
-    脉冲宽度为$\tau$，脉冲幅度为E，周期为$T (\tau<T)$的周期矩形脉冲信号$f(t)=E\chi_{[-\tau/2,\tau/2]}$，基波角频率$\omega=\dfrac{2\pi}{T}$，傅里叶级数展开为
-\[f(t)=\sum_{k = 1}^{\infty}  \frac{E\tau}{T}\text{Sa}\left(\frac{k\omega \tau}{2}\right)\mathrm{e}^{\mathrm{i}k\omega t}\]
+    脉冲宽度为$\tau$，脉冲幅度为$E$，周期为$T\ (\tau<T)$的周期矩形脉冲函数$f(t)=E\chi_{[-\tau/2,\tau/2]}$，基波角频率$\displaystyle \omega=\frac{2\pi}{T}$，傅里叶级数展开为
+    \begin{equation}
+        f(t)=\sum_{k = 1}^{\infty} \frac{E\tau}{T}\Sa\paren{\frac{k\omega \tau}{2}}\e^{\im k\omega t}.
+    \end{equation}
 \end{example}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{Figure_2}
-    \caption{周期矩形脉冲信号及其频谱}
+    \caption{周期矩形脉冲函数及其频谱}
 \end{figure}
-如图，可以看到，这个频谱与采样函数$\text{Sa}(\omega)$非常相似\footnote{为了体现这一点，绘制频谱时将基波角频率大幅减小，并不是第一张图直接做傅里叶级数展开的结果}，其原理将在\refsub{fourier_of_dirac_comb}中给出。
+如图，可以看到，这个频谱与采样函数$\Sa(\omega)$非常相似\footnote{为了体现这一点，绘制频谱时将基波角频率大幅减小，并不是第一张图直接做傅里叶级数展开的结果。}，其原理将在\refsub{fourier_of_dirac_comb}中给出。
 
 \begin{definition}[带宽]
-    \textbf{带宽} (bandwidth)指信号的最高频率与最低频率之差，表征信号频率的集中程度。对于实信号，有时仅考虑正频率\cite{signal_systems}，带宽减半。
+    \textbf{带宽}(bandwidth)指信号的最高频率与最低频率之差，表征信号频率的集中程度。对于实信号，有时仅考虑正频率\cite{signal_systems}，带宽减半。
 
-    周期矩形脉冲信号的频谱是无限的，但能量基本集中在最靠近y轴的两个零点之间，此时可以将它的带宽定义为\textbf{第一过零点带宽}：
-    $$B=\dfrac{2\pi}{\tau}$$
+    周期矩形脉冲函数的频谱是无限的，但能量基本集中在最靠近$y$轴的两个零点之间，此时可以将它的带宽定义为\textbf{第一过零点带宽}：
+    \begin{equation}
+        B=\frac{2\pi}{\tau}.
+    \end{equation}
 \end{definition}
 
 \subsection{傅里叶级数的收敛性}\label{sub:fourier_series_convergency}
@@ -158,50 +186,64 @@
 \subsubsection{依范数收敛性}
 
 \begin{definition}[依范数收敛]
-    在内积空间$L^2([0,T])$中，函数项级数$\sum_{i = 1}^{n}  a_i f_i(t)$依范数收敛于$f(t)$，如果
-    \[\lim_{n \to \infty} \left\| f(t)-\sum_{i = 1}^{n}  a_i f_i(t)\right\|_2=0\]
+    在内积空间$L^2([0,T])$中，函数项级数$\sum_{i = 1}^{n} a_i f_i(t)$依范数收敛于$f(t)$，如果
+    \begin{equation}
+        \lim_{n \to \infty} \norm{f(t)-\sum_{i = 1}^{n} a_i f_i(t)}_2=0,
+    \end{equation}
     其中
-    \[\left\|f\right\|_2^2=(f,f)=\int_{0}^{T}|f(t)|^2\,dt,\quad\forall f\in L^2([0,T])\]
+    \begin{equation}
+        \|f\|_2^2=(f,f)=\int_{0}^{T}|f(t)|^2\,\dd t,\quad \forall f\in L^2([0,T]).
+    \end{equation}
 \end{definition}
 
-作为一个引理，我们首先来证明（指数形式的）傅里叶级数是使用正交基$\{\mathrm{e}^{\mathrm{i}k\omega t}\}_{k=0}^{\infty}$给出的，\textbf{最小均方误差}(minimun mean sqare error,MMSE)意义下的的最佳逼近：
+作为一个引理，我们首先来证明（指数形式的）傅里叶级数是使用正交基$\{\e^{\im k\omega t}\}_{k=0}^{\infty}$给出的，\textbf{最小均方误差}(minimum mean square error, MMSE)意义下的最佳逼近：
 \begin{lemma}
-    设$f\in L^2([0,T])$，指数形式的傅里叶系数为$c_k(k\in\mathbb{Z} )$，则对于任意的正整数N和任意的复数列$\{\alpha_k\}_{k=-\infty}^{\infty}$，都有
-    \[\left\|f(t)-\sum_{k=-N}^{N}c_k \mathrm{e}^{\mathrm{i}k\omega t}\right\|_2\leq\left\|f(t)-\sum_{k=-N}^{N}\alpha_k \mathrm{e}^{\mathrm{i}k\omega t}\right\|_2\]
-    取等条件为$\alpha_k=c_k,k=-N,\cdots,N$。
+    设$f\in L^2([0,T])$，指数形式的傅里叶系数为$c_k\ (k\in\mathbb{Z})$，则对于任意的正整数$N$和任意的复数列$\{\alpha_k\}_{k=-\infty}^{\infty}$，都有
+    \begin{equation}
+        \norm{f(t)-\sum_{k=-N}^{N}c_k \e^{\im k\omega t}}_2\leq\norm{f(t)-\sum_{k=-N}^{N}\alpha_k \e^{\im k\omega t}}_2,
+    \end{equation}
+    取等条件为$\alpha_k=c_k,\ k=-N,\cdots,N$。
 \end{lemma}
 \begin{proof}
-    利用正交基的定义，$c_k$是函数$f$在基函数$\mathrm{e}^{\mathrm{i}k\omega t}$上投影分量的大小，因此去掉$c_k\e^{\im k\omega t}$成分后，$f$与$\e^{\im k\omega t}$是正交的：
-    \[\left(f-\sum_{k=-N}^{N}c_k \mathrm{e}^{\mathrm{i}k\omega t},\mathrm{e}^{\mathrm{i}k\omega t}\right)=0,\quad k=-N,\cdots,N\]
+    利用正交基的定义，$c_k$是函数$f$在基函数$\e^{\im k\omega t}$上投影分量的大小，因此去掉$c_k\e^{\im k\omega t}$成分后，$f$与$\e^{\im k\omega t}$是正交的：
+    \begin{equation}
+        \paren{f-\sum_{k=-N}^{N}c_k \e^{\im k\omega t},\e^{\im k\omega t}}=0,\quad k=-N,\cdots,N.
+    \end{equation}
     将下式与自己做内积：
-    \[f(t)-\sum_{k=-N}^{N}\alpha_k \mathrm{e}^{\mathrm{i}k\omega t}=\left(f(t)-\sum_{k=-N}^{N}c_k \mathrm{e}^{\mathrm{i}k\omega t}\right)+\sum_{k=-N}^{N}(c_k-\alpha_k) \mathrm{e}^{\mathrm{i}k\omega t}\]
+    \begin{equation}
+        f(t)-\sum_{k=-N}^{N}\alpha_k \e^{\im k\omega t}=\paren{f(t)-\sum_{k=-N}^{N}c_k \e^{\im k\omega t}}+\sum_{k=-N}^{N}(c_k-\alpha_k) \e^{\im k\omega t}.
+    \end{equation}
     由正交性可知交叉项等于0，而范数具有非负性，于是：
-    \begin{align*}
-        \left\|f(t)-\sum_{k=-N}^{N}\alpha_k \mathrm{e}^{\mathrm{i}k\omega t}\right\|_2^2&=\left\|f(t)-\sum_{k=-N}^{N}c_k \mathrm{e}^{\mathrm{i}k\omega t}\right\|_2^2+\left\|\sum_{k=-N}^{N}(c_k-\alpha_k) \mathrm{e}^{\mathrm{i}k\omega t}\right\|_2^2\\
-        &\geq \left\|f(t)-\sum_{k=-N}^{N}c_k \mathrm{e}^{\mathrm{i}k\omega t}\right\|_2^2
-    \end{align*}
-    取等条件为$\alpha_k=c_k,k=-N,\cdots,N$。
+    \begin{align}
+        \norm{f(t)-\sum_{k=-N}^{N}\alpha_k \e^{\im k\omega t}}_2^2&=\norm{f(t)-\sum_{k=-N}^{N}c_k \e^{\im k\omega t}}_2^2+\norm{\sum_{k=-N}^{N}(c_k-\alpha_k) \e^{\im k\omega t}}_2^2\nonumber\\
+        &\geq \norm{f(t)-\sum_{k=-N}^{N}c_k \e^{\im k\omega t}}_2^2.
+    \end{align}
+    取等条件为$\alpha_k=c_k,\ k=-N,\cdots,N$。
 \end{proof}
 
 为了证明依范数收敛性，我们还需要说明：三角多项式（\cref{def:trinomial}）在$L^2([0,T])$中是稠密的，这一结论可以拆分为以下两个命题。
 \begin{theorem}[魏尔斯特拉斯第二逼近定理]
-    在$L^2$范数的意义下，三角多项式（即形如傅里叶级数部分和的函数）在连续函数空间$C([0,T])$中是稠密的，即$\forall f\in C([0,T]),\forall \varepsilon >0$，存在一个三角多项式$P(t)$使得$\|f-P\|_2<\varepsilon$.
+    在$L^2$范数的意义下，三角多项式（即形如傅里叶级数部分和的函数）在连续函数空间$C([0,T])$中是稠密的，即$\forall f\in C([0,T]),\ \forall \varepsilon >0$，存在一个三角多项式$P(t)$使得$\|f-P\|_2<\varepsilon$。
 \end{theorem}
 以上定理改写自\cref{cor:weierstrass_2}，证明也将在那里给出。
 
 \begin{claim}
     连续函数空间$C([0,T])$在$L^2([0,T])$中是稠密的，即：
-    $$\forall f\in L^2([0,T]),\forall\varepsilon >0,\exists g\in C([0,T]),\|f-g\|_2<\varepsilon$$
+    \begin{equation}
+        \forall f\in L^2([0,T]),\ \forall\varepsilon >0,\ \exists g\in C([0,T]),\quad \|f-g\|_2<\varepsilon.
+    \end{equation}
 \end{claim}
 
 由于傅里叶级数是$f$的最佳逼近，只要指出一个$M$次的三角多项式，使得$\|f-P\|_2<\varepsilon$，就有
-\begin{align*}
-    \|f-S_N\|_2 & \leq \|f-P\|_2<\epsilon,\quad\forall N>M
-\end{align*}
+\begin{equation}
+    \|f-S_N\|_2 \leq \|f-P\|_2<\epsilon,\quad \forall N>M.
+\end{equation}
 综上，我们证明了：
 \begin{theorem}[傅里叶级数的依范数收敛性]
-    设$f\in L^2([0,T])$，指数形式的傅里叶系数为$c_k(k\in\mathbb{Z} )$，则傅里叶级数的部分和依范数收敛于$f$：
-    \[\lim_{N \to \infty} \left\| f(t)-\sum_{k=-N}^{N}c_k \mathrm{e}^{\mathrm{i}k\omega t}\right\|_2=0\]
+    设$f\in L^2([0,T])$，指数形式的傅里叶系数为$c_k\ (k\in\mathbb{Z})$，则傅里叶级数的部分和依范数收敛于$f$：
+    \begin{equation}
+        \lim_{N \to \infty} \norm{f(t)-\sum_{k=-N}^{N}c_k \e^{\im k\omega t}}_2=0.
+    \end{equation}
 \end{theorem}
 
 任意$L^2([0,T])$中的函数$f$均可展开为傅里叶级数，而傅里叶级数一定依范数收敛于$f$，即$f$作为一个矢量总可以表示为基函数的线性组合，因此我们说：复指数函数系$\{\e^{\im k\omega t}\}_{k=0}^{\infty}$和三角函数系是\textbf{完备}的正交基。
@@ -211,29 +253,30 @@
 对于逐点收敛性，狄利克雷给出了它的一个充分条件，称之为\textbf{狄利克雷条件}，满足这个条件的函数的傅里叶级数在任意点收敛于其左右极限的平均值。在此之前给出两个概念：
 
 \begin{definition}[狄利克雷条件]
-    \quad
     \begin{itemize}[nosep, left=0pt]
-    \item $\int_{T}|f(t)|\,dt<\infty$
-    \item 在一个周期内f连续或有有限个第一类间断点，即\textbf{分段连续} (piecewise continuous)
-    \item 在一个周期内，f的极值点个数有限
-\end{itemize}
+        \item $\int_{T}|f(t)|\,\dd t<\infty$
+        \item 在一个周期内$f$连续或有有限个第一类间断点，即\textbf{分段连续}(piecewise continuous)
+        \item 在一个周期内，$f$的极值点个数有限
+    \end{itemize}
 \end{definition}
 \begin{definition}[分段连续]
     \label{def:piecewise_continuos}
-    函数$f$在区间$[a,b]$上是\textbf{分段连续}的，如果存在区间的划分$a=x_0<x_1<\dots <x_n=b$，使得在每个子区间$(x_{i-1},x_i)$上f连续，且区间端点处$f$的左右极限存在，记作$f\in PC[a,b]$。
+    函数$f$在区间$[a,b]$上是\textbf{分段连续}的，如果存在区间的划分$a=x_0<x_1<\dots <x_n=b$，使得在每个子区间$(x_{i-1},x_i)$上$f$连续，且区间端点处$f$的左右极限存在，记作$f\in PC[a,b]$。
 \end{definition}
 
 \begin{theorem}[狄利克雷定理]
-    满足狄利克雷条件时，f的傅里叶级数展开在在任意点收敛到其左右极限的平均值：
-    \[\forall t\in \mathbb{R},\quad\sum_{k=\infty}^{\infty}c_k \mathrm{e}^{\mathrm{i}2\pi kt}=\frac{f(t+)+f(t-)}{2}\]
+    满足狄利克雷条件时，$f$的傅里叶级数展开在任意点收敛到其左右极限的平均值：
+    \begin{equation}
+        \forall t\in \mathbb{R},\quad \sum_{k=-\infty}^{\infty}c_k \e^{\im 2\pi kt}=\frac{f(t+)+f(t-)}{2}.
+    \end{equation}
 \end{theorem}
 
 如果函数在有限个点处不连续，我们的确无法将这一结论加强到逐点收敛，因为在不连续点处函数的取值不影响积分值，也就不影响傅里叶系数，当然也就得不到不连续点处的收敛性，但是如果将分段连续函数在不连续点处的取值定义为左右极限的平均值，这样就能够得到逐点收敛性了。
 
-狄利克雷条件中的最后一条实际上相当于要求f是有界变差函数，感兴趣的读者可以参考实变函数的教材（如\cite{simple_real_analysis}，\cite{real_analysis}）。在\refsub{uniform_converge}中我们将讨论另外的更易理解的条件：
+狄利克雷条件中的最后一条实际上相当于要求$f$是有界变差函数，感兴趣的读者可以参考实变函数的教材（如\cite{simple_real_analysis}，\cite{real_analysis}）。在\refsub{uniform_converge}中我们将讨论另外的更易理解的条件：
 \begin{definition}[分段光滑]
     \phantomsection\label{def:piecewice_smooth}
-    在区间$[a,b]$上，函数$f$称为\textbf{分段光滑} (piecewise smooth)，如果存在区间的划分$a=x_0<x_1<\dots <x_n=b$，使得在每个子区间$(x_{i-1},x_i)$上f可微，且区间端点处$f$的左右导数存在，记作$f\in PS[a,b]$。
+    在区间$[a,b]$上，函数$f$称为\textbf{分段光滑}(piecewise smooth)，如果存在区间的划分$a=x_0<x_1<\dots <x_n=b$，使得在每个子区间$(x_{i-1},x_i)$上$f$可微，且区间端点处$f$的左右导数存在，记作$f\in PS[a,b]$。
 \end{definition}
 在分段光滑的条件下，我们可以证明傅里叶级数是\textbf{一致收敛}于原函数的。
 
@@ -242,120 +285,141 @@
 事实上，只要函数$f\in L^1([0,T])\cap L^2([0,T])$，就能保证$f$的傅里叶级数在$f$的连续点处Cesàro收敛于$f(t)$，而Cesàro收敛又能推出Abel收敛。这一条件比狄利克雷条件弱一些。对于这两种收敛性的定义及其证明，可以参考\cite{stein2011fourier}。
 
 \subsection{吉布斯现象}\label{sub:gibbs_phenomenon}
-当$f(t)$不连续时，傅里叶级数的会在间断点处产生\textbf{吉布斯现象} (Gibbs' Phenomenon)：
+当$f(t)$不连续时，傅里叶级数会在间断点处产生\textbf{吉布斯现象}(Gibbs' Phenomenon)：
 \begin{definition}[吉布斯现象]
-    部分和$S_N^f(t)$在间断点处总会\textbf{过冲}（在间断点两侧出现超过原函数的峰值），过冲幅度约为跳变幅度的9\%，并且$S_N^f(t)$会在间断点附近高频振荡
+    部分和$S_N^f(t)$在间断点处总会\textbf{过冲}（在间断点两侧出现超过原函数的峰值），过冲幅度约为跳变幅度的9\%，并且$S_N^f(t)$会在间断点附近高频振荡。
 \end{definition}
 \begin{example}
-    对于跳变幅度为2、周期为$2\pi$的周期矩形脉冲信号
-\[R(x) =
-    \begin{cases}
-        1  & \text{if } 0<x<\pi  \\
-        -1 & \text{if } -\pi<x<0
-    \end{cases}\]
-其傅里叶级数的跳变值为1，$\varlimsup_{N \to \infty}S_N^R(t)=1.089490 \dots$这是因为光滑的基函数很难逼近这种剧烈的局部变化，不得不用高频分量来补偿，高频分量带来了剧烈震动。
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{gibbs}
-    \caption{吉布斯现象示意图}
-\end{figure}
+    对于跳变幅度为2、周期为$2\pi$的周期矩形脉冲函数
+    \begin{equation}
+        R(x) =
+        \begin{dcases}
+            1,  & \text{if } 0<x<\pi,  \\
+            -1, & \text{if } -\pi<x<0,
+        \end{dcases}
+    \end{equation}
+    其傅里叶级数的跳变值为1，$\varlimsup_{N \to \infty}S_N^R(t)=1.089490 \dots$。这是因为光滑的基函数很难逼近这种剧烈的局部变化，不得不用高频分量来补偿，高频分量带来了剧烈震动。
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{gibbs}
+        \caption{吉布斯现象示意图}
+    \end{figure}
 \end{example}
 $\varlimsup_{N \to \infty}S_N^R(t)>1$并不意味着狄利克雷定理失效，因为定理给出的是逐点收敛：
-\[\varlimsup_{N \to \infty}S_N^R(t)=\lim_{N \to \infty}\sup_{t\in \mathbb{R} }S_N^R(t)\neq \sup_{t\in\mathbb{R}}\lim_{N\to\infty}S_N^R(t)\]
+\begin{equation}
+    \varlimsup_{N \to \infty}S_N^R(t)=\lim_{N \to \infty}\sup_{t\in \mathbb{R}}S_N^R(t)\neq \sup_{t\in\mathbb{R}}\lim_{N\to\infty}S_N^R(t).
+\end{equation}
 使极限号与取上界号交换的一个充分条件是一致收敛，吉布斯现象表明，傅里叶级数在包含间断点的区间上不可能一致收敛。
 
 为了直观地理解上确界的极限与极限的上确界之间的区别，我们来看一个经典的例子：
 \begin{example}
-    \begin{align*}
-    f_n(x)=
-    \begin{cases}
-        nx   & \text{if } 0<x\leq 1/n        \\
-        2-nx & \text{if } 1/n<x<2/n \\
-        0    & \text{otherwise}
-    \end{cases}
-\end{align*}
-随n增大，$f(x)$逐点趋于0，因为对每一点$2/n$总能取到更小的值；但$f(x)$的最大值永远是1。
+    \begin{equation}
+        f_n(x)=
+        \begin{dcases}
+            nx,   & \text{if } 0<x\leq 1/n,        \\
+            2-nx, & \text{if } 1/n<x<2/n, \\
+            0,    & \otherwise.
+        \end{dcases}
+    \end{equation}
+    随$n$增大，$f(x)$逐点趋于0，因为对每一点$2/n$总能取到更小的值；但$f(x)$的最大值永远是1。
 \end{example}
 
 \subsection{帕塞瓦尔恒等式}\label{sub:paseval}
 类比有限维线性空间中的勾股定理，有
 \begin{theorem}[帕塞瓦尔定理/瑞利恒等式]
-    \[\|f\|_2=\sum_{k=1}^{\infty}c_k^2|\mathrm{e}^{\mathrm{i}k\omega t}|^2=T\sum_{k=1}^{\infty}c_k^2\]
-即\[P=\frac{1}{T}\int_{T}|f(t)|^2\,dt=\sum_{k=1}^{\infty}c_k^2\]
-其中P为平均功率。
+    \begin{equation}
+        \|f\|_2=\sum_{k=1}^{\infty}c_k^2|\e^{\im k\omega t}|^2=T\sum_{k=1}^{\infty}c_k^2,
+    \end{equation}
+    即
+    \begin{equation}
+        P=\frac{1}{T}\int_{T}|f(t)|^2\,\dd t=\sum_{k=1}^{\infty}c_k^2,
+    \end{equation}
+    其中$P$为平均功率。
 \end{theorem}
 至此，我们提出了傅里叶系数的公式和帕塞瓦尔定理，但用到的毕达哥拉斯定理（\cref{thm:gougu}）是基于有限维线性空间的，现在就来填补这个逻辑漏洞，对此不感兴趣的读者可以忽略这部分内容。设$\{\phi_n\}_{n=1}^{\infty}$是内积空间$L^2((a,b))$的标准正交基，$f\in L^2((a,b))$（注意这里已经不局限于讨论傅里叶级数）。
 
 \begin{lemma}[*贝塞尔不等式]
-\[\sum_{n=1}^{\infty}|(f,\phi_n)|^2\leq\|f\|_2^2\]
+    \begin{equation}
+        \sum_{n=1}^{\infty}|(f,\phi_n)|^2\leq\|f\|_2^2.
+    \end{equation}
 \end{lemma}
 \begin{proof}
     由勾股定理，
-    \begin{flalign*}
-     \left\|\sum_{n=1}^{N}(f,\phi_n)\phi_n\right\|_2^2= \sum_{n=1}^{N}\left(f,(f,\phi_n)\phi_n\right)=\sum_{n=1}^{N}\overline{(f,\phi_n)}(f,\phi_n)=\sum_{n=1}^{N}|(f,\phi_n)|^2
-\end{flalign*}
-因此，对任意正整数N，有
-\begin{flalign*}
-     0&\leq\left\|f-\sum_{n=1}^{N}(f,\phi_n)\phi_n\right\|_2^2\\
-     &=\|f\|_2^2-2\text{Re}\left(\left(f,\sum_{n=1}^{N}(f,\phi_n)\phi_n\right)\right)+\left\|\sum_{n=1}^{N}(f,\phi_n)\phi_n\right\|_2^2                        \\
-     &=\|f\|_2^2-2\sum_{n=1}^{N}|(f,\phi_n)|^2+\sum_{n=1}^{N}|(f,\phi_n)|^2\\
-     &=\|f\|_2^2-\sum_{n=1}^{N}|(f,\phi_n)|^2
-\end{flalign*}
-令$N\to\infty$即证。从第一行到第二行用到了恒等式$\|\mathbf{a+b}\|^2=\|\mathbf{a}\|^2+2\text{Re}(\langle\mathbf{a,b}\rangle)+\|\mathbf{b}\|^2$，这个结论十分简单，留予读者自证。
+    \begin{equation}
+        \norm{\sum_{n=1}^{N}(f,\phi_n)\phi_n}_2^2= \sum_{n=1}^{N}\paren{f,(f,\phi_n)\phi_n}=\sum_{n=1}^{N}\overline{(f,\phi_n)}(f,\phi_n)=\sum_{n=1}^{N}|(f,\phi_n)|^2.
+    \end{equation}
+    因此，对任意正整数$N$，有
+    \begin{align}
+         0&\leq\norm{f-\sum_{n=1}^{N}(f,\phi_n)\phi_n}_2^2\nonumber\\
+         &=\|f\|_2^2-2\Re\paren{\braket{f,\sum_{n=1}^{N}(f,\phi_n)\phi_n}}+\norm{\sum_{n=1}^{N}(f,\phi_n)\phi_n}_2^2\nonumber \\
+         &=\|f\|_2^2-2\sum_{n=1}^{N}|(f,\phi_n)|^2+\sum_{n=1}^{N}|(f,\phi_n)|^2\nonumber\\
+         &=\|f\|_2^2-\sum_{n=1}^{N}|(f,\phi_n)|^2.
+    \end{align}
+    令$N\to\infty$即证。从第一行到第二行用到了恒等式$\|\mathbf{a}+\mathbf{b}\|^2=\|\mathbf{a}\|^2+2\Re\paren{\langle\mathbf{a},\mathbf{b}\rangle}+\|\mathbf{b}\|^2$，这个结论十分简单，留予读者自证。
 \end{proof}
 在最终的结论帕塞瓦尔定理中这个不等号将变成等号，但它是不可或缺的，并且我们还将在\cref{lemma:bessel_inequality}中见到它。
 
 \begin{lemma}*
-级数$\sum_{n=1}^{N}(f,\phi_n)\phi_n$依范数收敛，并且$\left\|\sum_{n=1}^{\infty}(f,\phi_n)\phi_n\right\|_2\leq\|f\|_2$
+    级数$\sum_{n=1}^{N}(f,\phi_n)\phi_n$依范数收敛，并且$\norm{\sum_{n=1}^{\infty}(f,\phi_n)\phi_n}_2\leq\|f\|_2$。
 \end{lemma}
 \begin{proof}
     由贝塞尔不等式，
-\begin{flalign*}
-    \sum_{n=1}^{\infty}|(f,\phi_n)|^2\leq\|f\|_2^2<\infty
-\end{flalign*}
-因此
-$$\lim_{n\to\infty}|(f,\phi_n)|\to 0$$
-任取$m_1,m_2\in\mathbb{N},m_1<m_2$，由勾股定理，
-\begin{flalign*}
-              \left\|\sum_{n=m_1}^{m_2}(f,\phi_n)\phi_n\right\|_2^2=\sum_{n=m_1}^{m_2}\left|(f,\phi_n)\right|^2\to 0
-\end{flalign*}
-因此$\sum_{n=1}^{\infty}(f,\phi_n)\phi_n$构成柯西列。由于$L^2((a,b))$是无限维的完备度量空间，即希尔伯特空间（
-\cref{def:hilbert_space}）。
+    \begin{equation}
+        \sum_{n=1}^{\infty}|(f,\phi_n)|^2\leq\|f\|_2^2<\infty,
+    \end{equation}
+    因此
+    \begin{equation}
+        \lim_{n\to\infty}|(f,\phi_n)|\to 0.
+    \end{equation}
+    任取$m_1,m_2\in\mathbb{N},\ m_1<m_2$，由勾股定理，
+    \begin{equation}
+        \norm{\sum_{n=m_1}^{m_2}(f,\phi_n)\phi_n}_2^2=\sum_{n=m_1}^{m_2}|(f,\phi_n)|^2\to 0,
+    \end{equation}
+    因此$\sum_{n=1}^{\infty}(f,\phi_n)\phi_n$构成柯西列。由于$L^2((a,b))$是无限维的完备度量空间，即希尔伯特空间（\cref{def:hilbert_space}）。
 
-令$m_1=1,m_2\to\infty$，即得
-\begin{flalign*}
-\left\|\sum_{n=1}^{\infty}(f,\phi_n)\phi_n\right\|_2 =\sum_{n=1}^{\infty}\left|(f,\phi_n)\phi_n\right|^2\leq\|f\|_2^2
-\end{flalign*}
+    令$m_1=1,\ m_2\to\infty$，即得
+    \begin{equation}
+        \norm{\sum_{n=1}^{\infty}(f,\phi_n)\phi_n}_2 =\sum_{n=1}^{\infty}|(f,\phi_n)\phi_n|^2\leq\|f\|_2^2.
+    \end{equation}
 \end{proof}
 
 \begin{proposition}[*希尔伯特空间中的内积的连续性]\label{prop:hilbert_inner_product_continuous}
-对于希尔伯特空间$H$，如果$\phi_n\in H$，级数$\sum_{n=1}^{\infty}\phi_n$的部分和$S_N$依范数收敛到S，则任给$y\in H$，总有
-\[\lim_{N\to\infty}\left\langle S_n,y\right\rangle=\langle S,y\rangle\]
+    对于希尔伯特空间$H$，如果$\phi_n\in H$，级数$\sum_{n=1}^{\infty}\phi_n$的部分和$S_N$依范数收敛到$S$，则任给$y\in H$，总有
+    \begin{equation}
+        \lim_{N\to\infty}\langle S_n,y\rangle=\langle S,y\rangle.
+    \end{equation}
 \end{proposition}
 \begin{proof}
-\begin{align*}
-     & \langle S,y\rangle-\lim_{N\to\infty}\left\langle S_n,y\right\rangle=\lim_{N\to\infty}\langle S-S_n,y\rangle                                     \\
-     & \lim_{N\to\infty}\|S-S_N\|=0\implies \lim_{N\to\infty}|\left\langle S-S_n,y\right\rangle|\leq\lim_{N\to\infty}\left\|S-S_N\right\|\|y\|=0               \\
-     & \hspace{3cm}\implies \lim_{N\to\infty}\langle S-S_n,y\rangle=0\implies\lim_{N\to\infty}\left\langle S_n,y\right\rangle=\langle S,y\rangle
-\end{align*}
+    \begin{align}
+        &\langle S,y\rangle-\lim_{N\to\infty}\langle S_n,y\rangle=\lim_{N\to\infty}\langle S-S_n,y\rangle, \\
+        &\lim_{N\to\infty}\|S-S_N\|=0\implies \lim_{N\to\infty}|\langle S-S_n,y\rangle|\leq\lim_{N\to\infty}\|S-S_N\|\|y\|=0\nonumber\\
+        &\hspace{3cm}\implies \lim_{N\to\infty}\langle S-S_n,y\rangle=0\implies\lim_{N\to\infty}\langle S_n,y\rangle=\langle S,y\rangle.
+    \end{align}
 \end{proof}
 
 \begin{theorem}*
-以下三个命题是等价的：（符号$\sim$表示$L^2((a,b))$空间中的等价关系，参考\refsub{Lp_space}）
-\begin{enumerate}
-    \item $\forall n,(f,\phi_n)=0\implies f\sim 0$，即$\{\phi_n\}_{n=1}^{\infty}$是完备的标准正交基
-    \item $\forall f\in L^2((a,b))$，有$f\sim\sum_{n=1}^{\infty}(f,\phi_n)\phi_n$
-    \item $\forall f\in L^2((a,b))$，有\textbf{帕塞瓦尔恒等式}：
-          \[\|f\|_2^2=\sum_{n=1}^{\infty}|(f,\phi_n)|^2\]
-\end{enumerate}
+    以下三个命题是等价的：（符号$\sim$表示$L^2((a,b))$空间中的等价关系，参考\refsub{Lp_space}）
+    \begin{enumerate}
+        \item $\forall n,\ (f,\phi_n)=0\implies f\sim 0$，即$\{\phi_n\}_{n=1}^{\infty}$是完备的标准正交基；
+        \item $\forall f\in L^2((a,b))$，有$f\sim\sum_{n=1}^{\infty}(f,\phi_n)\phi_n$；
+        \item $\forall f\in L^2((a,b))$，有\textbf{帕塞瓦尔恒等式}：
+              \begin{equation}
+                  \|f\|_2^2=\sum_{n=1}^{\infty}|(f,\phi_n)|^2.
+              \end{equation}
+    \end{enumerate}
 \end{theorem}
 \begin{proof}
-我们将证明$1\implies 2\implies 3\implies 1$.\\
-$1\implies 2$：令$g\sim \left(f-\sum_{n=1}^{\infty}(f,\phi_n)\phi_n\right)$，则$\forall m\in\mathbb{N}$，有：\begin{align*}
-    \left(g,\phi_m\right)=\left(f,\phi_m\right)-\sum_{n=1}^{\infty}\left(f,\phi_n\right)\left(\phi_n,\phi_m\right)=\left(f,\phi_m\right)-\left(f,\phi_m\right)=0 
-\end{align*}
-根据1知g=0，即2.这里内积与求和的换序是由\cref{prop:hilbert_inner_product_continuous}保证的。\\
-$2\implies 3$：由勾股定理，
-\[\|f\|_2^2=\lim_{N\to\infty}\left\|\sum_{n=1}^{N}(f,\phi_n)\phi_n\right\|_2^2=\lim_{N\to\infty}\sum_{n=1}^{N}|(f,\phi_n)|^2=\sum_{n=1}^{\infty}|(f,\phi_n)|^2\]
-$3\implies 1$：$(f,\phi_n)=0\implies\|f\|_2=0\implies f\sim 0$.
+    我们将证明$1\implies 2\implies 3\implies 1$。
+
+    $1\implies 2$：令$g\sim \paren{f-\sum_{n=1}^{\infty}(f,\phi_n)\phi_n}$，则$\forall m\in\mathbb{N}$，有：
+    \begin{equation}
+        (g,\phi_m)=(f,\phi_m)-\sum_{n=1}^{\infty}(f,\phi_n)(\phi_n,\phi_m)=(f,\phi_m)-(f,\phi_m)=0.
+    \end{equation}
+    根据1知$g=0$，即2。这里内积与求和的换序是由\cref{prop:hilbert_inner_product_continuous}保证的。
+
+    $2\implies 3$：由勾股定理，
+    \begin{equation}
+        \|f\|_2^2=\lim_{N\to\infty}\norm{\sum_{n=1}^{N}(f,\phi_n)\phi_n}_2^2=\lim_{N\to\infty}\sum_{n=1}^{N}|(f,\phi_n)|^2=\sum_{n=1}^{\infty}|(f,\phi_n)|^2.
+    \end{equation}
+    $3\implies 1$：$(f,\phi_n)=0\implies\|f\|_2=0\implies f\sim 0$。
 \end{proof}

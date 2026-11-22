@@ -1,197 +1,270 @@
 \section{拉普拉斯变换的收敛域}\label{Convergence}
 
 \subsection{收敛横坐标和收敛域}\label{sub:converge_abscissa}
-我们在定义单边拉普拉斯变换时，曾要求$|f(t)|\leq C \mathrm{e}^{at}$，这样拉普拉斯积分$\mathcal{L} f(s)=\int_{0}^{\infty}f(t)\mathrm{e}^{-st}\,dt$\\
-在$\mathrm{Re}(s)>a$上收敛，但是我们不知道这一要求是否是最精确的。本节就来讨论拉普拉斯变换的收敛横坐标和收敛域的问题，并由此给出一些由拉普拉斯变换分析时域性质的方法。
+我们在定义单边拉普拉斯变换时，曾要求$\abs{f(t)}\leq C\e^{at}$，这样拉普拉斯积分$\mathcal{L}f(s)=\int_{0}^{\infty}f(t)\e^{-st}\,\dd t$在$\Re(s)>a$上收敛，但是我们不知道这一要求是否是最精确的。本节就来讨论拉普拉斯变换的收敛横坐标和收敛域的问题，并由此给出一些由拉普拉斯变换分析时域性质的方法。
 
 为了寻找收敛横坐标，我们有两种思路：
 
-\subsubsection{思路一：从时域出发，分析$|f(t)|$的增长速率}
-由于$f\in\mathcal{E} $，在有限区间上的表现不会影响拉普拉斯积分的收敛性，因此我们只需考虑$t\to\infty$时$f$的增长速率。我们用$|f(t)|\sim C \mathrm{e}^{a t}$表示$|f(t)|$与$C \mathrm{e}^{a t}$在$t\to\infty$时具有相同增长速率，即
-\[|f(t)|\sim C \mathrm{e}^{a t}\iff \lim_{t\to\infty}\frac{|f(t)|}{C \mathrm{e}^{a t}}=1\]
-则\begin{align*}
-    |f(t)|\sim C \mathrm{e}^{a t}\iff \ln|f(t)|\sim \ln C +a t\iff\frac{\ln|f(t)|}{t}\sim a +\frac{\ln C}{t}=a
-\end{align*}
+\subsubsection{思路一：从时域出发，分析$\abs{f(t)}$的增长速率}
+由于$f\in\mathcal{E}$，在有限区间上的表现不会影响拉普拉斯积分的收敛性，因此我们只需考虑$t\to\infty$时$f$的增长速率。我们用$\abs{f(t)}\sim C\e^{at}$表示$\abs{f(t)}$与$C\e^{at}$在$t\to\infty$时具有相同增长速率，即
+\begin{equation}
+    \abs{f(t)}\sim C\e^{at}\iff\lim_{t\to\infty}\frac{\abs{f(t)}}{C\e^{at}}=1,
+\end{equation}
+则
+\begin{equation}
+    \abs{f(t)}\sim C\e^{at}\iff\ln\abs{f(t)}\sim\ln C+at\iff\frac{\ln\abs{f(t)}}{t}\sim a+\frac{\ln C}{t}=a.
+\end{equation}
 
-但是，我们很容易构造这样一个反例来说明这个方法并不总是有效。考虑$f(t)=\mathrm{e}^{t\sin t}$，则极限
-$$\lim_{t\to\infty}\frac{\ln|f(t)|}{t}=\lim_{t\to\infty}\sin t$$
-不存在，但很明显$\mathcal{L} f(s)$在$\mathrm{Re}(s)>1$上收敛。对照这个反例改进这一方法，得到：
+但是，我们很容易构造这样一个反例来说明这个方法并不总是有效。考虑$f(t)=\e^{t\sin t}$，则极限
+\begin{equation}
+    \lim_{t\to\infty}\frac{\ln\abs{f(t)}}{t}=\lim_{t\to\infty}\sin t
+\end{equation}
+不存在，但很明显$\mathcal{L}f(s)$在$\Re(s)>1$上收敛。对照这个反例改进这一方法，得到：
 \begin{theorem}
-    设$f\in\mathcal{E} $，则收敛横坐标可由以下公式得到：
-    \[\sigma_c=\varlimsup_{t\to\infty}\frac{\ln|f(t)|}{t}\]
+    设$f\in\mathcal{E}$，则收敛横坐标可由以下公式得到：
+    \begin{equation}
+        \sigma_c=\varlimsup_{t\to\infty}\frac{\ln\abs{f(t)}}{t}.
+    \end{equation}
 \end{theorem}
 \begin{proof}
-    \[\sigma_c=\varlimsup_{t\to\infty}\frac{\ln|f(t)|}{t}\iff \forall \epsilon>0,\exists T>0,\text{使得}\forall t>T,\frac{\ln|f(t)|}{t}<\sigma_c+\epsilon\]
-    因此$t$充分大时，$|f(t)|<\mathrm{e}^{(\sigma_c+\epsilon)t}$，从而$\mathcal{L} f(s)$在$\mathrm{Re}(s)>\sigma_c+\epsilon$上收敛，$\epsilon$任意，故$\mathcal{L} f(s)$在$\mathrm{Re}(s)>\sigma_c$上收敛。
+    \begin{equation}
+        \sigma_c=\varlimsup_{t\to\infty}\frac{\ln\abs{f(t)}}{t}\iff\forall\epsilon>0,\ \exists T>0,\ \text{使得}\ \forall t>T,\ \frac{\ln\abs{f(t)}}{t}<\sigma_c+\epsilon,
+    \end{equation}
+    因此$t$充分大时，$\abs{f(t)}<\e^{(\sigma_c+\epsilon)t}$，从而$\mathcal{L}f(s)$在$\Re(s)>\sigma_c+\epsilon$上收敛，$\epsilon$任意，故$\mathcal{L}f(s)$在$\Re(s)>\sigma_c$上收敛。
 
-    另一方面，如果$\exists a' <\sigma_c$，使得$\mathcal{L} f(s)$在$\mathrm{Re}(s)>a'$上收敛，则$\mathcal{L} f(s)$在$\dfrac{a'+\sigma_c}{2}$上收敛，因此
-    \[\int_{0}^{\infty}|f(t)|\mathrm{e}^{-\frac{a'+\sigma_c}{2}t}\,dt<\infty\]
-    由此可知，$|f(t)|\mathrm{e}^{-\frac{a'+\sigma_c}{2}t}\to 0,t\to\infty$，即$t$充分大时，$|f(t)|<\mathrm{e}^{\frac{a'+\sigma_c}{2}t}$，从而
-    \[\varlimsup_{t\to\infty}\frac{\ln|f(t)|}{t}\leq \frac{a'+\sigma_c}{2}<\sigma_c\]
+    另一方面，如果$\exists a'<\sigma_c$，使得$\mathcal{L}f(s)$在$\Re(s)>a'$上收敛，则$\mathcal{L}f(s)$在$\displaystyle\frac{a'+\sigma_c}{2}$上收敛，因此
+    \begin{equation}
+        \int_{0}^{\infty}\abs{f(t)}\e^{-\frac{a'+\sigma_c}{2}t}\,\dd t<\infty,
+    \end{equation}
+    由此可知，$\abs{f(t)}\e^{-\frac{a'+\sigma_c}{2}t}\to 0,\ t\to\infty$，即$t$充分大时，$\abs{f(t)}<\e^{\frac{a'+\sigma_c}{2}t}$，从而
+    \begin{equation}
+        \varlimsup_{t\to\infty}\frac{\ln\abs{f(t)}}{t}\leq\frac{a'+\sigma_c}{2}<\sigma_c.
+    \end{equation}
 \end{proof}
 
-其实，以上的定理和证明对$\varlimsup_{t\to\infty}\dfrac{\ln|f(t)|}{t}=\pm\infty$的情形也是成立的，它们分别对应$\mathcal{L} f(s)$无定义和$\mathcal{L} f(s)$为整函数的情形，例如$\e^{t^2}$和$\e^{-t^2}$.
+其实，以上的定理和证明对$\displaystyle\varlimsup_{t\to\infty}\frac{\ln\abs{f(t)}}{t}=\pm\infty$的情形也是成立的，它们分别对应$\mathcal{L}f(s)$无定义和$\mathcal{L}f(s)$为整函数的情形，例如$\e^{t^2}$和$\e^{-t^2}$。
 
-\subsubsection{思路二：从复频域出发，已知$F(s)$在$\mathrm{Re}(s)>a$上是$f$的拉普拉斯变换，讨论它在更大的区域上是否也是$f$的拉普拉斯变换}
+\subsubsection{思路二：从复频域出发，已知$F(s)$在$\Re(s)>a$上是$f$的拉普拉斯变换，讨论它在更大的区域上是否也是$f$的拉普拉斯变换}
 
-设$\mathcal{L} f(s)$在$\mathrm{Re}(s)>a$上良定义且等于$F(s)$，我们讨论$F(s)$在更大的区域，即$\mathrm{Re}(s)>a'(a'<a)$上是否也是$f$的拉普拉斯变换。我们在\cref{thm:laplace_inversion_1}中处理过类似的情况，因此我们先来看$F(s)$满足这一定理的条件时的情形。
+设$\mathcal{L}f(s)$在$\Re(s)>a$上良定义且等于$F(s)$，我们讨论$F(s)$在更大的区域，即$\Re(s)>a'\ (a'<a)$上是否也是$f$的拉普拉斯变换。我们在\cref{thm:laplace_inversion_1}中处理过类似的情况，因此我们先来看$F(s)$满足这一定理的条件时的情形。
 
 \begin{theorem}
-    设$F(s)$是某个函数$f\in\mathcal{E} $的拉普拉斯变换，且对于$\alpha>1$，有：
-    $$|F(s)|\leq C|s|^{-\alpha},\quad \forall \mathrm{Re}(s)>a'$$
+    设$F(s)$是某个函数$f\in\mathcal{E}$的拉普拉斯变换，且对于$\alpha>1$，有：
+    \begin{equation}
+        \abs{F(s)}\leq C\abs{s}^{-\alpha},\quad \forall\Re(s)>a',
+    \end{equation}
     令
-    \[\sigma_s=\sup\left\{\mathrm{Re}(s_j)\in\mathbb{C}\left|s_j\text{为}F(s)\text{的奇点}\right.\right\}\]
+    \begin{equation}
+        \sigma_s=\sup\braces{\Re(s_j)\in\mathbb{C}\;\middle|\;s_j\text{为}F(s)\text{的奇点}},
+    \end{equation}
     则有$\sigma_c=\sigma_s$。
 \end{theorem}
 \begin{proof}
-    一方面，$\sigma_c\geq\sigma_s$。$\mathcal{L} f(s)$在$\mathrm{Re}(s)<\sigma_s$上当然是发散的，因为$F(s)$在$\mathrm{Re}(s)=\sigma_s$上有奇点。
+    一方面，$\sigma_c\geq\sigma_s$。$\mathcal{L}f(s)$在$\Re(s)<\sigma_s$上当然是发散的，因为$F(s)$在$\Re(s)=\sigma_s$上有奇点。
 
-    另一方面，$\sigma_c\leq\sigma_s$。用反证法。假设$\sigma_c>\sigma_s$，则在带状区域$\sigma_s<\mathrm{Re}(s)\leq\sigma_c$上，$F(s)$满足\cref{thm:laplace_inversion_1}的条件，可以做拉普拉斯逆变换，得到唯一的时域函数，由于拉普拉斯逆变换
-    $$\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b-\mathrm{i}r}^{b+\mathrm{i}r}F(s)\mathrm{e}^{st}\,ds$$
-    不依赖于$b$的选取，该时域函数必然就是$f(t)$，从而$\mathcal{L} f(s)=F(s)$在$\mathrm{Re}(s)>\sigma_s$上成立，矛盾。
+    另一方面，$\sigma_c\leq\sigma_s$。用反证法。假设$\sigma_c>\sigma_s$，则在带状区域$\sigma_s<\Re(s)\leq\sigma_c$上，$F(s)$满足\cref{thm:laplace_inversion_1}的条件，可以做拉普拉斯逆变换，得到唯一的时域函数，由于拉普拉斯逆变换
+    \begin{equation}
+        \frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}F(s)\e^{st}\,\dd s
+    \end{equation}
+    不依赖于$b$的选取，该时域函数必然就是$f(t)$，从而$\mathcal{L}f(s)=F(s)$在$\Re(s)>\sigma_s$上成立，矛盾。
 \end{proof}
 
 然而，很多函数不满足以上定理的条件，例如（尽管对这类函数我们可以直接验证$\sigma_c=\sigma_s=a$）
-$$f(t)=\mathrm{e}^{at},\quad a\in\mathbb{R}^*,\quad F(s)=\dfrac{1}{s-a}$$
+\begin{equation}
+    f(t)=\e^{at},\quad a\in\mathbb{R}^*,\quad F(s)=\frac{1}{s-a}.
+\end{equation}
 下面给出一个类似的定理\cite{Laplace_Transform}，以说明我们的\textbf{目标结论$\sigma_c=\sigma_s$的适用范围是相当大的}。
 \begin{theorem}
-    设$F(s)$是某个函数$f\in\mathcal{E} $的拉普拉斯变换，且$f(t)$非负，仍然定义
-    \[\sigma_s=\sup\left\{\mathrm{Re}(s_j)\in\mathbb{C}\left|s_j\text{为}F(s)\text{的奇点}\right.\right\}\]
-    则有$\sigma_c=\sigma_s$.
+    设$F(s)$是某个函数$f\in\mathcal{E}$的拉普拉斯变换，且$f(t)$非负，仍然定义
+    \begin{equation}
+        \sigma_s=\sup\braces{\Re(s_j)\in\mathbb{C}\;\middle|\;s_j\text{为}F(s)\text{的奇点}}
+    \end{equation}
+    则有$\sigma_c=\sigma_s$。
 \end{theorem}
 \begin{proof}
-    一方面，我们已经说明$\sigma_c\geq\sigma_s$.
+    一方面，我们已经说明$\sigma_c\geq\sigma_s$。
 
-    另一方面，$\sigma_c\leq\sigma_s$.用反证法，假设$\sigma_c>\sigma_s$，任取$b>\sigma_c$，由于$F(s)$在$\mathrm{Re}(s)>\sigma_s$上全纯，可以将它展开为$b$处的泰勒级数：
-    \[F(s)=\sum_{n=0}^{\infty}\frac{F^{(n)}(b)}{n!}(s-b)^n,\quad \mathrm{Re}(s)>\sigma_s\]
+    另一方面，$\sigma_c\leq\sigma_s$。用反证法，假设$\sigma_c>\sigma_s$，任取$b>\sigma_c$，由于$F(s)$在$\Re(s)>\sigma_s$上全纯，可以将它展开为$b$处的泰勒级数：
+    \begin{equation}
+        F(s)=\sum_{n=0}^{\infty}\frac{F^{(n)}(b)}{n!}(s-b)^n,\quad \Re(s)>\sigma_s,
+    \end{equation}
     并且该级数的收敛半径至少为$b-\sigma_s$，因此在以下区域中，
-    $$D(b,b-\sigma_s)=\{s\in\mathbb{C}||s-b|<b-\sigma_s\}$$
+    \begin{equation}
+        D(b,b-\sigma_s)=\braces{s\in\mathbb{C}\;\middle|\;\abs{s-b}<b-\sigma_s}
+    \end{equation}
     该级数绝对收敛、内闭一致收敛。
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{sigma_c}
         \caption{收敛域示意图}
     \end{figure}
-    容易验证$f(t)(-t)^n \mathrm{e}^{-b t}$在$[0,\infty)$上的积分一致收敛，根据含参变量反常积分积分的求导法则，有
-    \[F^{(n)}(b)=\int_{0}^{\infty}f(t)(-t)^n \mathrm{e}^{-b t}\,dt\]
-    
-    考虑截断积分
-    \begin{align*}
-        \int_{0}^{R}f(t)\mathrm{e}^{-a t}\,dt&=\int_{0}^{R}f(t)\mathrm{e}^{-b t}\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}t^n\,dt
-    \end{align*}
-    
-    由$\sum_{n=0}^{\infty}\dfrac{(b-a)^n}{n!}t^n\,dt$在$[0,R]$上一致收敛，可交换求和与积分次序，得到
-    \begin{align*}
-        \int_{0}^{R}f(t)\mathrm{e}^{-a t}\,dt&=\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}\int_{0}^{R}f(t)t^n \mathrm{e}^{-b t}\,dt
-    \end{align*}
-    
-    由于$f(t)\geq 0$，级数的每一项都是非负的。由单调收敛定理（\cref{thm:DCT}），有
-    \begin{align*}
-        \lim_{R\to\infty}\int_{0}^{R}f(t)\mathrm{e}^{-a t}\,dt&=\lim_{R\to\infty}\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}\int_{0}^{R}f(t)t^n \mathrm{e}^{-b t}\,dt\\
-        &=\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}\int_{0}^{\infty}f(t)t^n \mathrm{e}^{-b t}\,dt\\
-        &=\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}F^{(n)}(b)\\
-        &=F(a)
-    \end{align*}
-    即$\mathcal{L} f(a)=F(a)$收敛，从而在$\mathrm{Re}(s)=a$上$\mathcal{L} f$也收敛：\begin{align*}
-        |\mathcal{L} f(a+\mathrm{i}\omega)|&=\left|\int_{0}^{\infty}f(t)\mathrm{e}^{-(a+\mathrm{i}\omega) t}\,dt\right|\\
-        &\leq \int_{0}^{\infty}\left|f(t)\mathrm{e}^{-a t}\right|\,dt\\
-        &=\int_{0}^{\infty}f(t)\mathrm{e}^{-a t}\,dt&\left(f(t)\geq 0\right)\\
-        &=\mathcal{L}f(a)<\infty
-    \end{align*}
-    由唯一延拓定理，$\mathcal{L} f(s)=F(s)$在$\mathrm{Re}(s)>a$上成立。
+    容易验证$f(t)(-t)^n\e^{-bt}$在$[0,\infty)$上的积分一致收敛，根据含参变量反常积分的求导法则，有
+    \begin{equation}
+        F^{(n)}(b)=\int_{0}^{\infty}f(t)(-t)^n\e^{-bt}\,\dd t.
+    \end{equation}
 
-    由$a$的任意性，我们证明了$\mathcal{L} f(s)=F(s)$在$\mathrm{Re}(s)>\sigma_s$上成立，矛盾。
+    考虑截断积分
+    \begin{equation}
+        \int_{0}^{R}f(t)\e^{-at}\,\dd t=\int_{0}^{R}f(t)\e^{-bt}\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}t^n\,\dd t,
+    \end{equation}
+
+    由$\displaystyle\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}t^n\,\dd t$在$[0,R]$上一致收敛，可交换求和与积分次序，得到
+    \begin{equation}
+        \int_{0}^{R}f(t)\e^{-at}\,\dd t=\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}\int_{0}^{R}f(t)t^n\e^{-bt}\,\dd t.
+    \end{equation}
+
+    由于$f(t)\geq 0$，级数的每一项都是非负的。由单调收敛定理（\cref{thm:DCT}），有
+    \begin{align}
+        \lim_{R\to\infty}\int_{0}^{R}f(t)\e^{-at}\,\dd t&=\lim_{R\to\infty}\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}\int_{0}^{R}f(t)t^n\e^{-bt}\,\dd t\nonumber\\
+        &=\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}\int_{0}^{\infty}f(t)t^n\e^{-bt}\,\dd t\nonumber\\
+        &=\sum_{n=0}^{\infty}\frac{(b-a)^n}{n!}F^{(n)}(b)\nonumber\\
+        &=F(a).
+    \end{align}
+    即$\mathcal{L}f(a)=F(a)$收敛，从而在$\Re(s)=a$上$\mathcal{L}f$也收敛：
+    \begin{align}
+        \abs{\mathcal{L}f(a+\im\omega)}&=\abs{\int_{0}^{\infty}f(t)\e^{-(a+\im\omega)t}\,\dd t}\nonumber\\
+        &\leq\int_{0}^{\infty}\abs{f(t)\e^{-at}}\,\dd t\nonumber\\
+        &=\int_{0}^{\infty}f(t)\e^{-at}\,\dd t&(f(t)\geq 0)\nonumber\\
+        &=\mathcal{L}f(a)<\infty.
+    \end{align}
+    由唯一延拓定理，$\mathcal{L}f(s)=F(s)$在$\Re(s)>a$上成立。
+
+    由$a$的任意性，我们证明了$\mathcal{L}f(s)=F(s)$在$\Re(s)>\sigma_s$上成立，矛盾。
 \end{proof}
 
 为了说明定理的条件不能被去掉，我们给出以下反例\cite{Laplace_Transform}：
 \begin{example}
     考虑函数
-    \[f(t)=\frac{\sin(\mathrm{e}^t)}{\mathrm{e}^t}u(t)\]
+    \begin{equation}
+        f(t)=\frac{\sin(\e^t)}{\e^t}u(t),
+    \end{equation}
     带入前文中的公式可得$\sigma_c=-1$。但是它的拉普拉斯变换为
-    \begin{align*}
-        F(s)&=\int_{0}^{\infty}\frac{\sin(\mathrm{e}^t)}{\mathrm{e}^t}\mathrm{e}^{-s t}\,dt\\
-        &=\int_{1}^{\infty}\frac{\sin u}{u^{s+1}}\,du&(u=\mathrm{e}^t)\\
-        &=-\evalat{\frac{\cos(u)}{u^{s+1}}}{1}{\infty}+\int_{1}^{\infty}\cos(u)\,d\frac{1}{u^{s+1}}\\
-        &=\cos(1)-(s+1)\int_{1}^{\infty}\frac{\cos(u)}{u^{s+2}}\,du
-    \end{align*}
-    由A-D判别法可知，最后一行的积分在$\mathrm{Re}(s)>-2$上收敛，因此$F(s)$可全纯延拓至$\mathrm{Re}(s)>-2$，进一步，多次分部积分后，可以发现$F(s)$能够延拓为整函数。
+    \begin{align}
+        F(s)&=\int_{0}^{\infty}\frac{\sin(\e^t)}{\e^t}\e^{-st}\,\dd t\nonumber\\
+        &=\int_{1}^{\infty}\frac{\sin u}{u^{s+1}}\,\dd u&(u=\e^t)\nonumber\\
+        &=-\evalat{\frac{\cos(u)}{u^{s+1}}}{1}{\infty}+\int_{1}^{\infty}\cos(u)\,\dd\frac{1}{u^{s+1}}\nonumber\\
+        &=\cos(1)-(s+1)\int_{1}^{\infty}\frac{\cos(u)}{u^{s+2}}\,\dd u.
+    \end{align}
+    由A-D判别法可知，最后一行的积分在$\Re(s)>-2$上收敛，因此$F(s)$可全纯延拓至$\Re(s)>-2$，进一步，多次分部积分后，可以发现$F(s)$能够延拓为整函数。
 \end{example}
 
-总之，对于相当大范围的函数，我们可以\textbf{通过分析其拉普拉斯变换的奇点来确定收敛横坐标}$\sigma_c$，从而确定拉普拉斯变换的最大收敛域。在前面我们已经证明：$$f\in\mathcal{E}\implies \sigma_c=\varlimsup_{t\to\infty}\frac{\ln|f(t)|}{t}$$
+总之，对于相当大范围的函数，我们可以\textbf{通过分析其拉普拉斯变换的奇点来确定收敛横坐标}$\sigma_c$，从而确定拉普拉斯变换的最大收敛域。在前面我们已经证明：
+\begin{equation}
+    f\in\mathcal{E}\implies\sigma_c=\varlimsup_{t\to\infty}\frac{\ln\abs{f(t)}}{t},
+\end{equation}
 因此我们既可以\textbf{通过分析拉普拉斯变换的奇点来确定$f(t)$的增长速率}（的上确界），也可以\textbf{通过分析$f(t)$的增长速率来确定拉普拉斯变换的奇点位置}。
 
 \subsection{初值定理与终值定理}\label{sub:initial_and_final_value}
 本小节介绍\textbf{初值定理}和\textbf{终值定理}，它们可以通过单边拉普拉斯变换直接得到函数在$t=0$和$t\to\infty$时的极限值，而不需要求出函数的显式表达式。
 \begin{theorem}[初值定理]
     \label{thm:initial_value}
-    设$f\in PS[0,\infty),f,f'\in\mathcal{E},F(s)=\mathcal{L} f(s)$，则
-    \[f(0)=\lim_{\mathrm{Re}(s)\to\infty}sF(s)\]
+    设$f\in PS[0,\infty),\ f,f'\in\mathcal{E},\ F(s)=\mathcal{L}f(s)$，则
+    \begin{equation}
+        f(0)=\lim_{\Re(s)\to\infty}sF(s).
+    \end{equation}
 \end{theorem}
 \begin{remark}
     多数文献中，初值定理为
-    \[f(0)=\lim_{s\to\infty}sF(s)\]
-    对于$F(s)$是真分式函数的情况，两者是等价的，因为$sF(s)$在$\infty$处有可去奇点（无穷远点的奇点类型见\cref{def:singular_point_infty}），沿各个方向趋于无穷所得的极限是相同的，但在其他情况下，$\lim_{s\to\infty}sF(s)$可能不存在，同时$\lim_{\mathrm{Re}(s)\to\infty}sF(s)$仍然存在。
+    \begin{equation}
+        f(0)=\lim_{s\to\infty}sF(s).
+    \end{equation}
+    对于$F(s)$是真分式函数的情况，两者是等价的，因为$sF(s)$在$\infty$处有可去奇点（无穷远点的奇点类型见\cref{def:singular_point_infty}），沿各个方向趋于无穷所得的极限是相同的，但在其他情况下，$\lim_{s\to\infty}sF(s)$可能不存在，同时$\lim_{\Re(s)\to\infty}sF(s)$仍然存在。
 \end{remark}
 \begin{proof}
     由拉普拉斯变换的时域微分性质，有
-    \[sF(s)=s\mathcal{L} f(s)=\mathcal{L} f'(s)+f(0)\]
-    取极限$\mathrm{Re}(s)\to\infty$，有
-    \[\lim_{\mathrm{Re}(s)\to\infty}sF(s)=\lim_{\mathrm{Re}(s)\to\infty}\mathcal{L} f'(s)+f(0)=\lim_{\mathrm{Re}(s)\to\infty}\int_{0}^{\infty}f'(t)\mathrm{e}^{-st}\,dt+f(0)\]
-    由于$f'\in\mathcal{E} $，在$\mathrm{Re}(s)$充分大时时，$\left|f'(t)\mathrm{e}^{-st}\right|\leq C \mathrm{e}^{-\epsilon t}$,其中$\epsilon$为一充分小正数。由控制收敛定理，有
-    \[\lim_{\mathrm{Re}(s)\to\infty}\int_{0}^{\infty}f'(t)\mathrm{e}^{-st}\,dt=\int_{0}^{\infty}\lim_{\mathrm{Re}(s)\to\infty}f'(t)\mathrm{e}^{-st}\,dt=0\]
-    从而\[f(0)=\lim_{\mathrm{Re}(s)\to\infty}sF(s)\]
+    \begin{equation}
+        sF(s)=s\mathcal{L}f(s)=\mathcal{L}f'(s)+f(0).
+    \end{equation}
+    取极限$\Re(s)\to\infty$，有
+    \begin{equation}
+        \lim_{\Re(s)\to\infty}sF(s)=\lim_{\Re(s)\to\infty}\mathcal{L}f'(s)+f(0)=\lim_{\Re(s)\to\infty}\int_{0}^{\infty}f'(t)\e^{-st}\,\dd t+f(0).
+    \end{equation}
+    由于$f'\in\mathcal{E}$，在$\Re(s)$充分大时，$\abs{f'(t)\e^{-st}}\leq C\e^{-\epsilon t}$，其中$\epsilon$为一充分小正数。由控制收敛定理，有
+    \begin{equation}
+        \lim_{\Re(s)\to\infty}\int_{0}^{\infty}f'(t)\e^{-st}\,\dd t=\int_{0}^{\infty}\lim_{\Re(s)\to\infty}f'(t)\e^{-st}\,\dd t=0,
+    \end{equation}
+    从而
+    \begin{equation}
+        f(0)=\lim_{\Re(s)\to\infty}sF(s).
+    \end{equation}
 \end{proof}
 
 \begin{theorem}[终值定理]
     \label{thm:final_value}
-    设$f\in\mathcal{E} $，$F(s)=\mathcal{L} f(s)$在$s=0$处有简单极点，且其余奇点均位于左半平面$\mathrm{Re}(s)<0$上，则
-    \[\lim_{t\to\infty}f(t)=\lim_{s\to 0}sF(s)\]
+    设$f\in\mathcal{E}$，$F(s)=\mathcal{L}f(s)$在$s=0$处有简单极点，且其余奇点均位于左半平面$\Re(s)<0$上，则
+    \begin{equation}
+        \lim_{t\to\infty}f(t)=\lim_{s\to 0}sF(s).
+    \end{equation}
 \end{theorem}
 通过将$s$限制在虚轴上，这个定理可以解释为：\textbf{频域上的低频成分对应时域的稳态行为}。
 \begin{remark}
-多数文献中，这个定理不仅仅包括$s=0$是简单极点的情况。不过，如果$s=0$不是奇点，则$\sigma_s<0$，多数情况下有$\sigma_c<0$，从而$f(t)\to 0$，因此这里我们只考虑非平凡情形；如果$s=0$是高阶极点，同样可以用以下方法证明$\lim_{t\to\infty}f(t)=\infty$.
+    多数文献中，这个定理不仅仅包括$s=0$是简单极点的情况。不过，如果$s=0$不是奇点，则$\sigma_s<0$，多数情况下有$\sigma_c<0$，从而$f(t)\to 0$，因此这里我们只考虑非平凡情形；如果$s=0$是高阶极点，同样可以用以下方法证明$\lim_{t\to\infty}f(t)=\infty$。
 \end{remark}
 \begin{proof}
     考虑$F(s)$在$s=0$处的洛朗级数展开：
-    \[F(s)=\sum_{n=-1}^{\infty}a_n s^n=\frac{a_{-1}}{s}+G(s),\quad a_{-1}\neq 0\]
-    其中$G(s)$在$s=0$的邻域内全纯，因此也在包含虚轴的某个右半平面$\mathrm{Re}(s)>-\epsilon$上全纯，其拉普拉斯逆变换$g(t)$满足$g(t)\to 0,t\to\infty$，因此有\begin{align*}
-        \lim_{s\to 0}sF(s)&=\lim_{s\to 0}\left(a_{-1}+sG(s)\right)=a_{-1}
-    \end{align*}
-    时域上，\begin{align*}
-        f(t)&=\mathcal{L}^{-1} F(s)=\mathcal{L}^{-1}\left(\frac{a_{-1}}{s}\right)+\mathcal{L}^{-1} G(s)=a_{-1}u(t)+g(t)\to a_{-1},\quad t\to\infty
-    \end{align*}
-    于是$\lim_{t\to\infty}f(t)=a_{-1}=\lim_{s\to 0}sF(s)$.
+    \begin{equation}
+        F(s)=\sum_{n=-1}^{\infty}a_n s^n=\frac{a_{-1}}{s}+G(s),\quad a_{-1}\neq 0,
+    \end{equation}
+    其中$G(s)$在$s=0$的邻域内全纯，因此也在包含虚轴的某个右半平面$\Re(s)>-\epsilon$上全纯，其拉普拉斯逆变换$g(t)$满足$g(t)\to 0,\ t\to\infty$，因此有
+    \begin{equation}
+        \lim_{s\to 0}sF(s)=\lim_{s\to 0}\paren{a_{-1}+sG(s)}=a_{-1}.
+    \end{equation}
+    时域上，
+    \begin{equation}
+        f(t)=\mathcal{L}^{-1}F(s)=\mathcal{L}^{-1}\sbr{\frac{a_{-1}}{s}}+\mathcal{L}^{-1}G(s)=a_{-1}u(t)+g(t)\to a_{-1},\quad t\to\infty,
+    \end{equation}
+    于是$\lim_{t\to\infty}f(t)=a_{-1}=\lim_{s\to 0}sF(s)$。
 \end{proof}
 
 \subsection{在双边拉普拉斯变换中的应用}\label{sub:bilateral_laplace}
 
 在\cref{def:bi_laplace}中，为了确定$a,b$的取值范围，我们可以拆分双边拉普拉斯积分，并仿照单边拉普拉斯变换的收敛域分析方法，分别讨论$t\to\infty$和$t\to-\infty$时$f(t)$的增长速率：
-\[\mathcal{L}f(s)=\int_{-\infty}^{0}f(t)\mathrm{e}^{-st}\,dt+\int_{0}^{\infty}f(t)\mathrm{e}^{-st}\,dt\]
+\begin{equation}
+    \mathcal{L}f(s)=\int_{-\infty}^{0}f(t)\e^{-st}\,\dd t+\int_{0}^{\infty}f(t)\e^{-st}\,\dd t.
+\end{equation}
 \begin{definition}[收敛横坐标]\label{def:bi_convergence_abscissa}
-    \textbf{收敛横坐标}$\sigma_{c}^-,\sigma_{c}^+$使得拉普拉斯积分$$\mathcal{L}f(s)=\int_{-\infty}^{\infty}f(t)\mathrm{e}^{-st}\,dt$$恰好在$\mathrm{Re}(s)\in(\sigma_{c}^-,\sigma_{c}^+)$上收敛，而在$\mathrm{Re}(s)<\sigma_{c}^-$和$\mathrm{Re}(s)>\sigma_{c}^+$上发散，即
-    \[\sigma_{c}^-=\sup\{a\in\mathbb{R}|\exists\epsilon>0,\mathcal{L} _b f(s)\text{在}\mathrm{Re}(s)\in(a,a+\epsilon)\text{上收敛}\}\]
-    \[\sigma_c^+=\inf\{b\in\mathbb{R}|\exists\epsilon>0,\mathcal{L} _b f(s)\text{在}\mathrm{Re}(s)\in(b-\epsilon,b)\text{上收敛}\}\]
+    \textbf{收敛横坐标}$\sigma_{c}^-,\ \sigma_{c}^+$使得拉普拉斯积分
+    \begin{equation}
+        \mathcal{L}f(s)=\int_{-\infty}^{\infty}f(t)\e^{-st}\,\dd t
+    \end{equation}
+    恰好在$\Re(s)\in(\sigma_{c}^-,\sigma_{c}^+)$上收敛，而在$\Re(s)<\sigma_{c}^-$和$\Re(s)>\sigma_{c}^+$上发散，即
+    \begin{align}
+        \sigma_{c}^-&=\sup\braces{a\in\mathbb{R}\;\middle|\;\exists\epsilon>0,\ \mathcal{L}_b f(s)\text{在}\Re(s)\in(a,a+\epsilon)\text{上收敛}},\\
+        \sigma_{c}^+&=\inf\braces{b\in\mathbb{R}\;\middle|\;\exists\epsilon>0,\ \mathcal{L}_b f(s)\text{在}\Re(s)\in(b-\epsilon,b)\text{上收敛}}.
+    \end{align}
 \end{definition}
-要使$\int_{0}^{\infty}f(t)\mathrm{e}^{-st}\,dt$收敛，自然要求
-\[\mathrm{Re}(s)>\varlimsup_{t\to\infty}\frac{\ln|f(t)|}{t}\]
-因此可以看出$\sigma_c^-=\varlimsup_{t\to\infty}\dfrac{\ln|f(t)|}{t}$.对于$\int_{-\infty}^{0}f(t)\mathrm{e}^{-st}\,dt$，记
-\[|f(t)|\sim C \mathrm{e}^{b t}\iff \lim_{t\to -\infty}\frac{|f(t)|}{C \mathrm{e}^{bt}}=1\]
+要使$\int_{0}^{\infty}f(t)\e^{-st}\,\dd t$收敛，自然要求
+\begin{equation}
+    \Re(s)>\varlimsup_{t\to\infty}\frac{\ln\abs{f(t)}}{t},
+\end{equation}
+因此可以看出$\displaystyle\sigma_c^-=\varlimsup_{t\to\infty}\frac{\ln\abs{f(t)}}{t}$。对于$\int_{-\infty}^{0}f(t)\e^{-st}\,\dd t$，记
+\begin{equation}
+    \abs{f(t)}\sim C\e^{bt}\iff\lim_{t\to-\infty}\frac{\abs{f(t)}}{C\e^{bt}}=1,
+\end{equation}
 则有
-$$|f(t)|\sim C \mathrm{e}^{b t}\iff \ln|f(t)|\sim b t + \ln C\iff \frac{|f(t)|}{t}\sim b+\frac{\ln C}{t}=b$$
+\begin{equation}
+    \abs{f(t)}\sim C\e^{bt}\iff\ln\abs{f(t)}\sim bt+\ln C\iff\frac{\abs{f(t)}}{t}\sim b+\frac{\ln C}{t}=b,
+\end{equation}
 这时有
-$$\mathrm{Re}(s)=b-\epsilon,\quad\int_{-\infty}^{0}f(t)\mathrm{e}^{-st}\,dt\leq\int_{-\infty}^{0}C \mathrm{e}^{\epsilon t}\,dt<\infty$$
-因此可以看出$\sigma_c^+=\varliminf_{t\to -\infty}\dfrac{\ln|f(t)|}{t}$（可以带入$f(t)=\mathrm{e}^{-t\sin t}$验证这里必须取下极限）。
+\begin{equation}
+    \Re(s)=b-\epsilon,\quad \int_{-\infty}^{0}f(t)\e^{-st}\,\dd t\leq\int_{-\infty}^{0}C\e^{\epsilon t}\,\dd t<\infty,
+\end{equation}
+因此可以看出$\displaystyle\sigma_c^+=\varliminf_{t\to-\infty}\frac{\ln\abs{f(t)}}{t}$（可以带入$f(t)=\e^{-t\sin t}$验证这里必须取下极限）。
 
-综上所述，我们得到：\begin{theorem}
+综上所述，我们得到：
+\begin{theorem}
     设函数$f$局部可积，则其双边拉普拉斯变换的收敛横坐标可由以下公式得到：
-    \[\sigma_{c}^-=\varlimsup_{t\to\infty}\frac{\ln|f(t)|}{t},\quad\sigma_{c}^+=\varliminf_{t\to -\infty}\frac{\ln|f(t)|}{t}\]
+    \begin{equation}
+        \sigma_{c}^-=\varlimsup_{t\to\infty}\frac{\ln\abs{f(t)}}{t},\quad\sigma_{c}^+=\varliminf_{t\to-\infty}\frac{\ln\abs{f(t)}}{t}.
+    \end{equation}
 \end{theorem}
 
-与单边拉普拉斯变换一样，我们允许$\sigma_{c}^-,\sigma_{c}^+=\pm\infty$。如果$\sigma_{c}^-=-\infty,\sigma_c^+=\infty$，则$\mathcal{L} f(s)$为整函数；如果$\sigma_{c}^-\geq\sigma_c^+$，则$\mathcal{L}f(s)$无定义。
+与单边拉普拉斯变换一样，我们允许$\sigma_{c}^-,\ \sigma_{c}^+=\pm\infty$。如果$\sigma_{c}^-=-\infty,\ \sigma_c^+=\infty$，则$\mathcal{L}f(s)$为整函数；如果$\sigma_{c}^-\geq\sigma_c^+$，则$\mathcal{L}f(s)$无定义。
 
-特别地，我们指出：\begin{itemize}
-    \item 如果$f(t)=0,t<0$，则$\sigma_{c}^+=-\infty$，双边拉普拉斯变换退化为单边拉普拉斯变换；
-    \item 如果$f(t)=0,t>0$，则$\sigma_{c}^-=\infty$；
-    \item 如果$f$紧支，则$\sigma_{c}^-=-\infty,\sigma_c^+=\infty$，双边拉普拉斯变换为整函数；
-    \item 如果$f(t)$在$t\to\pm\infty$时均与$\mathrm{e}^{a t}$表现类似，其双边拉普拉斯变换的收敛域为空集。除了前面三条中讨论的情况，典型的具有非空收敛域的例子如$f(t)=\mathrm{e}^{-|t|}$，其双边拉普拉斯变换的收敛域为$\mathrm{Re}(s)\in(-1,1)$.
+特别地，我们指出：
+\begin{itemize}
+    \item 如果$f(t)=0,\ t<0$，则$\sigma_{c}^+=-\infty$，双边拉普拉斯变换退化为单边拉普拉斯变换；
+    \item 如果$f(t)=0,\ t>0$，则$\sigma_{c}^-=\infty$；
+    \item 如果$f$紧支，则$\sigma_{c}^-=-\infty,\ \sigma_c^+=\infty$，双边拉普拉斯变换为整函数；
+    \item 如果$f(t)$在$t\to\pm\infty$时均与$\e^{at}$表现类似，其双边拉普拉斯变换的收敛域为空集。除了前面三条中讨论的情况，典型的具有非空收敛域的例子如$f(t)=\e^{-\abs{t}}$，其双边拉普拉斯变换的收敛域为$\Re(s)\in(-1,1)$。
 \end{itemize}

@@ -4,9 +4,9 @@
 
 \begin{definition}[一阶线性差分方程组]
     设$A[n]$为$N\times N$的实矩阵值函数，$\mathbf{f}[n]$为$N$维实向量值函数，则形如
-    \begin{align*}
-        \mathbf{y}[n+1] = A[n] \mathbf{y}[n] + \mathbf{f}[n]
-    \end{align*}
+    \begin{equation}
+        \mathbf{y}[n+1]=A[n]\mathbf{y}[n]+\mathbf{f}[n]
+    \end{equation}
     的方程组称为\textbf{一阶线性（前向）差分方程组}，其中$\mathbf{f}[n]$为\textbf{非齐次项}。
 
     特别地，如果$\mathbf{f}[n]=\mathbf{0}$，则称之为\textbf{齐次线性差分方程组}；如果$A[n]$为常数矩阵，则称为\textbf{常系数线性差分方程组}。
@@ -16,16 +16,18 @@
 
 不难看出，类似于\refsub{compare_to_high_order}中微分方程组与微分方程的关系，\textbf{差分方程组也能与同阶的（多个）差分方程相互转化}。考虑前向差分方程组，是因为方程组不涉及因果性的问题，而前向差分方程组是更简单、常见的。
 
-任给正整数$k$，可以通过迭代法求出\begin{align*}
-    \mathbf{y}[k] &= A[k-1] \mathbf{y}[k-1] + \mathbf{f}[k-1]\\
-    & = A[k-1] (A[k-2] \mathbf{y}[k-2] + \mathbf{f}[k-2]) + \mathbf{f}[k-1]\\
-    & = A[k-1] A[k-2] \mathbf{y}[k-2] + A[k-1] \mathbf{f}[k-2] + \mathbf{f}[k-1]\\
-    & \cdots\\
-    & = A[k-1] A[k-2] \cdots A[0] \mathbf{y}[0] + \sum_{i=0}^{k-1} A[k-1] A[k-2] \cdots A[i+1] \mathbf{f}[i]
-\end{align*}
-因此，给定初始值$\mathbf{y}[0]$，就可以\textbf{唯一确定}任意时刻的$\mathbf{y}[k]$。特别地，如果$A[n]$为常数矩阵，则\begin{align*}
-    \mathbf{y}[k] = A^k \mathbf{y}[0] + \sum_{i=0}^{k-1} A^{k-1-i} \mathbf{f}[i]
-\end{align*}
+任给正整数$k$，可以通过迭代法求出
+\begin{align}
+    \mathbf{y}[k]&=A[k-1]\mathbf{y}[k-1]+\mathbf{f}[k-1] \nonumber \\
+    &=A[k-1]\paren{A[k-2]\mathbf{y}[k-2]+\mathbf{f}[k-2]}+\mathbf{f}[k-1] \nonumber \\
+    &=A[k-1]A[k-2]\mathbf{y}[k-2]+A[k-1]\mathbf{f}[k-2]+\mathbf{f}[k-1] \nonumber \\
+    &\ \ \vdots \nonumber \\
+    &=A[k-1]A[k-2]\cdots A[0]\mathbf{y}[0]+\sum_{i=0}^{k-1}A[k-1]A[k-2]\cdots A[i+1]\mathbf{f}[i].
+\end{align}
+因此，给定初始值$\mathbf{y}[0]$，就可以\textbf{唯一确定}任意时刻的$\mathbf{y}[k]$。特别地，如果$A[n]$为常数矩阵，则
+\begin{equation}
+    \mathbf{y}[k]=A^k\mathbf{y}[0]+\sum_{i=0}^{k-1}A^{k-1-i}\mathbf{f}[i].
+\end{equation}
 
 利用解的存在性与唯一性，可以仿照\cref{thm:n_order_ODE}的方法进一步说明：
 \begin{theorem}
@@ -34,16 +36,18 @@
 \begin{proof}
     线性性是显然的。我们构造一个同构映射来说明解空间的维数是$N$。
 
-    定义$\mathbf{H}:\mathbb{R}^N\to S,\mathbf{y}_0\mapsto \mathbf{y}[n]$，其中$\mathbf{y}[n]$是满足初始条件$\mathbf{y}[0]=\mathbf{y}_0$的解。下验证$\mathbf{H}$是一个线性空间同构映射：
+    定义$\mathbf{H}:\mathbb{R}^N\to S,\ \mathbf{y}_0\mapsto\mathbf{y}[n]$，其中$\mathbf{y}[n]$是满足初始条件$\mathbf{y}[0]=\mathbf{y}_0$的解。下验证$\mathbf{H}$是一个线性空间同构映射：
 
-    首先，$\mathbf{H}$是线性的。$\forall \mathbf{y}_0,\mathbf{z}_0\in\mathbb{R}^N,\alpha,\beta\in\mathbb{R}$，$\alpha \mathbf{H}(\mathbf{y}_0) + \beta \mathbf{H}(\mathbf{z}_0)$是满足初始条件$\alpha \mathbf{y}_0 + \beta \mathbf{z}_0$的解，根据解的唯一性，
-    $$\mathbf{H}(\alpha \mathbf{y}_0 + \beta \mathbf{z}_0) = \alpha \mathbf{H}(\mathbf{y}_0) + \beta \mathbf{H}(\mathbf{z}_0)$$
+    首先，$\mathbf{H}$是线性的。$\forall \mathbf{y}_0,\mathbf{z}_0\in\mathbb{R}^N,\ \alpha,\beta\in\mathbb{R}$，$\alpha\mathbf{H}(\mathbf{y}_0)+\beta\mathbf{H}(\mathbf{z}_0)$是满足初始条件$\alpha\mathbf{y}_0+\beta\mathbf{z}_0$的解，根据解的唯一性，
+    \begin{equation}
+        \mathbf{H}(\alpha\mathbf{y}_0+\beta\mathbf{z}_0)=\alpha\mathbf{H}(\mathbf{y}_0)+\beta\mathbf{H}(\mathbf{z}_0).
+    \end{equation}
 
     其次，$\mathbf{H}$是单射。设$\mathbf{y}_0\neq\mathbf{z}_0$，它们对应的解分别为$\mathbf{y}=\mathbf{H}(\mathbf{y}_0)$和$\mathbf{z}=\mathbf{H}(\mathbf{z}_0)$，则$\mathbf{y}[0]\neq\mathbf{z}[0]$，因此$\mathbf{y}\neq\mathbf{z}$。
 
     最后，$\mathbf{H}$是满射。对于任意$\mathbf{y}[n]\in S$，$\mathbf{y}_0=\mathbf{y}[0]$满足$\mathbf{H}(\mathbf{y}_0)=\mathbf{y}[n]$。
 
-    综上，$\mathbf{H}$是一个线性空间的同构映射，解空间的维数为$\dim \mathbb{R}^N=N$。
+    综上，$\mathbf{H}$是一个线性空间的同构映射，解空间的维数为$\dim\mathbb{R}^N=N$。
 \end{proof}
 
 由于高阶线性差分方程总能转化为同阶的线性差分方程组，因此高阶线性差分方程的解空间也是一个维数为$N$的线性空间，这就解释了为什么上一节中我们总是给出$N$个初始值来唯一确定一个高阶线性差分方程的解。
@@ -51,58 +55,70 @@
 前面说明解的存在性与唯一性时，已经给出了通解的表达式，只是在$A[n]$不为常数值矩阵时，没有什么比较好的办法能够简化解的计算，除非$A[n]$具有某些特殊的结构，例如对角矩阵、上三角矩阵等，但这个问题在常系数线性差分方程组中是易于解决的。
 
 对于常系数线性差分方程组，我们也已经给出了通解的表达式：
-$$\mathbf{y}[k] = A^k \mathbf{y}[0] + \sum_{i=0}^{k-1} A^{k-1-i} \mathbf{f}[i]$$
+\begin{equation}
+    \mathbf{y}[k]=A^k\mathbf{y}[0]+\sum_{i=0}^{k-1}A^{k-1-i}\mathbf{f}[i].
+\end{equation}
 因此，求解常系数线性差分方程组的关键在于求出$A^k$的表达式。在多数问题中，我们只需要求出有限的几个$\mathbf{y}[k]$，除了直接迭代，通常有两种快速算法：Jordan分解算法和Cayley-Hamilton定理递推算法。
 
 假设已知矩阵$A$的Jordan分解$A=PJP^{-1}$，其中$J$是一个块对角矩阵，就可以很容易地求出$J^k$的表达式，从而
-$$A^k =(PJP^{-1})^k = P J^k P^{-1}$$
+\begin{equation}
+    A^k=(PJP^{-1})^k=PJ^k P^{-1}.
+\end{equation}
 
 Cayley-Hamilton定理（见\refsub{eigenvector}）的内容是，设矩阵$A$的特征多项式为
-$$p(\lambda)=\det(\lambda I - A)=\sum_{i=0}^{N} c_i \lambda^i$$
+\begin{equation}
+    p(\lambda)=\det(\lambda I-A)=\sum_{i=0}^{N}c_i\lambda^i,
+\end{equation}
 则
-$$p(A)=\sum_{i=0}^{N} c_i A^i=0$$
+\begin{equation}
+    p(A)=\sum_{i=0}^{N}c_i A^i=0.
+\end{equation}
 因此，$A^N$可以表示为$A^0,A^1,\cdots,A^{N-1}$的线性组合，即
-$$A^N = -\sum_{i=0}^{N-1} c_i A^i$$
+\begin{equation}
+    A^N=-\sum_{i=0}^{N-1}c_i A^i.
+\end{equation}
 这样，对于任意的$k\geq N$，我们都可以将$A^k$表示为$A^0=I,A^1,\cdots,A^{N-1}$的线性组合，并递归地求出线性组合的系数，从而求出$\mathbf{y}[k]$的表达式。
 
 下面给出并比较三种算法的\textbf{时间复杂度}。
 
-(1)直接迭代
+（1）直接迭代
 
 直接利用递推式进行计算：
-$$\mathbf{y}[k+1] = A \mathbf{y}[k] + \mathbf{f}[k]$$
+\begin{equation}
+    \mathbf{y}[k+1]=A\mathbf{y}[k]+\mathbf{f}[k].
+\end{equation}
 每一步都需要计算复杂度为$O(N^2)$的矩阵乘法，因此递归地求取$\mathbf{y}[k]$的复杂度为$O(k N^2)$。
 
 这一方法没有预处理的时间成本，并且同样适用于$A[n]$为非恒定矩阵的情况，但当$k$较大时，计算效率较低。
 
-(2)Jordan分解算法
+（2）Jordan分解算法
 
 在这种算法中，我们首先需要将$A$做Jordan分解，得到$A=PJP^{-1}$，这个过程包括求特征值和特征向量，以及求矩阵$P$的逆，复杂度为$O(N^3)$。然后，我们需要计算$J^k$，由于$J$是一个块对角矩阵，$J^k$的每个块都有已知的解析表达式，因此$J^k$的计算复杂度为$O(N^2)$。因此，Jordan分解算法的预处理复杂度为$O(N^3)$。
 
-对于齐次方程，每求一个$\mathbf{y}[k]$，都要计算矩阵乘法$A\mathbf{y}[k] = P J^k P^{-1} \mathbf{y}[0]$，复杂度为$O(N^3)$，因此每求一个$\mathbf{y}[k]$的复杂度为$O(N^3)$。
+对于齐次方程，每求一个$\mathbf{y}[k]$，都要计算矩阵乘法$A\mathbf{y}[k]=PJ^k P^{-1}\mathbf{y}[0]$，复杂度为$O(N^3)$，因此每求一个$\mathbf{y}[k]$的复杂度为$O(N^3)$。
 
-对于非齐次方程，由于需要计算$\sum_{i=0}^{k-1} A^{k-1-i} \mathbf{f}[i]$，每次矩阵乘法$A^{k-1-i} \mathbf{f}[i]$的复杂度为$O(N^2)$，因此每求一个$\mathbf{y}[k]$的复杂度为$O(N^3)+O(k N^2)$。
+对于非齐次方程，由于需要计算$\sum_{i=0}^{k-1}A^{k-1-i}\mathbf{f}[i]$，每次矩阵乘法$A^{k-1-i}\mathbf{f}[i]$的复杂度为$O(N^2)$，因此每求一个$\mathbf{y}[k]$的复杂度为$O(N^3)+O(k N^2)$。
 
-(3)Cayley-Hamilton定理递推算法
+（3）Cayley-Hamilton定理递推算法
 
-为了计算矩阵的特征多项式，通常使用Hessenberg分解算法，复杂度为$O(N^3)$；通过矩阵乘法计算$A^i,i=2,3,\cdots,N-1$，复杂度为$O(N^3)$。在预处理时，还需计算$\mathbf{y}[0],\mathbf{y}[1],\cdots,\mathbf{y}[N-1]$，以免后面将$A^k$表示为$A^0=I,A^1,\cdots,A^{N-1}$的线性组合之后进行重复的矩阵乘法运算，这个过程的复杂度为$O(N^3)$。因此这种算法的预处理复杂度为$O(N^3)$。
+为了计算矩阵的特征多项式，通常使用Hessenberg分解算法，复杂度为$O(N^3)$；通过矩阵乘法计算$A^i,\ i=2,3,\cdots,N-1$，复杂度为$O(N^3)$。在预处理时，还需计算$\mathbf{y}[0],\mathbf{y}[1],\cdots,\mathbf{y}[N-1]$，以免后面将$A^k$表示为$A^0=I,A^1,\cdots,A^{N-1}$的线性组合之后进行重复的矩阵乘法运算，这个过程的复杂度为$O(N^3)$。因此这种算法的预处理复杂度为$O(N^3)$。
 
-对于齐次方程，$\mathbf{y}[k]$可以表示为$\mathbf{y}[0],\mathbf{y}[1],\cdots,\mathbf{y}[N-1]$的线性组合，系数的求解可以通过多项式快速幂算法来实现，复杂度为$O(N^2 \log k)$；矩阵乘法的复杂度为$O(N^2)$。因此每求一个$\mathbf{y}[k]$的复杂度为$O(N^2 \log k)$。
+对于齐次方程，$\mathbf{y}[k]$可以表示为$\mathbf{y}[0],\mathbf{y}[1],\cdots,\mathbf{y}[N-1]$的线性组合，系数的求解可以通过多项式快速幂算法来实现，复杂度为$O(N^2\log k)$；矩阵乘法的复杂度为$O(N^2)$。因此每求一个$\mathbf{y}[k]$的复杂度为$O(N^2\log k)$。
 
-对于非齐次方程，由于需要计算$\sum_{i=0}^{k-1} A^{k-1-i} \mathbf{f}[i]$，如果每个$A^{k-1-i}$都通过多项式快速幂算法来计算，那么每求一个$\mathbf{y}[k]$的复杂度为$O(k N^2 \log k)$，此时复杂度比直接迭代还要大。
+对于非齐次方程，由于需要计算$\sum_{i=0}^{k-1}A^{k-1-i}\mathbf{f}[i]$，如果每个$A^{k-1-i}$都通过多项式快速幂算法来计算，那么每求一个$\mathbf{y}[k]$的复杂度为$O(k N^2\log k)$，此时复杂度比直接迭代还要大。
 
 将上述三种算法在齐次/非齐次方程下的复杂度汇总如下：
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
-        算法 & 齐次方程 & 非齐次方程 \\
+        算法                         & 齐次方程                       & 非齐次方程                         \\
         \hline
-        直接迭代 & $O(k N^2)$ & $O(k N^2)$ \\
+        直接迭代                     & $O(k N^2)$                     & $O(k N^2)$                         \\
         \hline
-        Jordan分解算法 & $O(N^3)$ & $O(N^3)+O(k N^2)$ \\
+        Jordan分解算法               & $O(N^3)$                       & $O(N^3)+O(k N^2)$                  \\
         \hline
-        Cayley-Hamilton定理递推算法 & $O(N^3)+O(N^2 \log k)$ & $O(N^3)+O(k N^2 \log k)$ \\
+        Cayley-Hamilton定理递推算法  & $O(N^3)+O(N^2 \log k)$         & $O(N^3)+O(k N^2 \log k)$           \\
         \hline
     \end{tabular}
 \end{table}
@@ -114,59 +130,70 @@ $$\mathbf{y}[k+1] = A \mathbf{y}[k] + \mathbf{f}[k]$$
 类比微分方程组，定义：
 \begin{definition}[解矩阵]
     常系数线性差分方程组
-    $$\mathbf{y}[n+1] = A \mathbf{y}[n] + \mathbf{f}[n]$$
+    \begin{equation}
+        \mathbf{y}[n+1]=A\mathbf{y}[n]+\mathbf{f}[n]
+    \end{equation}
     的解矩阵为
-    $$\phi[n]=A^n$$
+    \begin{equation}
+        \phi[n]=A^n.
+    \end{equation}
 \end{definition}
 
-得到这个定义的思路有两种。一种思路是考虑将齐次差分方程中的列向量$\mathbf{y}[n]$替换为一个矩阵值函数，则$\phi[n]=A^n$恰好满足方程\begin{align*}
-    \phi[n+1] = A \phi[n],\quad \phi[0] = I
-\end{align*}
+得到这个定义的思路有两种。一种思路是考虑将齐次差分方程中的列向量$\mathbf{y}[n]$替换为一个矩阵值函数，则$\phi[n]=A^n$恰好满足方程
+\begin{equation}
+    \phi[n+1]=A\phi[n],\quad \phi[0]=I.
+\end{equation}
 
-另一种思路是类比微分方程。常系数线性微分方程最典型的解的形式为$e^{\lambda t}$，而方程组的解矩阵为$\phi(t)=\e^{At}$；对于差分方程，将$\lambda^n$中的$\lambda$替换为矩阵$A$，就得到解矩阵$\phi[n]=A^n$。
+另一种思路是类比微分方程。常系数线性微分方程最典型的解的形式为$\e^{\lambda t}$，而方程组的解矩阵为$\phi(t)=\e^{At}$；对于差分方程，将$\lambda^n$中的$\lambda$替换为矩阵$A$，就得到解矩阵$\phi[n]=A^n$。
 
 解矩阵的一个重要特征是，\textbf{它的列向量是齐次差分方程的解}，因此方程的齐次解总能表示为$\phi[n]\mathbf{c}$的形式，其中$\mathbf{c}\in\mathbb{R}^N$是一个常向量。与微分方程不同的是，当$A$不可逆时，$\phi[n]$也是不可逆的，因此$\phi^{-1}[n]$并不总是存在的。
 
-当$A$可逆时，有$\phi^{-1}[n] = A^{-n}=\phi[-n]$，它的列空间有$N$维，恰为差分方程组的解空间，此时称之为\textbf{基本解矩阵}。
+当$A$可逆时，有$\phi^{-1}[n]=A^{-n}=\phi[-n]$，它的列空间有$N$维，恰为差分方程组的解空间，此时称之为\textbf{基本解矩阵}。
 
-事实上，对于变系数的线性差分方程组\begin{align*}
-    \mathbf{y}[n+1] = A[n] \mathbf{y}[n]+ \mathbf{f}[n]
-\end{align*}
+事实上，对于变系数的线性差分方程组
+\begin{equation}
+    \mathbf{y}[n+1]=A[n]\mathbf{y}[n]+\mathbf{f}[n],
+\end{equation}
 我们同样可以定义解矩阵：
-\begin{align*}
-    \phi[n] = A[n-1] A[n-2] \cdots A[0]
-\end{align*}
-它满足$\phi[n+1] = A[n] \phi[n],\phi[0] = I$，因此其列向量确为方程组的解。但由于$A[n]$不为常数矩阵，我们通常是求不出$\phi[n]$的解析表达式的，这一点与\refsec{Equation_System}中的线性微分方程组有些类似。
+\begin{equation}
+    \phi[n]=A[n-1]A[n-2]\cdots A[0].
+\end{equation}
+它满足$\phi[n+1]=A[n]\phi[n],\ \phi[0]=I$，因此其列向量确为方程组的解。但由于$A[n]$不为常数矩阵，我们通常是求不出$\phi[n]$的解析表达式的，这一点与\refsec{Equation_System}中的线性微分方程组有些类似。
 
-解矩阵在差分方程组理论中，仍然扮演着“基本解”的角色。以非齐次项$\mathbf{f}[n]$为激励，方程组\begin{align*}
-    \mathbf{y}[n+1] = A \mathbf{y}[n] + \mathbf{f}[n],\quad \mathbf{y}_0 = \mathbf{y}[0]
-\end{align*}
-的解$\mathbf{y}[n]$为响应，则方程描述了一个离散的因果线性时不变系统，类比\refsub{constant_coefficient_linear_equation_system}中的常系数线性微分方程组，可以猜想零状态响应可以表示为卷积和，然而，我们实际上应该使用$\phi[n-1]u[n-1]$做卷积才能得到正确的结论，我们将在下一小节中看到这样做的原因。\begin{align*}
-    \mathbf{y}_{zs}[n] = (\phi[n-1]u[n-1]) * \mathbf{f}[n]=\sum_{i=0}^{n-1} \phi[n-1-i]\mathbf{f}[i]=\sum_{i=0}^{n-1} A^{n-1-i} \mathbf{f}[i]
-\end{align*}
+解矩阵在差分方程组理论中，仍然扮演着“基本解”的角色。以非齐次项$\mathbf{f}[n]$为激励，方程组
+\begin{equation}
+    \mathbf{y}[n+1]=A\mathbf{y}[n]+\mathbf{f}[n],\quad \mathbf{y}_0=\mathbf{y}[0]
+\end{equation}
+的解$\mathbf{y}[n]$为响应，则方程描述了一个离散的因果线性时不变系统，类比\refsub{constant_coefficient_linear_equation_system}中的常系数线性微分方程组，可以猜想零状态响应可以表示为卷积和，然而，我们实际上应该使用$\phi[n-1]u[n-1]$做卷积才能得到正确的结论，我们将在下一小节中看到这样做的原因：
+\begin{equation}
+    \mathbf{y}_{\zs}[n]=(\phi[n-1]u[n-1])*\mathbf{f}[n]=\sum_{i=0}^{n-1}\phi[n-1-i]\mathbf{f}[i]=\sum_{i=0}^{n-1}A^{n-1-i}\mathbf{f}[i].
+\end{equation}
 求和范围的改变是因为我们认为激励$\mathbf{f}[n]$是在$n=0$时刻施加于系统的。这与上一小节中用迭代法得到的通解公式一致。
 
-零输入响应是方程的齐次解。由于解矩阵的列向量是差分方程的解，零输入响应可以表示为解矩阵的列向量的线性组合：\begin{align*}
-    \mathbf{y}_{zi}[n] = \phi[n]\mathbf{c},\quad \mathbf{c}\in\mathbb{R}^N\tag{$*$}
-\end{align*}
+零输入响应是方程的齐次解。由于解矩阵的列向量是差分方程的解，零输入响应可以表示为解矩阵的列向量的线性组合：
+\begin{equation}
+    \mathbf{y}_{\zi}[n]=\phi[n]\mathbf{c},\quad \mathbf{c}\in\mathbb{R}^N.\label{eq:diff_sys_zi}
+\end{equation}
 
-代入初始值$\mathbf{y}[0]=\mathbf{y}_0$，可以求出$\mathbf{c}$的表达式:
-\begin{align*}
-    \mathbf{y}_0 = \phi[0]\mathbf{c}\implies \mathbf{c} = \phi^{-1}[0]\mathbf{y}_0 = \mathbf{y}_0
-\end{align*}
-尽管$\phi[n]$不一定可逆，但在$n=0$时，$\phi[0]=I$。代入$(*)$式，就得到零输入响应的表达式：
-\begin{align*}
-    \mathbf{y}_{zi}[n] = \phi[n]\mathbf{c} = \phi[n]\mathbf{y}_0
-\end{align*}
+代入初始值$\mathbf{y}[0]=\mathbf{y}_0$，可以求出$\mathbf{c}$的表达式：
+\begin{equation}
+    \mathbf{y}_0=\phi[0]\mathbf{c}\implies\mathbf{c}=\phi^{-1}[0]\mathbf{y}_0=\mathbf{y}_0.
+\end{equation}
+尽管$\phi[n]$不一定可逆，但在$n=0$时，$\phi[0]=I$。代入\refeqn{diff_sys_zi}，就得到零输入响应的表达式：
+\begin{equation}
+    \mathbf{y}_{\zi}[n]=\phi[n]\mathbf{c}=\phi[n]\mathbf{y}_0.
+\end{equation}
 最终，我们得到了常系数线性差分方程组的通解公式，它与\cref{cor:differential_equation_system}非常相似，并且与上一小节中通过迭代法得到的通解公式一致：
 \begin{theorem}
-    设$\phi[n]$为带有初始值的方程组\begin{align*}
-        \mathbf{y}[n+1] = A \mathbf{y}[n]+\mathbf{f}[n],\quad \mathbf{y}_0 = \mathbf{y}[0]
-    \end{align*}
-    的解矩阵，则方程组的通解为\begin{align*}
-        \mathbf{y}[n]& = \phi[n]\mathbf{y}_0 + \sum_{i=0}^{n} \phi[i]\mathbf{f}[n-i]\\
-        & = A^n \mathbf{y}_0 + \sum_{i=0}^{n-1} A^{n-1-i} \mathbf{f}[i]
-    \end{align*}
+    设$\phi[n]$为带有初始值的方程组
+    \begin{equation}
+        \mathbf{y}[n+1]=A\mathbf{y}[n]+\mathbf{f}[n],\quad \mathbf{y}_0=\mathbf{y}[0]
+    \end{equation}
+    的解矩阵，则方程组的通解为
+    \begin{align}
+        \mathbf{y}[n]&=\phi[n]\mathbf{y}_0+\sum_{i=0}^{n}\phi[i]\mathbf{f}[n-i] \nonumber \\
+        &=A^n\mathbf{y}_0+\sum_{i=0}^{n-1}A^{n-1-i}\mathbf{f}[i].
+    \end{align}
 \end{theorem}
 
 \subsection{常系数线性差分方程组的单边z变换解法}\label{sub:difference_equation_system_z}
@@ -175,140 +202,154 @@ $$\mathbf{y}[k+1] = A \mathbf{y}[k] + \mathbf{f}[k]$$
 
 \begin{definition}[离散矩阵值函数的单边z变换]
     设$A[n]$为$N\times N$的矩阵值函数，则\textbf{单边z变换}就是它的各个分量的单边z变换：
-    \begin{align*}
-        A(z) = \sum_{n=0}^{\infty} A[n] z^{-n}
-    \end{align*}
+    \begin{equation}
+        A(z)=\sum_{n=0}^{\infty}A[n]z^{-n},
+    \end{equation}
     收敛域为各个分量的单边z变换的收敛域的交集。
 \end{definition}
 
 特别地，列向量可以视作只有一列的矩阵，因此向量值函数的单边z变换也是良定义的。
 
-考虑如下常系数线性差分方程组\begin{align*}
-    \mathbf{y}[n+1] = A \mathbf{y}[n] + \mathbf{f}[n],\quad \mathbf{y}_0 = \mathbf{y}[0]
-\end{align*}
-两边同时乘以$u[n]$并进行单边z变换，得到\begin{align*}
-    z\mathbf{Y}(z) - z\mathbf{y}_0 = A \mathbf{Y}(z) + \mathbf{F}(z)
-\end{align*}
-其中$\mathbf{Y}(z)$和$\mathbf{F}(z)$分别是$\mathbf{y}[n]$和$\mathbf{f}[n]$的单边z变换。因此，\begin{align*}
-    (zI - A) \mathbf{Y}(z) = \mathbf{F}(z) + z\mathbf{y}_0
-\end{align*}
-两边同时求逆z变换，即可得到方程的解：\begin{align*}
-    \mathbf{y}[n] = \mathcal{Z}^{-1} \left\{(zI - A)^{-1} (\mathbf{F}(z) + z\mathbf{y}_0)\right\}\tag{$**$}
-\end{align*}
+考虑如下常系数线性差分方程组
+\begin{equation}
+    \mathbf{y}[n+1]=A\mathbf{y}[n]+\mathbf{f}[n],\quad \mathbf{y}_0=\mathbf{y}[0],
+\end{equation}
+两边同时乘以$u[n]$并进行单边z变换，得到
+\begin{equation}
+    z\mathbf{Y}(z)-z\mathbf{y}_0=A\mathbf{Y}(z)+\mathbf{F}(z),
+\end{equation}
+其中$\mathbf{Y}(z)$和$\mathbf{F}(z)$分别是$\mathbf{y}[n]$和$\mathbf{f}[n]$的单边z变换。因此，
+\begin{equation}
+    (zI-A)\mathbf{Y}(z)=\mathbf{F}(z)+z\mathbf{y}_0.
+\end{equation}
+两边同时求逆z变换，即可得到方程的解：
+\begin{equation}
+    \mathbf{y}[n]=\mathcal{Z}^{-1}\braces{(zI-A)^{-1}(\mathbf{F}(z)+z\mathbf{y}_0)}.\label{eq:diff_sys_z_sol}
+\end{equation}
 
-令$\Phi(z)=(zI - A)^{-1}$，称之为差分方程组的\textbf{特征矩阵}或\textbf{预解矩阵}。注意到\begin{align*}
-    \Phi(z)=(zI - A)^{-1} = z^{-1} (I - z^{-1} A)^{-1} = z^{-1} \sum_{i=0}^{\infty}A^i z^{-i} = z^{-1}\mathcal{Z}\{\phi[n]u[n]\}
-\end{align*}
-因此$z\Phi(z)$就是解矩阵$\phi[n]$的单边z变换（注意，这与微分方程组不同）。代入$(**)$式，得到
-\begin{align*}
-    \mathbf{y}[n] & = \mathcal{Z}^{-1} \left\{\Phi(z)(\mathbf{F}(z) + z\mathbf{y}_0)\right\}\\
-    &= \mathcal{Z}^{-1} \left\{\Phi(z) \mathbf{F}(z)\right\} + \mathcal{Z}^{-1} \left\{z\Phi(z)\mathbf{y}_0\right\}\\
-    & = \mathcal{Z}^{-1} \left\{z^{-1}\mathcal{Z}\{\phi[n]u[n]\} \mathbf{F}(z)\right\} +\phi[n]u[n]\mathbf{y}_0
-\end{align*}
-利用单边z变换的移位性质以及卷积定理，得到\begin{align*}
-    \mathcal{Z}^{-1} \left\{z^{-1}\mathcal{Z}\{\phi[n]u[n]\} \mathbf{F}(z)\right\}&=(\phi[n-1]u[n-1]) * (\mathbf{f}[n]u[n])\\
-    &=\sum_{i=0}^{n-1} \phi[n-1-i] \mathbf{f}[i]\\
-    & = \sum_{i=0}^{n-1} A^{n-1-i} \mathbf{f}[i]
-\end{align*}
+令$\Phi(z)=(zI-A)^{-1}$，称之为差分方程组的\textbf{特征矩阵}或\textbf{预解矩阵}。注意到
+\begin{equation}
+    \Phi(z)=(zI-A)^{-1}=z^{-1}(I-z^{-1}A)^{-1}=z^{-1}\sum_{i=0}^{\infty}A^i z^{-i}=z^{-1}\mathcal{Z}\{\phi[n]u[n]\}.
+\end{equation}
+因此$z\Phi(z)$就是解矩阵$\phi[n]$的单边z变换（注意，这与微分方程组不同）。代入\refeqn{diff_sys_z_sol}，得到
+\begin{align}
+    \mathbf{y}[n]&=\mathcal{Z}^{-1}\braces{\Phi(z)(\mathbf{F}(z)+z\mathbf{y}_0)} \nonumber \\
+    &=\mathcal{Z}^{-1}\braces{\Phi(z)\mathbf{F}(z)}+\mathcal{Z}^{-1}\braces{z\Phi(z)\mathbf{y}_0} \nonumber \\
+    &=\mathcal{Z}^{-1}\Bigl\{z^{-1}\mathcal{Z}\{\phi[n]u[n]\}\mathbf{F}(z)\Bigr\}+\phi[n]u[n]\mathbf{y}_0.
+\end{align}
+利用单边z变换的移位性质以及卷积定理，得到
+\begin{align}
+    \mathcal{Z}^{-1}\Bigl\{z^{-1}\mathcal{Z}\{\phi[n]u[n]\}\mathbf{F}(z)\Bigr\}&=(\phi[n-1]u[n-1])*(\mathbf{f}[n]u[n]) \nonumber \\
+    &=\sum_{i=0}^{n-1}\phi[n-1-i]\mathbf{f}[i] \nonumber \\
+    &=\sum_{i=0}^{n-1}A^{n-1-i}\mathbf{f}[i].
+\end{align}
 
 综上，我们得到了常系数线性差分方程组的通解公式，它与之前推导的公式相一致：
-\begin{align*}
-    \mathbf{y}[n]= \phi[n]\mathbf{y}_0 + \sum_{i=0}^{n-1} \phi[n-1-i]\mathbf{f}[i]= A^n \mathbf{y}_0 + \sum_{i=0}^{n-1} A^{n-1-i} \mathbf{f}[i]
-\end{align*}
+\begin{equation}
+    \mathbf{y}[n]=\phi[n]\mathbf{y}_0+\sum_{i=0}^{n-1}\phi[n-1-i]\mathbf{f}[i]=A^n\mathbf{y}_0+\sum_{i=0}^{n-1}A^{n-1-i}\mathbf{f}[i].
+\end{equation}
 
 \begin{example}
     求解常系数线性差分方程组在$n\in\mathbb{N}$上的解：
-    \begin{align*}
+    \begin{equation}
         \begin{bmatrix}
-            y_1[n+1]\\
+            y_1[n+1] \\
             y_2[n+1]
         \end{bmatrix}=\begin{bmatrix}
-            1 & 1\\
+            1 & 1 \\
             0 & 1
         \end{bmatrix}
         \begin{bmatrix}
-            y_1[n]\\
+            y_1[n] \\
             y_2[n]
-        \end{bmatrix} + \begin{bmatrix}
-            0\\
+        \end{bmatrix}+\begin{bmatrix}
+            0 \\
             u[n]
-        \end{bmatrix},\begin{bmatrix}
-            y_1[0]\\
+        \end{bmatrix},\quad
+        \begin{bmatrix}
+            y_1[0] \\
             y_2[0]
-        \end{bmatrix} = \begin{bmatrix}
-            1\\
+        \end{bmatrix}=\begin{bmatrix}
+            1 \\
             0
-        \end{bmatrix}
-    \end{align*}
+        \end{bmatrix}.
+    \end{equation}
 
     解：记
-    $$A=\begin{bmatrix}
-            1 & 1\\
+    \begin{equation}
+        A=\begin{bmatrix}
+            1 & 1 \\
             0 & 1
-        \end{bmatrix}$$
-    两边同时乘以$u[n]$并进行单边z变换，得到\begin{align*}
+        \end{bmatrix},
+    \end{equation}
+    两边同时乘以$u[n]$并进行单边z变换，得到
+    \begin{equation}
         z\begin{bmatrix}
             Y_1(z) \\
             Y_2(z)
-        \end{bmatrix} - z\begin{bmatrix}
-            1\\
+        \end{bmatrix}-z\begin{bmatrix}
+            1 \\
             0
-        \end{bmatrix} = A\begin{bmatrix}
-            Y_1(z)\\
+        \end{bmatrix}=A\begin{bmatrix}
+            Y_1(z) \\
             Y_2(z)
-        \end{bmatrix} + \begin{bmatrix}
-            0\\
-            \dfrac{z}{z-1}
-        \end{bmatrix}
-    \end{align*}
-    从而\begin{align*}
-        (zI - A) \begin{bmatrix}
-            Y_1(z)\\
+        \end{bmatrix}+\begin{bmatrix}
+            0 \\
+            \frac{z}{z-1}
+        \end{bmatrix},
+    \end{equation}
+    从而
+    \begin{equation}
+        (zI-A)\begin{bmatrix}
+            Y_1(z) \\
             Y_2(z)
-        \end{bmatrix} = \begin{bmatrix}
-            z\\
-            \dfrac{z}{z-1}
-        \end{bmatrix}
-    \end{align*}
-    计算特征矩阵：\begin{align*}
-        \Phi(z)=(zI - A)^{-1} =\begin{bmatrix}
-            z-1 & -1\\
-            0 & z-1
-        \end{bmatrix}^{-1}= \begin{bmatrix}
-            \dfrac{1}{z-1} & \dfrac{1}{(z-1)^2}\\
-            0 & \dfrac{1}{z-1}
-        \end{bmatrix}
-    \end{align*}
-    因此\begin{align*}
+        \end{bmatrix}=\begin{bmatrix}
+            z \\
+            \frac{z}{z-1}
+        \end{bmatrix}.
+    \end{equation}
+    计算特征矩阵：
+    \begin{equation}
+        \Phi(z)=(zI-A)^{-1}=\begin{bmatrix}
+            z-1 & -1  \\
+            0   & z-1
+        \end{bmatrix}^{-1}=\begin{bmatrix}
+            \frac{1}{z-1} & \frac{1}{(z-1)^2} \\
+            0             & \frac{1}{z-1}
+        \end{bmatrix}.
+    \end{equation}
+    因此
+    \begin{align}
         \begin{bmatrix}
-            Y_1(z)\\
+            Y_1(z) \\
             Y_2(z)
-        \end{bmatrix} & = \Phi(z) \begin{bmatrix}
-            z\\
-            \dfrac{z}{z-1}
-        \end{bmatrix}\\
-        & = \begin{bmatrix}
-            \dfrac{1}{z-1} & \dfrac{1}{(z-1)^2}\\
-            0 & \dfrac{1}{z-1}
-        \end{bmatrix} \begin{bmatrix}
-            z\\
-            \dfrac{z}{z-1}
-        \end{bmatrix}\\
-        & = \begin{bmatrix}
-            \dfrac{z}{z-1} + \dfrac{z}{(z-1)^3}\\
-            \dfrac{z}{(z-1)^2}
-        \end{bmatrix}
-    \end{align*}
-    最后，选取半径大于$1$的围道$C$，求逆z变换：\begin{align*}
-        y_1[n] & = \dfrac{1}{2\pi i} \oint_C \left(\dfrac{z}{z-1} + \dfrac{z}{(z-1)^3}\right) z^{n-1} dz\\
-        & = \mathrm{Res}\left(\dfrac{z^n}{z-1},1\right) + \mathrm{Res}\left(\dfrac{z^n}{(z-1)^3},1\right)\\
-        &=\lim_{z\to 1}z^n+ \lim_{z\to 1} \dfrac{1}{2}\dfrac{d^2}{dz^2}z^n\\
-        & = 1 + \dfrac{n(n+1)}{2}\\
-        y_2[n] & = \dfrac{1}{2\pi i} \oint_C \dfrac{z}{(z-1)^2} z^{n-1} dz\\
-        & = \mathrm{Res}\left(\dfrac{z^n}{(z-1)^2},1\right)\\
-        &=\lim_{z\to 1} \dfrac{d}{dz} z^n\\
-        & = n
-    \end{align*}
+        \end{bmatrix}&=\Phi(z)\begin{bmatrix}
+            z \\
+            \frac{z}{z-1}
+        \end{bmatrix} \nonumber \\
+        &=\begin{bmatrix}
+            \frac{1}{z-1} & \frac{1}{(z-1)^2} \\
+            0             & \frac{1}{z-1}
+        \end{bmatrix}\begin{bmatrix}
+            z \\
+            \frac{z}{z-1}
+        \end{bmatrix} \nonumber \\
+        &=\begin{bmatrix}
+            \frac{z}{z-1}+\frac{z}{(z-1)^3} \\
+            \frac{z}{(z-1)^2}
+        \end{bmatrix}.
+    \end{align}
+    最后，选取半径大于$1$的围道$C$，求逆z变换：
+    \begin{align}
+        y_1[n]&=\frac{1}{2\pi\im}\oint_C \paren{\frac{z}{z-1}+\frac{z}{(z-1)^3}}z^{n-1}\,\dd z \nonumber \\
+        &=\Res\paren{\frac{z^n}{z-1},1}+\Res\paren{\frac{z^n}{(z-1)^3},1} \nonumber \\
+        &=\lim_{z\to 1}z^n+\lim_{z\to 1}\frac{1}{2}\frac{\dd^2}{\dd z^2}z^n \nonumber \\
+        &=1+\frac{n(n+1)}{2}, \\
+        y_2[n]&=\frac{1}{2\pi\im}\oint_C \frac{z}{(z-1)^2}z^{n-1}\,\dd z \nonumber \\
+        &=\Res\paren{\frac{z^n}{(z-1)^2},1} \nonumber \\
+        &=\lim_{z\to 1}\frac{\dd}{\dd z}z^n \nonumber \\
+        &=n.
+    \end{align}
 \end{example}
 
 \subsection{*离散系统的状态变量分析}\label{sub:discrete_state_variable}
@@ -324,47 +365,60 @@ $$\mathbf{y}[k+1] = A \mathbf{y}[k] + \mathbf{f}[k]$$
 \begin{definition}[状态矢量]
     \textbf{状态矢量}(state vector)是由系统的状态变量组成的向量，通常记为$\mathbf{q}[n]$。
 \end{definition}
-    
+
 \begin{definition}[状态空间和状态轨迹]
     状态矢量所处的空间称为\textbf{状态空间}(state space)。有$n$个状态变量的系统，状态空间为$n$维实线性空间。
-    
+
     随时间变化，状态向量$\mathbf{q}[n]$在状态空间中形成的轨迹称为系统的\textbf{状态轨迹}(state trajectory)。
 \end{definition}
 
-一般地，一个因果的线性时不变系统系统的激励$\mathbf{e}[n]$、响应$\mathbf{r}[n]$与状态变量$\mathbf{q}[n]$满足以下常系数线性性差分方程组：
-\begin{align*}
-    \mathbf{q}[n+1]&=A\mathbf{q}[n]+B\mathbf{e}[n]\\
-    \mathbf{r}[n]&=C\mathbf{q}[n]+D\mathbf{e}[n]
-\end{align*}
+一般地，一个因果的线性时不变系统的激励$\mathbf{e}[n]$、响应$\mathbf{r}[n]$与状态变量$\mathbf{q}[n]$满足以下常系数线性差分方程组：
+\begin{equation}
+    \begin{aligned}
+        \mathbf{q}[n+1]&=A\mathbf{q}[n]+B\mathbf{e}[n], \\
+        \mathbf{r}[n]&=C\mathbf{q}[n]+D\mathbf{e}[n],
+    \end{aligned}
+\end{equation}
 其中矩阵$A$、$B$、$C$、$D$为常数矩阵，分别称它们为系统的\textbf{状态矩阵}(state matrix)、\textbf{输入矩阵}(input matrix)、\textbf{输出矩阵}(output matrix)和\textbf{直接传递矩阵}(direct transmission matrix)。
 
 根据前面几个小节的内容可知，已知状态变量的初始值$\mathbf{q}[0]$，关于状态变量的差分方程组的解为
-$$\mathbf{q}[n]=A^n\mathbf{q}[0]+\sum_{i=0}^{n-1}A^{n-1-i}B\mathbf{e}[i]$$
+\begin{equation}
+    \mathbf{q}[n]=A^n\mathbf{q}[0]+\sum_{i=0}^{n-1}A^{n-1-i}B\mathbf{e}[i],
+\end{equation}
 因此又将方程的解矩阵$\phi[n]=A^n$称为\textbf{状态转移矩阵}(state transition matrix)，它与激励共同决定了状态矢量在状态空间中的移动情况。
 
-考虑将系统矩阵做Jordan分解：$A=PJP^{-1}$，则状态矢量应该变为$\mathbf{w}[n]=P^{-1}\mathbf{q}[n]$，描述系统的方程变为：\begin{align*}
-    \mathbf{w}[n+1]&=J\mathbf{w}[n]+P^{-1}B\mathbf{e}[n]\\
-    \mathbf{r}[n]&=CP\mathbf{w}[n]+D\mathbf{e}[n]
-\end{align*}
+考虑将系统矩阵做Jordan分解：$A=PJP^{-1}$，则状态矢量应该变为$\mathbf{w}[n]=P^{-1}\mathbf{q}[n]$，描述系统的方程变为：
+\begin{equation}
+    \begin{aligned}
+        \mathbf{w}[n+1]&=J\mathbf{w}[n]+P^{-1}B\mathbf{e}[n], \\
+        \mathbf{r}[n]&=CP\mathbf{w}[n]+D\mathbf{e}[n].
+    \end{aligned}
+\end{equation}
 
 将状态变量进行上述的可逆线性变换后，\textbf{可以根据Jordan块的结构将系统拆分为若干互不耦合}（即互相独立）\textbf{的子系统的并联}，将这种操作称为状态变量的\textbf{对角化}(diagonalization)，这种分析方法称为系统的\textbf{模态分析}(modal analysis)，每个子系统称为一个\textbf{模态}(mode)。变换矩阵$P$又称为系统的\textbf{模态矩阵}(modal matrix)。
 
-习惯上，将状态变量对角化后的系统的方程组记为\begin{align*}
-    \mathbf{w}[n+1]&=\hat{A}\mathbf{w}[n]+\hat{B}\mathbf{e}[n]\\
-    \mathbf{r}[n]&=\hat{C}\mathbf{w}[n]+\hat{D}\mathbf{e}[n]
-\end{align*}
-其中\begin{align*}
-    \hat{A}=P^{-1}AP=J,\hat{B}=P^{-1}B,\hat{C}=CP,\hat{D}=D
-\end{align*}
+习惯上，将状态变量对角化后的系统的方程组记为
+\begin{equation}
+    \begin{aligned}
+        \mathbf{w}[n+1]&=\hat{A}\mathbf{w}[n]+\hat{B}\mathbf{e}[n], \\
+        \mathbf{r}[n]&=\hat{C}\mathbf{w}[n]+\hat{D}\mathbf{e}[n],
+    \end{aligned}
+\end{equation}
+其中
+\begin{equation}
+    \hat{A}=P^{-1}AP=J,\quad \hat{B}=P^{-1}B,\quad \hat{C}=CP,\quad \hat{D}=D.
+\end{equation}
 
-特别地，如果$A$是可对角化的，则每个子系统都是一阶的，状态变量的方程为\begin{align*}
-    w_k[n+1]=\lambda_k w_k[n]+\mathbf{p}_k^T B\mathbf{e}[n],\quad k=1,2,\cdots,N
-\end{align*}
-其中$\lambda_k$是$A$的第$k$个特征值，$\mathbf{p}_k^T$是$P^{-1}$的第$k$行，$\mathbf{p}_k^T B$是$\hat{B}$的第$k$行。每个子系统的状态变量$w_k[n]$的解为\begin{align*}
-    w_k[n]=\lambda_k^n w_k(0)+\sum_{i=0}^{n-1} \lambda_k^{n-1-i}\mathbf{p}_k^TB\mathbf{e}[n]
-\end{align*}
+特别地，如果$A$是可对角化的，则每个子系统都是一阶的，状态变量的方程为
+\begin{equation}
+    w_k[n+1]=\lambda_k w_k[n]+\mathbf{p}_k^T B\mathbf{e}[n],\quad k=1,2,\cdots,N,
+\end{equation}
+其中$\lambda_k$是$A$的第$k$个特征值，$\mathbf{p}_k^T$是$P^{-1}$的第$k$行，$\mathbf{p}_k^T B$是$\hat{B}$的第$k$行。每个子系统的状态变量$w_k[n]$的解为
+\begin{equation}
+    w_k[n]=\lambda_k^n w_k[0]+\sum_{i=0}^{n-1}\lambda_k^{n-1-i}\mathbf{p}_k^T B\mathbf{e}[i].
+\end{equation}
 
-在$\hat{B}$的第$k$行不全为0的情况下，通过适当地选取激励信号$\mathbf{e}[n]$，不论状态变量$z_k[n]$的初始值如何，都可以使得$w_k[n]$在有限的时间内达到任意的值，这表明系统的第$k$个模态是可以通过激励控制的，即该模态与输入\textbf{耦合}。系统的\textbf{可控性}(controllability)要求状态向量可以被适当的激励引向状态空间中的特定位置：
+在$\hat{B}$的第$k$行不全为$0$的情况下，通过适当地选取激励信号$\mathbf{e}[n]$，不论状态变量$w_k[n]$的初始值如何，都可以使得$w_k[n]$在有限的时间内达到任意的值，这表明系统的第$k$个模态是可以通过激励控制的，即该模态与输入\textbf{耦合}。系统的\textbf{可控性}(controllability)要求状态向量可以被适当的激励引向状态空间中的特定位置：
 
 \begin{definition}[可控性]
     如果对于任意初始值$\mathbf{q}[0]$和任意目标状态$\mathbf{q}_f$，存在激励信号$\mathbf{e}[n]$能够在有限时间内使得状态矢量到达$\mathbf{q}_f$，则称系统是\textbf{可控}的。
@@ -372,76 +426,83 @@ $$\mathbf{q}[n]=A^n\mathbf{q}[0]+\sum_{i=0}^{n-1}A^{n-1-i}B\mathbf{e}[i]$$
     如果只有部分模态是可控的，则称系统是\textbf{部分可控}的。
 \end{definition}
 
-\textbf{可控性要求状态变量与输入耦合}，仅仅取决于$\hat{A}$和$\hat{B}$。如果系统矩阵$A$可对角化，则所有状态变量相互独立，\textbf{$\hat{B}$的第$k$行不全为0，就等价于第$k$个模态是可控的}；如果系统矩阵不可对角化，则每个模态由多个状态变量描述，子系统的系统矩阵为Jordan块：
-\begin{align*}
+\textbf{可控性要求状态变量与输入耦合}，仅仅取决于$\hat{A}$和$\hat{B}$。如果系统矩阵$A$可对角化，则所有状态变量相互独立，\textbf{$\hat{B}$的第$k$行不全为$0$，就等价于第$k$个模态是可控的}；如果系统矩阵不可对角化，则每个模态由多个状态变量描述，子系统的系统矩阵为Jordan块：
+\begin{equation}
     \begin{bmatrix}
-    w_k[n+1]\\
-    w_{k+1}[n+1]\\
-    \vdots\\
-    w_{k+m-1}[n+1]
+        w_k[n+1]   \\
+        w_{k+1}[n+1] \\
+        \vdots     \\
+        w_{k+m-1}[n+1]
     \end{bmatrix}=\begin{bmatrix}
-    \lambda & 1 & 0 & \cdots & 0\\
-    0 & \lambda & 1 & \cdots & 0\\
-    \vdots & \vdots & \vdots & \ddots & \vdots\\
-    0 & 0 & 0 & \cdots & 1\\
-    0 & 0 & 0 & \cdots & \lambda
+        \lambda & 1      & 0      & \cdots & 0       \\
+        0       & \lambda & 1     & \cdots & 0       \\
+        \vdots  & \vdots & \vdots & \ddots & \vdots  \\
+        0       & 0      & 0      & \cdots & 1       \\
+        0       & 0      & 0      & \cdots & \lambda
     \end{bmatrix}\begin{bmatrix}
-    w_k[n]\\
-    w_{k+1}[n]\\
-    \vdots\\
-    w_{k+m-1}[n]
+        w_k[n]   \\
+        w_{k+1}[n] \\
+        \vdots   \\
+        w_{k+m-1}[n]
     \end{bmatrix}+\begin{bmatrix}
-    \mathbf{p}_k^T B\mathbf{e}[n]\\
-    \mathbf{p}_{k+1}^T B\mathbf{e}[n]\\
-    \vdots\\
-    \mathbf{p}_{k+m-1}^T B\mathbf{e}[n]
-    \end{bmatrix}
-\end{align*}
+        \mathbf{p}_k^T B\mathbf{e}[n]     \\
+        \mathbf{p}_{k+1}^T B\mathbf{e}[n] \\
+        \vdots                            \\
+        \mathbf{p}_{k+m-1}^T B\mathbf{e}[n]
+    \end{bmatrix}.
+\end{equation}
 此时模态内的最后一个状态变量由一阶方程描述，而其余状态变量受自身、激励以及下一个状态变量的控制，因此\textbf{每个模态的可控性等价于最后一个状态变量（链尾）与输入耦合}。在\refsub{state_variable_analysis}中，我们已经展示过这一结论对二阶Jordan块对应的模态的正确性，读者可以自行构造一个类似的例子，这里不再重复。
 
 与之类似的还有系统的\textbf{可观性}(observability)，它要求\textbf{状态变量与输出耦合}：
 
 \begin{definition}[可观性]
-    如果给定激励信号$\mathbf{e}[n]$，总能根据系统在有限时间$n_0$内的响应$\mathbf{r}[n],t\in[0,n_0]$唯一确定所有状态变量的起始状态$\mathbf{q}[n]$，则称系统是\textbf{可观}的。
+    如果给定激励信号$\mathbf{e}[n]$，总能根据系统在有限时间$n_0$内的响应$\mathbf{r}[n],\ n\in[0,n_0]$唯一确定所有状态变量的起始状态$\mathbf{q}[0]$，则称系统是\textbf{可观}的。
 
     如果只能确定部分状态变量的起始状态，则称系统是\textbf{部分可观}的。
 \end{definition}
 
-类似地，可观性仅仅取决于$\hat{A}$和$\hat{C}$。考虑输出方程\begin{align*}
-    \mathbf{r}[n]&=\hat{C}\mathbf{w}[n]+\hat{D}\mathbf{e}[n]\\
-    \mathbf{r}_k[n]&=\sum_{j=1}^N \hat{C}_{kj} w_j[n]+\sum_{j=1}^m \hat{D}_{kj} e_j[n]
-\end{align*}
-如果系统矩阵$A$可对角化，则所有状态变量相互独立，\textbf{$\hat{C}$的第$k$行不全为0，就等价于第$k$个模态是可观的}，即该模态对应的子系统是可观的；如果系统矩阵不可对角化，则每个模态由多个状态变量描述，子系统的系统矩阵为Jordan块，此时模态内的后一状态变量可以由前一状态变量观测，因此\textbf{每个模态的可观性等价于第一个状态变量（链首）与输出耦合}。
+类似地，可观性仅仅取决于$\hat{A}$和$\hat{C}$。考虑输出方程
+\begin{equation}
+    \begin{aligned}
+        \mathbf{r}[n]&=\hat{C}\mathbf{w}[n]+\hat{D}\mathbf{e}[n], \\
+        \mathbf{r}_k[n]&=\sum_{j=1}^{N}\hat{C}_{kj}w_j[n]+\sum_{j=1}^{m}\hat{D}_{kj}e_j[n].
+    \end{aligned}
+\end{equation}
+如果系统矩阵$A$可对角化，则所有状态变量相互独立，\textbf{$\hat{C}$的第$k$行不全为$0$，就等价于第$k$个模态是可观的}，即该模态对应的子系统是可观的；如果系统矩阵不可对角化，则每个模态由多个状态变量描述，子系统的系统矩阵为Jordan块，此时模态内的后一状态变量可以由前一状态变量观测，因此\textbf{每个模态的可观性等价于第一个状态变量（链首）与输出耦合}。
 
 下面给出离散系统的可控性与可观性的满秩判别法。
 
 \begin{theorem}[可控性的满秩判别法]
     一个$N$阶系统是可控的，当且仅当它的\textbf{可控矩阵}(controllable matrix)
-    \begin{align*}
-    \mathcal{C} =\begin{bmatrix}
-    B & AB & A^2B & \cdots & A^{N-1}B
-    \end{bmatrix}
-    \end{align*}
-    是行满秩的，即$\mathrm{rank}\mathcal{C}=N$。
+    \begin{equation}
+        \mathcal{C}=\begin{bmatrix}
+            B & AB & A^2B & \cdots & A^{N-1}B
+        \end{bmatrix}
+    \end{equation}
+    是行满秩的，即$\rank\mathcal{C}=N$。
 \end{theorem}
 \begin{proof}
-    不妨设$\mathbf{q}[0]=0$。根据状态变量的解的公式，\begin{align*}
+    不妨设$\mathbf{q}[0]=0$。根据状态变量的解的公式，
+    \begin{equation}
         \mathbf{q}[n_0]=\sum_{i=0}^{n_0-1}A^{n_0-1-i}B\mathbf{e}[i]=\begin{bmatrix}
             B & AB & A^2B & \cdots & A^{N-1}B
         \end{bmatrix}\begin{bmatrix}
-            e_1[n]\\
-            e_2[n]\\
-            \vdots\\
+            e_1[n] \\
+            e_2[n] \\
+            \vdots \\
             e_N[n]
+        \end{bmatrix}.
+    \end{equation}
+    矩阵右乘一个列向量，相当于对矩阵进行列变换，因此$\mathbf{q}[n_0]$的取值范围就等于矩阵
+    \begin{equation}
+        \mathcal{C}=\begin{bmatrix}
+            B & AB & A^2B & \cdots & A^{N-1}B
         \end{bmatrix}
-    \end{align*}
-    矩阵右乘一个列向量，相当于对矩阵进行列变换，因此$\mathbf{q}[n_0]$的取值范围就等于矩阵\begin{align*}
-    \mathcal{C} =\begin{bmatrix}
-    B & AB & A^2B & \cdots & A^{N-1}B
-    \end{bmatrix}
-    \end{align*}
+    \end{equation}
     的列空间$\mathrm{C}(\mathcal{C})$，因此$\mathbf{q}[n_0]$可以取$\mathbb{R}^N$中的任意值就等价于
-    $$\dim \mathrm{C}(\mathcal{C} )=\mathrm{rank}(\mathcal{C} )=\dim\mathbb{R}^N=N$$
+    \begin{equation}
+        \dim\mathrm{C}(\mathcal{C})=\rank(\mathcal{C})=\dim\mathbb{R}^N=N.
+    \end{equation}
 \end{proof}
 
 与连续系统一样，通过对偶系统，可以由可控性的满秩判别法得到可观性的满秩判别法。
@@ -455,39 +516,48 @@ $$\mathbf{q}[n]=A^n\mathbf{q}[0]+\sum_{i=0}^{n-1}A^{n-1-i}B\mathbf{e}[i]$$
 
 \begin{theorem}[可观性的满秩判别法]
     一个$N$阶系统是可观的，当且仅当它的\textbf{可观矩阵}(observable matrix)
-    \begin{align*}
-    \mathcal{O} =\begin{bmatrix}
-    C\\
-    CA\\
-    CA^2\\
-    \vdots\\
-    CA^{N-1}
-    \end{bmatrix}
-    \end{align*}
-    是列满秩的，即$\mathrm{rank}\mathcal{O}=N$。
+    \begin{equation}
+        \mathcal{O}=\begin{bmatrix}
+            C      \\
+            CA     \\
+            CA^2   \\
+            \vdots \\
+            CA^{N-1}
+        \end{bmatrix}
+    \end{equation}
+    是列满秩的，即$\rank\mathcal{O}=N$。
 \end{theorem}
 
 以上两个定理的证明都与\refsub{state_variable_analysis}中一致。
 
 最后，我们使用单边z变换来分析由状态变量方程描述的系统。对方程组
-\begin{align*}
-    \mathbf{q}[n+1]&=A\mathbf{q}[n]+B\mathbf{e}[n]\\
-    \mathbf{r}[n]&=C\mathbf{q}[n]+D\mathbf{e}[n]\\
-    \mathbf{q}[0]&=\mathbf{q}_0
-\end{align*}
-两边同时乘以$u[n]$并做单边z变换，有\begin{align*}
-    z\mathbf{Q}(z)-z\mathbf{q}_0&=A\mathbf{Q}(z)+B\mathbf{E}(z)\\
-    \mathbf{R}(z)&=C\mathbf{Q}(z)+D\mathbf{E}(z)
-\end{align*}
-由前一方程，\begin{align*}
-    \mathbf{Q}(z)=z(zI-A)^{-1}\mathbf{q}_0+(zI-A)^{-1}B\mathbf{E}(z)=z\Phi(z)\mathbf{q}_0+\Phi(z)B\mathbf{E}(z)
-\end{align*}
-代入后一方程，得到\begin{align*}
-    \mathbf{R}(z)&=C\left[z\Phi(z)\mathbf{q}_0+\Phi(z)B\mathbf{E}(z)\right]+D\mathbf{E}(z)\\
-    &=zC\Phi(z)\mathbf{q}_0+[C\Phi(z)B+D]\mathbf{E}(z)
-\end{align*}
+\begin{equation}
+    \begin{aligned}
+        \mathbf{q}[n+1]&=A\mathbf{q}[n]+B\mathbf{e}[n], \\
+        \mathbf{r}[n]&=C\mathbf{q}[n]+D\mathbf{e}[n], \\
+        \mathbf{q}[0]&=\mathbf{q}_0,
+    \end{aligned}
+\end{equation}
+两边同时乘以$u[n]$并做单边z变换，有
+\begin{equation}
+    \begin{aligned}
+        z\mathbf{Q}(z)-z\mathbf{q}_0&=A\mathbf{Q}(z)+B\mathbf{E}(z), \\
+        \mathbf{R}(z)&=C\mathbf{Q}(z)+D\mathbf{E}(z).
+    \end{aligned}
+\end{equation}
+由前一方程，
+\begin{equation}
+    \mathbf{Q}(z)=z(zI-A)^{-1}\mathbf{q}_0+(zI-A)^{-1}B\mathbf{E}(z)=z\Phi(z)\mathbf{q}_0+\Phi(z)B\mathbf{E}(z),
+\end{equation}
+代入后一方程，得到
+\begin{align}
+    \mathbf{R}(z)&=C\sbr{z\Phi(z)\mathbf{q}_0+\Phi(z)B\mathbf{E}(z)}+D\mathbf{E}(z) \nonumber \\
+    &=zC\Phi(z)\mathbf{q}_0+[C\Phi(z)B+D]\mathbf{E}(z).
+\end{align}
 因此系统函数为
-$$H(z)=C\Phi(z)B+D$$
+\begin{equation}
+    H(z)=C\Phi(z)B+D.
+\end{equation}
 
 对于一个$q$输入、$p$输出的线性时不变系统，其系统函数为$p\times q$的矩阵值函数。特别地，对于单输入单输出系统，系统函数为一个分式函数。
 
@@ -495,12 +565,12 @@ $$H(z)=C\Phi(z)B+D$$
 
 \begin{claim}
     设单输入单输出系统的状态变量方程为
-    \begin{align*}
-        \mathbf{q}[n]=&A\mathbf{q}[n]+B \mathbf{e}[n],\mathbf{r}[n]=C\mathbf{q}[n]
-    \end{align*}
+    \begin{equation}
+        \mathbf{q}[n+1]=A\mathbf{q}[n]+B\mathbf{e}[n],\quad \mathbf{r}[n]=C\mathbf{q}[n],
+    \end{equation}
     则系统的系统函数为
-    \begin{align*}
-        H(s)=C\Phi(s)B
-    \end{align*}
+    \begin{equation}
+        H(z)=C\Phi(z)B.
+    \end{equation}
     如果在系统函数的计算过程中，没有出现零极点的抵消，即系统函数的分子和分母没有公共因子，则系统是可控且可观的，否则系统不完全可控或不完全可观。
 \end{claim}

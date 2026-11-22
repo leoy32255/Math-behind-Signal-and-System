@@ -24,6 +24,10 @@
 \usetikzlibrary{calc}
 \allowdisplaybreaks
 \raggedbottom
+% 防止行内 \displaystyle 公式与上下行文字贴靠或重叠
+\setlength{\lineskiplimit}{3pt}
+\setlength{\lineskip}{4pt}
+\setlength{\emergencystretch}{1.5em}
 \usetikzlibrary{shapes,arrows,positioning,calc}
 \usepackage{graphicx}
 \usepackage{grffile}
@@ -66,244 +70,580 @@
 \DeclareMathOperator{\vol}{vol}
 % 便捷命令：在文中书写原函数在上下限的取值，例如 \evalat{F(x)}{a}{b} 输出为 \left.F(x)\right|_{a}^{b}
 \newcommand{\evalat}[3]{\left.#1\right|_{#2}^{#3}}
+
+% 双形式傅里叶公式柔和学术配色
+\colorlet{freqcolor}{RoyalBlue!85!black}
+\colorlet{angcolor}{BrickRed!85!black}
+
+% 从 D:\obsidian\math 迁移的常用安全宏及正体微分宏
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\dd}{\mathrm{d}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\DeclareMathOperator{\DFT}{DFT}
+\DeclareMathOperator{\IDFT}{IDFT}
+\DeclareMathOperator{\FFT}{FFT}
+\DeclareMathOperator{\IFFT}{IFFT}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\inter}{int}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\LHS}{\mathrm{LHS}}
+\newcommand{\RHS}{\mathrm{RHS}}
+\newcommand{\aee}{\text{a.e.}}
+\newcommand{\pd}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\braket}[1]{\left\langle #1\right\rangle}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert\vphantom{\|}#1\right\rVert}
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\sbr}[1]{\left[#1\right]}
+\newcommand{\braces}[1]{\left\{#1\right\}}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+
+% 兼容旧版 \lr 命令：转调自适应编号的 lralign 环境
 \newcommand{\lr}[2]{%
-    \begin{center}
-        \begin{minipage}[t]{0.45\textwidth}
-            \centering
-            \allowdisplaybreaks
-            \textcolor{blue}{%
-                \begin{varwidth}{\linewidth}
-                    $\begin{aligned}
-                            #1
-                        \end{aligned}$
-                \end{varwidth}
-            }
-        \end{minipage}
-        \hfill
-        \begin{minipage}[t]{0.45\textwidth}
-            \centering
-            \allowdisplaybreaks
-            \textcolor{red}{%
-                \begin{varwidth}{\linewidth}
-                    $\begin{aligned}
-                            #2
-                        \end{aligned}$
-                \end{varwidth}
-            }
-        \end{minipage}
-    \end{center}
+    \begin{lralign}
+        #1
+    \switch
+        #2
+    \end{lralign}%
 }
 
-% 新定义的lralign环境，支持分页，使用\switch分隔左右
+% 自适应双形式公式环境 lralign（支持编号、自动分页、按宽度自动在并列与上下堆叠间切换）
 % 用法:
-% \begin{lralign}
-% 左侧公式
+% \begin{lralign}[eq:label] % 可选标签
+% 左侧（频率形式）公式
 % \switch
-% 右侧公式
+% 右侧（角频率形式）公式
 % \end{lralign}
+% 无编号版本请使用 lralign*
 \ExplSyntaxOn
 \seq_new:N \l_lralign_left_rows_seq
 \seq_new:N \l_lralign_right_rows_seq
 \tl_new:N \l_lralign_left_body_tl
 \tl_new:N \l_lralign_right_body_tl
 \tl_new:N \l_lralign_final_body_tl
+\tl_new:N \l_lralign_label_tl
 \seq_new:N \l_lralign_parts_seq
 \int_new:N \l_lralign_max_rows_int
+\int_new:N \l_lralign_left_count_int
+\int_new:N \l_lralign_right_count_int
 \seq_new:N \l_lralign_cell_seq
-\dim_new:N \l_lralign_column_width_dim
 \dim_new:N \l_lralign_left_pre_max_dim
 \dim_new:N \l_lralign_left_post_max_dim
+\dim_new:N \l_lralign_left_cent_max_dim
+\dim_new:N \l_lralign_left_width_dim
 \dim_new:N \l_lralign_right_pre_max_dim
 \dim_new:N \l_lralign_right_post_max_dim
+\dim_new:N \l_lralign_right_cent_max_dim
+\dim_new:N \l_lralign_right_width_dim
 \dim_new:N \l_lralign_left_pre_column_dim
 \dim_new:N \l_lralign_left_post_column_dim
 \dim_new:N \l_lralign_right_pre_column_dim
 \dim_new:N \l_lralign_right_post_column_dim
+\dim_new:N \l_lralign_tag_dim
+\dim_new:N \l_lralign_gap_dim
+\dim_new:N \l_lralign_slack_dim
+\bool_new:N \l_lralign_left_has_amp_bool
+\bool_new:N \l_lralign_right_has_amp_bool
+\bool_new:N \l_lralign_numbered_bool
+\bool_new:N \l_lralign_force_stack_bool
 \box_new:N \l_lralign_measure_box
+
+\keys_define:nn { lralign }
+{
+    stack .bool_set:N = \l_lralign_force_stack_bool,
+    stack .default:n  = true,
+    label .tl_set:N   = \l_lralign_label_tl,
+}
+
+\cs_new_protected:Npn \lralign_parse_options:n #1
+{
+    \bool_set_false:N \l_lralign_force_stack_bool
+    \tl_clear:N \l_lralign_label_tl
+    \tl_if_blank:nF { #1 }
+    {
+        \clist_map_inline:nn { #1 }
+        {
+            \tl_if_blank:nF { ##1 }
+            {
+                \tl_if_in:nnTF { ##1 } { = }
+                { \keys_set:nn { lralign } { ##1 } }
+                {
+                    \str_if_eq:nnTF { ##1 } { stack }
+                    { \bool_set_true:N \l_lralign_force_stack_bool }
+                    { \tl_set:Nn \l_lralign_label_tl { ##1 } }
+                }
+            }
+        }
+    }
+}
 
 \msg_new:nnn { lralign } { too-many-alignment-tabs }
 {
     Each~side~of~an~lralign~row~may~contain~at~most~one~alignment~tab~(&).
 }
 
-% A row without & is centred in its half of the text area.  The zero-width
-% inner box is anchored at the boundary between the two quarter-width boxes.
-\cs_new_protected:Npn \lralign_append_centred_side:nn #1#2
+% Remove empty rows at the start or end (e.g. from a trailing \\).
+\bool_new:N \l_lralign_trim_stop_bool
+\cs_new_protected:Npn \lralign_trim_rows:N #1
 {
-    \tl_put_right:Nn \l_lralign_final_body_tl
+    \bool_set_false:N \l_lralign_trim_stop_bool
+    \bool_until_do:nn { \l_lralign_trim_stop_bool }
     {
-        \mathmakebox[\l_lralign_column_width_dim][r]
-        { \mathmakebox[0pt][c]{ \color{#1} #2 } }
-        &
-        \mathmakebox[\l_lralign_column_width_dim][l]{}
+        \seq_if_empty:NTF #1
+        { \bool_set_true:N \l_lralign_trim_stop_bool }
+        {
+            \seq_get_left:NN #1 \l_tmpa_tl
+            \tl_if_blank:VTF \l_tmpa_tl
+            { \seq_pop_left:NN #1 \l_tmpa_tl }
+            { \bool_set_true:N \l_lralign_trim_stop_bool }
+        }
+    }
+    \bool_set_false:N \l_lralign_trim_stop_bool
+    \bool_until_do:nn { \l_lralign_trim_stop_bool }
+    {
+        \seq_if_empty:NTF #1
+        { \bool_set_true:N \l_lralign_trim_stop_bool }
+        {
+            \seq_get_right:NN #1 \l_tmpa_tl
+            \tl_if_blank:VTF \l_tmpa_tl
+            { \seq_pop_right:NN #1 \l_tmpa_tl }
+            { \bool_set_true:N \l_lralign_trim_stop_bool }
+        }
     }
 }
 
-% A row with & uses separately calculated column widths.  Their boundary is
-% shifted so that the complete aligned formula group, rather than &, is
-% centred in its half of the text area.
-\cs_new_protected:Npn \lralign_append_aligned_side:nnnNN #1#2#3#4#5
+\cs_new_protected:Npn \lralign_measure_row:nNNNN #1#2#3#4#5
 {
-    \tl_put_right:Nn \l_lralign_final_body_tl
-    {
-        \mathmakebox[#4][r]
-        { \color{#1} #2 }
-        &
-        \mathmakebox[#5][l]
-        { \color{#1} {} #3 }
-    }
-}
-
-\cs_generate_variant:Nn \lralign_append_centred_side:nn { nV }
-\cs_generate_variant:Nn \lralign_append_aligned_side:nnnNN { nVVNN }
-
-% Measure the widest material before and after & just as an AMS alignment
-% does.  Rows without & are centred independently and need no measurement.
-\cs_new_protected:Npn \lralign_measure_row:nNN #1#2#3
-{
-\seq_set_split:Nnn \l_lralign_cell_seq { & } { #1 }
-\int_compare:nNnT { \seq_count:N \l_lralign_cell_seq } = { 2 }
-{
-\seq_pop_left:NN \l_lralign_cell_seq \l_tmpa_tl
-\seq_pop_left:NN \l_lralign_cell_seq \l_tmpb_tl
-\hbox_set:Nn \l_lralign_measure_box
-{ $\displaystyle \l_tmpa_tl$ }
-\dim_set:Nn #2
-{ \dim_max:nn { #2 } { \box_wd:N \l_lralign_measure_box } }
-\hbox_set:Nn \l_lralign_measure_box
-{ $\displaystyle {} \l_tmpb_tl$ }
-\dim_set:Nn #3
-{ \dim_max:nn { #3 } { \box_wd:N \l_lralign_measure_box } }
-}
-}
-
-\cs_new_protected:Npn \lralign_measure_rows:NNN #1#2#3
-{
-    \dim_zero:N #2
-    \dim_zero:N #3
-    \seq_map_inline:Nn #1
-    { \lralign_measure_row:nNN { ##1 } #2 #3 }
-}
-
-\cs_new_protected:Npn \lralign_append_side:nnNN #1#2#3#4
-{
-    \seq_set_split:Nnn \l_lralign_cell_seq { & } { #2 }
+    \seq_set_split:Nnn \l_lralign_cell_seq { & } { #1 }
     \int_case:nnF { \seq_count:N \l_lralign_cell_seq }
     {
         { 1 }
+        {
+            \seq_pop_left:NN \l_lralign_cell_seq \l_tmpa_tl
+            \hbox_set:Nn \l_lralign_measure_box
+            { $\displaystyle \l_tmpa_tl$ }
+            \dim_set:Nn #4
+            { \dim_max:nn { #4 } { \box_wd:N \l_lralign_measure_box } }
+        }
+        { 2 }
+        {
+            \bool_set_true:N #5
+            \seq_pop_left:NN \l_lralign_cell_seq \l_tmpa_tl
+            \seq_pop_left:NN \l_lralign_cell_seq \l_tmpb_tl
+            \hbox_set:Nn \l_lralign_measure_box
+            { $\displaystyle \l_tmpa_tl$ }
+            \dim_set:Nn #2
+            { \dim_max:nn { #2 } { \box_wd:N \l_lralign_measure_box } }
+            \hbox_set:Nn \l_lralign_measure_box
+            { $\displaystyle {} \l_tmpb_tl$ }
+            \dim_set:Nn #3
+            { \dim_max:nn { #3 } { \box_wd:N \l_lralign_measure_box } }
+        }
+    }
+    { \msg_error:nn { lralign } { too-many-alignment-tabs } }
+}
+
+\cs_new_protected:Npn \lralign_measure_rows:NNNNN #1#2#3#4#5
+{
+    \dim_zero:N #2
+    \dim_zero:N #3
+    \dim_zero:N #4
+    \bool_set_false:N #5
+    \seq_map_inline:Nn #1
+    { \lralign_measure_row:nNNNN { ##1 } #2 #3 #4 #5 }
+}
+
+% Append side cell in side-by-side mode.
+% #1 = color, #2 = row text, #3 = pre col dim, #4 = post col dim, #5 = total side dim, #6 = leading hspace dim
+\cs_new_protected:Npn \lralign_append_side_sbs:nnNNNN #1#2#3#4#5#6
+{
+    \dim_compare:nNnF { #6 } = { 0pt }
+    {
+        \tl_put_right:Nx \l_lralign_final_body_tl
+        { \exp_not:N \hspace { \dim_use:N #6 } }
+    }
+    \tl_if_blank:nTF { #2 }
+    {
+        \tl_put_right:Nx \l_lralign_final_body_tl
+        {
+            \exp_not:N \mathmakebox [ \dim_use:N #3 ] [r] {}
+            &
+            \exp_not:N \mathmakebox [ \dim_use:N #4 ] [l] {}
+        }
+    }
+    {
+        \seq_set_split:Nnn \l_lralign_cell_seq { & } { #2 }
+        \int_case:nnF { \seq_count:N \l_lralign_cell_seq }
+        {
+            { 1 }
             {
                 \seq_pop_left:NN \l_lralign_cell_seq \l_tmpa_tl
-                \lralign_append_centred_side:nV { #1 } \l_tmpa_tl
+                \dim_compare:nNnTF { #4 } = { 0pt }
+                {
+                    \tl_put_right:Nx \l_lralign_final_body_tl
+                    {
+                        \exp_not:N \mathmakebox [ \dim_use:N #5 ] [c]
+                        { \exp_not:N \color { #1 } \exp_not:V \l_tmpa_tl }
+                        &
+                    }
+                }
+                {
+                    \tl_put_right:Nx \l_lralign_final_body_tl
+                    {
+                        \exp_not:N \mathmakebox [ \dim_use:N #3 ] [l]
+                        {
+                            \exp_not:N \mathmakebox [0pt] [l]
+                            {
+                                \exp_not:N \mathmakebox [ \dim_use:N #5 ] [c]
+                                { \exp_not:N \color { #1 } \exp_not:V \l_tmpa_tl }
+                            }
+                        }
+                        &
+                        \exp_not:N \mathmakebox [ \dim_use:N #4 ] [l] {}
+                    }
+                }
             }
             { 2 }
             {
                 \seq_pop_left:NN \l_lralign_cell_seq \l_tmpa_tl
                 \seq_pop_left:NN \l_lralign_cell_seq \l_tmpb_tl
-                \lralign_append_aligned_side:nVVNN
-                { #1 } \l_tmpa_tl \l_tmpb_tl #3 #4
+                \tl_put_right:Nx \l_lralign_final_body_tl
+                {
+                    \exp_not:N \mathmakebox [ \dim_use:N #3 ] [r]
+                    { \exp_not:N \color { #1 } \exp_not:V \l_tmpa_tl }
+                    &
+                    \exp_not:N \mathmakebox [ \dim_use:N #4 ] [l]
+                    { \exp_not:N \color { #1 } {} \exp_not:V \l_tmpb_tl }
+                }
             }
+        }
+        { \msg_error:nn { lralign } { too-many-alignment-tabs } }
+    }
+}
+
+\cs_generate_variant:Nn \lralign_append_side_sbs:nnNNNN { nVNNNN }
+
+% Append one row in stacked align mode
+\cs_new_protected:Npn \lralign_append_stacked_align_row:nn #1#2
+{
+    \seq_set_split:Nnn \l_lralign_cell_seq { & } { #2 }
+    \int_case:nnF { \seq_count:N \l_lralign_cell_seq }
+    {
+        { 1 }
+        {
+            \seq_pop_left:NN \l_lralign_cell_seq \l_tmpa_tl
+            \tl_put_right:Nx \l_lralign_final_body_tl
+            {
+                \exp_not:N \color { #1 } \exp_not:V \l_tmpa_tl &
+            }
+        }
+        { 2 }
+        {
+            \seq_pop_left:NN \l_lralign_cell_seq \l_tmpa_tl
+            \seq_pop_left:NN \l_lralign_cell_seq \l_tmpb_tl
+            \tl_put_right:Nx \l_lralign_final_body_tl
+            {
+                \exp_not:N \color { #1 } \exp_not:V \l_tmpa_tl
+                &
+                \exp_not:N \color { #1 } \exp_not:V \l_tmpb_tl
+            }
+        }
     }
     { \msg_error:nn { lralign } { too-many-alignment-tabs } }
 }
+\cs_generate_variant:Nn \lralign_append_stacked_align_row:nn { nV }
 
-\cs_generate_variant:Nn \lralign_append_side:nnNN { nVNN }
-
-\NewDocumentEnvironment{lralign}{ +b }{
-% Split input at \switch
-\seq_set_split:Nnn \l_lralign_parts_seq { \switch } { #1 }
-
-% Extract Left and Right
-\seq_pop_left:NN \l_lralign_parts_seq \l_lralign_left_body_tl
-% Check if Right exists
-\seq_if_empty:NTF \l_lralign_parts_seq
-{ \tl_clear:N \l_lralign_right_body_tl }
-{ \seq_pop_left:NN \l_lralign_parts_seq \l_lralign_right_body_tl }
-
-% Split into rows (using \\ as delimiter)
-\seq_set_split:NnV \l_lralign_left_rows_seq { \\ } \l_lralign_left_body_tl
-\seq_set_split:NnV \l_lralign_right_rows_seq { \\ } \l_lralign_right_body_tl
-
-% Calculate max rows
-\int_set:Nn \l_lralign_max_rows_int { \int_max:nn { \seq_count:N \l_lralign_left_rows_seq } { \seq_count:N \l_lralign_right_rows_seq } }
-
-\tl_clear:N \l_lralign_final_body_tl
-\dim_set:Nn \l_lralign_column_width_dim { .25\linewidth }
-
-% Find the natural width of both alignment columns on each side.
-\lralign_measure_rows:NNN
-\l_lralign_left_rows_seq
-\l_lralign_left_pre_max_dim
-\l_lralign_left_post_max_dim
-\lralign_measure_rows:NNN
-\l_lralign_right_rows_seq
-\l_lralign_right_pre_max_dim
-\l_lralign_right_post_max_dim
-
-% Centre each complete aligned group in its half.  Clamp the alignment
-% point to that half for exceptionally wide or strongly asymmetric rows.
-\dim_set:Nn \l_lralign_left_pre_column_dim
+% Append one row in stacked gather mode
+\cs_new_protected:Npn \lralign_append_stacked_gather_row:nn #1#2
 {
-    \dim_max:nn { 0pt }
+    \tl_put_right:Nx \l_lralign_final_body_tl
     {
-        \dim_min:nn { .5\linewidth }
+        \exp_not:N \color { #1 } \exp_not:n { #2 }
+    }
+}
+\cs_generate_variant:Nn \lralign_append_stacked_gather_row:nn { nV }
+
+\cs_new_protected:Npn \lralign_exec_alignat:n #1
+{
+    \begin{alignat}{2}
+        #1
+    \end{alignat}
+}
+\cs_generate_variant:Nn \lralign_exec_alignat:n { V }
+
+\cs_new_protected:Npn \lralign_exec_alignat_star:n #1
+{
+    \begin{alignat*}{2}
+        #1
+    \end{alignat*}
+}
+\cs_generate_variant:Nn \lralign_exec_alignat_star:n { V }
+
+\cs_new_protected:Npn \lralign_exec_align:n #1
+{
+    \begin{align}
+        #1
+    \end{align}
+}
+\cs_generate_variant:Nn \lralign_exec_align:n { V }
+
+\cs_new_protected:Npn \lralign_exec_align_star:n #1
+{
+    \begin{align*}
+        #1
+    \end{align*}
+}
+\cs_generate_variant:Nn \lralign_exec_align_star:n { V }
+
+\cs_new_protected:Npn \lralign_exec_gather:n #1
+{
+    \begin{gather}
+        #1
+    \end{gather}
+}
+\cs_generate_variant:Nn \lralign_exec_gather:n { V }
+
+\cs_new_protected:Npn \lralign_exec_gather_star:n #1
+{
+    \begin{gather*}
+        #1
+    \end{gather*}
+}
+\cs_generate_variant:Nn \lralign_exec_gather_star:n { V }
+
+\cs_new_protected:Npn \lralign_emit_label:
+{
+    \tl_if_blank:VF \l_lralign_label_tl
+    {
+        \tl_put_right:Nx \l_lralign_final_body_tl
         {
-            .25\linewidth
-            + ( \l_lralign_left_pre_max_dim
-            - \l_lralign_left_post_max_dim ) / 2
+            \exp_not:N \label { \exp_not:V \l_lralign_label_tl }
         }
     }
 }
-\dim_set:Nn \l_lralign_left_post_column_dim
-{ .5\linewidth - \l_lralign_left_pre_column_dim }
-\dim_set:Nn \l_lralign_right_pre_column_dim
+
+\cs_new_protected:Npn \lralign_process:nn #1#2
 {
-    \dim_max:nn { 0pt }
+    \lralign_parse_options:n { #1 }
+    % Split input at \switch
+    \seq_set_split:Nnn \l_lralign_parts_seq { \switch } { #2 }
+    \seq_pop_left:NN \l_lralign_parts_seq \l_lralign_left_body_tl
+    \seq_if_empty:NTF \l_lralign_parts_seq
+    { \tl_clear:N \l_lralign_right_body_tl }
+    { \seq_pop_left:NN \l_lralign_parts_seq \l_lralign_right_body_tl }
+
+    % Split into rows and trim leading/trailing blank rows
+    \seq_set_split:NnV \l_lralign_left_rows_seq { \\ } \l_lralign_left_body_tl
+    \seq_set_split:NnV \l_lralign_right_rows_seq { \\ } \l_lralign_right_body_tl
+    \lralign_trim_rows:N \l_lralign_left_rows_seq
+    \lralign_trim_rows:N \l_lralign_right_rows_seq
+
+    \int_set:Nn \l_lralign_left_count_int { \seq_count:N \l_lralign_left_rows_seq }
+    \int_set:Nn \l_lralign_right_count_int { \seq_count:N \l_lralign_right_rows_seq }
+    \int_set:Nn \l_lralign_max_rows_int
+    { \int_max:nn { \l_lralign_left_count_int } { \l_lralign_right_count_int } }
+
+    % Measure natural width of each side
+    \lralign_measure_rows:NNNNN
+        \l_lralign_left_rows_seq
+        \l_lralign_left_pre_max_dim
+        \l_lralign_left_post_max_dim
+        \l_lralign_left_cent_max_dim
+        \l_lralign_left_has_amp_bool
+    \lralign_measure_rows:NNNNN
+        \l_lralign_right_rows_seq
+        \l_lralign_right_pre_max_dim
+        \l_lralign_right_post_max_dim
+        \l_lralign_right_cent_max_dim
+        \l_lralign_right_has_amp_bool
+
+    \dim_set:Nn \l_lralign_left_width_dim
     {
-        \dim_min:nn { .5\linewidth }
+        \dim_max:nn
+            { \l_lralign_left_pre_max_dim + \l_lralign_left_post_max_dim }
+            { \l_lralign_left_cent_max_dim }
+    }
+    \dim_set:Nn \l_lralign_right_width_dim
+    {
+        \dim_max:nn
+            { \l_lralign_right_pre_max_dim + \l_lralign_right_post_max_dim }
+            { \l_lralign_right_cent_max_dim }
+    }
+
+    % Measure safe equation tag margin: max( (\thesection.99), (\theequation) ) + 1.5em
+    \bool_if:NTF \l_lralign_numbered_bool
+    {
+        \hbox_set:Nn \l_lralign_measure_box { \normalfont\normalsize (\thesection.99) }
+        \dim_set:Nn \l_lralign_tag_dim { \box_wd:N \l_lralign_measure_box }
+        \hbox_set:Nn \l_lralign_measure_box { \normalfont\normalsize (\theequation) }
+        \dim_set:Nn \l_lralign_tag_dim
+        { \dim_max:nn { \l_lralign_tag_dim } { \box_wd:N \l_lralign_measure_box } + 1.5em }
+    }
+    {
+        \dim_zero:N \l_lralign_tag_dim
+    }
+
+    \dim_set:Nn \l_lralign_gap_dim { 2.0em }
+    \dim_set:Nn \l_lralign_slack_dim
+    {
+        \linewidth - 2 \l_lralign_tag_dim
+        - \l_lralign_left_width_dim - \l_lralign_right_width_dim
+    }
+
+    \tl_clear:N \l_lralign_final_body_tl
+
+    \bool_if:nTF { \l_lralign_force_stack_bool || \dim_compare_p:nNn { \l_lralign_slack_dim } < { \l_lralign_gap_dim } }
+    {
+        % Stacked mode: frequency (blue) on top, angular frequency (red) below
+        \bool_if:nTF { \l_lralign_left_has_amp_bool || \l_lralign_right_has_amp_bool }
         {
-            .25\linewidth
-            + ( \l_lralign_right_pre_max_dim
-            - \l_lralign_right_post_max_dim ) / 2
+            \int_step_inline:nn { \l_lralign_left_count_int }
+            {
+                \seq_pop_left:NN \l_lralign_left_rows_seq \l_tmpa_tl
+                \lralign_append_stacked_align_row:nV { freqcolor } \l_tmpa_tl
+                \int_compare:nNnTF { ##1 } = { \l_lralign_left_count_int }
+                {
+                    \int_compare:nNnT { \l_lralign_right_count_int } > { 0 }
+                    { \tl_put_right:Nn \l_lralign_final_body_tl { \nonumber \\[4pt] } }
+                }
+                { \tl_put_right:Nn \l_lralign_final_body_tl { \nonumber \\ } }
+            }
+            \int_step_inline:nn { \l_lralign_right_count_int }
+            {
+                \seq_pop_left:NN \l_lralign_right_rows_seq \l_tmpa_tl
+                \lralign_append_stacked_align_row:nV { angcolor } \l_tmpa_tl
+                \int_compare:nNnF { ##1 } = { \l_lralign_right_count_int }
+                { \tl_put_right:Nn \l_lralign_final_body_tl { \nonumber \\ } }
+            }
+            \bool_if:NTF \l_lralign_numbered_bool
+            {
+                \lralign_emit_label:
+                \lralign_exec_align:V \l_lralign_final_body_tl
+            }
+            {
+                \lralign_exec_align_star:V \l_lralign_final_body_tl
+            }
+        }
+        {
+            \int_step_inline:nn { \l_lralign_left_count_int }
+            {
+                \seq_pop_left:NN \l_lralign_left_rows_seq \l_tmpa_tl
+                \lralign_append_stacked_gather_row:nV { freqcolor } \l_tmpa_tl
+                \int_compare:nNnTF { ##1 } = { \l_lralign_left_count_int }
+                {
+                    \int_compare:nNnT { \l_lralign_right_count_int } > { 0 }
+                    { \tl_put_right:Nn \l_lralign_final_body_tl { \nonumber \\[4pt] } }
+                }
+                { \tl_put_right:Nn \l_lralign_final_body_tl { \nonumber \\ } }
+            }
+            \int_step_inline:nn { \l_lralign_right_count_int }
+            {
+                \seq_pop_left:NN \l_lralign_right_rows_seq \l_tmpa_tl
+                \lralign_append_stacked_gather_row:nV { angcolor } \l_tmpa_tl
+                \int_compare:nNnF { ##1 } = { \l_lralign_right_count_int }
+                { \tl_put_right:Nn \l_lralign_final_body_tl { \nonumber \\ } }
+            }
+            \bool_if:NTF \l_lralign_numbered_bool
+            {
+                \lralign_emit_label:
+                \lralign_exec_gather:V \l_lralign_final_body_tl
+            }
+            {
+                \lralign_exec_gather_star:V \l_lralign_final_body_tl
+            }
+        }
+    }
+    {
+        % Side-by-side mode: compute dynamic comfortable gap between 2.0em and 4.2em
+        \dim_set:Nn \l_lralign_gap_dim
+        {
+            \dim_min:nn { 4.2em }
+            { \dim_max:nn { 2.0em } { 0.35 \l_lralign_slack_dim } }
+        }
+
+        % Pre/post widths for each side (supporting pure &, pure centered, or mixed)
+        \bool_if:NTF \l_lralign_left_has_amp_bool
+        {
+            \dim_set:Nn \l_lralign_left_pre_column_dim
+            {
+                \dim_max:nn { \l_lralign_left_pre_max_dim }
+                { ( \l_lralign_left_width_dim + \l_lralign_left_pre_max_dim - \l_lralign_left_post_max_dim ) / 2 }
+            }
+            \dim_set:Nn \l_lralign_left_post_column_dim
+            { \l_lralign_left_width_dim - \l_lralign_left_pre_column_dim }
+        }
+        {
+            \dim_set:Nn \l_lralign_left_pre_column_dim { \l_lralign_left_width_dim }
+            \dim_zero:N \l_lralign_left_post_column_dim
+        }
+
+        \bool_if:NTF \l_lralign_right_has_amp_bool
+        {
+            \dim_set:Nn \l_lralign_right_pre_column_dim
+            {
+                \dim_max:nn { \l_lralign_right_pre_max_dim }
+                { ( \l_lralign_right_width_dim + \l_lralign_right_pre_max_dim - \l_lralign_right_post_max_dim ) / 2 }
+            }
+            \dim_set:Nn \l_lralign_right_post_column_dim
+            { \l_lralign_right_width_dim - \l_lralign_right_pre_column_dim }
+        }
+        {
+            \dim_set:Nn \l_lralign_right_pre_column_dim { \l_lralign_right_width_dim }
+            \dim_zero:N \l_lralign_right_post_column_dim
+        }
+
+        \int_step_inline:nn { \l_lralign_max_rows_int }
+        {
+            \seq_pop_left:NN \l_lralign_left_rows_seq \l_tmpa_tl
+            \quark_if_no_value:NT \l_tmpa_tl { \tl_clear:N \l_tmpa_tl }
+            \lralign_append_side_sbs:nVNNNN
+                { freqcolor } \l_tmpa_tl
+                \l_lralign_left_pre_column_dim
+                \l_lralign_left_post_column_dim
+                \l_lralign_left_width_dim
+                \c_zero_dim
+
+            \tl_put_right:Nn \l_lralign_final_body_tl { & }
+
+            \seq_pop_left:NN \l_lralign_right_rows_seq \l_tmpa_tl
+            \quark_if_no_value:NT \l_tmpa_tl { \tl_clear:N \l_tmpa_tl }
+            \lralign_append_side_sbs:nVNNNN
+                { angcolor } \l_tmpa_tl
+                \l_lralign_right_pre_column_dim
+                \l_lralign_right_post_column_dim
+                \l_lralign_right_width_dim
+                \l_lralign_gap_dim
+
+            \int_compare:nNnF { ##1 } = { \l_lralign_max_rows_int }
+            { \tl_put_right:Nn \l_lralign_final_body_tl { \nonumber \\ } }
+        }
+
+        \bool_if:NTF \l_lralign_numbered_bool
+        {
+            \lralign_emit_label:
+            \lralign_exec_alignat:V \l_lralign_final_body_tl
+        }
+        {
+            \lralign_exec_alignat_star:V \l_lralign_final_body_tl
         }
     }
 }
-\dim_set:Nn \l_lralign_right_post_column_dim
-{ .5\linewidth - \l_lralign_right_pre_column_dim }
 
-% Loop and construct alignment body
-\int_step_inline:nn { \l_lralign_max_rows_int } {
-% Process left side
-\seq_pop_left:NN \l_lralign_left_rows_seq \l_tmpa_tl
-\quark_if_no_value:NTF \l_tmpa_tl
-{ \tl_clear:N \l_tmpa_tl }
-{ }
-\lralign_append_side:nVNN
-{ blue } \l_tmpa_tl
-\l_lralign_left_pre_column_dim
-\l_lralign_left_post_column_dim
+\NewDocumentEnvironment{lralign}{ O{} +b }{
+    \bool_set_true:N \l_lralign_numbered_bool
+    \lralign_process:nn { #1 } { #2 }
+}{\ignorespacesafterend}
 
-% Alignment tab between the two fixed-width sides
-\tl_put_right:Nn \l_lralign_final_body_tl { & }
-
-% Process right side
-\seq_pop_left:NN \l_lralign_right_rows_seq \l_tmpa_tl
-\quark_if_no_value:NTF \l_tmpa_tl
-{ \tl_clear:N \l_tmpa_tl }
-{ }
-\lralign_append_side:nVNN
-{ red } \l_tmpa_tl
-\l_lralign_right_pre_column_dim
-\l_lralign_right_post_column_dim
-
-% Append \\ unless it's the last row
-\int_compare:nNnF { ##1 } = { \l_lralign_max_rows_int } {
-\tl_put_right:Nn \l_lralign_final_body_tl { \\ }
-}
-}
-
-% alignat* remains a top-level AMS display, so \allowdisplaybreaks applies.
-\begin{alignat*}{2}
-    \l_lralign_final_body_tl
-\end{alignat*}
+\NewDocumentEnvironment{lralign*}{ +b }{
+    \bool_set_false:N \l_lralign_numbered_bool
+    \lralign_process:nn { } { #1 }
 }{\ignorespacesafterend}
 \ExplSyntaxOff

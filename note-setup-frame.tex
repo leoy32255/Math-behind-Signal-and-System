@@ -93,6 +93,8 @@
 
 % Hyperref destinations must remain unique when theorem counters reset in
 % every section.  Include the section destination in each theorem anchor.
+\numberwithin{equation}{section}
+\renewcommand*{\theHequation}{\theHsection.\arabic{equation}}
 \renewcommand*{\theHtheorem}{\theHsection.\arabic{theorem}}
 \renewcommand*{\theHproposition}{\theHsection.\arabic{proposition}}
 \renewcommand*{\theHcorollary}{\theHsection.\arabic{corollary}}
@@ -178,7 +180,7 @@
 %hyperref
 \newcommand{\refsec}[1]{\hyperref[sec:#1]{\ref*{sec:#1}节}}
 \newcommand{\refsub}[1]{\hyperref[sub:#1]{\ref*{sub:#1}小节}}
-\newcommand{\refeqn}[1]{\hyperref[eq:#1]{式\ref*{eq:#1}}}
+\newcommand{\refeqn}[1]{\hyperref[eq:#1]{式(\ref*{eq:#1})}}
 \newcommand{\reffig}[1]{\hyperref[fig:#1]{图\ref*{fig:#1}}}
 
 % 定理类引用：整体为超链接

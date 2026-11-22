@@ -5,24 +5,34 @@
 对于离散系统，一般可以用\textbf{差分方程}来描述激励与响应的关系。
 
 \begin{definition}[差分]
-    对于离散信号$x[n]$，定义其\textbf{前向差分}为
-    $$\Delta x[n]=x[n+1]-x[n]$$
+    对于序列$x[n]$，定义其\textbf{前向差分}为
+    \begin{equation}
+        \Delta x[n]=x[n+1]-x[n],
+    \end{equation}
     \textbf{后向差分}为
-    $$\nabla x[n]=x[n]-x[n-1]$$
+    \begin{equation}
+        \nabla x[n]=x[n]-x[n-1].
+    \end{equation}
 \end{definition}
 
-可以由此定义离散信号的高阶差分，例如，
-$$\Delta^2 x[n]=\Delta(\Delta x[n])=x[n+2]-2x[n+1]+x[n]$$
+可以由此定义序列的高阶差分，例如，
+\begin{equation}
+    \Delta^2 x[n]=\Delta(\Delta x[n])=x[n+2]-2x[n+1]+x[n].
+\end{equation}
 
 差分方程总能展开为递推式的形式，因此可以仿照微分方程，给出差分方程的定义。其中，我们最关注的是常系数线性差分方程，由这种方程描述的系统是通常是因果的线性时不变系统。
 \begin{definition}[常系数线性差分方程]
     关于$y[n]$的差分方程
-    $$\sum_{k=0}^{N}a_k y[n-k] = f[n]$$
+    \begin{equation}
+        \sum_{k=0}^{N}a_k y[n-k]=f[n]
+    \end{equation}
     称为\textbf{常系数线性差分方程}，其中$a_k$为常数，$f[n]$为已知函数。将$N$称为方程的\textbf{阶数}，将$f[n]$称为方程的\textbf{非齐次项}，如果$f[n]=0$，则称方程为\textbf{齐次差分方程}。
 \end{definition}
 
 以上定义中的差分方程是$N$阶的，是因为$N$阶差分能表示为（可以用归纳法证明）：
-$$\nabla^N y[n]=\sum_{k=0}^{N}\binom{N}{k}(-1)^{N-k}y[n-k]$$
+\begin{equation}
+    \nabla^N y[n]=\sum_{k=0}^{N}\binom{N}{k}(-1)^{N-k}y[n-k].
+\end{equation}
 于是，从$0$到$N$阶差分的线性组合就可以表示为$y[n],y[n-1],\cdots,y[n-N]$的线性组合，即方程左侧的形式。
 
 以上方程是由后向差分方程转化而来的差分方程，即后向差分方程。类似地，也可以定义前向差分方程，但前向差分方程所描述的系统可能不具备因果性。
@@ -30,59 +40,82 @@ $$\nabla^N y[n]=\sum_{k=0}^{N}\binom{N}{k}(-1)^{N-k}y[n-k]$$
 不难看出，这种方程的解构成线性空间，因此可以将解划分为\textbf{齐次解}与\textbf{特解}两部分。我们仍用记号$y_h[n]$和$y_p[n]$分别表示齐次解与特解。类似于微分方程，齐次解可以由特征方程确定：
 \begin{definition}[常系数线性差分方程的特征方程]
     对于常系数线性差分方程
-    $$\sum_{k=0}^{N}a_k y[n-k] = f[n]$$
+    \begin{equation}
+        \sum_{k=0}^{N}a_k y[n-k]=f[n],
+    \end{equation}
     设解的形式为$y[n]=\lambda^n$，代入可得\textbf{特征方程}为
-    $$\sum_{k=0}^{N}a_k \lambda^k = 0$$
+    \begin{equation}
+        \sum_{k=0}^{N}a_k \lambda^k=0.
+    \end{equation}
 \end{definition}
 
 由代数基本定理，特征方程有$N$个复根（重根按重数计算），每个复根对应一个形如$\lambda^n$的齐次解。如果$\lambda$是特征方程的$k$重根，则
-$$\lambda^n,n\lambda^n,\dots,n^{k-1}\lambda^n$$
-都是齐次解，为了说明这一论断的正确性，我们来验证$n^{k-1}\lambda^n$是齐次解：\begin{align*}
-    \sum_{k=0}^{N}a_k (n-k)^{k-1}\lambda^{n-k}&=\sum_{k=0}^{N}a_k \sum_{j=0}^{k-1}\binom{k-1}{j}n^j(-k)^{k-1-j}\lambda^{n-k}\\
-    &=\sum_{j=0}^{k-1}\binom{k-1}{j}n^j\lambda^n\sum_{k=0}^{N}a_k (-k)^{k-1-j}\lambda^{-k}\\
-    &=\sum_{j=0}^{k-1}\binom{k-1}{j}n^j\lambda^n\frac{1}{j!}\frac{d^{j}}{d\lambda^{j}}\left(\sum_{k=0}^{N}a_k \lambda^{-k}\right)\\
-    &=0
-\end{align*}
+\begin{equation}
+    \lambda^n,\ n\lambda^n,\ \dots,\ n^{k-1}\lambda^n
+\end{equation}
+都是齐次解，为了说明这一论断的正确性，我们来验证$n^{k-1}\lambda^n$是齐次解：
+\begin{align}
+    \sum_{k=0}^{N}a_k (n-k)^{k-1}\lambda^{n-k}&=\sum_{k=0}^{N}a_k \sum_{j=0}^{k-1}\binom{k-1}{j}n^j(-k)^{k-1-j}\lambda^{n-k} \nonumber \\
+    &=\sum_{j=0}^{k-1}\binom{k-1}{j}n^j\lambda^n\sum_{k=0}^{N}a_k (-k)^{k-1-j}\lambda^{-k} \nonumber \\
+    &=\sum_{j=0}^{k-1}\binom{k-1}{j}n^j\lambda^n\frac{1}{j!}\frac{\dd^{j}}{\dd\lambda^{j}}\paren{\sum_{k=0}^{N}a_k \lambda^{-k}} \nonumber \\
+    &=0,
+\end{align}
 其中，$\sum_{k=0}^{N}a_k \lambda^{-k}$在$\lambda$处的$j$阶导数为零，是因为$\lambda$是特征方程的$k$重根，且$j<k$。
 
 齐次解的线性组合仍为齐次解。一般地，可以将差分方程的齐次解表示为
-\begin{align*}
-    y_h[n]=\sum_{i=1}^{s}P_i(n) \lambda_i^n=\sum_{i=1}^{s}\sum_{j=0}^{k_i-1}A_{ij} n^j \lambda_i^n
-\end{align*}
+\begin{equation}
+    y_h[n]=\sum_{i=1}^{s}P_i(n) \lambda_i^n=\sum_{i=1}^{s}\sum_{j=0}^{k_i-1}A_{ij} n^j \lambda_i^n,
+\end{equation}
 其中$s$为特征根的个数，$P_i(n)$为关于$n$的$k_i$阶多项式，$k_i$为第$i$个特征根$\lambda_i$的重数，$A_{ij}$为常数。
 
 特解需要根据激励的形式来确定，以下列举几个常见的激励形式及其对应的特解：
 \begin{itemize}
     \item 如果$f[n]$为常数，则在$0$不为特征根时，特解为常数；在$0$为$k$重特征根时，特解为关于$n$的$k$次多项式；
     \item 如果$f[n]$为关于$n$的多项式，则特解为关于$n$的同阶多项式；
-    \item 如果$f[n]=Ca^n$，其中$a\in\mathbb{R}\setminus \{0\}$不是特征方程的根，则特解为
-    $$y_p[n]=Aa^n$$
+    \item 如果$f[n]=Ca^n$，其中$a\in\mathbb{R}\setminus\{0\}$不是特征方程的根，则特解为
+    \begin{equation}
+        y_p[n]=Aa^n,
+    \end{equation}
     其中$A$为常数；
-    \item 如果$f[n]=C\sin(\Omega n)$或$f[n]=C\cos(\Omega n)$，其中$\mathrm{e}^{\mathrm{i}\Omega}$不是特征方程的根，则特解为
-    $$y_p[n]=A\sin(\Omega n)+B\cos(\Omega n)$$
+    \item 如果$f[n]=C\sin(\Omega n)$或$f[n]=C\cos(\Omega n)$，其中$\e^{\im\Omega}$不是特征方程的根，则特解为
+    \begin{equation}
+        y_p[n]=A\sin(\Omega n)+B\cos(\Omega n),
+    \end{equation}
     其中$A,B$为常数；
     \item 如果$f[n]=P(n)a^n$，其中$a\in\mathbb{R}$是特征方程的$k$重根，且$P(n)$为关于$n$的多项式，则特解为
-    $$y_p[n]=n^k Q(n)a^n$$
+    \begin{equation}
+        y_p[n]=n^k Q(n)a^n,
+    \end{equation}
     其中$Q(n)$为关于$n$的多项式，且$\deg Q=\deg P$；
-    \item 如果$f[n]=P(n)\sin(\Omega n)$或$f[n]=P(n)\cos(\Omega n)$，其中$\mathrm{e}^{\mathrm{i}\Omega}$是特征方程的$k$重根，且$P(n)$为关于$n$的多项式，则特解为
-    $$y_p[n]=n^k(Q(n)\sin(\Omega n)+R(n)\cos(\Omega n))$$
+    \item 如果$f[n]=P(n)\sin(\Omega n)$或$f[n]=P(n)\cos(\Omega n)$，其中$\e^{\im\Omega}$是特征方程的$k$重根，且$P(n)$为关于$n$的多项式，则特解为
+    \begin{equation}
+        y_p[n]=n^k(Q(n)\sin(\Omega n)+R(n)\cos(\Omega n)),
+    \end{equation}
     其中$Q(n),R(n)$为关于$n$的多项式，且$\max\{\deg Q,\deg R\}=\deg P$。
 \end{itemize}
 下面给出一个常系数线性差分方程的求解例子：
 \begin{example}
     求解差分方程
-    $$y[n]-3y[n-1]+2y[n-2]=2^n$$
+    \begin{equation}
+        y[n]-3y[n-1]+2y[n-2]=2^n.
+    \end{equation}
 
-    解：其特征方程为$\lambda^2-3\lambda+2=0$，有两个不同的根$\lambda_1=1,\lambda_2=2$，因此齐次解为
-    $$y_h[n]=A+B\cdot 2^n$$
-    设特解的为$y_p[n]=C n 2^n$，代入原方程可得$C=4$，因此特解为$y_p[n]=4 n 2^n$，通解为
-    \[y[n]=y_h[n]+y_p[n]=A+B\cdot 2^n+4 n 2^n\]
+    解：其特征方程为$\lambda^2-3\lambda+2=0$，有两个不同的根$\lambda_1=1,\ \lambda_2=2$，因此齐次解为
+    \begin{equation}
+        y_h[n]=A+B\cdot 2^n.
+    \end{equation}
+    设特解为$y_p[n]=C n 2^n$，代入原方程可得$C=4$，因此特解为$y_p[n]=4 n 2^n$，通解为
+    \begin{equation}
+        y[n]=y_h[n]+y_p[n]=A+B\cdot 2^n+4 n 2^n.
+    \end{equation}
 \end{example}
 
 如果希望消去以上通解中的常数$A$和$B$，就需要两个初始条件。更一般地，一个$N$阶的差分方程的解，需要通过$N$个初始条件来确定。这些初始条件可以通过$n=0$时刻的各阶后向差分来给出。
 
 对于$k$阶后向差分$\nabla^k y[0]$，可以将它展开为$y[-k],y[-k+1],\dots,y[0]$的线性组合，因此将这$N$个初始条件取为$n=0$时刻的前$N-1$阶后向差分，就相当于给出
-$$y[1-N],y[2-N],\cdots,y[0]$$
+\begin{equation}
+    y[1-N],y[2-N],\cdots,y[0]
+\end{equation}
 这$N$个值作为初始条件。习惯上，我们称这些条件为\textbf{初始值}以区分于微分方程的初始条件。
 
 \subsection{基本解}\label{sub:h_solution}
@@ -92,86 +125,105 @@ $$y[1-N],y[2-N],\cdots,y[0]$$
 对于离散系统，通常认为激励是在$n=0$时刻施加的，此时这个激励就可能影响到上述初始值。连续系统中，我们用起始状态来描述系统的初始储能，从而避开了初值条件依赖于激励的问题。类似地，对于离散系统，定义：
 \begin{definition}[离散系统的初始值与零输入初始值]
     设离散系统的激励为$e[n]$，响应为$r[n]$，则系统的\textbf{初始值}为
-    $$r[1-N],r[2-N],\cdots,r[0]$$
+    \begin{equation}
+        r[1-N],r[2-N],\cdots,r[0],
+    \end{equation}
     系统的\textbf{零输入初始值}为
-    $$r_{\zi}[1-N],r_{\zi}[2-N],\cdots,r_{\zi}[0]$$
+    \begin{equation}
+        r_{\zi}[1-N],r_{\zi}[2-N],\cdots,r_{\zi}[0].
+    \end{equation}
 \end{definition}
 
 初始值可以分解为零输入初始值与零状态初始值（以$n=0$时刻为例）：
-\begin{align*}
-    r[0]=r_{\zi}[0]+r_{\zs}[0]
-\end{align*}
+\begin{equation}
+    r[0]=r_{\zi}[0]+r_{\zs}[0].
+\end{equation}
 
 上一小节中，我们介绍了差分方程的经典解法，为了确定带初始值的差分方程的解，可以先求出含参数的通解，再代入初始值求解这些参数。
 
 但是，将差分方程作为线性时不变系统来分析时，将初始值划分为零输入、零状态初始值更为方便，因为零输入初始值与系统的激励信号无关，是系统的初始储能，代表了系统的历史记忆。
 
 通过离散线性时不变系统的理论，可以将差分方程化为卷积和系统，并通过零输入初始值确定系统的响应，这样就能绕过特解的配凑，而直接得到方程的解。现在，问题又一次回到了对单位脉冲响应$h[n]$的求解，它满足以下方程：
-$$\sum_{k=0}^{N}a_k h[n-k] = \delta[n]$$
+\begin{equation}
+    \sum_{k=0}^{N}a_k h[n-k]=\delta[n].
+\end{equation}
 
 类比微分方程的情况，设特征方程的根为$\lambda_1,\lambda_2,\cdots,\lambda_s$，重数分别为$k_1,k_2,\cdots,k_s$，则可以猜测单位脉冲响应具有如下形式：
-$$h[n]=y_h[n]u[n]=\left(\sum_{i=1}^s P_i(n) \lambda_i^n \right)u[n]$$
+\begin{equation}
+    h[n]=y_h[n]u[n]=\paren{\sum_{i=1}^{s}P_i(n) \lambda_i^n}u[n],
+\end{equation}
 其中$P_i(n)$为关于$n$的多项式，$\deg P_i=k_i-1$。
 
 代入$n=0,1,\cdots,N-1$，可以得到$N$个方程，解出多项式$P_i(n)$的系数，即可得到单位脉冲响应$h[n]$，从而得到差分方程的解。
 
 \begin{example}
     求差分方程
-    $$y[n]-2y[n-1]+y[n-2]=x[n]$$
+    \begin{equation}
+        y[n]-2y[n-1]+y[n-2]=x[n]
+    \end{equation}
     的单位阶跃响应。
 
     解：特征方程为$\lambda^2-2\lambda+1=0$，有一个重根$\lambda=1$，因此单位脉冲响应的形式为
-    $$h[n]=(A n+B)u[n]$$
-    代入$n=0,1$，得\begin{align*}
-    h[0]=B=1,\quad h[1]=A+B=0
-    \end{align*}
-    因此$A=-1,B=1$，单位脉冲响应为
-    $$h[n]=(1-n)u[n]$$
+    \begin{equation}
+        h[n]=(A n+B)u[n].
+    \end{equation}
+    代入$n=0,1$，得
+    \begin{equation}
+        h[0]=B=1,\quad h[1]=A+B=0,
+    \end{equation}
+    因此$A=-1,\ B=1$，单位脉冲响应为
+    \begin{equation}
+        h[n]=(1-n)u[n].
+    \end{equation}
 \end{example}
 
 进一步，还可以用类似的方法讨论以下更一般的差分方程所描述的系统：
-\begin{align*}
-    \sum_{k=0}^{N}a_k r[n-k] = \sum_{l=0}^{M}b_l e[n-l]
-\end{align*}
+\begin{equation}
+    \sum_{k=0}^{N}a_k r[n-k]=\sum_{l=0}^{M}b_l e[n-l].
+\end{equation}
 需要说明的是，当$N\leq M$时，需要在求解单位脉冲响应时考虑$\delta[n]$的后向差分，或更直接地，将单位脉冲响应设为
-$$h[n]=\left(\sum_{i=1}^s P_i(n) \lambda_i^n \right)u[n]+\sum_{i=0}^{M-N}B_i\delta[n-i]$$
+\begin{equation}
+    h[n]=\paren{\sum_{i=1}^{s}P_i(n) \lambda_i^n}u[n]+\sum_{i=0}^{M-N}B_i\delta[n-i],
+\end{equation}
 其中$B_i$为常数，代入$n=0,1,\cdots,M$，解出多项式$P_i(n)$的系数与常数$B_i$，即可得到单位脉冲响应$h[n]$，从而得到差分方程的解。
 
 从基本解的形式可以看出$h[n]$总是因果信号，因此\textbf{差分方程所描述的系统是因果的线性时不变系统}。
 
 在得到单位脉冲响应后，差分方程的解就可以通过卷积和来得到：
-\begin{align*}
-    r_{\zs}[n]=(h*e)[n]=\sum_{m=-\infty}^{\infty}h[n-m]e[m]
-\end{align*}
+\begin{equation}
+    r_{\zs}[n]=(h*e)[n]=\sum_{m=-\infty}^{\infty}h[n-m]e[m].
+\end{equation}
 我们又一次将非齐次方程的求解化为卷积的计算。因为这个原因，可以将$h[n]$称为差分方程的\textbf{基本解}。
 
 我们认为激励$e[n]$是在$n=0$时刻施加于系统的，因此$e[n]$和$h[n]$都是因果信号，上式简化为：
-\begin{align*}
-    r_{\zs}[n]=\sum_{m=0}^{n}h[n-m]e[m]
-\end{align*}
+\begin{equation}
+    r_{\zs}[n]=\sum_{m=0}^{n}h[n-m]e[m].
+\end{equation}
 
 假设给定了零输入初始值：
-\begin{align*}
-    r_{\zi}[1-N],r_{\zi}[2-N],\cdots,r_{\zi}[0]
-\end{align*}
+\begin{equation}
+    r_{\zi}[1-N],r_{\zi}[2-N],\cdots,r_{\zi}[0],
+\end{equation}
 则零输入响应$r_{\zi}[n]$满足齐次方程：
-\begin{align*}
-    \sum_{k=0}^{N}a_k r_{\zi}[n-k] = 0
-\end{align*}
+\begin{equation}
+    \sum_{k=0}^{N}a_k r_{\zi}[n-k]=0.
+\end{equation}
 上一小节中已经得到齐次方程的通解：
-\begin{align*}
-    r_{\zi}[n]=\sum_{i=1}^{s}P_i(n) \lambda_i^n=\sum_{i=1}^{s}\sum_{j=0}^{k_i-1}A_{ij} n^j \lambda_i^n
-\end{align*}
+\begin{equation}
+    r_{\zi}[n]=\sum_{i=1}^{s}P_i(n) \lambda_i^n=\sum_{i=1}^{s}\sum_{j=0}^{k_i-1}A_{ij} n^j \lambda_i^n.
+\end{equation}
 利用零输入初始值，可以得到关于零输入响应$r_{\zi}[n]$的$N$个方程，从而解出$r_{\zi}[n]$，最终与零状态响应$r_{\zs}[n]$相加得到差分方程的解。
 
 综上，通过线性时不变系统的视角，我们得到了与微分方程类似的结果：
 \begin{theorem}
     设$h[n]$为差分方程
-    $$\sum_{k=0}^{N}a_k y[n-k] = \sum_{l=0}^{M}b_l x[n-l]$$
+    \begin{equation}
+        \sum_{k=0}^{N}a_k y[n-k]=\sum_{l=0}^{M}b_l x[n-l]
+    \end{equation}
     的单位脉冲响应，并且有零状态初始值$r_{\zs}[1-N],r_{\zs}[2-N],\cdots,r_{\zs}[0]$，则该差分方程的解为
-    \begin{align*}
-        y[n]=r_{\zi}[n]+r_{\zs}[n]=r_{\zi}[n]+\sum_{m=0}^{n}h[n-m]x[m]
-    \end{align*}
+    \begin{equation}
+        y[n]=r_{\zi}[n]+r_{\zs}[n]=r_{\zi}[n]+\sum_{m=0}^{n}h[n-m]x[m],
+    \end{equation}
     其中零输入响应$r_{\zi}[n]$由零输入初始值唯一确定。
 \end{theorem}
 
@@ -181,61 +233,88 @@ $$h[n]=\left(\sum_{i=1}^s P_i(n) \lambda_i^n \right)u[n]+\sum_{i=0}^{M-N}B_i\del
 
 \begin{lemma}
     设$h[n]$为差分方程
-    $$\sum_{k=0}^{N}a_k y[n-k] = \sum_{l=0}^{M}b_l x[n-l]$$
+    \begin{equation}
+        \sum_{k=0}^{N}a_k y[n-k]=\sum_{l=0}^{M}b_l x[n-l]
+    \end{equation}
     的单位脉冲响应，$g[n]$为该方程的单位阶跃响应，则$h[n]$是$g[n]$的后向差分：
-    $$h[n]=\nabla g[n]=g[n]-g[n-1]$$
+    \begin{equation}
+        h[n]=\nabla g[n]=g[n]-g[n-1].
+    \end{equation}
 \end{lemma}
 \begin{proof}
     单位脉冲响应$h[n]$与单位阶跃响应$g[n]$分别满足以下方程：
-    \begin{align*}
-        \sum_{k=0}^{N}a_k h[n-k] &= \delta[n],\quad\sum_{k=0}^{N}a_k g[n-k]= u[n]
-    \end{align*}
-    将$g[n]$的方程两边同时后向差分，得到\begin{align*}
-    \sum_{k=0}^{N}a_k \nabla g[n-k] &= \nabla u[n]=\delta[n]
-    \end{align*}
+    \begin{equation}
+        \sum_{k=0}^{N}a_k h[n-k]=\delta[n],\quad \sum_{k=0}^{N}a_k g[n-k]=u[n].
+    \end{equation}
+    将$g[n]$的方程两边同时后向差分，得到
+    \begin{equation}
+        \sum_{k=0}^{N}a_k \nabla g[n-k]=\nabla u[n]=\delta[n].
+    \end{equation}
     因此$\nabla g[n]$与$h[n]$满足同一个方程，并且它们的零状态初始值都为零，因此$\nabla g[n]=h[n]$。
 \end{proof}
 
 这样，可以少引入一阶$\delta[n]$的差分，从而使方程降一阶。具体来说，对于差分方程
-$$\sum_{k=0}^{N}a_k y[n-k] = \sum_{l=0}^{M}b_l x[n-l]$$
+\begin{equation}
+    \sum_{k=0}^{N}a_k y[n-k]=\sum_{l=0}^{M}b_l x[n-l],
+\end{equation}
 当$N\geq M$时，可以将单位阶跃响应设为
-$$g[n]=\left(\sum_{i=1}^s P_i(n) \lambda_i^n \right)u[n]$$
+\begin{equation}
+    g[n]=\paren{\sum_{i=1}^{s}P_i(n) \lambda_i^n}u[n],
+\end{equation}
 其中$P_i(n)$为关于$n$的多项式，$\deg P_i=k_i-1$；当$N<M$时，可以将单位阶跃响应设为
-$$g[n]=\left(\sum_{i=1}^s P_i(n) \lambda_i^n \right)u[n]+\sum_{i=0}^{M-N-1}B_i\delta[n-i]$$
+\begin{equation}
+    g[n]=\paren{\sum_{i=1}^{s}P_i(n) \lambda_i^n}u[n]+\sum_{i=0}^{M-N-1}B_i\delta[n-i],
+\end{equation}
 其中$B_i$为常数。
 
 \begin{example}
     求差分方程
-    $$y[n]-2y[n-1]+y[n-2]=x[n]+x[n-2]$$
+    \begin{equation}
+        y[n]-2y[n-1]+y[n-2]=x[n]+x[n-2]
+    \end{equation}
     的单位阶跃响应。
 
     解：特征方程为$\lambda^2-2\lambda+1=0$，有一个重根$\lambda=1$，因此齐次解为
-    $$y_h[n]=A n+B$$
+    \begin{equation}
+        y_h[n]=A n+B.
+    \end{equation}
 
     首先，我们直接求解单位脉冲响应。由于$N=M=2$，因此单位脉冲响应的形式为
-    $$h[n]=(A n+B)u[n]+C\delta[n]$$
-    代入$n=0,1,2$，得\begin{align*}
-    \begin{cases}
-        h[0]=B+C=1\\
-        h[1]=A+B=0\\
-        h[2]=2A+B=1
-    \end{cases}
-    \end{align*}
-    因此$A=1,B=-1,C=2$，单位脉冲响应为
-    $$h[n]=(n-1)u[n]+2\delta[n]$$
+    \begin{equation}
+        h[n]=(A n+B)u[n]+C\delta[n].
+    \end{equation}
+    代入$n=0,1,2$，得
+    \begin{equation}
+        \begin{dcases}
+            h[0]=B+C=1,\\
+            h[1]=A+B=0,\\
+            h[2]=2A+B=1,
+        \end{dcases}
+    \end{equation}
+    因此$A=1,\ B=-1,\ C=2$，单位脉冲响应为
+    \begin{equation}
+        h[n]=(n-1)u[n]+2\delta[n].
+    \end{equation}
 
     其次，我们通过求单位阶跃响应来求单位脉冲响应。由于$N=M=2$，因此单位阶跃响应的形式为
-    $$g[n]=(A n+B)u[n]$$
-    代入$n=0,1$，得\begin{align*}
-        \begin{cases}
-            h[0]=B=1\\
-            h[1]=A+B=0
-        \end{cases}
-    \end{align*}
-    因此$A=-1,B=1$，单位阶跃响应为
-    $$g[n]=(1-n)u[n]$$
+    \begin{equation}
+        g[n]=(A n+B)u[n].
+    \end{equation}
+    代入$n=0,1$，得
+    \begin{equation}
+        \begin{dcases}
+            h[0]=B=1,\\
+            h[1]=A+B=0,
+        \end{dcases}
+    \end{equation}
+    因此$A=-1,\ B=1$，单位阶跃响应为
+    \begin{equation}
+        g[n]=(1-n)u[n],
+    \end{equation}
     从而单位脉冲响应为
-    $$h[n]=\nabla g[n]=g[n]-g[n-1]=(n-1)u[n]+2\delta[n]$$
+    \begin{equation}
+        h[n]=\nabla g[n]=g[n]-g[n-1]=(n-1)u[n]+2\delta[n],
+    \end{equation}
     与之前的结果一致。显然，当单位脉冲响应中含有$\delta[n]$时，\textbf{通过单位阶跃响应求解单位脉冲响应的计算更为简便}。
 \end{example}
 
@@ -243,143 +322,173 @@ $$g[n]=\left(\sum_{i=1}^s P_i(n) \lambda_i^n \right)u[n]+\sum_{i=0}^{M-N-1}B_i\d
 
 根据z变换的移位性质，利用z变换可以将常系数线性差分方程转化为代数方程。为了一并处理差分方程的初始值，我们引入单边z变换：
 \begin{definition}[单边z变换]
-    离散信号$x[n]$的单边z变换定义为
-    \[X(z)=\mathcal{Z}\{x[n]u[n]\}=\sum_{n=0}^{\infty}x[n]z^{-n}\]
+    序列$x[n]$的单边z变换定义为
+    \begin{equation}
+        X(z)=\mathcal{Z}\{x[n]u[n]\}=\sum_{n=0}^{\infty}x[n]z^{-n}.
+    \end{equation}
 \end{definition}
 
 单边z变换相当于因果信号的双边z变换，收敛域为
-$$\left\{z\in\mathbb{C}\left||z|>r, r=\varlimsup_{n\to\infty}|x[n]|^{1/n}\right.\right\}$$
+\begin{equation}
+    \braces{z\in\mathbb{C}\;\middle|\;|z|>r,\ r=\varlimsup_{n\to\infty}|x[n]|^{1/n}}.
+\end{equation}
 当然，作为洛朗级数，我们还是可以通过奇点判断收敛域。
 
 单边z变换与双边z变换类似，可以参照\refsub{z_operation}给出单边z变换的线性性、移位性质、卷积定理等性质。本小节中，我们简要介绍与双边z变换不同的性质：
 \begin{proposition}[单边z变换的移位性质]
-    设$x[n]$的单边z变换为$X(z)$，则\begin{align*}
-    \mathcal{Z}\{x[n-k]u[n]\}&=z^{-k}X(z)+\sum_{i=0}^{k-1}x[i-k]z^{-i}=z^{-k}\left[X(z)+\sum_{i=1}^{k}x[-i]z^{i}\right]\\
-    \mathcal{Z}\{x[n+k]u[n]\}&=z^{k}X(z)-\sum_{i=-k}^{-1}x[i+k]z^{-i}=z^{k}\left[X(z)-\sum_{i=0}^{k-1}x[i]z^{-i}\right]
-    \end{align*}
+    设$x[n]$的单边z变换为$X(z)$，则
+    \begin{align}
+        \mathcal{Z}\{x[n-k]u[n]\}&=z^{-k}X(z)+\sum_{i=0}^{k-1}x[i-k]z^{-i}=z^{-k}\sbr{X(z)+\sum_{i=1}^{k}x[-i]z^{i}}, \\
+        \mathcal{Z}\{x[n+k]u[n]\}&=z^{k}X(z)-\sum_{i=-k}^{-1}x[i+k]z^{-i}=z^{k}\sbr{X(z)-\sum_{i=0}^{k-1}x[i]z^{-i}}.
+    \end{align}
 \end{proposition}
 \begin{proof}
-    \begin{align*}
-        X(z)&=\sum_{i=0}^{\infty}x[i]z^{-i}\\
-        &=\sum_{i=k}^{\infty}x[i-k]z^{-(i-k)}\\
-        &=z^{k}\sum_{i=k}^{\infty}x[i-k]z^{-i}\\
-        &=z^{k}\left[\sum_{i=0}^{\infty}x[i-k]z^{-i}-\sum_{i=0}^{k-1}x[i-k]z^{-i}\right]\\
-        &=z^{k}\left[\mathcal{Z}\{x[n-k]u[n]\}-\sum_{i=0}^{k-1}x[i-k]z^{-i}\right]
-    \end{align*}
-    即\begin{align*}
-    \mathcal{Z}\{x[n-k]u[n]\}&=z^{-k}X(z)+\sum_{i=0}^{k-1}x[i-k]z^{-i}=z^{-k}\left[X(z)+\sum_{i=1}^{k}x[-i]z^{i}\right]
-    \end{align*}
-    类似地，\begin{align*}
-        X(z)&=\sum_{i=0}^{\infty}x[i]z^{-i}\\
-        &=\sum_{i=-k}^{\infty}x[i+k]z^{-(i+k)}\\
-        &=z^{-k}\sum_{i=-k}^{\infty}x[i+k]z^{-i}\\
-        &=z^{-k}\left[\sum_{i=0}^{\infty}x[i+k]z^{-i}+\sum_{i=-k}^{-1}x[i+k]z^{-i}\right]\\
-        &=z^{-k}\left[\mathcal{Z}\{x[n+k]u[n]\}+\sum_{i=-k}^{-1}x[i+k]z^{-i}\right]
-    \end{align*}
-    即\begin{align*}
-    \mathcal{Z}\{x[n+k]u[n]\}&=z^{k}X(z)-\sum_{i=-k}^{-1}x[i+k]z^{-i}=z^{k}\left[X(z)-\sum_{i=0}^{k-1}x[i]z^{-i}\right]
-    \end{align*}
+    \begin{align}
+        X(z)&=\sum_{i=0}^{\infty}x[i]z^{-i} \nonumber \\
+        &=\sum_{i=k}^{\infty}x[i-k]z^{-(i-k)} \nonumber \\
+        &=z^{k}\sum_{i=k}^{\infty}x[i-k]z^{-i} \nonumber \\
+        &=z^{k}\sbr{\sum_{i=0}^{\infty}x[i-k]z^{-i}-\sum_{i=0}^{k-1}x[i-k]z^{-i}} \nonumber \\
+        &=z^{k}\sbr{\mathcal{Z}\{x[n-k]u[n]\}-\sum_{i=0}^{k-1}x[i-k]z^{-i}},
+    \end{align}
+    即
+    \begin{equation}
+        \mathcal{Z}\{x[n-k]u[n]\}=z^{-k}X(z)+\sum_{i=0}^{k-1}x[i-k]z^{-i}=z^{-k}\sbr{X(z)+\sum_{i=1}^{k}x[-i]z^{i}}.
+    \end{equation}
+    类似地，
+    \begin{align}
+        X(z)&=\sum_{i=0}^{\infty}x[i]z^{-i} \nonumber \\
+        &=\sum_{i=-k}^{\infty}x[i+k]z^{-(i+k)} \nonumber \\
+        &=z^{-k}\sum_{i=-k}^{\infty}x[i+k]z^{-i} \nonumber \\
+        &=z^{-k}\sbr{\sum_{i=0}^{\infty}x[i+k]z^{-i}+\sum_{i=-k}^{-1}x[i+k]z^{-i}} \nonumber \\
+        &=z^{-k}\sbr{\mathcal{Z}\{x[n+k]u[n]\}+\sum_{i=-k}^{-1}x[i+k]z^{-i}},
+    \end{align}
+    即
+    \begin{equation}
+        \mathcal{Z}\{x[n+k]u[n]\}=z^{k}X(z)-\sum_{i=-k}^{-1}x[i+k]z^{-i}=z^{k}\sbr{X(z)-\sum_{i=0}^{k-1}x[i]z^{-i}}.
+    \end{equation}
 \end{proof}
 
 \begin{theorem}[单边z变换的初值定理]
-    设$x[n]$的单边z变换为$X(z)$，则\begin{align*}
-    x[0]=\lim_{z\to\infty}X(z)
-    \end{align*}
+    设$x[n]$的单边z变换为$X(z)$，则
+    \begin{equation}
+        x[0]=\lim_{z\to\infty}X(z).
+    \end{equation}
 \end{theorem}
 \begin{proof}
-    单边z变换在收敛域内是绝对收敛、内闭一致收敛的，因此可以交换极限与求和顺序，得到\begin{align*}
-    \lim_{z\to\infty}X(z)=\lim_{z\to\infty}\sum_{n=0}^{\infty}x[n]z^{-n}=x[0]
-    \end{align*}
+    单边z变换在收敛域内是绝对收敛、内闭一致收敛的，因此可以交换极限与求和顺序，得到
+    \begin{equation}
+        \lim_{z\to\infty}X(z)=\lim_{z\to\infty}\sum_{n=0}^{\infty}x[n]z^{-n}=x[0].
+    \end{equation}
 \end{proof}
 
 \begin{theorem}[单边z变换的终值定理]
-    设$x[n]$的单边z变换为$X(z)$，如果$X(z)$在$z=1$处有简单极点，并且$X(z)$的其余奇点的模都小于1，则\begin{align*}
-    \lim_{n\to\infty}x[n]=\lim_{z\to 1}(z-1)X(z)
-    \end{align*}
+    设$x[n]$的单边z变换为$X(z)$，如果$X(z)$在$z=1$处有简单极点，并且$X(z)$的其余奇点的模都小于$1$，则
+    \begin{equation}
+        \lim_{n\to\infty}x[n]=\lim_{z\to 1}(z-1)X(z).
+    \end{equation}
 \end{theorem}
 \begin{proof}
-    $X(z)$的收敛域为$|z|>1$。由逆z变换的留数定理公式，以半径$R>1$的圆$C_R:t\mapsto Re^{\mathrm{i}t},t\in[0,2\pi]$为围道，有\begin{align*}
-    x[n]u[n]=\frac{1}{2\pi\mathrm{i}}\oint_{C_R}X(z)z^{n-1}\mathrm{d}z=\mathrm{Res}(X(z)z^{n-1},1)+\sum_{k}\mathrm{Res}(X(z)z^{n-1},p_k)
-    \end{align*}
+    $X(z)$的收敛域为$|z|>1$。由逆z变换的留数定理公式，以半径$R>1$的圆$C_R:t\mapsto R\e^{\im t},\ t\in[0,2\pi]$为围道，有
+    \begin{equation}
+        x[n]u[n]=\frac{1}{2\pi\im}\oint_{C_R}X(z)z^{n-1}\,\dd z=\Res(X(z)z^{n-1},1)+\sum_{k}\Res(X(z)z^{n-1},p_k),
+    \end{equation}
     其中$p_k$为$X(z)$的其余极点，$|p_k|<1$。
-    \begin{align*}
-        \mathrm{Res}(X(z)z^{n-1},1)&=\lim_{z\to 1}(z-1)X(z)z^{n-1}=\lim_{z\to 1}(z-1)X(z)
-    \end{align*}
-    为了处理它们的留数，可以选取一个半径$r$，使得$|p_k|<r<1$，以半径$r$的圆$C_{r}:t\mapsto re^{\mathrm{i}t},t\in[0,2\pi]$为围道，有\begin{align*}
-    \left|\sum_{k}\mathrm{Res}(X(z)z^{n-1},p_k)\right|&=\left|\frac{1}{2\pi\mathrm{i}}\oint_{C_r}X(z)z^{n-1}\mathrm{d}z\right|\\
-    &\leq \frac{1}{2\pi}\oint_{C_r}|X(z)|r^{n-1}\mathrm{d}t\\
-    &\leq \max_{|z|=r}|X(z)|r^{n-1}
-    \end{align*}
-    令$n\to\infty$，由于$r<1$，上式以指数函数的速度趋于$0$，因此\begin{align*}
-    \lim_{n\to\infty}x[n]&=\frac{1}{2\pi\mathrm{i}}\lim_{n\to\infty}\int_{C_R}X(z)z^{n-1}\mathrm{d}z\\
-    &=\lim_{n\to\infty}\mathrm{Res}(X(z)z^{n-1},1)+\lim_{n\to\infty}\sum_{k}\mathrm{Res}(X(z)z^{n-1},p_k)\\
-    &=\lim_{z\to 1}(z-1)X(z)
-    \end{align*}
+    \begin{equation}
+        \Res(X(z)z^{n-1},1)=\lim_{z\to 1}(z-1)X(z)z^{n-1}=\lim_{z\to 1}(z-1)X(z).
+    \end{equation}
+    为了处理它们的留数，可以选取一个半径$r$，使得$|p_k|<r<1$，以半径$r$的圆$C_{r}:t\mapsto r\e^{\im t},\ t\in[0,2\pi]$为围道，有
+    \begin{align}
+        \abs{\sum_{k}\Res(X(z)z^{n-1},p_k)}&=\abs{\frac{1}{2\pi\im}\oint_{C_r}X(z)z^{n-1}\,\dd z} \nonumber \\
+        &\leq \frac{1}{2\pi}\oint_{C_r}|X(z)|r^{n-1}\,\dd t \nonumber \\
+        &\leq \max_{|z|=r}|X(z)|r^{n-1}.
+    \end{align}
+    令$n\to\infty$，由于$r<1$，上式以指数函数的速度趋于$0$，因此
+    \begin{align}
+        \lim_{n\to\infty}x[n]&=\frac{1}{2\pi\im}\lim_{n\to\infty}\oint_{C_R}X(z)z^{n-1}\,\dd z \nonumber \\
+        &=\lim_{n\to\infty}\Res(X(z)z^{n-1},1)+\lim_{n\to\infty}\sum_{k}\Res(X(z)z^{n-1},p_k) \nonumber \\
+        &=\lim_{z\to 1}(z-1)X(z).
+    \end{align}
 \end{proof}
 
 下面对终值定理作三点说明。
 
-首先，令$z=\mathrm{e}^{\mathrm{i}\Omega}$，并使$z\to 1$，即$\Omega\to 0$，可见终值由变换域中的零频成分决定。这与连续时间终值定理$\lim_{t\to\infty}f(t)=\lim_{s\to 0}sF(s)$一致，都体现了“\textbf{低频成分对应时域的稳态行为}”。
+首先，令$z=\e^{\im\Omega}$，并使$z\to 1$，即$\Omega\to 0$，可见终值由变换域中的零频成分决定。这与连续时间终值定理$\lim_{t\to\infty}f(t)=\lim_{s\to 0}sF(s)$一致，都体现了“\textbf{低频成分对应时域的稳态行为}”。
 
 其次，上面的留数证明要求$X(z)$的奇点均为极点，类似的论证曾用于\refsub{causual_static_delay}。若存在其他类型的奇点，可仿照\refsub{initial_and_final_value}，将$X(z)$分解为$z=1$处的一阶分式与$|z|>r$上的全纯函数之和，从而得到相同结论。
 
 最后，多数文献也允许$z=1$不是奇点。若$X(z)$的奇点都严格位于单位圆内，则其收敛域的内边界半径$r<1$。由洛朗级数的收敛半径公式，
-\[\varlimsup_{n\to\infty}|x[n]|^{1/n}=r<1,\]
+\begin{equation}
+    \varlimsup_{n\to\infty}|x[n]|^{1/n}=r<1,
+\end{equation}
 故$x[n]\to 0$，终值定理仍成立，其终值为零。反之，若奇点都位于单位圆外，则$r>1$，信号必然无界，且极限未必存在。更一般地，在已知收敛域方向的前提下，奇点到原点的距离决定信号的指数包络，奇点的辐角决定振荡频率，奇点的阶数则决定多项式包络。因此，与\refsub{converge_abscissa}类似，可以由$X(z)$的奇点判断$x[n]$的时域特性；这一结论也可由\refsub{laurant_series}中的洛朗级数理论严格说明。
 
 \begin{example}
     考察单边z变换
-    \[X_m(z)=\frac{1}{(1-az^{-1})^m}=\frac{z^m}{(z-a)^m},\qquad |z|>|a|,\]
-    其中$a=\rho\mathrm{e}^{\mathrm{i}\Omega}\neq 0$。对$(1-az^{-1})^{-m}$做泰勒级数展开可得：
-    \[x_m[n]=\binom{n+m-1}{m-1}a^n u[n]
-    =\binom{n+m-1}{m-1}\rho^n\mathrm{e}^{\mathrm{i}\Omega n}u[n].\]
-    $X_m(z)$仅在$z=a$处有一个$m$重极点。极点的模$\rho$控制指数包络：$\rho<1$时信号衰减，$\rho=1$时没有指数衰减或增长，$\rho>1$时信号增长；极点的辐角$\Omega$给出振荡频率；极点的阶数$m$产生$n^{m-1}$量级的多项式包络。例如，$m=1,a=1/2$时$x[n]=(1/2)^n u[n]$指数衰减，而$m=2,a=1/2$时$x[n]=(n+1)(1/2)^n u[n]$带有一次多项式包络。对于实信号，共轭极点成对出现，并合成为相应的正弦或余弦振荡。
+    \begin{equation}
+        X_m(z)=\frac{1}{(1-az^{-1})^m}=\frac{z^m}{(z-a)^m},\quad |z|>|a|,
+    \end{equation}
+    其中$a=\rho\e^{\im\Omega}\neq 0$。对$(1-az^{-1})^{-m}$做泰勒级数展开可得：
+    \begin{equation}
+        x_m[n]=\binom{n+m-1}{m-1}a^n u[n]=\binom{n+m-1}{m-1}\rho^n\e^{\im\Omega n}u[n].
+    \end{equation}
+    $X_m(z)$仅在$z=a$处有一个$m$重极点。极点的模$\rho$控制指数包络：$\rho<1$时信号衰减，$\rho=1$时没有指数衰减或增长，$\rho>1$时信号增长；极点的辐角$\Omega$给出振荡频率；极点的阶数$m$产生$n^{m-1}$量级的多项式包络。例如，$m=1,\ a=1/2$时$x[n]=(1/2)^n u[n]$指数衰减，而$m=2,\ a=1/2$时$x[n]=(n+1)(1/2)^n u[n]$带有一次多项式包络。对于实序列，共轭极点成对出现，并合成为相应的正弦或余弦振荡。
 \end{example}
 
 \subsection{常系数线性差分方程的单边z变换解法}\label{sub:z_difference_equation}
 
 考虑以下差分方程：
-$$\sum_{k=0}^{N}a_k y[n-k] = \sum_{l=0}^{M}b_l x[n-l]$$
-
+\begin{equation}
+    \sum_{k=0}^{N}a_k y[n-k]=\sum_{l=0}^{M}b_l x[n-l].
+\end{equation}
 
 两边同时乘$u[n]$并做单边z变换：
-\begin{align*}
-    \sum_{k=0}^{N}a_k \mathcal{Z}\{y[n-k]u[n]\}&=\sum_{l=0}^{M}b_l \mathcal{Z}\{x[n-l]u[n]\}
-\end{align*}
-利用上一小节中得到的移位性质，有\begin{align*}
-    \sum_{k=0}^{N}a_k z^{-k}\left[Y(z)+\sum_{i=1}^{k}y[-i]z^{i}\right]&=\sum_{l=0}^{M}b_l z^{-l}\left[X(z)+\sum_{j=1}^{l}x[-j]z^{j}\right]
-\end{align*}
-其中，\begin{align*}
-    k=0&\implies \sum_{i=0}^{k-1}y[i-k]z^{-i}=0\\
-    l=0&\implies \sum_{j=0}^{l-1}x[j-l]z^{-j}=0
-\end{align*}
-因此，\begin{align*}
-    Y(z)=\frac{\sum_{l=0}^{M}b_l z^{-l}\left[X(z)+\sum_{j=1}^{l}x[-j]z^{j}\right]-\sum_{k=0}^{N}a_k z^{-k}\sum_{i=1}^{k}y[-i]z^{i}}{\sum_{k=0}^{N}a_k z^{-k}}
-\end{align*}
+\begin{equation}
+    \sum_{k=0}^{N}a_k \mathcal{Z}\{y[n-k]u[n]\}=\sum_{l=0}^{M}b_l \mathcal{Z}\{x[n-l]u[n]\}.
+\end{equation}
+利用上一小节中得到的移位性质，有
+\begin{equation}
+    \sum_{k=0}^{N}a_k z^{-k}\sbr{Y(z)+\sum_{i=1}^{k}y[-i]z^{i}}=\sum_{l=0}^{M}b_l z^{-l}\sbr{X(z)+\sum_{j=1}^{l}x[-j]z^{j}},
+\end{equation}
+其中，
+\begin{align}
+    k=0&\implies \sum_{i=0}^{k-1}y[i-k]z^{-i}=0, \\
+    l=0&\implies \sum_{j=0}^{l-1}x[j-l]z^{-j}=0.
+\end{align}
+因此，
+\begin{equation}
+    Y(z)=\frac{\sum_{l=0}^{M}b_l z^{-l}\sbr{X(z)+\sum_{j=1}^{l}x[-j]z^{j}}-\sum_{k=0}^{N}a_k z^{-k}\sum_{i=1}^{k}y[-i]z^{i}}{\sum_{k=0}^{N}a_k z^{-k}}.
+\end{equation}
 
-特别地，当方程右边恰为$x[n]$时，$M=0,b_0=1$，上式简化为\begin{align*}
-    Y(z)=\frac{X(z)-\sum_{k=0}^{N}a_k z^{-k}\sum_{i=1}^{k}y[-i]z^{i}}{\sum_{k=0}^{N}a_k z^{-k}}
-\end{align*}
+特别地，当方程右边恰为$x[n]$时，$M=0,\ b_0=1$，上式简化为
+\begin{equation}
+    Y(z)=\frac{X(z)-\sum_{k=0}^{N}a_k z^{-k}\sum_{i=1}^{k}y[-i]z^{i}}{\sum_{k=0}^{N}a_k z^{-k}}.
+\end{equation}
 
 \begin{example}
     求解差分方程
-    $$y[n]-3y[n-1]+2y[n-2]=2^n$$
-    在$n\in\mathbb{N}$时的解，初始值为$y[-2]=0,y[-1]=1$。
+    \begin{equation}
+        y[n]-3y[n-1]+2y[n-2]=2^n
+    \end{equation}
+    在$n\in\mathbb{N}$时的解，初始值为$y[-2]=0,\ y[-1]=1$。
 
-    解：将方程两边同时乘$u[n]$并做单边z变换，得到\begin{align*}
-    Y(z)-3(z^{-1}Y(z)+y[-1])+2(z^{-2}Y(z)+y[-2]+y[-1]z^{-1})&=\frac{z}{z-2}
-    \end{align*}
-    代入并整理得\begin{align*}
-    (1-3z^{-1}+2z^{-2})Y(z)&=\frac{z}{z-2}+3y[-1]-2y[-2]+2y[-1]z^{-1}=\frac{z}{z-2}+3-2z^{-1}
-    \end{align*}
-    因此\begin{align*}
-    Y(z)=\frac{z}{(z-2)(1-3z^{-1}+2z^{-2})}+\frac{3+2z^{-1}}{1-3z^{-1}+2z^{-2}}=\frac{4z(z-1)}{(z-2)^2}
-    \end{align*}
-    由逆z变换的留数定理公式，选取$|z|>2$中的围道$C$，有\begin{align*}
-    y[n]u[n]&=\frac{1}{2\pi\mathrm{i}}\oint_{C}Y(z)z^{n-1}\mathrm{d}z\\
-    &=\mathrm{Res}\left(\frac{4z^n(z-1)}{(z-2)^2},2\right)\\
-    &=\lim_{z\to 2}\frac{d}{dz}\left(4z^n(z-1)\right)\\
-    &=4\lim_{z\to 2}\left(nz^{n-1}(z-1)+z^n\right)\\
-    &=4\cdot 2^{n-1}(n+2)=2^{n+1}(n+2),\quad n\in\mathbb{N}
-\end{align*}
+    解：将方程两边同时乘$u[n]$并做单边z变换，得到
+    \begin{equation}
+        Y(z)-3(z^{-1}Y(z)+y[-1])+2(z^{-2}Y(z)+y[-2]+y[-1]z^{-1})=\frac{z}{z-2},
+    \end{equation}
+    代入并整理得
+    \begin{equation}
+        (1-3z^{-1}+2z^{-2})Y(z)=\frac{z}{z-2}+3y[-1]-2y[-2]+2y[-1]z^{-1}=\frac{z}{z-2}+3-2z^{-1},
+    \end{equation}
+    因此
+    \begin{equation}
+        Y(z)=\frac{z}{(z-2)(1-3z^{-1}+2z^{-2})}+\frac{3+2z^{-1}}{1-3z^{-1}+2z^{-2}}=\frac{4z(z-1)}{(z-2)^2}.
+    \end{equation}
+    由逆z变换的留数定理公式，选取$|z|>2$中的围道$C$，有
+    \begin{align}
+        y[n]u[n]&=\frac{1}{2\pi\im}\oint_{C}Y(z)z^{n-1}\,\dd z \nonumber \\
+        &=\Res\paren{\frac{4z^n(z-1)}{(z-2)^2},2} \nonumber \\
+        &=\lim_{z\to 2}\frac{\dd}{\dd z}\paren{4z^n(z-1)} \nonumber \\
+        &=4\lim_{z\to 2}\paren{nz^{n-1}(z-1)+z^n} \nonumber \\
+        &=4\cdot 2^{n-1}(n+2)=2^{n+1}(n+2),\quad n\in\mathbb{N}.
+    \end{align}
 \end{example}

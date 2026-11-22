@@ -1,238 +1,247 @@
 \section{卷积}\label{sec:Convolution}
 
 \subsection{卷积的引入}\label{sub:convolution}
-信号处理讨论的一个基本问题是\textbf{滤波}，即希望把一个信号输入滤波系统后，输出的信号的一些频率成分被剔除或大幅减少，以低通滤波器为例，从数学上讲，就是把信号的频域形式乘以一个矩形函数或一个在给定的频率值之外快速下降到接近于0的函数，这就引出了一个问题：在频域乘一个函数，在时域上的表现是什么？我们知道，一般而言没有$\mathcal{F} (fg)=\mathcal{F} f\mathcal{F} g$。一个自然的想法是，看能否定义一种运算，使得在频域乘一个函数，相当于在时域与这个函数的时域形式做该种运算。实际上，这种运算是存在的，它正是\textbf{卷积}(convolution)
+信号处理讨论的一个基本问题是\textbf{滤波}，即希望把一个信号输入滤波系统后，输出的信号的一些频率成分被剔除或大幅减少，以低通滤波器为例，从数学上讲，就是把函数的频域形式乘以一个矩形函数或一个在给定的频率值之外快速下降到接近于0的函数，这就引出了一个问题：在频域乘一个函数，在时域上的表现是什么？我们知道，一般而言没有$\mathcal{F}[fg]=\mathcal{F}f\mathcal{F}g$。一个自然的想法是，看能否定义一种运算，使得在频域乘一个函数，相当于在时域与这个函数的时域形式做该种运算。实际上，这种运算是存在的，它正是\textbf{卷积}(convolution)。
 
-下面就来找出这个运算。设$f\overset{\mathcal{F} }{\longleftrightarrow}F,g\overset{\mathcal{F} }{\longleftrightarrow}G$,
+下面就来找出这个运算。设$f\overset{\mathcal{F}}{\longleftrightarrow}F,\ g\overset{\mathcal{F}}{\longleftrightarrow}G$，
 \begin{lralign}
-    &F(\xi)G(\xi)\\
-    =&\int_{-\infty}^{\infty}f(x)\mathrm{e}^{-2\pi \mathrm{i}\xi x}\,dx\int_{-\infty}^{\infty}g(y)\mathrm{e}^{-2\pi \mathrm{i}\xi y}\,dy\\
-    =&\iint\limits_{\mathbb{R}^2}f(x)g(y)\mathrm{e}^{-2\pi \mathrm{i}\xi(x+y)}\,dx\,dy
-    \switch
-    &F(\omega)G(\omega)\\
-    =&\int_{-\infty}^{\infty}f(x)\mathrm{e}^{-\mathrm{i}\omega x}\,dx\int_{-\infty}^{\infty}g(y)\mathrm{e}^{-\mathrm{i}\omega y}\,dy\\
-    =&\iint\limits_{\mathbb{R}^2}f(x)g(y)\mathrm{e}^{-\mathrm{i}\omega(x+y)}\,dx\,dy
+    F(\xi)G(\xi)
+    &=\int_{-\infty}^{\infty}f(x)\e^{-2\pi \im\xi x}\,\dd x\int_{-\infty}^{\infty}g(y)\e^{-2\pi \im\xi y}\,\dd y\\
+    &=\iint\limits_{\mathbb{R}^2}f(x)g(y)\e^{-2\pi \im\xi(x+y)}\,\dd x\,\dd y
+\switch
+    F(\omega)G(\omega)
+    &=\int_{-\infty}^{\infty}f(x)\e^{-\im\omega x}\,\dd x\int_{-\infty}^{\infty}g(y)\e^{-\im\omega y}\,\dd y\\
+    &=\iint\limits_{\mathbb{R}^2}f(x)g(y)\e^{-\im\omega(x+y)}\,\dd x\,\dd y.
 \end{lralign}
 令$z=x+y$，则积分区域仍为$\mathbb{R}^2$，
-\[dxdz=\left|\frac{\partial(x,z)}{\partial(x,y)}\right|dxdy=\left|\begin{vmatrix}
+\begin{equation}
+    \dd x\,\dd z=\abs{\frac{\partial(x,z)}{\partial(x,y)}}\,\dd x\,\dd y=\abs{\begin{vmatrix}
         1 & 0 \\
         1 & 1
-    \end{vmatrix}\right| dxdy=dxdy\]
-\lr{
-F(\xi)G(\xi)=&\iint\limits_{\mathbb{R}^2}f(x)g(z-x)\mathrm{e}^{-2\pi \mathrm{i}\xi z}\,dx\,dz\\
-=&\int_{-\infty}^{\infty}\mathrm{e}^{-2\pi \mathrm{i}\xi z}\,dz\int_{-\infty}^{\infty}f(x)g(z-x)dx\\
-=&\mathcal{F} \left[\int_{-\infty}^{\infty}f(x)g(z-x)dx\right](\xi)
-}{
-F(\omega)G(\omega)=&\iint\limits_{\mathbb{R}^2}f(x)g(z-x)\mathrm{e}^{-\mathrm{i}\omega z}\,dx\,dz\\
-=&\int_{-\infty}^{\infty}\mathrm{e}^{-\mathrm{i}\omega z}\,dz\int_{-\infty}^{\infty}f(x)g(z-x)dx\\
-=&\mathcal{F} \left[\int_{-\infty}^{\infty}f(x)g(z-x)dx\right](\omega)
-}
+    \end{vmatrix}}\dd x\,\dd y=\dd x\,\dd y.
+\end{equation}
+\begin{lralign}
+    F(\xi)G(\xi)&=\iint\limits_{\mathbb{R}^2}f(x)g(z-x)\e^{-2\pi \im\xi z}\,\dd x\,\dd z\\
+    &=\int_{-\infty}^{\infty}\e^{-2\pi \im\xi z}\,\dd z\int_{-\infty}^{\infty}f(x)g(z-x)\,\dd x\\
+    &=\mathcal{F}\sbr{\int_{-\infty}^{\infty}f(x)g(z-x)\,\dd x}(\xi)
+\switch
+    F(\omega)G(\omega)&=\iint\limits_{\mathbb{R}^2}f(x)g(z-x)\e^{-\im\omega z}\,\dd x\,\dd z\\
+    &=\int_{-\infty}^{\infty}\e^{-\im\omega z}\,\dd z\int_{-\infty}^{\infty}f(x)g(z-x)\,\dd x\\
+    &=\mathcal{F}\sbr{\int_{-\infty}^{\infty}f(x)g(z-x)\,\dd x}(\omega).
+\end{lralign}
 
-因此我们定义\begin{definition}[卷积]
-    函数f,g的\textbf{卷积}为
-    \begin{equation*}
-        (f*g)(x)=\int_{-\infty}^{\infty}f(y)g(x-y)\,dy
-    \end{equation*}
+因此我们定义
+\begin{definition}[卷积]
+    函数$f,g$的\textbf{卷积}为
+    \begin{equation}
+        (f*g)(x)=\int_{-\infty}^{\infty}f(y)g(x-y)\,\dd y.
+    \end{equation}
 \end{definition}
 
 \subsection{卷积的性质}\label{sub:properties_of_convolution}
-根据前文中的结果，有$\mathcal{F} (f*g)=\mathcal{F} f\mathcal{F} g$，这是时域卷积的性质，由傅里叶反演公式，不难想到频域卷积也有类似的性质。对以上公式两边同时取傅里叶逆变换：
+根据前文中的结果，有$\mathcal{F}[f*g]=\mathcal{F}f\mathcal{F}g$，这是时域卷积的性质，由傅里叶反演公式，不难想到频域卷积也有类似的性质。对以上公式两边同时取傅里叶逆变换：
 \begin{lralign}
-    f*g&=\mathcal{F} ^{-1}\left(\mathcal{F} f\mathcal{F} g\right)
-    \switch
-    f*g&=\mathcal{F} ^{-1}\left(\mathcal{F} f\mathcal{F} g\right)
+    f*g&=\mathcal{F}^{-1}\sbr{\mathcal{F}f\mathcal{F}g}
+\switch
+    f*g&=\mathcal{F}^{-1}\sbr{\mathcal{F}f\mathcal{F}g}.
 \end{lralign}
-令$f=\mathcal{F} \mathfrak{f},g=\mathcal{F} \mathfrak{g}$，则
+令$f=\mathcal{F}\mathfrak{f},\ g=\mathcal{F}\mathfrak{g}$，则
 \begin{lralign}
-    \mathcal{F} \mathfrak{f}*\mathcal{F} \mathfrak{g}&=\mathcal{F} ^{-1}\left[\mathcal{F}\mathcal{F} \mathfrak{f}\cdot\mathcal{F} \mathcal{F} \mathfrak{g}\right]\\
-    &=\mathcal{F} ^{-1}\left(\mathfrak{f}^- \mathfrak{g}^- \right)\\
-    &=\mathcal{F} (\mathfrak{fg})
-    \switch
-    \mathcal{F} \mathfrak{f}*\mathcal{F} \mathfrak{g}&=\mathcal{F} ^{-1}\left[\mathcal{F}\mathcal{F} \mathfrak{f}\cdot\mathcal{F} \mathcal{F} \mathfrak{g}\right]\\
-    &=\mathcal{F} ^{-1}\left(4\pi^2 \mathfrak{f}^- \mathfrak{g}^- \right)\\
-    &= 2\pi\mathcal{F} (\mathfrak{fg})
+    \mathcal{F}\mathfrak{f}*\mathcal{F}\mathfrak{g}&=\mathcal{F}^{-1}\sbr{\mathcal{F}\mathcal{F}\mathfrak{f}\cdot\mathcal{F}\mathcal{F}\mathfrak{g}}\\
+    &=\mathcal{F}^{-1}\sbr{\mathfrak{f}^- \mathfrak{g}^-}\\
+    &=\mathcal{F}[\mathfrak{fg}]
+\switch
+    \mathcal{F}\mathfrak{f}*\mathcal{F}\mathfrak{g}&=\mathcal{F}^{-1}\sbr{\mathcal{F}\mathcal{F}\mathfrak{f}\cdot\mathcal{F}\mathcal{F}\mathfrak{g}}\\
+    &=\mathcal{F}^{-1}\sbr{4\pi^2 \mathfrak{f}^- \mathfrak{g}^-}\\
+    &= 2\pi\mathcal{F}[\mathfrak{fg}].
 \end{lralign}
-综上得到\textbf{卷积定理}(the convolution thoerem)：
+综上得到\textbf{卷积定理}(the convolution theorem)：
 \begin{theorem}[卷积定理]
     \label{thm:conv}
-    \quad
-    \lr{
-        \mathcal{F} (f*g)(\xi)=\mathcal{F} f(\xi)\mathcal{F} g(\xi)\\
-        \mathcal{F} (fg)(\xi)=(\mathcal{F} f*\mathcal{F} g)(\xi)
-    }{
-        \mathcal{F} (f*g)(\omega)=\mathcal{F} f(\omega)\mathcal{F} g(\omega)\\
-        \mathcal{F} (fg)(\omega)=\frac{1}{2\pi}(\mathcal{F} f*\mathcal{F} g)(\omega)
-    }
+    \begin{lralign}
+        \mathcal{F}[f*g](\xi)=\mathcal{F}f(\xi)\mathcal{F}g(\xi)
+    \switch
+        \mathcal{F}[f*g](\omega)=\mathcal{F}f(\omega)\mathcal{F}g(\omega),
+    \end{lralign}
+    \begin{lralign}
+        \mathcal{F}[fg](\xi)=(\mathcal{F}f*\mathcal{F}g)(\xi)
+    \switch
+        \mathcal{F}[fg](\omega)=\frac{1}{2\pi}(\mathcal{F}f*\mathcal{F}g)(\omega).
+    \end{lralign}
 \end{theorem}
 
-在不引起歧义时，我们也承认$f(t)*g(t)$和$f(t)*\mathrm{e}^{t+1}$这样的写法。需要注意，$f(2t)*g(t)$对应着两种理解：$\int_{-\infty}^{\infty}f(2t-x)g(x)\,dx$和$\int_{-\infty}^{\infty}f(2(t-x))g(x)\,dx$，第二种才是对的，因为我们认为$f(2t)$作为一个新的函数$F(t)=f(2t)$与$g(t)$行卷积。
+在不引起歧义时，我们也承认$f(t)*g(t)$和$f(t)*\e^{t+1}$这样的写法。需要注意，$f(2t)*g(t)$对应着两种理解：$\int_{-\infty}^{\infty}f(2t-x)g(x)\,\dd x$和$\int_{-\infty}^{\infty}f(2(t-x))g(x)\,\dd x$，第二种才是对的，因为我们认为$f(2t)$作为一个新的函数$F(t)=f(2t)$与$g(t)$行卷积。
 
 作为一种新的函数空间上的运算，我们自然要讨论它是否满足线性性、结合律、交换律。事实上，它们都是成立的：
 \begin{proposition}[卷积的线性性、结合律、交换律]
     \label{prop:conv_prop}
-    \begin{align*}
-        f*(ag_1+bg_2) & =af*g_1+bf*g_2 \\
-        (f*g)*h       & =f*(g*h)       \\
-        f*g           & =g*f
-    \end{align*}
+    \begin{align}
+        f*(ag_1+bg_2) & =af*g_1+bf*g_2, \\
+        (f*g)*h       & =f*(g*h),       \\
+        f*g           & =g*f.
+    \end{align}
 \end{proposition}
 线性性得自积分的线性性，交换律通过变量替换即可证明，下面仅证明结合律。
 \begin{proof}
-    \begin{align*}
-        (f*g)*h(x) & =\int_{-\infty}^{\infty}(f*g)(x-y)h(y)\,dy                              \\
-                   & =\int_{-\infty}^{\infty}h(y)\,dy\int_{-\infty}^{\infty}f(z)g(x-y-z)\,dz \\
-                   & =\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(z)g(x-y-z)h(y)\,dy\,dz \\
-                   & =\int_{-\infty}^{\infty}f(z)(g*h)(x-z)\,dz
-    \end{align*}
+    \begin{align}
+        (f*g)*h(x) & =\int_{-\infty}^{\infty}(f*g)(x-y)h(y)\,\dd y\nonumber                              \\
+                   & =\int_{-\infty}^{\infty}h(y)\,\dd y\int_{-\infty}^{\infty}f(z)g(x-y-z)\,\dd z\nonumber \\
+                   & =\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(z)g(x-y-z)h(y)\,\dd y\,\dd z\nonumber \\
+                   & =\int_{-\infty}^{\infty}f(z)(g*h)(x-z)\,\dd z.
+    \end{align}
 \end{proof}
 
-也可以通过取傅里叶变换的方式证明它们，但这样会缩减证明有效的范围，因为卷积存在只要求积分$(f*g)(x)=\int_{-\infty}^{\infty}f(y)g(x-y)\,dy$存在（它有许多种充分条件，不再一一讨论），而取傅里叶变换则要求$f,g,f*g$的傅里叶变换存在。
+也可以通过取傅里叶变换的方式证明它们，但这样会缩减证明有效的范围，因为卷积存在只要求积分$(f*g)(x)=\int_{-\infty}^{\infty}f(y)g(x-y)\,\dd y$存在（它有许多种充分条件，不再一一讨论），而取傅里叶变换则要求$f,g,f*g$的傅里叶变换存在。
 
 卷积是否具有“幺元”呢？我们希望找到一个函数，使得它与任一函数$f$卷积，总得到$f$本身。事实上，只有$\delta$可以起到这个作用（尽管它应该作为一个分布来理解，见\refsub{general_distributions}和\refsub{approach}）。
 \begin{proposition}[卷积幺元]
     设$f\in L^1(\mathbb{R})$，则$\delta$是“卷积幺元”，即
-    \lr{
-        f(t)=(f*\delta)(t)=\int_{-\infty}^{\infty}f(x)\delta(t-x)\,dx
-    }{
-        f(t)=(f*\delta)(t)=\int_{-\infty}^{\infty}f(x)\delta(t-x)\,dx
-    }
+    \begin{lralign}
+        f(t)=(f*\delta)(t)=\int_{-\infty}^{\infty}f(x)\delta(t-x)\,\dd x
+    \switch
+        f(t)=(f*\delta)(t)=\int_{-\infty}^{\infty}f(x)\delta(t-x)\,\dd x.
+    \end{lralign}
 \end{proposition}
 \begin{proof}
-    设$f\in L^1(\mathbb{R})$，则\lr{
-        \mathcal{F} (f*\delta)(\xi)=\mathcal{F} f(\xi)\mathcal{F} \delta(\xi)=\mathcal{F} f(\xi)
-    }{
-        \mathcal{F} (f*\delta)(\omega)=\mathcal{F} f(\omega)\mathcal{F} \delta(\omega)=\mathcal{F} f(\omega)
-    }
+    设$f\in L^1(\mathbb{R})$，则
+    \begin{lralign}
+        \mathcal{F}[f*\delta](\xi)=\mathcal{F}f(\xi)\mathcal{F}\delta(\xi)=\mathcal{F}f(\xi)
+    \switch
+        \mathcal{F}[f*\delta](\omega)=\mathcal{F}f(\omega)\mathcal{F}\delta(\omega)=\mathcal{F}f(\omega).
+    \end{lralign}
     由傅里叶反演公式得证。
 \end{proof}
 
 \subsection{卷积的直观}\label{sub:intuition_of_convolution}
-初次接触卷积时，往往会对它的定义感到疑惑，因为在数学分析的课程中我们很少见到这种“翻转、平移、相乘、积分”的结构。需要指出，卷积并不只有“时域相乘，频域卷积；时域卷积，频域相乘”的物理意义，例如概率论中两独立的连续型随机变量X,Y之和作为一种新的随机变量Z，其概率密度函数$f_Z(z)$正是两个独立的随机变量的概率密度函数的卷积$f_X*f_Y(z)$.类似于用“求曲线下方的面积”或“已知速度求位移”引入积分，尽管我们用一种较为自然的方式引入了卷积，但\textbf{不应该认为它只有单一的意义}。不过，还是可以建立一些卷积的性质来辅助我们理解卷积。
+初次接触卷积时，往往会对它的定义感到疑惑，因为在数学分析的课程中我们很少见到这种“翻转、平移、相乘、积分”的结构。需要指出，卷积并不只有“时域相乘，频域卷积；时域卷积，频域相乘”的物理意义，例如概率论中两独立的连续型随机变量$X,Y$之和作为一种新的随机变量$Z$，其概率密度函数$f_Z(z)$正是两个独立的随机变量的概率密度函数的卷积$f_X*f_Y(z)$。类似于用“求曲线下方的面积”或“已知速度求位移”引入积分，尽管我们用一种较为自然的方式引入了卷积，但\textbf{不应该认为它只有单一的意义}。不过，还是可以建立一些卷积的性质来辅助我们理解卷积。
 
 \subsubsection{卷积是一种起“平均化”作用的运算}
 \begin{definition}[加权均值]
-    给定区间$[a,b]$和权函数$w(x)$，$f(x)$的加权均值为\[\frac{\int_{a}^{b}f(x)w(x)\,dx}{\int_{a}^{b}w(x)\,dx}\]
+    给定区间$[a,b]$和权函数$w(x)$，$f(x)$的加权均值为
+    \begin{equation}
+        \frac{\int_{a}^{b}f(x)w(x)\,\dd x}{\int_{a}^{b}w(x)\,\dd x}.
+    \end{equation}
 \end{definition}
-给定$x$时，$w(y)=g(x-y)$就是$f*g$中f的加权均值的倍数。进一步，卷积的光滑性高于用来卷积的两个函数，并且在f可导时有$(f*g)'=f'*g$，因为
-\[(f*g)'(x)=\frac{d}{dx}\int_{-\infty}^{\infty}f(x-y)g(y)\,dy=\int_{-\infty}^{\infty}f'(x-y)g(y)\,dy=f'*g\]
+给定$x$时，$w(y)=g(x-y)$就是$f*g$中$f$的加权均值的倍数。进一步，卷积的光滑性高于用来卷积的两个函数，并且在$f$可导时有$(f*g)'=f'*g$，因为
+\begin{equation}
+    (f*g)'(x)=\frac{\dd}{\dd x}\int_{-\infty}^{\infty}f(x-y)g(y)\,\dd y=\int_{-\infty}^{\infty}f'(x-y)g(y)\,\dd y=f'*g.
+\end{equation}
 
 特别地，如果$g(x)=\frac{1}{2a}\chi_{[-a,a]}$，则$f*g(x)$是$f(x)$在区间$[x-a,x+a]$上的平均值：
-\[(f*g)(x)=\int_{-\infty}^{\infty}f(y)g(x-y)\,dy=\frac{1}{2a}\int_{x-a}^{x+a}f(y)\,dy\]
+\begin{equation}
+    (f*g)(x)=\int_{-\infty}^{\infty}f(y)g(x-y)\,\dd y=\frac{1}{2a}\int_{x-a}^{x+a}f(y)\,\dd y.
+\end{equation}
 
 \subsubsection{卷积函数的支集}
 
 %我们首先引入\textbf{支集}(support)的概念，读者只需理解其直观，真正理解它需要一些拓扑学的基础。
 \begin{definition}[支集]
-    设$f:\mathbb{R}\to \mathbb{R}$，f的\textbf{支集}为
-    $\mathrm{supp}(f)=\overline{\left\{x\in\mathbb{R}\left|f(x)\neq 0\right.\right\}}$
+    设$f:\mathbb{R}\to \mathbb{R}$，$f$的\textbf{支集}为
+    $\supp(f)=\overline{\{x\in\mathbb{R} \mid f(x)\neq 0\}}$。
 \end{definition}
 
-这里上划线不是取共轭，而是对集合取闭包，闭包包括集合本身的和它的极限点，$\mathbb{R}$中集合的闭包是闭集，例如，$(a,b)$的闭包是$[a,b]$.
+这里上划线不是取共轭，而是对集合取闭包，闭包包括集合本身的和它的极限点，$\mathbb{R}$中集合的闭包是闭集，例如，$(a,b)$的闭包是$[a,b]$。
 
 集合$\{x\in\mathbb{R}:f(x)\neq 0\}$的提出是自然的，取闭包则不那么容易理解。实际上，在度量空间中，一个集合是紧集（任给一个开区间组成的覆盖，总能从中取出有限覆盖）就等价于它是有界闭集，描述有界区间的一种方式是说它是闭包紧的。因此，我们可以说在无穷远处为0的函数有\textbf{紧支集}(compact support)。
 \begin{definition}[紧支函数空间]
-    对于p次连续可导的函数$f\in C^p(\mathbb{R})$，我们记其中具有紧支集的函数构成的集合为$C_0^p(\mathbb{R})$。
+    对于$p$次连续可导的函数$f\in C^p(\mathbb{R})$，我们记其中具有紧支集的函数构成的集合为$C_0^p(\mathbb{R})$。
 \end{definition}
 
 \begin{proposition}
     \label{prop:conv_supp}
-    卷积能够将两个函数的支集“相加”，即：\begin{align*}
-        \mathrm{supp}(f)\in [a,b],\mathrm{supp}(g)\in [c,d]\implies & \mathrm{supp}(f*g)\in [a+c,b+d]
-    \end{align*}
+    卷积能够将两个函数的支集“相加”，即：
+    \begin{equation}
+        \supp(f)\in [a,b],\quad \supp(g)\in [c,d]\implies \supp(f*g)\in [a+c,b+d].
+    \end{equation}
 \end{proposition}
 
-带入定义容易验证这一点：
-\begin{align*}
-     & (f*g)(x) =\int_{-\infty}^{\infty}f(y)g(x-y)\,dy                 \\
-     & \text{积分值非0}\implies y\in [a,b],x-y\in [c,d]\iff x\in [a+c,b+d]
-\end{align*}
+代入定义容易验证这一点：
+\begin{align}
+     (f*g)(x) &=\int_{-\infty}^{\infty}f(y)g(x-y)\,\dd y,\\
+     \text{积分值非0}&\implies y\in [a,b],\ x-y\in [c,d]\iff x\in [a+c,b+d].
+\end{align}
 
 当区间退化为单点集或区间端点为$\pm\infty$时，这一性质也是成立的。
 
 \subsubsection{函数变换下的卷积}
-\begin{proposition}[信号反转下的卷积]
-    \[(f^-)*(g^-)=(f*g)^-\]
+\begin{proposition}[函数反转下的卷积]
+    \begin{equation}
+        (f^-)*(g^-)=(f*g)^-.
+    \end{equation}
 \end{proposition}
 \begin{proof}
-    \begin{align*}
-        (f^-)*(g^-)(x) & =\int_{-\infty}^{\infty}f^-(y)g^-(x-y)\,dy          \\
-                       & =\int_{-\infty}^{\infty}f(-y)g(-(x-y))\,dy          \\
-                       & =\int_{-\infty}^{\infty}f(z)g(-(x+z))(-dz) & (z=-y) \\
-                       & =\int_{-\infty}^{\infty}f(z)g(-x-z)\,dz             \\
-                       & =(f*g)^-(x)
-    \end{align*}
+    \begin{align}
+        (f^-)*(g^-)(x) & =\int_{-\infty}^{\infty}f^-(y)g^-(x-y)\,\dd y\nonumber          \\
+                       & =\int_{-\infty}^{\infty}f(-y)g(-(x-y))\,\dd y\nonumber          \\
+                       & =\int_{-\infty}^{\infty}f(z)g(-(x+z))\,(-\dd z) && (z=-y)\nonumber \\
+                       & =\int_{-\infty}^{\infty}f(z)g(-x-z)\,\dd z\nonumber             \\
+                       & =(f*g)^-(x).
+    \end{align}
 \end{proof}
 
-如果只有一个信号反转，则结果不再是卷积，而是f与g的互相关（在f,g都是实信号时），下面很快将讨论它。
+如果只有一个函数反转，则结果不再是卷积，而是$f$与$g$的互相关（在$f,g$都是实函数时），下面很快将讨论它。
 
-在建立卷积在信号时延或伸缩下的性质前，我们先来明确所使用的符号。我们将用$\tau$表示时延$\tau_b f(t)=f(t-b)$，用$\sigma$表示伸缩$\sigma_a f(t)=f(at)$，并避免使用$\tau,\sigma$作为变量的符号。这样的做法在研究分布的性质时是必要的，因为严格来讲不能给出分布的“自变量”，但例如$\delta$函数这样的分布又具有明显的尺度变换的性质，见\refsub{operation_of_distribution}.
+在建立卷积在函数时延或伸缩下的性质前，我们先来明确所使用的符号。我们将用$\tau$表示时延$\tau_b f(t)=f(t-b)$，用$\sigma$表示伸缩$\sigma_a f(t)=f(at)$，并避免使用$\tau,\sigma$作为变量的符号。这样的做法在研究分布的性质时是必要的，因为严格来讲不能给出分布的“自变量”，但例如$\delta$函数这样的分布又具有明显的尺度变换的性质，见\refsub{operation_of_distribution}。
 
-\begin{proposition}[信号时延、伸缩时的卷积]
+\begin{proposition}[函数时延、伸缩时的卷积]
     \label{prop:conv_signal_shift}
-    \begin{align*}
-        (\tau_b f)*g=\tau_b (f*g)=f*(\tau_b g) \\
-        (\sigma_a f)*(\sigma_a g)=\frac{1}{|a|}\sigma_a(f*g)
-    \end{align*}
+    \begin{align}
+        (\tau_b f)*g&=\tau_b (f*g)=f*(\tau_b g), \\
+        (\sigma_a f)*(\sigma_a g)&=\frac{1}{|a|}\sigma_a(f*g).
+    \end{align}
 \end{proposition}
 \begin{proof}
-    \begin{align*}
-        (\tau_b f)*g(x) & =\int_{-\infty}^{\infty}\tau_b f(y)g(x-y)\,dy           \\
-                        & =\int_{-\infty}^{\infty}f(y-b)g(x-y)\,dy                \\
-                        & =\int_{-\infty}^{\infty}f(z)g(x-(z+b))\,dz    & (z=y-b) \\
-                        & =\int_{-\infty}^{\infty}f(z)g((x-b)-z)\,dz              \\
-                        & =(f*g)(x-b)=\tau_b (f*g)(x)
-    \end{align*}
-    类似地，可以证明$f*(\tau_b g)=\tau_b (f*g)$.
-    \begin{align*}
-        (\sigma_a f)*(\sigma_a g)(x) & =\int_{-\infty}^{\infty}\sigma_a f(y)\sigma_a g(x-y)\,dy                                     \\
-                                     & =\int_{-\infty}^{\infty}f(ay)g(a(x-y))\,dy                                                   \\
-                                     & =\frac{1}{|a|}\int_{-\infty}^{\infty}f(z)g(a x - z)\,dz  & \left(z=ay,dy=\frac{dz}{a}\right) \\
-                                     & =\frac{1}{|a|}(f*g)(a x)=\frac{1}{|a|}\sigma_a(f*g)(x)
-    \end{align*}
-    和傅里叶变换的伸缩定理类似，这里也需要讨论a的正负，但不再赘述。
+    \begin{align}
+        (\tau_b f)*g(x) & =\int_{-\infty}^{\infty}\tau_b f(y)g(x-y)\,\dd y\nonumber           \\
+                        & =\int_{-\infty}^{\infty}f(y-b)g(x-y)\,\dd y\nonumber                \\
+                        & =\int_{-\infty}^{\infty}f(z)g(x-(z+b))\,\dd z    && (z=y-b)\nonumber \\
+                        & =\int_{-\infty}^{\infty}f(z)g((x-b)-z)\,\dd z\nonumber              \\
+                        & =(f*g)(x-b)=\tau_b (f*g)(x).
+    \end{align}
+    类似地，可以证明$f*(\tau_b g)=\tau_b (f*g)$。
+    \begin{align}
+        (\sigma_a f)*(\sigma_a g)(x) & =\int_{-\infty}^{\infty}\sigma_a f(y)\sigma_a g(x-y)\,\dd y\nonumber                                     \\
+                                     & =\int_{-\infty}^{\infty}f(ay)g(a(x-y))\,\dd y\nonumber                                                   \\
+                                     & =\frac{1}{|a|}\int_{-\infty}^{\infty}f(z)g(a x - z)\,\dd z  && \paren{z=ay,\ \dd y=\frac{\dd z}{a}}\nonumber \\
+                                     & =\frac{1}{|a|}(f*g)(a x)=\frac{1}{|a|}\sigma_a(f*g)(x).
+    \end{align}
+    和傅里叶变换的伸缩定理类似，这里也需要讨论$a$的正负，但不再赘述。
 \end{proof}
 
 \subsubsection{“面积”关系}
 
-我们已经提到，概率论中两个独立随机变量之和的概率密度函数是它们各自概率密度函数的卷积，这当
-然要求两个概率密度函数在$\mathbb{R}$上的积分值为1时，它们的卷积在$\mathbb{R}$上的积
-分值也为1。更一般地：
+我们已经提到，概率论中两个独立随机变量之和的概率密度函数是它们各自概率密度函数的卷积，这当然要求两个概率密度函数在$\mathbb{R}$上的积分值为1时，它们的卷积在$\mathbb{R}$上的积分值也为1。更一般地：
 \begin{proposition}[卷积的“面积”关系]
-    \[\int_{-\infty}^{\infty}(f*g)(x)\,dx=\int_{-\infty}^{\infty}f(y)\,dy\int_{-\infty}^{\infty}g(x)\,dx\]
+    \begin{equation}
+        \int_{-\infty}^{\infty}(f*g)(x)\,\dd x=\int_{-\infty}^{\infty}f(y)\,\dd y\int_{-\infty}^{\infty}g(x)\,\dd x.
+    \end{equation}
 \end{proposition}
 \begin{proof}
-    \begin{align*}
-        \int_{-\infty}^{\infty}(f*g)(x)\,dx & =\int_{-\infty}^{\infty}\,dx\int_{-\infty}^{\infty}f(y)g(x-y)\,dy                                   \\
-                                            & =\int_{-\infty}^{\infty}f(y)\,dy\int_{-\infty}^{\infty}g(x-y)\,dx                                   \\
-                                            & =\int_{-\infty}^{\infty}f(y)\,dy\int_{-\infty}^{\infty}g(u)\,du                           & (u=x-y) \\
-                                            & =\left(\int_{-\infty}^{\infty}f(x)\,dx\right)\left(\int_{-\infty}^{\infty}g(x)\,dx\right)
-    \end{align*}
+    \begin{align}
+        \int_{-\infty}^{\infty}(f*g)(x)\,\dd x & =\int_{-\infty}^{\infty}\,\dd x\int_{-\infty}^{\infty}f(y)g(x-y)\,\dd y\nonumber                                   \\
+                                               & =\int_{-\infty}^{\infty}f(y)\,\dd y\int_{-\infty}^{\infty}g(x-y)\,\dd x\nonumber                                   \\
+                                               & =\int_{-\infty}^{\infty}f(y)\,\dd y\int_{-\infty}^{\infty}g(u)\,\dd u                           && (u=x-y)\nonumber \\
+                                               & =\paren{\int_{-\infty}^{\infty}f(x)\,\dd x}\paren{\int_{-\infty}^{\infty}g(x)\,\dd x}.
+    \end{align}
 \end{proof}
 
 \subsection{相关}\label{sub:correlation}
-在统计学中，我们引入相关系数来描述两个随机变量之间的相关程度，类似地，在信号
-处理中，我们引入\textbf{相关系数}(correlation coefficient)来描述两个信号之间的相关
-程度。
+在统计学中，我们引入相关系数来描述两个随机变量之间的相关程度，类似地，在信号处理中，我们引入\textbf{相关系数}(correlation coefficient)来描述两个信号之间的相关程度。
 \begin{definition}[相关系数]
     设$f,g\in L^2(\mathbb{R})$，它们的相关系数定义为
-    \begin{equation*}
-        \rho(f,g)=\frac{(f,g)}{\|f\|\cdot\|g\|}
-    \end{equation*}
+    \begin{equation}
+        \rho(f,g)=\frac{(f,g)}{\|f\|\cdot\|g\|}.
+    \end{equation}
 \end{definition}
-其中$(f,g)=\int_{-\infty}^{\infty}f(x)\overline{g(x)}dx$是$f$和
-$g$的内积，$\|f\|=\sqrt{(f,f)}$是$f$的范数。根据柯西-施瓦茨不等式，
-相关系数的绝对值不超过1，且当且仅当$f$与$g$几乎处处成比例时取等，因此我们说，
-$\rho(f,g)=\pm 1$时两信号\textbf{线性相关}；$\rho(f,g)=0$时两信号\textbf{线性无关}，
-这相当于两函数正交。
+其中$(f,g)=\int_{-\infty}^{\infty}f(x)\overline{g(x)}\,\dd x$是$f$和$g$的内积，$\|f\|=\sqrt{(f,f)}$是$f$的范数。根据柯西-施瓦茨不等式，相关系数的绝对值不超过1，且当且仅当$f$与$g$几乎处处成比例时取等，因此我们说，$\rho(f,g)=\pm 1$时两信号\textbf{线性相关}；$\rho(f,g)=0$时两信号\textbf{线性无关}，这相当于两函数正交。
 
-有时信号之间存在时延差，这时我们可以定义\textbf{互相关}(cross-correlation)来描述它
-们之间的相关程度。
+有时信号之间存在时延差，这时我们可以定义\textbf{互相关}(cross-correlation)来描述它们之间的相关程度。
 \begin{definition}[互相关]
     设$f,g\in L^2(\mathbb{R})$，它们的互相关定义为
-    \begin{equation*}
-        R_{fg}(x)=\int_{-\infty}^{\infty}f(x+y)\overline{g(y)}\,dy
-    \end{equation*}
-    当$f=g$时，称之为$f$的\textbf{自相关}(auto-correlation)并记为$R_f(x)$.
+    \begin{equation}
+        R_{fg}(x)=\int_{-\infty}^{\infty}f(x+y)\overline{g(y)}\,\dd y.
+    \end{equation}
+    当$f=g$时，称之为$f$的\textbf{自相关}(auto-correlation)并记为$R_f(x)$。
 \end{definition}
 
 互相关具有以下性质：
@@ -240,91 +249,100 @@ $\rho(f,g)=\pm 1$时两信号\textbf{线性相关}；$\rho(f,g)=0$时两信号\t
     \label{prop:cross_correlation}
     设$f,g\in L^2(\mathbb{R})$，则
     \begin{enumerate}
-        \item $R_{fg}=f* \overline{g^-}=\overline{R_{gf}^-}$，特别地，如果$f,g$都是实信号，则
-              $$R_{fg} =R_{gf}^- =f *(g^-)=((f^-)*g)^-$$
-              该性质表明相关与卷积有着密切的联系，并且互相关函数具有共轭对称性。
-        \item $R_{\tau_b f,g}=\tau_{b}R_{fg}=R_{f,\tau_{-b}g}$
-        \item $R_{fg}\leq\|f\|_2\|g\|_2$，特别地，$R_f(x)\leq R_f(0)=\|f\|_2^2$
+        \item $R_{fg}=f* \overline{g^-}=\overline{R_{gf}^-}$，特别地，如果$f,g$都是实函数，则
+              \begin{equation}
+                  R_{fg} =R_{gf}^- =f *(g^-)=((f^-)*g)^-,
+              \end{equation}
+              该性质表明相关与卷积有着密切的联系，并且互相关函数具有共轭对称性；
+        \item $R_{\tau_b f,g}=\tau_{b}R_{fg}=R_{f,\tau_{-b}g}$；
+        \item $R_{fg}\leq\|f\|_2\|g\|_2$，特别地，$R_f(x)\leq R_f(0)=\|f\|_2^2$。
     \end{enumerate}
 \end{proposition}
 
-
 \begin{proof}
     1.
-    \begin{align*}
-        R_{fg}(x) & =\int_{-\infty}^{\infty}f(x+y)\overline{g(y)}\,dy              \\
-                  & =\int_{-\infty}^{\infty}f(x-y)\overline{g(-y)}\,dy & (y\to -y) \\
-                  & =f*\overline{g^-}
-    \end{align*}
-    \begin{align*}
-        R_{fg}(x) & =\int_{-\infty}^{\infty}f(x+y)\overline{g(y)}\,dy                         \\
-                  & =\overline{\int_{-\infty}^{\infty}\overline{f(y)}g(y-x)\,dy} & (y\to y-x) \\
-                  & =\overline{\overline{f}*g(x)}                                             \\
-                  & =\overline{\int_{-\infty}^{\infty}g(y-x)\overline{f(y)}\,dy}              \\
-                  & =\overline{R_{gf}}(-x)
-    \end{align*}
+    \begin{align}
+        R_{fg}(x) & =\int_{-\infty}^{\infty}f(x+y)\overline{g(y)}\,\dd y\nonumber              \\
+                  & =\int_{-\infty}^{\infty}f(x-y)\overline{g(-y)}\,\dd y && (y\to -y)\nonumber \\
+                  & =f*\overline{g^-},
+    \end{align}
+    \begin{align}
+        R_{fg}(x) & =\int_{-\infty}^{\infty}f(x+y)\overline{g(y)}\,\dd y\nonumber                         \\
+                  & =\overline{\int_{-\infty}^{\infty}\overline{f(y)}g(y-x)\,\dd y} && (y\to y-x)\nonumber \\
+                  & =\overline{\overline{f}*g(x)}\nonumber                                             \\
+                  & =\overline{\int_{-\infty}^{\infty}g(y-x)\overline{f(y)}\,\dd y}\nonumber              \\
+                  & =\overline{R_{gf}}(-x).
+    \end{align}
 
+    2.
+    \begin{align}
+        R_{\tau_b f,g}(x) & =\int_{-\infty}^{\infty}\tau_b f(x+y)\overline{g(y)}\,\dd y\nonumber           \\
+                          & =\int_{-\infty}^{\infty}f(x+y-b)\overline{g(y)}\,\dd y\nonumber                \\
+                          & =R_{fg}(x-b)=\tau_{b} R_{fg}(x)\nonumber                                    \\
+                          & =\int_{-\infty}^{\infty}f(x+u)\overline{g(u+b)}\,\dd u      && (u=y-b)\nonumber \\
+                          & =R_{f,\tau_{-b}g}.
+    \end{align}
 
-
-    2.\begin{align*}
-        R_{\tau_b f,g}(x) & =\int_{-\infty}^{\infty}\tau_b f(x+y)\overline{g(y)}\,dy           \\
-                          & =\int_{-\infty}^{\infty}f(x+y-b)\overline{g(y)}\,dy                \\
-                          & =R_{fg}(x-b)=\tau_{b} R_{fg}(x)                                    \\
-                          & =\int_{-\infty}^{\infty}f(x+u)\overline{g(u+b)}\,du      & (u=y-b) \\
-                          & =R_{f,\tau_{-b}g}
-    \end{align*}
-
-    3.\begin{align*}
-        R_{fg}(x) & =\int_{-\infty}^{\infty}f(x+y)\overline{g(y)}\,dy                                                            \\
-                  & \leq \sqrt{\int_{-\infty}^{\infty}|f(x+y)|^2\,dy\int_{-\infty}^{\infty}\left|\overline{g(y)}\right|^2\,dy  } \\
-                  & =\sqrt{\|f\|_2^2\|g\|_2^2}                                                                                   \\
-                  & =\|f\|_2\cdot\|g\|_2
-    \end{align*}
+    3.
+    \begin{align}
+        R_{fg}(x) & =\int_{-\infty}^{\infty}f(x+y)\overline{g(y)}\,\dd y\nonumber                                                            \\
+                  & \leq \sqrt{\int_{-\infty}^{\infty}|f(x+y)|^2\,\dd y\int_{-\infty}^{\infty}|\overline{g(y)}|^2\,\dd y}\nonumber \\
+                  & =\sqrt{\|f\|_2^2\|g\|_2^2}\nonumber                                                                                   \\
+                  & =\|f\|_2\cdot\|g\|_2.
+    \end{align}
 \end{proof}
 
 从相关的第一条性质可见，相关也可以看作卷积，利用卷积定理可得：
 
 \begin{theorem}[维纳-辛钦定理]\label{thm:winner-khinchin}
-    设$f,g\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，则$\mathcal{F} R_{fg} =\mathcal{F} f\overline{\mathcal{F} g}$
+    设$f,g\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，则$\mathcal{F} R_{fg} =\mathcal{F} f\overline{\mathcal{F} g}$。
 \end{theorem}
 \begin{remark}
     一般来说，\textbf{维纳-辛钦定理}(Wiener-Khinchin Theorem)是令$f=g$得到的
-    $$\mathcal{F}(R_f)=|\mathcal{F} f|^2$$
+    \begin{equation}
+        \mathcal{F}[R_f]=|\mathcal{F} f|^2.
+    \end{equation}
     但是，用这个名称来指代更一般的定理$\mathcal{F}R_{fg}=\mathcal{F}f\overline{\mathcal{F}g}$是方便的，因此本书总是这样做。
 \end{remark}
 \begin{proof}
-    $R_{fg}(x)=f*\overline{g^-}$，以频率形式为例，计算$\overline{g^-}$的傅立叶变换：
-    \begin{align*}
-        \mathcal{F}\left(\overline{g^-}\right)= & \int_{-\infty}^\infty \overline{g^-(t)}\e^{2\pi\im\xi t}\,dt \\
-        =                                       & \overline{\int_{-\infty}^\infty g(-t)\e^{-2\pi\im\xi t}\,dt} \\
-        =                                       & \overline{\int_{-\infty}^\infty g(t)\e^{2\pi\im\xi t}\,dt}   \\
-        =                                       & \overline{\mathcal{F}g}
-    \end{align*}
+    $R_{fg}(x)=f*\overline{g^-}$，以频率形式为例，计算$\overline{g^-}$的傅里叶变换：
+    \begin{align}
+        \mathcal{F}\sbr{\overline{g^-}} &= \int_{-\infty}^\infty \overline{g^-(t)}\e^{2\pi\im\xi t}\,\dd t\nonumber \\
+        &= \overline{\int_{-\infty}^\infty g(-t)\e^{-2\pi\im\xi t}\,\dd t}\nonumber \\
+        &= \overline{\int_{-\infty}^\infty g(t)\e^{2\pi\im\xi t}\,\dd t}\nonumber   \\
+        &= \overline{\mathcal{F}g}.
+    \end{align}
     由卷积定理可得：
-    $$\mathcal{F}R_{fg}=\mathcal{F}(f*g^-)=\mathcal{F}(f)\overline{\mathcal{F}g}$$
+    \begin{equation}
+        \mathcal{F}R_{fg}=\mathcal{F}[f*g^-]=\mathcal{F}f\overline{\mathcal{F}g}.
+    \end{equation}
 \end{proof}
 
 一些文献（例如\cite{brad_osgood_ee261}）将互相关函数定义为
-$$R_{fg}(x)=\int_{-\infty}^{\infty}f(y)\overline{g(x+y)}\,dy$$
+\begin{equation}
+    R_{fg}(x)=\int_{-\infty}^{\infty}f(y)\overline{g(x+y)}\,\dd y.
+\end{equation}
 这与上面讨论的互相关没有太大的区别，但维纳-辛钦定理的形式会更加复杂。
 
 对于功率信号，我们需要对以上互相关的定义略作修改，以避免趋于无穷的情况发生。
 \begin{definition}[功率信号的互相关]
     对于功率信号$f,g$，定义互相关函数为
-    \begin{equation*}
-        R_{fg}=R_{fg}(x)=\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}f(x+y)\overline{g(y)}\,dy
-    \end{equation*}
+    \begin{equation}
+        R_{fg}=R_{fg}(x)=\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}f(x+y)\overline{g(y)}\,\dd y.
+    \end{equation}
 \end{definition}
 容易根据柯西-施瓦兹不等式证明其有界性，然而有界不代表极限存在。我们将在\refsub{power_corelation}中讨论它。
 
 最后我们给出一个互相关的应用\cite{brad_osgood_ee261}。
 \begin{example}[雷达测距]
-    设雷达发射了一个信号$f(t)$，经过时间T信号接触到物体并发生反射，再经过时间T信号回到雷达，雷达接收到的信号$f_r(t)=\alpha (\tau_{2T}f(t))+n(t)$,其中$\alpha\in(0,1)$，表示信号在传播过程中衰减；$n(t)$为噪声信号。我们希望确定时间T，以计算雷达到物体间的距离。对于噪声信号$n(t)$，它满足
-    \[R_{fn}(t)=C\]
-    C为常数（对于随机信号来说，这是可以做到的），因此可以考虑求发射信号与接收信号的互相关函数：
-    \begin{align*}
-        R_{f,f_r}(t) & =R_{f,\tau_{2T}f}(t)+R_{fn}(t)  \\
-                     & =\alpha\tau_{2T}R_f(t)+\alpha C
-    \end{align*}
-    根据前面得到的性质4，$R_f(t)$在0处取最大值，因此$R_{f,f_r}(t)$在$2T$处取最大值，于是我们只需要观察这个互相关函数的最大值点，就可以得到T。
+    设雷达发射了一个信号$f(t)$，经过时间$T$信号接触到物体并发生反射，再经过时间$T$信号回到雷达，雷达接收到的信号$f_r(t)=\alpha (\tau_{2T}f(t))+n(t)$，其中$\alpha\in(0,1)$，表示信号在传播过程中衰减；$n(t)$为噪声信号。我们希望确定时间$T$，以计算雷达到物体间的距离。对于噪声信号$n(t)$，它满足
+    \begin{equation}
+        R_{fn}(t)=C,
+    \end{equation}
+    $C$为常数（对于随机信号来说，这是可以做到的），因此可以考虑求发射信号与接收信号的互相关函数：
+    \begin{align}
+        R_{f,f_r}(t) & =R_{f,\tau_{2T}f}(t)+R_{fn}(t)\nonumber  \\
+                     & =\alpha\tau_{2T}R_f(t)+\alpha C.
+    \end{align}
+    根据前面得到的性质3，$R_f(t)$在0处取最大值，因此$R_{f,f_r}(t)$在$2T$处取最大值，于是我们只需要观察这个互相关函数的最大值点，就可以得到$T$。
 \end{example}

@@ -2,151 +2,193 @@
 
 \subsection{拉普拉斯变换的改进}\label{sub:improvement_of_laplace}
 
-由于$f\in\mathcal{E}$对函数增长速度的要求是相当低的（作为反例，$\mathrm{e}^{t^2}u(t)\notin\mathcal{E}$），我们只需要单独处理$\delta$分布，而不需要重新构建一整套分布的理论\footnote{希望深入了解分布及其拉普拉斯变换的读者，可以参考\cite{Laplace_Distribution}。\cite{distribution}讨论这个话题时，采用了与本书类似的处理方法，这实际上不是拉普拉斯变换的分布理论。}。考虑将拉普拉斯变换化归为傅里叶变换，即
-\[\mathcal{L} f(s)=\mathcal{F} [f(t)\mathrm{e}^{-\sigma t}](\omega),\quad s=\sigma+\mathrm{i}\omega\]
-这里$\mathcal{F} [f(t)\mathrm{e}^{-\sigma t}](\omega)$实际上依赖于两个变量$\sigma,\omega$，但我们只写出$\omega$，并将$\sigma$视为一个参数\cite{distribution}。这样一来，我们就可以将拉普拉斯变换推广到$\delta$分布上：
-\begin{align*}
-    \left\langle \mathcal{L}\delta,\varphi\right\rangle=\left\langle \mathcal{F} [\mathrm{e}^{-\sigma t}\delta],\varphi\right\rangle=\left\langle \delta,\mathcal{F} \varphi\right\rangle=\mathcal{F}\varphi(0)=\int_{-\infty}^{\infty}\varphi(t)\,dt=\left\langle \mathds{1},\varphi\right\rangle,\quad\forall\varphi\in\mathcal{S}
-\end{align*}
-其中$\mathds{1}$表示恒为1的函数。我们知道，多项式的拉普拉斯变换是真分式函数，而如果将$\delta$分布也纳入考虑，则可以得到任意有理函数。
+由于$f\in\mathcal{E}$对函数增长速度的要求是相当低的（作为反例，$\e^{t^2}u(t)\notin\mathcal{E}$），我们只需要单独处理$\delta$分布，而不需要重新构建一整套分布的理论\footnote{希望深入了解分布及其拉普拉斯变换的读者，可以参考\cite{Laplace_Distribution}。\cite{distribution}讨论这个话题时，采用了与本书类似的处理方法，这实际上不是拉普拉斯变换的分布理论。}。考虑将拉普拉斯变换化归为傅里叶变换，即
+\begin{equation}
+    \mathcal{L}f(s)=\mathcal{F}\sbr{f(t)\e^{-\sigma t}}(\omega),\quad s=\sigma+\im\omega.
+\end{equation}
+这里$\mathcal{F}\sbr{f(t)\e^{-\sigma t}}(\omega)$实际上依赖于两个变量$\sigma,\omega$，但我们只写出$\omega$，并将$\sigma$视为一个参数\cite{distribution}。这样一来，我们就可以将拉普拉斯变换推广到$\delta$分布上：
+\begin{align}
+    \braket{\mathcal{L}\delta,\varphi}&=\braket{\mathcal{F}[\e^{-\sigma t}\delta],\varphi}=\braket{\delta,\mathcal{F}\varphi}\nonumber\\
+    &=\mathcal{F}\varphi(0)=\int_{-\infty}^{\infty}\varphi(t)\,\dd t=\braket{\mathds{1},\varphi},\quad \forall\varphi\in\mathcal{S}(\mathbb{R}),
+\end{align}
+其中$\mathds{1}$表示恒为$1$的函数。我们知道，多项式的拉普拉斯变换是真分式函数，而如果将$\delta$分布也纳入考虑，则可以得到任意有理函数。
 
 用同样的方法，我们还可以得到$\delta$的平移和导数的拉普拉斯变换：
-\begin{align*}
-    \left\langle \mathcal{L}\delta_a,\varphi\right\rangle&=\left\langle \mathcal{F} [\mathrm{e}^{-\sigma t}\delta_a],\varphi\right\rangle\\
-    &=\left\langle \delta_a,\mathcal{F} [\mathrm{e}^{-\sigma t}\varphi]\right\rangle\\
-    &=\mathrm{e}^{-\sigma a}\mathcal{F}\varphi(a)\\
-    &=\int_{-\infty}^{\infty}\varphi(t)\mathrm{e}^{-s a}\,dt\\
-    &=\left\langle \mathrm{e}^{-s a},\varphi\right\rangle
-\end{align*}
-\begin{align*}
-    \left\langle \mathcal{L}\left[\delta'\right],\varphi\right\rangle&=\left\langle \mathcal{F} [\mathrm{e}^{-\sigma t}\delta'],\varphi\right\rangle\\
-    &=\left\langle \delta',\mathcal{F} [\mathrm{e}^{-\sigma t}\varphi]\right\rangle\\
-    &=-\left\langle \delta,\left(\mathrm{e}^{-\sigma t}\mathcal{F} \varphi\right)'\right\rangle\\
-    &=-\left\langle \delta,-\sigma \mathrm{e}^{-\sigma t}\mathcal{F} \varphi + \mathrm{e}^{-\sigma t}(\mathcal{F} \varphi)'\right\rangle\\
-    &=\left\langle \delta,\sigma \mathrm{e}^{-\sigma t}\mathcal{F} \varphi + \mathrm{i}\omega \mathrm{e}^{-\sigma t}\mathcal{F} \varphi\right\rangle\\
-    &=(\sigma + \mathrm{i}\omega)\mathcal{F} \varphi(0)\\
-    &=\int_{-\infty}^{\infty}\varphi(t)s\,dt\\
-    &=\left\langle s,\varphi\right\rangle
-\end{align*}
+\begin{align}
+    \braket{\mathcal{L}\delta_a,\varphi}&=\braket{\mathcal{F}[\e^{-\sigma t}\delta_a],\varphi}\nonumber\\
+    &=\braket{\delta_a,\mathcal{F}[\e^{-\sigma t}\varphi]}\nonumber\\
+    &=\e^{-\sigma a}\mathcal{F}\varphi(a)\nonumber\\
+    &=\int_{-\infty}^{\infty}\varphi(t)\e^{-sa}\,\dd t\nonumber\\
+    &=\braket{\e^{-sa},\varphi},
+\end{align}
+\begin{align}
+    \braket{\mathcal{L}[\delta'],\varphi}&=\braket{\mathcal{F}[\e^{-\sigma t}\delta'],\varphi}\nonumber\\
+    &=\braket{\delta',\mathcal{F}[\e^{-\sigma t}\varphi]}\nonumber\\
+    &=-\braket{\delta,\paren{\e^{-\sigma t}\mathcal{F}\varphi}'}\nonumber\\
+    &=-\braket{\delta,-\sigma\e^{-\sigma t}\mathcal{F}\varphi+\e^{-\sigma t}(\mathcal{F}\varphi)'}\nonumber\\
+    &=\braket{\delta,\sigma\e^{-\sigma t}\mathcal{F}\varphi+\im\omega\e^{-\sigma t}\mathcal{F}\varphi}\nonumber\\
+    &=(\sigma+\im\omega)\mathcal{F}\varphi(0)\nonumber\\
+    &=\int_{-\infty}^{\infty}\varphi(t)s\,\dd t\nonumber\\
+    &=\braket{s,\varphi}.
+\end{align}
 因此我们得到：
 \begin{proposition}
-    设$a\in\mathbb{R}$，则$\mathcal{L} \delta_a=\mathrm{e}^{-s a}$；\\
-    $\mathcal{L} \left[\delta'\right]=s$，进一步可得$\mathcal{L} \left[\delta^{(n)}\right]=s^n$。
+    设$a\in\mathbb{R}$，则$\mathcal{L}\delta_a=\e^{-sa}$，$\mathcal{L}[\delta']=s$，进一步可得$\mathcal{L}[\delta^{(n)}]=s^n$。
 \end{proposition}
 
-看上去，$\delta(0)=\infty,\mathcal{L} \delta'=\mathcal{L} \delta-\infty$，而$\delta_a$在$a<0$时非因果，但$\delta$应作为一个分布来理解，它不符合时域微分性质的使用条件，因此以上结果与我们之前所定义的拉普拉斯变换并不矛盾。
+看上去，$\delta(0)=\infty,\quad \mathcal{L}\delta'=\mathcal{L}\delta-\infty$，而$\delta_a$在$a<0$时非因果，但$\delta$应作为一个分布来理解，它不符合时域微分性质的使用条件，因此以上结果与我们之前所定义的拉普拉斯变换并不矛盾。
 
 不过，我们可以通过另一种方式，使得分布也在形式上满足单边拉普拉斯变换的各个性质。在本节中，我们将单边拉普拉斯变换的定义修改为：
 \begin{definition}[单边拉普拉斯变换，改进版]
-    设$f$局部可积，且$\exists a\in\mathbb{R}$，使得$f(t)\mathrm{e}^{-at}$绝对可积，则对$\mathrm{Re}(s)\in[a,\infty)$，$f$的拉普拉斯变换定义为
-    \[\mathcal{L} f(s)=\int_{0-}^{\infty}f(t)\mathrm{e}^{-st}\,dt\]
+    设$f$局部可积，且$\exists a\in\mathbb{R}$，使得$f(t)\e^{-at}$绝对可积，则对$\Re(s)\in[a,\infty)$，$f$的拉普拉斯变换定义为
+    \begin{equation}
+        \mathcal{L}f(s)=\int_{0-}^{\infty}f(t)\e^{-st}\,\dd t.
+    \end{equation}
 \end{definition}
-这里，积分限中的“0-”的含义是：
-\[\mathcal{L} f(s)=\lim_{M\to 0-}\int_{M}^{\infty}f(t)\mathrm{e}^{-st}\,dt=\int_{0-}^{\infty}f(t)\mathrm{e}^{-st}\,dt\]
+这里，积分限中的“$0-$”的含义是：
+\begin{equation}
+    \mathcal{L}f(s)=\lim_{M\to 0-}\int_{M}^{\infty}f(t)\e^{-st}\,\dd t=\int_{0-}^{\infty}f(t)\e^{-st}\,\dd t.
+\end{equation}
 
 在这种定义下，单边拉普拉斯变换的各种运算性质仍成立，但两个性质略有差别：
 \begin{proposition}[改进的拉普拉斯变换的性质]
-    设$f\in C^1[0,\infty),f'$局部可积，且$\exists a\in\mathbb{R}$，使得$f(t)\mathrm{e}^{-at}$绝对可积，则对$\mathrm{Re}(s)\in[a,\infty)$，有：
+    设$f\in C^1[0,\infty),\ f'$局部可积，且$\exists a\in\mathbb{R}$，使得$f(t)\e^{-at}$绝对可积，则对$\Re(s)\in[a,\infty)$，有：
     \begin{itemize}
-        \item 时域微分性质：\[\mathcal{L} [f'](s)=s\mathcal{L} f(s)-f(0-)\]
-        \item 初值定理：$$f(0-)=\lim_{\mathrm{Re}(s)\to\infty}sF(s)$$
+        \item 时域微分性质：
+        \begin{equation}
+            \mathcal{L}[f'](s)=s\mathcal{L}f(s)-f(0-);
+        \end{equation}
+        \item 初值定理：
+        \begin{equation}
+            f(0-)=\lim_{\Re(s)\to\infty}sF(s).
+        \end{equation}
     \end{itemize}
 \end{proposition}
 \begin{proof}
-    \begin{align*}
-        \mathcal{L} [f'](s)&=\int_{0-}^{\infty}f'(t)\mathrm{e}^{-st}\,dt\\
-        &=\evalat{f(t)\mathrm{e}^{-st}}{0-}{\infty}+\int_{0-}^{\infty}f(t)se^{-st}\,dt\\
-        &=s\mathcal{L} f(s)-f(0-)
-    \end{align*}
+    \begin{align}
+        \mathcal{L}[f'](s)&=\int_{0-}^{\infty}f'(t)\e^{-st}\,\dd t\nonumber\\
+        &=\evalat{f(t)\e^{-st}}{0-}{\infty}+\int_{0-}^{\infty}f(t)s\e^{-st}\,\dd t\nonumber\\
+        &=s\mathcal{L}f(s)-f(0-).
+    \end{align}
     对于初值定理，只要在\cref{thm:initial_value}的证明中使用这个时域微分性质即可。
 \end{proof}
 
 形式上，$u(0-)=\delta(0-)=0$，自然得到
-\begin{align*}
-    \mathcal{L} u(s)=\frac{1}{s}&\implies\mathcal{L} \delta(s)=s\mathcal{L} u(s)-u(0-)=\mathds{1}\\
-    &\implies\mathcal{L} \delta'(s)=s\mathcal{L} \delta(s)-\delta(0-)=s
-\end{align*}
-
+\begin{align}
+    \mathcal{L}u(s)=\frac{1}{s}&\implies\mathcal{L}\delta(s)=s\mathcal{L}u(s)-u(0-)=\mathds{1}\nonumber\\
+    &\implies\mathcal{L}\delta'(s)=s\mathcal{L}\delta(s)-\delta(0-)=s,
+\end{align}
 $\delta$的各阶导数同理，可见这样的定义方式帮助我们避开了$u(t)$在$t=0$处的跳变问题和$\delta(0)=\infty$的问题。另外，我们将在下一小节中看到，这有助于我们讨论微分方程描述的系统的起始状态。
 
 \subsection{拉普拉斯变换求解常系数线性微分方程}\label{sub:laplace_ODE}
 拉普拉斯变换是处理常系数线性微分方程的有力工具。根据拉普拉斯变换的时域微分性质：
-\[\mathcal{L}\left[f^{(n)}(t)\right](s)=s^n\mathcal{L} f(s)-s^{n-1}f(0-)-s^{n-2}f'(0-)-\cdots -f^{(n-1)}(0-)\]
+\begin{equation}
+    \mathcal{L}\sbr{f^{(n)}(t)}(s)=s^n\mathcal{L}f(s)-s^{n-1}f(0-)-s^{n-2}f'(0-)-\cdots-f^{(n-1)}(0-)
+\end{equation}
 可以将常系数线性微分方程转化为代数方程，还能够一并处理起始状态（\cref{def:initial_state}）\footnote{数学上，我们使用经典的单边拉普拉斯变换以处理带初始条件的初值问题（\cref{def:initial_value_prob}）。}。我们先提出一个一般的解法，再通过一个具体的例子来展示拉普拉斯变换的威力。
 
 考虑常系数线性微分方程
-\[a_n r^{(n)}(t)+a_{n-1}r^{(n-1)}(t)+\cdots +a_1 r'(t)+a_0 r(t)=e(t)\]
-其中$e,r\in\mathcal{E} $，并且给定起始状态：
-\[r(0-)=c_0,r'(0-)=c_1,\cdots,r^{(n-1)}(0-)=c_{n-1}\]
-记$\mathcal{L} r(s)=R(s),\mathcal{L} e(s)=E(s)$，则对方程两边进行拉普拉斯变换，有
-\begin{align*}
-    E(s)=&a_n\left(s^n R(s)-s^{n-1}c_0 -s^{n-2}c_1 -\cdots -c_{n-1}\right)\\
-    &+a_{n-1}\left(s^{n-1} R(s)-s^{n-2}c_0 -s^{n-3}c_1 -\cdots -c_{n-2}\right)\\
-    &+\cdots \\
-    &+a_1\left(s R(s)-c_0\right)\\
-    &+a_0 R(s)
-\end{align*}
+\begin{equation}
+    a_n r^{(n)}(t)+a_{n-1}r^{(n-1)}(t)+\cdots+a_1 r'(t)+a_0 r(t)=e(t)
+\end{equation}
+其中$e,r\in\mathcal{E}$，并且给定起始状态：
+\begin{equation}
+    r(0-)=c_0,\quad r'(0-)=c_1,\quad \cdots,\quad r^{(n-1)}(0-)=c_{n-1}.
+\end{equation}
+记$\mathcal{L}r(s)=R(s),\ \mathcal{L}e(s)=E(s)$，则对方程两边进行拉普拉斯变换，有
+\begin{align}
+    E(s)&=a_n\paren{s^n R(s)-s^{n-1}c_0-s^{n-2}c_1-\cdots-c_{n-1}}\nonumber\\
+    &\quad+a_{n-1}\paren{s^{n-1}R(s)-s^{n-2}c_0-s^{n-3}c_1-\cdots-c_{n-2}}\nonumber\\
+    &\quad+\cdots\nonumber\\
+    &\quad+a_1\paren{sR(s)-c_0}\nonumber\\
+    &\quad+a_0 R(s).
+\end{align}
 整理得
-\begin{align*}
-    &\left(a_n s^n +a_{n-1} s^{n-1}+\cdots +a_1 s+a_0\right)R(s)\\
-    =&E(s)+a_n\left(s^{n-1}c_0 +s^{n-2}c_1 +\cdots +c_{n-1}\right)+a_{n-1}\left(s^{n-2}c_0 +s^{n-3}c_1 +\cdots +c_{n-2}\right)+\cdots +a_1 c_0
-\end{align*}
+\begin{align}
+    &\phantom{=}\paren{a_n s^n+a_{n-1}s^{n-1}+\cdots+a_1 s+a_0}R(s)\nonumber\\
+    &=E(s)+a_n\paren{s^{n-1}c_0+s^{n-2}c_1+\cdots+c_{n-1}}\nonumber\\
+    &\quad+a_{n-1}\paren{s^{n-2}c_0+s^{n-3}c_1+\cdots+c_{n-2}}+\cdots+a_1 c_0,
+\end{align}
 即
-\[P(s)R(s)=E(s)+Q(s)\]
-其中\begin{align*}
-P(s)&=a_n s^n +a_{n-1} s^{n-1}+\cdots +a_1 s+a_0\\
-Q(s)&=a_n\left(s^{n-1}c_0 +s^{n-2}c_1 +\cdots +c_{n-1}\right)+a_{n-1}\left(s^{n-2}c_0 +s^{n-3}c_1 +\cdots +c_{n-2}\right)+\cdots +a_1 c_0
-\end{align*}
+\begin{equation}
+    P(s)R(s)=E(s)+Q(s),
+\end{equation}
+其中
+\begin{align}
+    P(s)&=a_n s^n+a_{n-1}s^{n-1}+\cdots+a_1 s+a_0,\\
+    Q(s)&=a_n\paren{s^{n-1}c_0+s^{n-2}c_1+\cdots+c_{n-1}}\nonumber\\
+    &\quad+a_{n-1}\paren{s^{n-2}c_0+s^{n-3}c_1+\cdots+c_{n-2}}+\cdots+a_1 c_0,
+\end{align}
 因此
-\[R(s)=\frac{E(s)}{P(s)}+\frac{Q(s)}{P(s)}=R_{\zs}(s)+R_{\zi}(s)\]
+\begin{equation}
+    R(s)=\frac{E(s)}{P(s)}+\frac{Q(s)}{P(s)}=R_{\zs}(s)+R_{\zi}(s).
+\end{equation}
 现在，微分方程问题就转化为求$R(s)$的拉普拉斯逆变换的问题。
 
 对$r_{\zs}(t)=h(t)*e(t)$两边同时进行拉普拉斯变换，有
-\[\mathcal{L} r_{\zs}(s)=\mathcal{L} h(s)\mathcal{L} e(s),\quad \text{即}R_{\zs}(s)=H(s)E(s)\]
+\begin{equation}
+    \mathcal{L}r_{\zs}(s)=\mathcal{L}h(s)\mathcal{L}e(s),\quad\text{即}\ R_{\zs}(s)=H(s)E(s).
+\end{equation}
 \begin{definition}[系统函数]\label{def:system_func}
-    设$h\in\mathcal{E} $是线性时不变系统的冲激响应，则\textbf{系统函数}(system function)定义为
-    $$H(s)=\frac{R_{\zs}(s)}{E(s)}=\mathcal{L} h(s)$$
-    如果虚轴$\mathrm{Re}(s)=0$在$H(s)$的收敛域内，则$H(\mathrm{i}\omega)$与第四章中定义的频率响应$H(\omega)$一致。
+    设$h\in\mathcal{E}$是线性时不变系统的冲激响应，则\textbf{系统函数}(system function)定义为
+    \begin{equation}
+        H(s)=\frac{R_{\zs}(s)}{E(s)}=\mathcal{L}h(s).
+    \end{equation}
+    如果虚轴$\Re(s)=0$在$H(s)$的收敛域内，则$H(\im\omega)$与第四章中定义的频率响应$H(\omega)$一致。
 \end{definition}
 与\refsub{fundamental_solution}类似，常系数线性微分方程所描述的系统作为一个线性时不变系统，其零状态响应的求解也可以归结为单位脉冲响应，即基本解的求解。现在，我们找到了一种更为方便的求解方法，即先由拉普拉斯变换求得系统函数，再做拉普拉斯逆变换。
 
 \begin{example}[常系数线性微分方程]
     设系统由如下微分方程描述：
-    \[r''(t)+3r'(t)+2r(t)=e'(t)+3e(t)\]
-    初始状态为$r(0-)=1,r'(0-)=2$。求系统函数$H(s)$及单位阶跃响应$g(t)$。\\
+    \begin{equation}
+        r''(t)+3r'(t)+2r(t)=e'(t)+3e(t),
+    \end{equation}
+    初始状态为$r(0-)=1,\ r'(0-)=2$。求系统函数$H(s)$及单位阶跃响应$g(t)$。
+
     解：对方程两边求单边拉普拉斯变换，由于$e(0-)=u(0-)=0$，有
-    \begin{align*}
-        \left(s^2 R(s)-s-2\right)+3\left(s R(s)-1\right)+2 R(s)=sE(s)+3E(s)
-    \end{align*}
+    \begin{equation}
+        \paren{s^2 R(s)-s-2}+3\paren{sR(s)-1}+2R(s)=sE(s)+3E(s).
+    \end{equation}
     整理得
-    \[R(s)=\frac{(s+3)E(s)+s+5}{s^2+3s+2}\]
+    \begin{equation}
+        R(s)=\frac{(s+3)E(s)+s+5}{s^2+3s+2},
+    \end{equation}
     因此系统函数为
-    \[H(s)=\frac{R_{\zs}(s)}{E(s)}=\frac{s+3}{s^2+3s+2}=\frac{2}{s+1}-\frac{1}{s+2}\]
+    \begin{equation}
+        H(s)=\frac{R_{\zs}(s)}{E(s)}=\frac{s+3}{s^2+3s+2}=\frac{2}{s+1}-\frac{1}{s+2}.
+    \end{equation}
     做拉普拉斯逆变换得到（零状态）单位脉冲响应：
-    \begin{align*}
-        h(t)=\mathcal{L}^{-1} \left[\frac{1}{s+1}+\frac{1}{s+2}\right](t)=(2\mathrm{e}^{-t}-\mathrm{e}^{-2t})u(t)
-    \end{align*}
+    \begin{equation}
+        h(t)=\mathcal{L}^{-1}\sbr{\frac{2}{s+1}-\frac{1}{s+2}}(t)=(2\e^{-t}-\e^{-2t})u(t).
+    \end{equation}
     积分得到零状态响应：
-    \begin{align*}
-    r_{\zs}(t)=\int_0^{t}h(x)\,dx=(1.5-2\mathrm{e}^{-t}+0.5\mathrm{e}^{-2t})u(t)
-    \end{align*}
+    \begin{equation}
+        r_{\zs}(t)=\int_0^{t}h(x)\,\dd x=(1.5-2\e^{-t}+0.5\e^{-2t})u(t).
+    \end{equation}
     对于零输入响应，有
-    \begin{align*}
-        R_{\zi}(s)=\frac{s+5}{s^2+3s+2}=\frac{4}{s+1}-\frac{3}{s+2}
-    \end{align*}
-    反变换即得$$r_{\zi}(t)=(4\mathrm{e}^{-t}-3\mathrm{e}^{-2t})u(t)$$
-    实际上，零输入响应并不是因果的，但由于单边拉普拉斯变换自动舍弃了负半轴的信息，我们只能得到$t\geq 0$时的信号情况。不难看出$r_{\zi}(t)=4\mathrm{e}^{-t}-3\mathrm{e}^{-2t},t<0$，因此
-    $$r(t)=r_{\zs}(t)+r_{\zi}(t)=(2\mathrm{e}^{-t}-\mathrm{e}^{-2t})u(t)+4\mathrm{e}^{-t}-3\mathrm{e}^{-2t}$$
+    \begin{equation}
+        R_{\zi}(s)=\frac{s+5}{s^2+3s+2}=\frac{4}{s+1}-\frac{3}{s+2},
+    \end{equation}
+    反变换即得
+    \begin{equation}
+        r_{\zi}(t)=(4\e^{-t}-3\e^{-2t})u(t).
+    \end{equation}
+    实际上，零输入响应并不是因果的，但由于单边拉普拉斯变换自动舍弃了负半轴的信息，我们只能得到$t\geq 0$时的信号情况。不难看出$r_{\zi}(t)=4\e^{-t}-3\e^{-2t},\quad t<0$，因此
+    \begin{equation}
+        r(t)=r_{\zs}(t)+r_{\zi}(t)=(2\e^{-t}-\e^{-2t})u(t)+4\e^{-t}-3\e^{-2t}.
+    \end{equation}
 
     我们一般不考虑$t<0$的情况，而直接将全响应写为
-    $$r(t)=r_{\zs}(t)+r_{\zi}(t)=1.5+2\mathrm{e}^{-t}-2.5\mathrm{e}^{-2t},\quad t\geq 0$$
+    \begin{equation}
+        r(t)=r_{\zs}(t)+r_{\zi}(t)=1.5+2\e^{-t}-2.5\e^{-2t},\quad t\geq 0.
+    \end{equation}
 
-    此外，也可以用$\mathcal{L} u(s)=1/s$直接计算单位阶跃响应得全响应：
-    \begin{align*}
-        R(s)&=\frac{s+3}{s(s^2+3s+2)}+\frac{s+5}{s^2+3s+2}\\
-        &=\frac{1.5}{s}+\frac{2}{s+1}-\frac{2.5}{s+2}
-    \end{align*}
-    反变换即得$r(t)=1.5+2\mathrm{e}^{-t}-2.5\mathrm{e}^{-2t},t\geq 0$。
+    此外，也可以用$\mathcal{L}u(s)=1/s$直接计算单位阶跃响应得全响应：
+    \begin{align}
+        R(s)&=\frac{s+3}{s(s^2+3s+2)}+\frac{s+5}{s^2+3s+2}\nonumber\\
+        &=\frac{1.5}{s}+\frac{2}{s+1}-\frac{2.5}{s+2}.
+    \end{align}
+    反变换即得$r(t)=1.5+2\e^{-t}-2.5\e^{-2t},\quad t\geq 0$。
 \end{example}
 
 \subsection{动态电路的复频域分析}\label{sub:laplace_circuit}
@@ -154,11 +196,17 @@ Q(s)&=a_n\left(s^{n-1}c_0 +s^{n-2}c_1 +\cdots +c_{n-1}\right)+a_{n-1}\left(s^{n-
 本小节介绍动态电路的复频域分析方法。与\refsub{freq_response}类似，对描述线性元件的微分方程做拉普拉斯变换，即可得到它们的复频域模型：
 \begin{example}
     描述电容的方程为：
-    \[i(t)=C\frac{dv(t)}{dt}\]
+    \begin{equation}
+        i(t)=C\frac{\dd v(t)}{\dd t}.
+    \end{equation}
     对其做拉普拉斯变换，得到
-    \[I(s)=C\left(sV(s)-v(0-)\right)\]
-    由于$v(0-)$未必为0，不能直接用阻抗$1/sC$来描述电容，需要引入电容的起始电压源模型：
-    \[V(s)=\frac{1}{sC}I(s)+\frac{v(0-)}{s}\]
+    \begin{equation}
+        I(s)=C\paren{sV(s)-v(0-)}.
+    \end{equation}
+    由于$v(0-)$未必为$0$，不能直接用阻抗$1/sC$来描述电容，需要引入电容的起始电压源模型：
+    \begin{equation}
+        V(s)=\frac{1}{sC}I(s)+\frac{v(0-)}{s}.
+    \end{equation}
     \begin{center}
         \begin{circuitikz}[american, scale=0.8, transform shape]
             \draw (0,0) to[short, o-] (1,0)
@@ -168,9 +216,13 @@ Q(s)&=a_n\left(s^{n-1}c_0 +s^{n-2}c_1 +\cdots +c_{n-1}\right)+a_{n-1}\left(s^{n-
         \end{circuitikz}
     \end{center}
     描述电感的方程为：
-    \[v(t)=L\frac{di(t)}{dt}\]
+    \begin{equation}
+        v(t)=L\frac{\dd i(t)}{\dd t}.
+    \end{equation}
     对其做拉普拉斯变换，得到
-    \[V(s)=L\left(sI(s)-i(0-)\right)\]
+    \begin{equation}
+        V(s)=L\paren{sI(s)-i(0-)}.
+    \end{equation}
     引入电感的起始电流源模型：
     \begin{center}
         \begin{circuitikz}[american, scale=0.8, transform shape]
@@ -180,16 +232,16 @@ Q(s)&=a_n\left(s^{n-1}c_0 +s^{n-2}c_1 +\cdots +c_{n-1}\right)+a_{n-1}\left(s^{n-
             to[short, -o] (7,0);
         \end{circuitikz}
     \end{center}
-    在零状态条件下，起始电压源/电流源均为0，可以直接使用阻抗模型。
+    在零状态条件下，起始电压源/电流源均为$0$，可以直接使用阻抗模型。
 \end{example}
 
 作为一个例子，我们使用复频域分析的方法来处理一个二阶动态电路：
 \begin{example}[二阶动态电路]
-    设电路如下图(a)所示，起始状态为0，$t=0$时刻开关闭合，求电流$i(t)$.
+    设电路如下图(a)所示，起始状态为$0$，$t=0$时刻开关闭合，求电流$i(t)$。
     \begin{center}
         \begin{tabular}{cc}
             % 左侧电路图 (时域)
-            \begin{circuitikz}[american]
+            \begin{circuitikz}[american, scale=0.88, transform shape]
                 \draw (0,0) to[V=$E$] (0,3)
                 to[closing switch] (2.5,3)
                 to[L=$L$, i=$i(t)$] (5,3)
@@ -198,7 +250,7 @@ Q(s)&=a_n\left(s^{n-1}c_0 +s^{n-2}c_1 +\cdots +c_{n-1}\right)+a_{n-1}\left(s^{n-
             \end{circuitikz}
             &
             % 右侧电路图 (s域)
-            \begin{circuitikz}[american]
+            \begin{circuitikz}[american, scale=0.88, transform shape]
                 \draw (0,0) to[V=$E/s$] (0,3)
                 to[short] (2.5,3)
                 to[L=$sL$, i=$I(s)$] (5,3)
@@ -206,33 +258,58 @@ Q(s)&=a_n\left(s^{n-1}c_0 +s^{n-2}c_1 +\cdots +c_{n-1}\right)+a_{n-1}\left(s^{n-
                 to[R=$R$] (0,0);
             \end{circuitikz}
             \\
-            \text{(a) 时域电路} & \text{(b) s域等效电路}
+            \text{(a) 时域电路} & \text{(b) $s$域等效电路}
         \end{tabular}
     \end{center}
     解：采用复频域模型，如上图(b)所示。由基尔霍夫电压定律，有
-    \[\frac{E}{s}=I(s)\left(R+sL+\frac{1}{sC}\right)\]
+    \begin{equation}
+        \frac{E}{s}=I(s)\paren{R+sL+\frac{1}{sC}},
+    \end{equation}
     因此
-    \[I(s)=\frac{E}{s\left(R+sL+\frac{1}{sC}\right)}=\frac{E/L}{Ls^2+\frac{R}{L}s+\frac{1}{LC}}\]
+    \begin{equation}
+        I(s)=\frac{E}{s\paren{R+sL+\frac{1}{sC}}}=\frac{E/L}{s^2+\frac{R}{L}s+\frac{1}{LC}}.
+    \end{equation}
     引入参数
-    \[\alpha=\frac{R}{2L},\quad \omega_0=\frac{1}{\sqrt{LC}}\]
+    \begin{equation}
+        \alpha=\frac{R}{2L},\quad \omega_0=\frac{1}{\sqrt{LC}},
+    \end{equation}
     则
-    \[I(s)=\frac{E/L}{s^2+2\alpha s+\omega_0^2}=\frac{E/L}{(s+\alpha)^2+\omega_0^2-\alpha^2}\]
-    \ding{172}设$\alpha>\omega_0$，即$R^2-4L/C>0$，则
-    \[I(s)=\frac{E/L}{(s-r_1)(s-r_2)}\]
-    其中$$r_1=\frac{-R+\sqrt{R^2-4L/C}}{2L}=-\alpha+\beta,\quad r_2=\frac{-R-\sqrt{R^2-4L/C}}{2L}=-\alpha-\beta$$
-    $$\beta=\frac{\sqrt{R^2-4L/C}}{2L}$$
+    \begin{equation}
+        I(s)=\frac{E/L}{s^2+2\alpha s+\omega_0^2}=\frac{E/L}{(s+\alpha)^2+\omega_0^2-\alpha^2}.
+    \end{equation}
+    \ding{172} 设$\alpha>\omega_0$，即$R^2-4L/C>0$，则
+    \begin{equation}
+        I(s)=\frac{E/L}{(s-r_1)(s-r_2)},
+    \end{equation}
+    其中
+    \begin{align}
+        r_1&=\frac{-R+\sqrt{R^2-4L/C}}{2L}=-\alpha+\beta,\quad r_2=\frac{-R-\sqrt{R^2-4L/C}}{2L}=-\alpha-\beta,\\
+        \beta&=\frac{\sqrt{R^2-4L/C}}{2L}.
+    \end{align}
     做拉普拉斯逆变换，得到
-    \[i(t)=\frac{E}{L(r_1-r_2)}\left(\mathrm{e}^{r_1 t}-\mathrm{e}^{r_2 t}\right)u(t)=\frac{E}{2L\beta}\left[\mathrm{e}^{(-\alpha+\beta) t}-\mathrm{e}^{(-\alpha-\beta) t}\right]u(t)\]
-    系统处于\textbf{过阻尼状态}，电流为两项指数衰减的叠加，缓慢无振荡地回到平衡位置。\\
-    \ding{173}设$\alpha=\omega_0$，即$R^2-4L/C=0$，则
-    \[I(s)=\frac{E}{L}\cdot\frac{1}{(s+\alpha)^2}\]
+    \begin{equation}
+        i(t)=\frac{E}{L(r_1-r_2)}\paren{\e^{r_1 t}-\e^{r_2 t}}u(t)=\frac{E}{2L\beta}\sbr{\e^{(-\alpha+\beta)t}-\e^{(-\alpha-\beta)t}}u(t).
+    \end{equation}
+    系统处于\textbf{过阻尼状态}，电流为两项指数衰减的叠加，缓慢无振荡地回到平衡位置。
+
+    \ding{173} 设$\alpha=\omega_0$，即$R^2-4L/C=0$，则
+    \begin{equation}
+        I(s)=\frac{E}{L}\cdot\frac{1}{(s+\alpha)^2}.
+    \end{equation}
     做拉普拉斯逆变换，得到
-    \[i(t)=\frac{E}{L}t\e^{-\alpha t}u(t)\]
-    系统处于\textbf{临界阻尼状态}，电流快速无振荡地回到平衡位置。\\
-    \ding{174}设$\alpha<\omega_0$，即$R^2-4L/C<0$，则
-    \[I(s)=\frac{E}{L}\cdot\frac{1}{(s+\alpha)^2+\beta^2}\]
+    \begin{equation}
+        i(t)=\frac{E}{L}t\e^{-\alpha t}u(t).
+    \end{equation}
+    系统处于\textbf{临界阻尼状态}，电流快速无振荡地回到平衡位置。
+
+    \ding{174} 设$\alpha<\omega_0$，即$R^2-4L/C<0$，则
+    \begin{equation}
+        I(s)=\frac{E}{L}\cdot\frac{1}{(s+\alpha)^2+\beta^2}.
+    \end{equation}
     做拉普拉斯逆变换，得到
-    \[i(t)=\frac{E}{L\beta}\mathrm{e}^{-\alpha t}\sin(\beta t)u(t)\]
+    \begin{equation}
+        i(t)=\frac{E}{L\beta}\e^{-\alpha t}\sin(\beta t)u(t).
+    \end{equation}
     系统处于\textbf{欠阻尼状态}，电流以衰减振荡的形式缓慢回到平衡位置。
     \begin{figure}[H]
         \centering
@@ -245,46 +322,57 @@ Q(s)&=a_n\left(s^{n-1}c_0 +s^{n-2}c_1 +\cdots +c_{n-1}\right)+a_{n-1}\left(s^{n-
 
 拉普拉斯变换同样能够处理常系数线性微分方程组，并且能够一并处理初始条件。我们首先对矩阵值函数定义改进版的拉普拉斯变换：
 \begin{definition}[矩阵值函数的拉普拉斯变换]
-    设矩阵值函数$A(t)$的每个分量局部可积，并且对于每个分量$a_{ij}(t)$，$\exists \alpha_{ij}\in\mathbb{R}$，使得$a_{ij}(t)\mathrm{e}^{-\alpha_{ij} t}$绝对可积，则在所有分量的公共收敛域
-    $$\mathrm{Re}(s)\geq \max\{\alpha_{ij}|1\leq i\leq m,1\leq j\leq n\}$$上，矩阵值函数$A(t)$的拉普拉斯变换是每个分量的拉普拉斯变换构成的矩阵：
-    \[\mathcal{L} A(s)=\int_{0-}^{\infty}A(t)\mathrm{e}^{-st}\,dt\]
+    设矩阵值函数$A(t)$的每个分量局部可积，并且对于每个分量$a_{ij}(t)$，$\exists\alpha_{ij}\in\mathbb{R}$，使得$a_{ij}(t)\e^{-\alpha_{ij}t}$绝对可积，则在所有分量的公共收敛域
+    \begin{equation}
+        \Re(s)\geq\max\{\alpha_{ij}\mid 1\leq i\leq m,\ 1\leq j\leq n\}
+    \end{equation}
+    上，矩阵值函数$A(t)$的拉普拉斯变换是每个分量的拉普拉斯变换构成的矩阵：
+    \begin{equation}
+        \mathcal{L}A(s)=\int_{0-}^{\infty}A(t)\e^{-st}\,\dd t.
+    \end{equation}
 \end{definition}
 
 考虑如下常系数线性微分方程组：
-\begin{align*}
-    \frac{d\mathbf{y}}{dt}=A\mathbf{y}+\mathbf{f}(t),\quad \mathbf{y}(0-)=\mathbf{y}_0
-\end{align*}
-其中$A\in\mathbb{R} ^{n\times n},\mathbf{y},\mathbf{f}\in\mathcal{E} ^n$，并且$\mathbf{y}_0\in\mathbb{R} ^n$。对方程两边进行拉普拉斯变换，有
-\begin{align*}
-    s\mathbf{Y}(s)-\mathbf{y}_0=A\mathbf{Y}(s)+\mathbf{F}(s)
-\end{align*}
+\begin{equation}
+    \frac{\dd\mathbf{y}}{\dd t}=A\mathbf{y}+\mathbf{f}(t),\quad \mathbf{y}(0-)=\mathbf{y}_0,
+\end{equation}
+其中$A\in\mathbb{R}^{n\times n},\ \mathbf{y},\mathbf{f}\in\mathcal{E}^n$，并且$\mathbf{y}_0\in\mathbb{R}^n$。对方程两边进行拉普拉斯变换，有
+\begin{equation}
+    s\mathbf{Y}(s)-\mathbf{y}_0=A\mathbf{Y}(s)+\mathbf{F}(s),
+\end{equation}
 其中$\mathbf{Y}(s)$和$\mathbf{F}(s)$分别是$\mathbf{y}(t)$和$\mathbf{f}(t)$的拉普拉斯变换。因此
-\begin{align*}
-    \mathbf{Y}(s)=(sI-A)^{-1}(\mathbf{y}_0+\mathbf{F}(s))
-\end{align*}
-两边同时求拉普拉斯逆变换，即可得到方程的解：\begin{align*}
-    \mathbf{y}(t)=\mathcal{L} ^{-1} \left[(sI-A)^{-1}\mathbf{y}_0\right](t)+\mathcal{L} ^{-1} \left[(sI-A)^{-1}\mathbf{F}(s)\right](t)
-\end{align*}
-根据拉普拉斯变换的卷积定理，令$\mathcal{L} ^{-1} \left[(sI-A)^{-1}\right](t)=\phi(t)u(t)$，则解为\begin{align*}
-    \mathbf{y}(t)&=\phi(t)u(t)\mathbf{y}_0+(\phi(t)u(t))*\mathbf{f}(t)\\
-    &=\phi(t)u(t)\mathbf{y}_0+\int_0^{t}\phi(t-\tau)\mathbf{f}(\tau)\,d\tau,\quad t>0
-\end{align*}
+\begin{equation}
+    \mathbf{Y}(s)=(sI-A)^{-1}(\mathbf{y}_0+\mathbf{F}(s)).
+\end{equation}
+两边同时求拉普拉斯逆变换，即可得到方程的解：
+\begin{equation}
+    \mathbf{y}(t)=\mathcal{L}^{-1}\sbr{(sI-A)^{-1}\mathbf{y}_0}(t)+\mathcal{L}^{-1}\sbr{(sI-A)^{-1}\mathbf{F}(s)}(t).
+\end{equation}
+根据拉普拉斯变换的卷积定理，令$\mathcal{L}^{-1}\sbr{(sI-A)^{-1}}(t)=\phi(t)u(t)$，则解为
+\begin{align}
+    \mathbf{y}(t)&=\phi(t)u(t)\mathbf{y}_0+(\phi(t)u(t))*\mathbf{f}(t)\nonumber\\
+    &=\phi(t)u(t)\mathbf{y}_0+\int_0^{t}\phi(t-\tau)\mathbf{f}(\tau)\,\dd\tau,\quad t>0.
+\end{align}
 可以看出，$\phi(t)$正是方程的基本解矩阵，即
-$$\mathcal{L}^{-1} \left[(sI-A)^{-1}\right](t)=\phi(t)u(t)=\mathrm{e}^{At}u(t)$$
-这样，我们就得到了第三章中提到的矩阵指数函数$\mathrm{e}^{At}$的拉普拉斯变换求法。
+\begin{equation}
+    \mathcal{L}^{-1}\sbr{(sI-A)^{-1}}(t)=\phi(t)u(t)=\e^{At}u(t).
+\end{equation}
+这样，我们就得到了第三章中提到的矩阵指数函数$\e^{At}$的拉普拉斯变换求法。
 
 \begin{definition}[特征矩阵/预解矩阵]
-    设系统的状态矢量为$\mathbf{q}(t)$，由以下状态变量方程方程描述：
-    $$\frac{d\mathbf{q}}{dt}=A\mathbf{q}+\mathbf{f}(t)$$
-    求解该方程的关键是求矩阵$(sI-A)^{-1}=\mathcal{L}\{\mathrm{e}^{At}\}$。我们将矩阵$(sI-A)^{-1}$称为系统的\textbf{特征矩阵}(characteristic matrix)或\textbf{预解矩阵}(pre-solution matrix)，记为$\Phi(s)$。
+    设系统的状态矢量为$\mathbf{q}(t)$，由以下状态变量方程描述：
+    \begin{equation}
+        \frac{\dd\mathbf{q}}{\dd t}=A\mathbf{q}+\mathbf{f}(t),
+    \end{equation}
+    求解该方程的关键是求矩阵$(sI-A)^{-1}=\mathcal{L}[\e^{At}]$。我们将矩阵$(sI-A)^{-1}$称为系统的\textbf{特征矩阵}(characteristic matrix)或\textbf{预解矩阵}(pre-solution matrix)，记为$\Phi(s)$。
 \end{definition}
 
-称$(sI-A)^{-1}$为特征矩阵，是因为它的行列式的极点就是矩阵$A$的特征值\footnote{$(sI-A)$的每个分量都是分式函数，因此其逆矩阵的每个分量也是分式函数，行列式只会有极点而不会有其它形式的奇点}，在状态变量的可逆线性变换下，特征值是不变的，因此我们也将系统矩阵$A$的特征值称为\textbf{系统的特征值}。
+称$(sI-A)^{-1}$为特征矩阵，是因为它的行列式的极点就是矩阵$A$的特征值\footnote{$(sI-A)$的每个分量都是分式函数，因此其逆矩阵的每个分量也是分式函数，行列式只会有极点而不会有其它形式的奇点。}，在状态变量的可逆线性变换下，特征值是不变的，因此我们也将系统矩阵$A$的特征值称为\textbf{系统的特征值}。
 
 \begin{example}
     设系统由如下状态变量方程描述：
-    \begin{align*}
-        \frac{d}{dt}\begin{bmatrix}
+    \begin{equation}
+        \frac{\dd}{\dd t}\begin{bmatrix}
             q_1(t)\\
             q_2(t)
         \end{bmatrix}=\begin{bmatrix}
@@ -302,90 +390,93 @@ $$\mathcal{L}^{-1} \left[(sI-A)^{-1}\right](t)=\phi(t)u(t)=\mathrm{e}^{At}u(t)$$
         \end{bmatrix}=\begin{bmatrix}
             1\\
             2
-        \end{bmatrix}
-    \end{align*}
-    则特征矩阵为\begin{align*}
+        \end{bmatrix},
+    \end{equation}
+    则特征矩阵为
+    \begin{equation}
         \Phi(s)=(sI-A)^{-1}=\begin{bmatrix}
             s & -1\\
             2 & s+3
         \end{bmatrix}^{-1}=\frac{1}{s^2+3s+2}\begin{bmatrix}
             s+3 & 1\\
             -2 & s
-        \end{bmatrix}
-    \end{align*}
-    可以看出，系统的特征值为$-1,-2$。对$\Phi(s)$求拉普拉斯逆变换，即可得到系统的基本解矩阵$\mathrm{e}^{At}$：\begin{align*}
-        \mathrm{e}^{At}u(t)&=\mathcal{L} ^{-1} \left[\Phi(s)\right](t)\\
-        &=\mathcal{L} ^{-1} \left[\frac{1}{s^2+3s+2}\begin{bmatrix}
+        \end{bmatrix}.
+    \end{equation}
+    可以看出，系统的特征值为$-1,-2$。对$\Phi(s)$求拉普拉斯逆变换，即可得到系统的基本解矩阵$\e^{At}$：
+    \begin{align}
+        \e^{At}u(t)&=\mathcal{L}^{-1}[\Phi(s)](t)\nonumber\\
+        &=\mathcal{L}^{-1}\sbr{\frac{1}{s^2+3s+2}\begin{bmatrix}
             s+3 & 1\\
             -2 & s
-        \end{bmatrix}\right](t)\\
+        \end{bmatrix}}(t)\nonumber\\
         &=\begin{bmatrix}
-            2\mathrm{e}^{-t}-\mathrm{e}^{-2t} & \mathrm{e}^{-t}-\mathrm{e}^{-2t}\\
-            -2\mathrm{e}^{-t}+2\mathrm{e}^{-2t} & -2\mathrm{e}^{-t}+3\mathrm{e}^{-2t}
-        \end{bmatrix}u(t)
-    \end{align*}
-    状态变量方程的解为\begin{align*}
+            2\e^{-t}-\e^{-2t} & \e^{-t}-\e^{-2t}\\
+            -2\e^{-t}+2\e^{-2t} & -2\e^{-t}+3\e^{-2t}
+        \end{bmatrix}u(t).
+    \end{align}
+    状态变量方程的解为
+    \begin{align}
         \begin{bmatrix}
             q_1(t)\\
             q_2(t)
-        \end{bmatrix}&=\mathrm{e}^{At}\begin{bmatrix}
+        \end{bmatrix}&=\e^{At}\begin{bmatrix}
             1\\
             2
-        \end{bmatrix}+\int_0^{t}\mathrm{e}^{A(t-\tau)}\begin{bmatrix}
+        \end{bmatrix}+\int_0^{t}\e^{A(t-\tau)}\begin{bmatrix}
             0\\
             \tau
-        \end{bmatrix}\,d\tau\\
+        \end{bmatrix}\,\dd\tau\nonumber\\
         &=\begin{bmatrix}
-            4\mathrm{e}^{-t}-5\mathrm{e}^{-2t}\\
-            -6\mathrm{e}^{-t}+8\mathrm{e}^{-2t}
+            4\e^{-t}-5\e^{-2t}\\
+            -6\e^{-t}+8\e^{-2t}
         \end{bmatrix}+\int_0^{t}\begin{bmatrix}
-            \mathrm{e}^{-(t-\tau)}-\mathrm{e}^{-2(t-\tau)}\\
-            -2\mathrm{e}^{-(t-\tau)}+3\mathrm{e}^{-2(t-\tau)}
-        \end{bmatrix}\tau\,d\tau\\
+            \e^{-(t-\tau)}-\e^{-2(t-\tau)}\\
+            -2\e^{-(t-\tau)}+3\e^{-2(t-\tau)}
+        \end{bmatrix}\tau\,\dd\tau\nonumber\\
         &=\begin{bmatrix}
-            5\mathrm{e}^{-t}-\frac{11}{2}\mathrm{e}^{-2t}+t\e^{-t}-\frac{7}{2}t\e^{-2t}-\frac{1}{2}\\
-            -4\mathrm{e}^{-t}+\frac{13}{2}\mathrm{e}^{-2t}-2t\e^{-t}+\frac{9}{2}t\e^{-2t}-\frac{3}{2}
-        \end{bmatrix}
-    \end{align*}
+            5\e^{-t}-\frac{11}{2}\e^{-2t}+t\e^{-t}-\frac{7}{2}t\e^{-2t}-\frac{1}{2}\\
+            -4\e^{-t}+\frac{13}{2}\e^{-2t}-2t\e^{-t}+\frac{9}{2}t\e^{-2t}-\frac{3}{2}
+        \end{bmatrix}.
+    \end{align}
 \end{example}
 
 考虑一个$q$输入、$p$输出的线性时不变系统，其状态变量方程为
-\begin{align*}
-    \frac{d\mathbf{q}}{dt}=&A\mathbf{q}+B\mathbf{e}\\
-    \mathbf{r}=&C\mathbf{q}+D\mathbf{e}
-\end{align*}
+\begin{align}
+    \frac{\dd\mathbf{q}}{\dd t}&=A\mathbf{q}+B\mathbf{e},\\
+    \mathbf{r}&=C\mathbf{q}+D\mathbf{e},
+\end{align}
 起始状态为$\mathbf{q}(0-)$，其中$A$为$n$阶矩阵，$n$为系统的状态变量个数；$B,C,D$分别为$n\times q$、$p\times n$和$p\times q$的矩阵。
 
 要求其系统函数，使用输出与输入的复频域形式之比的定义较为方便。对状态变量方程两边进行拉普拉斯变换，有
-\begin{align*}
-    s\mathbf{Q}(s)-\mathbf{q}(0-)=&A\mathbf{Q}(s)+B\mathbf{E}(s),\\
-    \mathbf{R}(s)=&C\mathbf{Q}(s)+D\mathbf{E}(s)
-\end{align*}
+\begin{align}
+    s\mathbf{Q}(s)-\mathbf{q}(0-)&=A\mathbf{Q}(s)+B\mathbf{E}(s),\\
+    \mathbf{R}(s)&=C\mathbf{Q}(s)+D\mathbf{E}(s).
+\end{align}
 由前一方程，
-\begin{align*}
-    \mathbf{Q}(s)&=(sI-A)^{-1}\mathbf{q}(0-)+(sI-A)^{-1}B\mathbf{E}(s)\\
-    &=\Phi(s)\mathbf{q}(0-)+\Phi(s)B\mathbf{E}(s)
-\end{align*}
+\begin{align}
+    \mathbf{Q}(s)&=(sI-A)^{-1}\mathbf{q}(0-)+(sI-A)^{-1}B\mathbf{E}(s)\nonumber\\
+    &=\Phi(s)\mathbf{q}(0-)+\Phi(s)B\mathbf{E}(s).
+\end{align}
 代入后一方程，得到
-\begin{align*}
-    \mathbf{R}(s)=&C\left[\Phi(s)\mathbf{q}(0-)+\Phi(s)B\mathbf{E}(s)\right]+D\mathbf{E}(s)\\
-    =&C\Phi(s)\mathbf{q}(0-)+\left[C\Phi(s)B+D\right]\mathbf{E}(s)
-\end{align*}
+\begin{align}
+    \mathbf{R}(s)&=C\sbr{\Phi(s)\mathbf{q}(0-)+\Phi(s)B\mathbf{E}(s)}+D\mathbf{E}(s)\nonumber\\
+    &=C\Phi(s)\mathbf{q}(0-)+\sbr{C\Phi(s)B+D}\mathbf{E}(s),
+\end{align}
 因此系统函数为
-\begin{align*}
-    H(s)=C\Phi(s)B+D
-\end{align*}
+\begin{equation}
+    H(s)=C\Phi(s)B+D.
+\end{equation}
 这是一个$p\times q$的矩阵值函数。特别地，对于单输入单输出系统，系统函数为一个分式函数。
 
 利用系统函数，可以得到系统的可控性、可观性的其他判断方法，但由于这个方法比较复杂，这里仅仅给出它的一个简化版本：
 \begin{claim}
     设单输入单输出系统的状态变量方程为
-    \begin{align*}
-        \frac{d\mathbf{q}}{dt}=&A\mathbf{q}+B \mathbf{e},\quad \mathbf{r}=C\mathbf{q}
-    \end{align*}
+    \begin{equation}
+        \frac{\dd\mathbf{q}}{\dd t}=A\mathbf{q}+B\mathbf{e},\quad \mathbf{r}=C\mathbf{q},
+    \end{equation}
     则系统的系统函数为
-    \begin{align*}
-        H(s)=C\Phi(s)B
-    \end{align*}
+    \begin{equation}
+        H(s)=C\Phi(s)B.
+    \end{equation}
     如果在系统函数的计算过程中，没有出现零极点的抵消，即系统函数的分子和分母没有公共因子，则系统是可控且可观的，否则系统不完全可控或不完全可观。
 \end{claim}

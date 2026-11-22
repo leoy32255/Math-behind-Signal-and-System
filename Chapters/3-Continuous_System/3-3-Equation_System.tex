@@ -15,18 +15,19 @@
         \end{circuitikz}
     \end{center}
     解：设电感电压为$u_L(t)$，由基尔霍夫电压定律可得
-    \begin{align*}
-        e(t)=u_R(t)+u_L(t)+u_C(t)
-    \end{align*}
+    \begin{equation}
+        e(t)=u_R(t)+u_L(t)+u_C(t).
+    \end{equation}
     带入电容和电感的伏安关系，得到
-    \begin{align*}
-        &\frac{di_L(t)}{dt}=-\frac{R}{L}i_L(t)-\frac{1}{L}u_C(t)+\frac{1}{L}e(t)\\
-        &\frac{du_C(t)}{dt}=\frac{1}{C}i_L(t)
-    \end{align*}
-    写成矩阵形式，即\begin{align}\label{eq:3.3.1}
+    \begin{align}
+        \frac{\dd i_L(t)}{\dd t}&=-\frac{R}{L}i_L(t)-\frac{1}{L}u_C(t)+\frac{1}{L}e(t),\\
+        \frac{\dd u_C(t)}{\dd t}&=\frac{1}{C}i_L(t).
+    \end{align}
+    写成矩阵形式，即
+    \begin{equation}\label{eq:rlc_state_eq}
         \begin{bmatrix}
-            \frac{di_L(t)}{dt}\\
-            \frac{du_C(t)}{dt}
+            \frac{\dd i_L(t)}{\dd t}\\
+            \frac{\dd u_C(t)}{\dd t}
         \end{bmatrix}=
         \begin{bmatrix}
             -\frac{R}{L} & -\frac{1}{L}\\
@@ -39,15 +40,15 @@
         \begin{bmatrix}
             \frac{1}{L}\\
             0
-        \end{bmatrix}e(t)
-    \end{align}
+        \end{bmatrix}e(t).
+    \end{equation}
     将$u_C(t)$消去，得到二阶常系数线性微分方程
-    \begin{align}\label{eq:3.3.2}
-        \frac{d^2 i_L(t)}{dt^2}+\frac{R}{L}\frac{di_L(t)}{dt}+\frac{1}{LC}i_L(t)=\frac{1}{LC}e(t)
-    \end{align}
+    \begin{equation}\label{eq:rlc_ode}
+        \frac{\dd^2 i_L(t)}{\dd t^2}+\frac{R}{L}\frac{\dd i_L(t)}{\dd t}+\frac{1}{LC}i_L(t)=\frac{1}{LC}e(t).
+    \end{equation}
 \end{example}
 
-尽管还未引入这个定义，直观告诉我们，以上微分方程组是\textbf{常系数线性微分方程组}。通过适当的消元和代入，可以由\refeqn{3.3.1}得到二阶常系数线性微分方程\refeqn{3.3.2}；通过引入参量$u_C(t)$，又可以由\refeqn{3.3.2}得到微分方程组\refeqn{3.3.1}。我们将看到，\textbf{常系数线性的微分方程组与高阶微分方程是等价的}，它们的解法有诸多相通之处。
+尽管还未引入这个定义，直观告诉我们，以上微分方程组是\textbf{常系数线性微分方程组}。通过适当的消元和代入，可以由\refeqn{rlc_state_eq}得到二阶常系数线性微分方程\refeqn{rlc_ode}；通过引入参量$u_C(t)$，又可以由\refeqn{rlc_ode}得到微分方程组\refeqn{rlc_state_eq}。我们将看到，\textbf{常系数线性的微分方程组与高阶微分方程是等价的}，它们的解法有诸多相通之处。
 
 在上例中，$i_L(t),u_C(t)$是系统的\textbf{状态变量}，给出它们的表达式就完全描述了系统的状态，因此，单独研究这种微分方程组是很有意义的。我们将在接下来的三个小节中讨论微分方程组的解法并由此获得对高阶方程的进一步认识，再在\refsub{state_variable_analysis}中给出状态变量的严格定义，从而引出系统的可观性和可控性。
 
@@ -58,10 +59,11 @@
 上一节中我们讨论的常系数线性高阶微分方程，必然可以转化为常系数线性微分方程组；更一般的，即便系数是依赖于时间$t$的函数，也可以进行转化。通常来说，同样可以由线性微分方程组得到线性微分方程。
 
 \begin{definition}[线性微分方程组]
-    设实矩阵值函数$A(t)$和实向量值函数$\mathbf{f}(t)$在区间$(a,b)$上连续，则形如\begin{align*}
-    \frac{d\mathbf{y}}{dt}=A(t)\mathbf{y}+\mathbf{f}(t)
-    \end{align*}
-    的微分方程组则称该微分方程组为\textbf{一阶线性微分方程组}，其中$\mathbf{f}(t)$为\textbf{非齐次项}。
+    设实矩阵值函数$A(t)$和实向量值函数$\mathbf{f}(t)$在区间$(a,b)$上连续，则形如
+    \begin{equation}
+        \frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}+\mathbf{f}(t)
+    \end{equation}
+    的微分方程组称为\textbf{一阶线性微分方程组}，其中$\mathbf{f}(t)$为\textbf{非齐次项}。
 
     特别地，如果$\mathbf{f}(t)=\mathbf{0}$，则称之为\textbf{齐次线性微分方程组}；如果$A(t)$为常数矩阵，则称为\textbf{常系数线性微分方程组}。
 
@@ -69,24 +71,34 @@
 \end{definition}
 
 称
-$$\frac{d\mathbf{y}}{dt}=A(t)\mathbf{y}+\mathbf{f}(t)$$
+\begin{equation}
+    \frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}+\mathbf{f}(t)
+\end{equation}
 是线性微分方程，是因为函数$A(t)\mathbf{y}$对$\mathbf{y}$的每个分量都是线性的。以$\mathbf{f}(t)$为系统的激励，以初始条件为零向量时的解作为这个系统的零状态响应，则容易看出系统是线性的，但由于系数矩阵$A(t)$随时间变化，系统不具备时不变性。
 
 在常微分方程的理论中，常系数线性微分方程组是线性方程组的特殊情况，前者解法可以视作后者的特例。在信号与系统课程中，我们更关注常系数线性微分方程组，因为与之等价的常系数方程描述了线性时不变系统。第二小节中，我们将直接讨论线性方程组，再在第三小节专门讨论常系数方程组。
 
 下面说明由线性方程向线性方程组转化的标准流程。设
-\[y^{(n)}+a_{1}(t)y^{(n-1)}+\cdots +a_{n-1}(t)y'+a_n(t)y=f(t)\]
+\begin{equation}
+    y^{(n)}+a_{1}(t)y^{(n-1)}+\cdots +a_{n-1}(t)y'+a_n(t)y=f(t),
+\end{equation}
 通过变量代换
-\[y_1=y,y_2=y',\cdots,y_n=y^{(n-1)}\]
-得到\begin{align*}
-        \frac{dy_1}{dt}&=y_2\\
-        \frac{dy_2}{dt}&=y_3\\
-        &\cdots\\
-        \frac{dy_{n-1}}{dt}&=y_n\\
-        \frac{dy_n}{dt}&=-a_{1}(t)y_{n}-\cdots -a_{n-1}(t)y_2-a_n(t)y_1+f(t)
-\end{align*}
-写成矩阵的形式，即\begin{align*}
-    \frac{d\mathbf{y}}{dt}=\begin{bmatrix}
+\begin{equation}
+    y_1=y,\quad y_2=y',\quad \cdots,\quad y_n=y^{(n-1)}
+\end{equation}
+得到
+\begin{equation}
+    \begin{aligned}
+        \frac{\dd y_1}{\dd t}&=y_2,\\
+        \frac{\dd y_2}{\dd t}&=y_3,\\
+        &\vdotswithin{=}\\
+        \frac{\dd y_{n-1}}{\dd t}&=y_n,\\
+        \frac{\dd y_n}{\dd t}&=-a_{1}(t)y_{n}-\cdots -a_{n-1}(t)y_2-a_n(t)y_1+f(t).
+    \end{aligned}
+\end{equation}
+写成矩阵的形式，即
+\begin{equation}
+    \frac{\dd\mathbf{y}}{\dd t}=\begin{bmatrix}
     0 & 1 & 0 & \cdots & 0\\
     0 & 0 & 1 & \cdots & 0\\
     \vdots & \vdots & \vdots & \ddots & \vdots\\
@@ -98,78 +110,93 @@ $$\frac{d\mathbf{y}}{dt}=A(t)\mathbf{y}+\mathbf{f}(t)$$
     \vdots\\
     0\\
     f(t)
-    \end{bmatrix}
-\end{align*}
+    \end{bmatrix}.
+\end{equation}
 
 熟悉多项式理论的读者不难发现，上面的矩阵恰为原方程的特征多项式的友矩阵，它的行列式即为特征多项式。
 
-将线性微分方程组转化为线性微分方程也总是可行的。对于方程组\begin{align*}
-    \frac{d\mathbf{y}}{dt}=A(t)\mathbf{y}+\mathbf{f}(t)
-\end{align*}
-令$A=PJP^{-1}$，其中$J$为$A$的Jordan标准型，做换元$\mathbf{z}=P^{-1}\mathbf{y}$，则以上方程化为\begin{align*}
-    \frac{d\mathbf{z}}{dt}=J\mathbf{z}+P^{-1}\mathbf{f}(t)
-\end{align*}
-$J$是块对角矩阵，每个块为一个Jordan块，可以通过代入消元的方式将上述方程组转化为高阶微分方程，每一次代入消元都将使方程的阶数加一（在下面的例子中将会看到这一点）。如果$J$仅由单个Jordan块组成，则这个代入消元的过程可以一直进行到最后，$n-1$次代入消元使得方程的阶数由1上升至$n$，因此\textbf{方程组的阶数的定义与它对应的高阶方程的阶数是相符的}，即能够相互转化的方程与方程组，阶数也相同。
+将线性微分方程组转化为线性微分方程也总是可行的。对于方程组
+\begin{equation}
+    \frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}+\mathbf{f}(t),
+\end{equation}
+令$A=PJP^{-1}$，其中$J$为$A$的Jordan标准型，做换元$\mathbf{z}=P^{-1}\mathbf{y}$，则以上方程化为
+\begin{equation}
+    \frac{\dd\mathbf{z}}{\dd t}=J\mathbf{z}+P^{-1}\mathbf{f}(t).
+\end{equation}
+$J$是块对角矩阵，每个块为一个Jordan块，可以通过代入消元的方式将上述方程组转化为高阶微分方程，每一次代入消元都将使方程的阶数加一（在下面的例子中将会看到这一点）。如果$J$仅由单个Jordan块组成，则这个代入消元的过程可以一直进行到最后，$n-1$次代入消元使得方程的阶数由$1$上升至$n$，因此\textbf{方程组的阶数的定义与它对应的高阶方程的阶数是相符的}，即能够相互转化的方程与方程组，阶数也相同。
 
 在$J$中含有多个Jordan块的情况下，我们的确无法得到一个$n$阶的微分方程。这种情况表明原方程在适当的换元下可以拆解为几个相互独立的小方程组（即解耦合的子系统），每个小方程组对应一个Jordan块，可以转化为一个微分方程，其阶数与Jordan块的阶数相同，从而得到一系列阶数之和为$n$的微分方程。在这个意义下，方程组的阶数仍然与方程相同。特别地，$A$可对角化时方程组可以化为$n$个一阶方程。
 
 下面通过三阶Jordan块的例子来说明转化的过程：
 
 \begin{example}
-    设\begin{align*}
-            \frac{d}{dt}\begin{bmatrix}
-                z_1\\
-                z_2\\
-                z_3
-            \end{bmatrix}=\begin{bmatrix}
-            \lambda & 1 & 0\\
-            0 & \lambda & 1\\
-            0 & 0 & \lambda
-            \end{bmatrix}\begin{bmatrix}
-                z_1\\
-                z_2\\
-                z_3
-            \end{bmatrix}
-        \end{align*}
-        利用第一个方程得到
-        $$z_2=\frac{dz_1}{dt}-\lambda z_1$$
-        代入第二个方程得到：\begin{align*}
-            \frac{d}{dt}\left(\frac{dz_1}{dt}-\lambda z_1\right)=\lambda\left(\frac{dz_1}{dt}-\lambda z_1\right)+z_3
-        \end{align*}
-        即\begin{align*}
-            z_3=\frac{d^2 z_1}{dt^2}-2\lambda\frac{dz_1}{dt}+\lambda^2 z_1
-        \end{align*}
-        代入第三个方程得到\begin{align*}
-            \frac{d}{dt}\left(\frac{d^2 z_1}{dt^2}-2\lambda\frac{dz_1}{dt}+\lambda^2 z_1\right)=\lambda\left(\frac{d^2 z_1}{dt^2}-2\lambda\frac{dz_1}{dt}+\lambda^2 z_1\right)
-        \end{align*}
-        即\begin{align*}
-            \frac{d^3 z_1}{dt^3}-3\lambda\frac{d^2 z_1}{dt^2}+3\lambda^2\frac{dz_1}{dt}-\lambda^3 z_1=0
-        \end{align*}
-        这是一个关于$z_1$的三阶方程。
+    设
+    \begin{equation}
+        \frac{\dd}{\dd t}\begin{bmatrix}
+            z_1\\
+            z_2\\
+            z_3
+        \end{bmatrix}=\begin{bmatrix}
+        \lambda & 1 & 0\\
+        0 & \lambda & 1\\
+        0 & 0 & \lambda
+        \end{bmatrix}\begin{bmatrix}
+            z_1\\
+            z_2\\
+            z_3
+        \end{bmatrix}.
+    \end{equation}
+    利用第一个方程得到
+    \begin{equation}
+        z_2=\frac{\dd z_1}{\dd t}-\lambda z_1,
+    \end{equation}
+    代入第二个方程得到：
+    \begin{equation}
+        \frac{\dd}{\dd t}\paren{\frac{\dd z_1}{\dd t}-\lambda z_1}=\lambda\paren{\frac{\dd z_1}{\dd t}-\lambda z_1}+z_3,
+    \end{equation}
+    即
+    \begin{equation}
+        z_3=\frac{\dd^2 z_1}{\dd t^2}-2\lambda\frac{\dd z_1}{\dd t}+\lambda^2 z_1,
+    \end{equation}
+    代入第三个方程得到
+    \begin{equation}
+        \frac{\dd}{\dd t}\paren{\frac{\dd^2 z_1}{\dd t^2}-2\lambda\frac{\dd z_1}{\dd t}+\lambda^2 z_1}=\lambda\paren{\frac{\dd^2 z_1}{\dd t^2}-2\lambda\frac{\dd z_1}{\dd t}+\lambda^2 z_1},
+    \end{equation}
+    即
+    \begin{equation}
+        \frac{\dd^3 z_1}{\dd t^3}-3\lambda\frac{\dd^2 z_1}{\dd t^2}+3\lambda^2\frac{\dd z_1}{\dd t}-\lambda^3 z_1=0.
+    \end{equation}
+    这是一个关于$z_1$的三阶方程。
 \end{example}
 
 不论$A$中的元素是$t$的函数还是常数，都可以执行上述流程，换言之，如果方程组本身不可以分解为一系列更小的方程组，那么\textbf{线性微分方程组可以与同阶的线性微分方程相互转化，常系数线性微分方程组可以与同阶的常系数线性微分方程相互转化}。
 
 \subsection{线性微分方程组}\label{sub:solution_of_linear_equation_system}
 
-本小节旨在刻画线性微分方程组的解空间。根据上一小节的转化关系，本小节的内容同样适用于线性微分方程，以及我们最关注的的常系数线性微分方程（组）。
+本小节旨在刻画线性微分方程组的解空间。根据上一小节的转化关系，本小节的内容同样适用于线性微分方程，以及我们最关注的常系数线性微分方程（组）。
 
 \begin{definition}[柯西问题]
-    带有初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的微分方程组$\frac{d\mathbf{y}}{dt}=A(t)\mathbf{y}+\mathbf{f}(t)$的求解问题，称为\textbf{柯西问题}(Cauchy problem)。
+    带有初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的微分方程组$\displaystyle\frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}+\mathbf{f}(t)$的求解问题，称为\textbf{柯西问题}(Cauchy problem)。
 \end{definition}
 
 \begin{claim}[Picard定理]
     设$\mathbf{f}$在有界闭区域
-    $$D:|t-t_0|\leq a,|\mathbf{y}-\mathbf{y}_0|\leq b$$
+    \begin{equation}
+        D:\abs{t-t_0}\leq a,\quad \abs{\mathbf{y}-\mathbf{y}_0}\leq b
+    \end{equation}
     上连续，且对$\mathbf{y}$满足Lipschitz条件，即
-    $$\exists L>0,\forall (t,\mathbf{y}_1),(t,\mathbf{y})\in D,\|\mathbf{f}(t,\mathbf{y}_1)-\mathbf{f}(t,\mathbf{y}_2)\|\leq L\|\mathbf{y}_1-\mathbf{y}_2\|$$
-    （其中范数$\|\cdot\|$就是欧几里得空间$\mathbb{R}^d$中的向量长度），则柯西问题的解在$|t-t_0|\leq h$上\textbf{存在且唯一}，其中
-    $$h=\min\left\{a,\frac{b}{\max_{(t,\mathbf{y})\in D}|\mathbf{f}(t,\mathbf{y})|}\right\}$$
+    \begin{equation}
+        \exists L>0,\ \forall (t,\mathbf{y}_1),(t,\mathbf{y}_2)\in D,\quad \norm{\mathbf{f}(t,\mathbf{y}_1)-\mathbf{f}(t,\mathbf{y}_2)}\leq L\norm{\mathbf{y}_1-\mathbf{y}_2}
+    \end{equation}
+    （其中范数$\norm{\cdot}$就是欧几里得空间$\mathbb{R}^d$中的向量长度），则柯西问题的解在$\abs{t-t_0}\leq h$上\textbf{存在且唯一}，其中
+    \begin{equation}
+        h=\min\braces{a,\frac{b}{\max_{(t,\mathbf{y})\in D}\abs{\mathbf{f}(t,\mathbf{y})}}}.
+    \end{equation}
 \end{claim}
 
 引入Picard定理是为了说明以下事实：
 \begin{proposition}
-    取定初始条件的线性微分方程组，解是存在且唯一的
+    取定初始条件的线性微分方程组，解是存在且唯一的。
 \end{proposition}
 
 Picard定理适用范围很广，但我们仅仅关注线性微分方程组，由于在其定义中要求了系数矩阵$A(t)$和非齐次项$\mathbf{f}(t)$关于$t$的连续性，这种方程在每个初值点$(t_0,\mathbf{y}_0)\in\mathbb{R} \times \mathbb{R}^n$处都满足Picard定理的条件，而初值点的小邻域内的唯一解，又提供了其他点处的额外的“初始条件”，事实上，我们总能将这个唯一的解延伸至整个时间轴上。
@@ -183,9 +210,12 @@ Picard定理适用范围很广，但我们仅仅关注线性微分方程组，�
 \begin{proof}
     线性性是显然的。我们构造一个同构映射来说明解空间的维数是$n$。
 
-    定义$\mathbf{H}:\mathbb{R}^n\to S,\mathbf{y}_0\mapsto \mathbf{y}(t)$，其中$\mathbf{y}(t)$是满足初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的解。下验证$\mathbf{H}$是一个线性空间同构映射：
+    定义$\mathbf{H}:\mathbb{R}^n\to S,\ \mathbf{y}_0\mapsto \mathbf{y}(t)$，其中$\mathbf{y}(t)$是满足初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的解。下验证$\mathbf{H}$是一个线性空间同构映射：
 
-    首先，$\mathbf{H}$是线性的。$\forall \mathbf{y}_0,\mathbf{z}_0\in\mathbb{R}^n,\forall \alpha,\beta\in\mathbb{R}$，$\alpha\mathbf{H}(\mathbf{y}_0)+\beta\mathbf{H}(\mathbf{z}_0)$是满足初始条件$\mathbf{y}(t_0)=\alpha\mathbf{y}_0+\beta\mathbf{z}_0$的解，根据解的唯一性，$$\mathbf{H}(\alpha\mathbf{y}_0+\beta\mathbf{z}_0)=\alpha\mathbf{H}(\mathbf{y}_0)+\beta\mathbf{H}(\mathbf{z}_0)$$
+    首先，$\mathbf{H}$是线性的。$\forall \mathbf{y}_0,\mathbf{z}_0\in\mathbb{R}^n,\ \forall \alpha,\beta\in\mathbb{R}$，$\alpha\mathbf{H}(\mathbf{y}_0)+\beta\mathbf{H}(\mathbf{z}_0)$是满足初始条件$\mathbf{y}(t_0)=\alpha\mathbf{y}_0+\beta\mathbf{z}_0$的解，根据解的唯一性，
+    \begin{equation}
+        \mathbf{H}(\alpha\mathbf{y}_0+\beta\mathbf{z}_0)=\alpha\mathbf{H}(\mathbf{y}_0)+\beta\mathbf{H}(\mathbf{z}_0).
+    \end{equation}
 
     其次，$\mathbf{H}$是单射。设$\mathbf{y}_0\neq\mathbf{z}_0$，它们对应的解分别为$\mathbf{y}=\mathbf{H}(\mathbf{y}_0)$和$\mathbf{z}=\mathbf{H}(\mathbf{z}_0)$，则$\mathbf{y}(t_0)\neq\mathbf{z}(t_0)$，因此$\mathbf{y}\neq\mathbf{z}$。
 
@@ -203,110 +233,130 @@ Picard定理适用范围很广，但我们仅仅关注线性微分方程组，�
     \label{fig:solution_space}
 \end{figure}
 
-特别地，根据线性方程与线性方程组之间的对应关系，这个定理解释了上一节中提到的“确定$n$个不相关的初始条件，就能唯一确定常系数线性微分方程的解”。在$n$维空间中，$n$个不相关的初始条件对应着$n$个不相关的线性方程，其解空间是0维的，即$\mathbb{R}^n$中的一个点。
+特别地，根据线性方程与线性方程组之间的对应关系，这个定理解释了上一节中提到的“确定$n$个不相关的初始条件，就能唯一确定常系数线性微分方程的解”。在$n$维空间中，$n$个不相关的初始条件对应着$n$个不相关的线性方程，其解空间是$0$维的，即$\mathbb{R}^n$中的一个点。
 
 \begin{definition}[向量值函数的线性相关性]
     称向量值函数$\mathbf{y}_1(t),\mathbf{y}_2(t),\cdots,\mathbf{y}_n(t)$在区间$(a,b)$上是\textbf{线性相关}的，如果存在不全为零的常数$c_1,c_2,\cdots,c_n$，使得
-    \[c_1\mathbf{y}_1(t)+c_2\mathbf{y}_2(t)+\cdots+c_n\mathbf{y}_n(t)=0,\quad \forall t\in(a,b)\]
+    \begin{equation}
+        c_1\mathbf{y}_1(t)+c_2\mathbf{y}_2(t)+\cdots+c_n\mathbf{y}_n(t)=0,\quad \forall t\in(a,b),
+    \end{equation}
     否则称它们是\textbf{线性无关}的。
 \end{definition}
 
-从上一个定理可知，齐次线性方程组有$n$个线性无关的解，通解为\begin{align*}
-    \mathbf{y}(t)=c_1\mathbf{y}_1(t)+c_2\mathbf{y}_2(t)+\cdots+c_n\mathbf{y}_n(t)
-\end{align*}
+从上一个定理可知，齐次线性方程组有$n$个线性无关的解，通解为
+\begin{equation}
+    \mathbf{y}(t)=c_1\mathbf{y}_1(t)+c_2\mathbf{y}_2(t)+\cdots+c_n\mathbf{y}_n(t).
+\end{equation}
 将$\{\mathbf{y}_k(t)\}_{k=1}^n$称为齐次线性方程组的\textbf{基本解组}，它张成了$n$维的线性空间，因此只要给出一个基本解组，就相当于确定了齐次线性方程组的解空间。
 
 由于同构映射保持向量的线性无关性，通过解空间与初值空间之间的同构映射$\mathbf{H}$，只要在$t=t_0$处这$n$个解的值$\mathbf{y}_1(t_0),\mathbf{y}_2(t_0),\cdots,\mathbf{y}_n(t_0)$线性无关，那么它们就应当对应着在同构意义下线性无关的解。事实上，通过Wronsky行列式可以证明，$\{\mathbf{y}_k(t)\}_{k=1}^n$线性无关的确就等价于在某一点$t_0\in(a,b)$处，$\mathbf{y}_1(t_0),\mathbf{y}_2(t_0),\cdots,\mathbf{y}_n(t_0)$线性无关，这解释了以上定义的合理性。
 
 \begin{definition}[Wronsky行列式]
-    设\begin{align*}
-    \mathbf{y}_1(t)=\begin{bmatrix}
-    y_{11}(t)\\
-    y_{12}(t)\\
-    \vdots\\
-    y_{1n}(t)
-    \end{bmatrix},\mathbf{y}_2(t)=\begin{bmatrix}
-    y_{21}(t)\\
-    y_{22}(t)\\
-    \vdots\\
-    y_{2n}(t)
-    \end{bmatrix},\cdots,\mathbf{y}_n(t)=\begin{bmatrix}
-    y_{n1}(t)\\
-    y_{n2}(t)\\
-    \vdots\\
-    y_{nn}(t)
-    \end{bmatrix}
-    \end{align*}
+    设
+    \begin{equation}
+        \mathbf{y}_1(t)=\begin{bmatrix}
+        y_{11}(t)\\
+        y_{12}(t)\\
+        \vdots\\
+        y_{1n}(t)
+        \end{bmatrix},\quad \mathbf{y}_2(t)=\begin{bmatrix}
+        y_{21}(t)\\
+        y_{22}(t)\\
+        \vdots\\
+        y_{2n}(t)
+        \end{bmatrix},\quad \cdots,\quad \mathbf{y}_n(t)=\begin{bmatrix}
+        y_{n1}(t)\\
+        y_{n2}(t)\\
+        \vdots\\
+        y_{nn}(t)
+        \end{bmatrix}
+    \end{equation}
     是$n$个向量值函数，定义它们的\textbf{Wronsky行列式}为
-    \[W(t)=\det\begin{bmatrix}
-    y_{11}(t) & y_{21}(t) & \cdots & y_{n1}(t)\\
-    y_{12}(t) & y_{22}(t) & \cdots & y_{n2}(t)\\
-    \vdots & \vdots & \ddots & \vdots\\
-    y_{1n}(t) & y_{2n}(t) & \cdots & y_{nn}(t)
-    \end{bmatrix}\]
+    \begin{equation}
+        W(t)=\det\begin{bmatrix}
+        y_{11}(t) & y_{21}(t) & \cdots & y_{n1}(t)\\
+        y_{12}(t) & y_{22}(t) & \cdots & y_{n2}(t)\\
+        \vdots & \vdots & \ddots & \vdots\\
+        y_{1n}(t) & y_{2n}(t) & \cdots & y_{nn}(t)
+        \end{bmatrix}.
+    \end{equation}
 \end{definition}
 
 \begin{theorem}[Liouville公式]
-    设$\mathbf{y}_1(t),\mathbf{y}_2(t),\cdots,\mathbf{y}_n(t)$为方程$\dfrac{d\mathbf{y}}{dt}=A(t)\mathbf{y}$的解，$W(t)$为它们的Wronsky行列式，则$\forall t_0\in (a,b)$，有
-    \begin{align*}
-        W(t)=W(t_0)\mathrm{e}^{-\int_{t_0}^t \mathrm{tr}A(s)\,ds},\quad \forall t\in(a,b)
-    \end{align*}
+    设$\mathbf{y}_1(t),\mathbf{y}_2(t),\cdots,\mathbf{y}_n(t)$为方程$\displaystyle\frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}$的解，$W(t)$为它们的Wronsky行列式，则$\forall t_0\in (a,b)$，有
+    \begin{equation}
+        W(t)=W(t_0)\e^{-\int_{t_0}^t \mathrm{tr}A(s)\,\dd s},\quad \forall t\in(a,b).
+    \end{equation}
 \end{theorem}
 
-这个定理的证明比较繁琐，可以在\cite{ode}等常微分方程的教材中找到，此处略去证明。它表明，$W(t)$要么在整个区间$(a,b)$上恒为零，要么在整个区间$(a,b)$上恒不为零。因此，\begin{align*}
-    &\{\mathbf{y}_k(t)\}_{k=1}^n\text{线性无关}\\
-    \iff& \forall t\in(a,b),W(t)\neq 0\\
-    \iff& \exists t_0\in(a,b),W(t_0)\neq 0\\
-    \iff& \exists t_0\in(a,b),\{\mathbf{y}_k(t_0)\}_{k=1}^n\text{线性无关}
-\end{align*}
+这个定理的证明比较繁琐，可以在\cite{ode}等常微分方程的教材中找到，此处略去证明。它表明，$W(t)$要么在整个区间$(a,b)$上恒为零，要么在整个区间$(a,b)$上恒不为零。因此，
+\begin{align}
+    &\{\mathbf{y}_k(t)\}_{k=1}^n\text{线性无关}\nonumber\\
+    &\iff \forall t\in(a,b),\ W(t)\neq 0\nonumber\\
+    &\iff \exists t_0\in(a,b),\ W(t_0)\neq 0\nonumber\\
+    &\iff \exists t_0\in(a,b),\ \{\mathbf{y}_k(t_0)\}_{k=1}^n\text{线性无关}.
+\end{align}
 
 以上的定义和定理实际上适用于更一般的齐次微分方程组
-$$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
+\begin{equation}
+    \frac{\dd\mathbf{y}}{\dd t}=\mathbf{f}(t,\mathbf{y}),
+\end{equation}
 而不仅仅是线性的情况。
 
 考虑由齐次线性微分方程转化而来的齐次线性微分方程组，则我们实际上只需要向量值函数$\mathbf{y}_1(t),\mathbf{y}_2(t),\cdots,\mathbf{y}_n(t)$的第一个分量，而后续的分量是前一分量的导数，第一个分量线性相关，则后续分量线性相关。这启发我们对数量值函数定义：
 \begin{definition}[数量值函数的线性相关性]
     函数$y_1(t),y_2(t),\cdots,y_n(t)$在区间$(a,b)$上是\textbf{线性相关}的，如果存在不全为零的常数$c_1,c_2,\cdots,c_n$，使得
-    \[c_1y_1(t)+c_2y_2(t)+\cdots+c_ny_n(t)=0,\quad \forall t\in(a,b)\]
+    \begin{equation}
+        c_1y_1(t)+c_2y_2(t)+\cdots+c_ny_n(t)=0,\quad \forall t\in(a,b),
+    \end{equation}
     否则称它们是\textbf{线性无关}的。
 \end{definition}
 
-齐次线性微分方程的解空间是$n$维的，因此只要给出$n$个线性无关的解$y_1(t),y_2(t),\cdots,y_n(t)$，就能得到通解：\begin{align*}
-    y(t)=c_1y_1(t)+c_2y_2(t)+\cdots+c_ny_n(t),\forall \mathbf{c}\in\mathbb{R}^n
-\end{align*}
+齐次线性微分方程的解空间是$n$维的，因此只要给出$n$个线性无关的解$y_1(t),y_2(t),\cdots,y_n(t)$，就能得到通解：
+\begin{equation}
+    y(t)=c_1y_1(t)+c_2y_2(t)+\cdots+c_ny_n(t),\quad \forall \mathbf{c}\in\mathbb{R}^n.
+\end{equation}
 
 我们同样将$n$个线性无关的解$\{y_k(t)\}_{k=1}^n$称为齐次线性微分方程的\textbf{基本解组}。
 
 \begin{definition}[Wronsky行列式]
     函数$y_1(t),y_2(t),\cdots,y_n(t)$的Wronsky行列式定义为
-    \[W(t)=\det\begin{bmatrix}
-    y_1(t) & y_2(t) & \cdots & y_n(t)\\
-    y'_1(t) & y'_2(t) & \cdots & y'_n(t)\\
-    \vdots & \vdots & \ddots & \vdots\\
-    y_1^{(n-1)}(t) & y_2^{(n-1)}(t) & \cdots & y_n^{(n-1)}(t)
-    \end{bmatrix}\]
+    \begin{equation}
+        W(t)=\det\begin{bmatrix}
+        y_1(t) & y_2(t) & \cdots & y_n(t)\\
+        y'_1(t) & y'_2(t) & \cdots & y'_n(t)\\
+        \vdots & \vdots & \ddots & \vdots\\
+        y_1^{(n-1)}(t) & y_2^{(n-1)}(t) & \cdots & y_n^{(n-1)}(t)
+        \end{bmatrix}.
+    \end{equation}
 \end{definition}
 
-我们知道，这种方程组的矩阵具有特殊的形式，它的迹恰为原方程的$-a_1(t)$，代入Liouville公式得到\begin{align*}
-    W(t)=W(t_0)\mathrm{e}^{-\int_{t_0}^t a_1(s)\,ds},\quad\forall t\in(a,b)
-\end{align*}
+我们知道，这种方程组的矩阵具有特殊的形式，它的迹恰为原方程的$-a_1(t)$，代入Liouville公式得到
+\begin{equation}
+    W(t)=W(t_0)\e^{-\int_{t_0}^t a_1(s)\,\dd s},\quad \forall t\in(a,b).
+\end{equation}
 
-可见，对于齐次线性微分方程，与方程组类似，\begin{align*}
-    &\{y_k(t)\}_{k=1}^n\text{线性无关}\\
-    \iff& \forall t\in(a,b),W(t)\neq 0\\
-    \iff& \exists t_0\in(a,b),W(t_0)\neq 0\\
-    \iff& \exists t_0\in(a,b),\{y_k(t_0)\}_{k=1}^n\text{线性无关}
-\end{align*}
+可见，对于齐次线性微分方程，与方程组类似，
+\begin{align}
+    &\{y_k(t)\}_{k=1}^n\text{线性无关}\nonumber\\
+    &\iff \forall t\in(a,b),\ W(t)\neq 0\nonumber\\
+    &\iff \exists t_0\in(a,b),\ W(t_0)\neq 0\nonumber\\
+    &\iff \exists t_0\in(a,b),\ \{y_k(t_0)\}_{k=1}^n\text{线性无关}.
+\end{align}
 
 \begin{definition}[解矩阵]
-    齐次线性微分方程组\begin{align*}
-    \frac{d\mathbf{y}}{dt}=A(t)\mathbf{y}
-    \end{align*}
+    齐次线性微分方程组
+    \begin{equation}
+        \frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}
+    \end{equation}
     的解组$\mathbf{y}_1(t),\mathbf{y}_2(t),\cdots,\mathbf{y}_n(t)$为列向量的矩阵称为\textbf{解矩阵}(solution matrix)：
-    \[\phi(t)=[\mathbf{y}_1(t),\mathbf{y}_2(t),\cdots,\mathbf{y}_n(t)]\]
-    解矩阵满足\begin{align*}
-        \frac{d\phi(t)}{dt}=A(t)\phi(t)
-    \end{align*}
+    \begin{equation}
+        \phi(t)=[\mathbf{y}_1(t),\mathbf{y}_2(t),\cdots,\mathbf{y}_n(t)].
+    \end{equation}
+    解矩阵满足
+    \begin{equation}
+        \frac{\dd\phi(t)}{\dd t}=A(t)\phi(t),
+    \end{equation}
     如果$\{\mathbf{y}_k(t)\}_{k=1}^n$是基本解组，则解矩阵$\phi(t)$是可逆的，称之为\textbf{基本解矩阵}(fundamental solution matrix)。
 \end{definition}
 \begin{proposition}
@@ -315,115 +365,131 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
     矩阵$\psi(t)$是基本解矩阵的充要条件是存在可逆矩阵$C$，使得$\psi(t)=\phi(t)C$。
 \end{proposition}
 
-在处理一阶线性微分方程时，我们总是先求出齐次解，再通过常数变易法来求得通解。对于方程组，可以做类似的处理。已知解矩阵$\phi(t)$，设\begin{align*}
-    \mathbf{y}(t)=\phi(t)\mathbf{c}(t)
-\end{align*}
+在处理一阶线性微分方程时，我们总是先求出齐次解，再通过常数变易法来求得通解。对于方程组，可以做类似的处理。已知解矩阵$\phi(t)$，设
+\begin{equation}
+    \mathbf{y}(t)=\phi(t)\mathbf{c}(t),
+\end{equation}
 代入非齐次方程组
-\begin{align*}
-    \frac{d\mathbf{y}}{dt}=A(t)\mathbf{y}+\mathbf{f}(t)
-\end{align*}
+\begin{equation}
+    \frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}+\mathbf{f}(t),
+\end{equation}
 得到
-\begin{align*}
-    \phi(t)\frac{d\mathbf{c}(t)}{dt}=\mathbf{f}(t)
-\end{align*}
+\begin{equation}
+    \phi(t)\frac{\dd\mathbf{c}(t)}{\dd t}=\mathbf{f}(t).
+\end{equation}
 由于基本解矩阵可逆，有
-\begin{align*}
-    \frac{d\mathbf{c}(t)}{dt}=\phi^{-1}(t)\mathbf{f}(t)
-\end{align*}
+\begin{equation}
+    \frac{\dd\mathbf{c}(t)}{\dd t}=\phi^{-1}(t)\mathbf{f}(t).
+\end{equation}
 积分得到
-\begin{align*}
-    \mathbf{c}(t)=\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,ds
-\end{align*}
+\begin{equation}
+    \mathbf{c}(t)=\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,\dd s.
+\end{equation}
 因此，非齐次方程组有特解
-\begin{align*}
-    \mathbf{y}(t)=\phi(t)\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,ds
-\end{align*}
+\begin{equation}
+    \mathbf{y}(t)=\phi(t)\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,\dd s.
+\end{equation}
 \begin{theorem}
     设$\phi(t)$是齐次线性微分方程组
-    $$\frac{d\mathbf{y}}{dt}=A(t)\mathbf{y}$$
+    \begin{equation}
+        \frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}
+    \end{equation}
     的基本解矩阵，则非齐次方程组
-    $$\frac{d\mathbf{y}}{dt}=A(t)\mathbf{y}+\mathbf{f}(t)$$
-    的通解为\begin{align*}
-    \mathbf{y}(t)=\phi(t)\left(\mathbf{c}+\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,ds\right)
-    \end{align*}
+    \begin{equation}
+        \frac{\dd\mathbf{y}}{\dd t}=A(t)\mathbf{y}+\mathbf{f}(t)
+    \end{equation}
+    的通解为
+    \begin{equation}
+        \mathbf{y}(t)=\phi(t)\paren{\mathbf{c}+\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,\dd s}.
+    \end{equation}
 \end{theorem}
 
 \begin{corollary}
-    非齐次方程组满足初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的解为\begin{align*}
-    \mathbf{y}(t)=\phi(t)\left(\phi^{-1}(t_0)\mathbf{y}_0+\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,ds\right)
-    \end{align*}
+    非齐次方程组满足初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的解为
+    \begin{equation}
+        \mathbf{y}(t)=\phi(t)\paren{\phi^{-1}(t_0)\mathbf{y}_0+\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,\dd s}.
+    \end{equation}
 \end{corollary}
 
 \begin{proof}
-    令\begin{align*}
-    \mathbf{y}(t_0)=\phi(t_0)\mathbf{c}=\mathbf{y}_0
-    \end{align*}
-    可得\begin{align*}
-    \mathbf{c}=\phi^{-1}(t_0)\mathbf{y}_0
-    \end{align*}    
+    令
+    \begin{equation}
+        \mathbf{y}(t_0)=\phi(t_0)\mathbf{c}=\mathbf{y}_0,
+    \end{equation}
+    可得
+    \begin{equation}
+        \mathbf{c}=\phi^{-1}(t_0)\mathbf{y}_0,
+    \end{equation}
     代入前一公式即证。
 \end{proof}
 
 \begin{example}
-    求解柯西问题\begin{align*}
-    \frac{d\mathbf{y}}{dt}=\begin{bmatrix}
-    \cos 6t+1 & \sin 6t-3\\
-    \sin 6t+3 & 1-\cos 6t
-    \end{bmatrix}\mathbf{y}+\begin{bmatrix}
-        \cos 3t\\
-        \sin 3t
-    \end{bmatrix},\mathbf{y}(0)=\begin{bmatrix}
-    0\\
-    1
-    \end{bmatrix}
-    \end{align*}
-
-    解：可以验证\begin{align*}
-        \phi(t)=\begin{bmatrix}
-        \mathrm{e}^{2t}\cos 3t & -\sin 3t\\
-        \mathrm{e}^{2t}\sin 3t & \cos 3t
-        \end{bmatrix}
-    \end{align*}
-    是齐次方程组的基本解矩阵，并且\begin{align*}
-        \phi^{-1}(t)=\begin{bmatrix}
-        \mathrm{e}^{-2t}\cos 3t & -\mathrm{e}^{-2t}\sin 3t\\
-        \sin 3t & \cos 3t
-        \end{bmatrix}
-    \end{align*}
-    利用以上定理中的通解公式，可知非齐次方程组的通解为\begin{align*}
-    \mathbf{y}(t)&=\phi(t)\left(\phi^{-1}(0)\mathbf{y}_0+\int_{0}^t \phi^{-1}(s)\begin{bmatrix}
-        \cos 3s\\
-        \sin 3s
-    \end{bmatrix}\,ds\right)\\
-    &=\phi(t)\left(\begin{bmatrix}0\\1\end{bmatrix}+\int_{0}^t \begin{bmatrix}
-        \mathrm{e}^{-2s}\cos 6s\\
+    求解柯西问题
+    \begin{equation}
+        \frac{\dd\mathbf{y}}{\dd t}=\begin{bmatrix}
+        \cos 6t+1 & \sin 6t-3\\
+        \sin 6t+3 & 1-\cos 6t
+        \end{bmatrix}\mathbf{y}+\begin{bmatrix}
+            \cos 3t\\
+            \sin 3t
+        \end{bmatrix},\quad \mathbf{y}(0)=\begin{bmatrix}
+        0\\
         1
-        \end{bmatrix}\,ds\right)\\
-    &=\phi(t)\begin{bmatrix}
-        \frac{1}{2}(\mathrm{e}^{-2t}-1)\cos 6t+\frac{3}{10}(\mathrm{e}^{-2t}-1)\sin 6t\\
-        t+1
-        \end{bmatrix}\\
-    &=\begin{bmatrix}
-        \frac{1}{2}(\mathrm{e}^{2t}-1)\cos 3t-\sin 3t\\
-        \frac{1}{2}(\mathrm{e}^{2t}-1)\sin 3t+\cos 3t
-    \end{bmatrix}
-    \end{align*}
+        \end{bmatrix}.
+    \end{equation}
+
+    解：可以验证
+    \begin{equation}
+        \phi(t)=\begin{bmatrix}
+        \e^{2t}\cos 3t & -\sin 3t\\
+        \e^{2t}\sin 3t & \cos 3t
+        \end{bmatrix}
+    \end{equation}
+    是齐次方程组的基本解矩阵，并且
+    \begin{equation}
+        \phi^{-1}(t)=\begin{bmatrix}
+        \e^{-2t}\cos 3t & -\e^{-2t}\sin 3t\\
+        \sin 3t & \cos 3t
+        \end{bmatrix}.
+    \end{equation}
+    利用以上定理中的通解公式，可知非齐次方程组的通解为
+    \begin{align}
+        \mathbf{y}(t)&=\phi(t)\paren{\phi^{-1}(0)\mathbf{y}_0+\int_{0}^t \phi^{-1}(s)\begin{bmatrix}
+            \cos 3s\\
+            \sin 3s
+        \end{bmatrix}\,\dd s}\nonumber\\
+        &=\phi(t)\paren{\begin{bmatrix}0\\1\end{bmatrix}+\int_{0}^t \begin{bmatrix}
+            \e^{-2s}\cos 6s\\
+            1
+            \end{bmatrix}\,\dd s}\nonumber\\
+        &=\phi(t)\begin{bmatrix}
+            \frac{1}{2}(\e^{-2t}-1)\cos 6t+\frac{3}{10}(\e^{-2t}-1)\sin 6t\\
+            t+1
+            \end{bmatrix}\nonumber\\
+        &=\begin{bmatrix}
+            \frac{1}{2}(\e^{2t}-1)\cos 3t-\sin 3t\\
+            \frac{1}{2}(\e^{2t}-1)\sin 3t+\cos 3t
+        \end{bmatrix}.
+    \end{align}
 \end{example}
 
 本小节的最后，我们来看以上理论对于由方程转化而来的方程组的应用。我们已经知道，$n$阶方程的解空间是$n$维的，因此只要给出$n$个线性无关的解$y_1(t),y_2(t),\cdots,y_n(t)$，就能得到通解；线性无关性可以通过Wronsky行列式来判断；给出$n$个无关的条件，就能唯一确定一个解，特别地，这个条件经常为初始条件，它包含函数及其前$n-1$阶导数在某一点处的值。
 
 现在，我们只关心$\mathbf{y}(t)$中第一个分量的值。根据前一定理可得：
 \begin{theorem}
-    设齐次方程的基本解组为$\{y_k(t)\}_{k=1}^n$，则非齐次方程\begin{align*}
-    y^{(n)}+a_{n-1}(x)y^{(n-1)}+\cdots+a_1(x)y'+a_0(x)y=f(t)
-    \end{align*}
-    的通解为\begin{align*}
-    y(t)=\sum_{k=1}^n c_k y_k(t)+\sum_{k=1}^n y_k(t)\int_{t_0}^t \frac{W_k(s)}{W(s)}f(s)\,ds
-    \end{align*}
+    设齐次方程的基本解组为$\{y_k(t)\}_{k=1}^n$，则非齐次方程
+    \begin{equation}
+        y^{(n)}+a_{n-1}(x)y^{(n-1)}+\cdots+a_1(x)y'+a_0(x)y=f(t)
+    \end{equation}
+    的通解为
+    \begin{equation}
+        y(t)=\sum_{k=1}^n c_k y_k(t)+\sum_{k=1}^n y_k(t)\int_{t_0}^t \frac{W_k(s)}{W(s)}f(s)\,\dd s,
+    \end{equation}
     其中$W(t)$是$\{y_k(t)\}_{k=1}^n$的Wronsky行列式，$W_k(t)$是$W(t)$的第$n$行第$k$列的元素的代数余子式。
 \end{theorem}
 \begin{proof}
-    已知\begin{align*}
+    已知
+    \begin{equation}
         \phi(t)=\begin{bmatrix}
         y_1(t) & y_2(t) & \cdots & y_n(t)\\
         y'_1(t) & y'_2(t) & \cdots & y'_n(t)\\
@@ -434,19 +500,21 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
         \vdots\\
         0\\
         f(t)
-        \end{bmatrix}
-    \end{align*}
-    而$\phi(t)$的逆矩阵可以表示为以下形式：\begin{align*}
+        \end{bmatrix},
+    \end{equation}
+    而$\phi(t)$的逆矩阵可以表示为以下形式：
+    \begin{equation}
         \phi^{-1}(t)=\frac{1}{W(t)}\begin{bmatrix}
         * & \cdots & * & W_1(t)\\
         * &  \cdots & * & W_2(t)\\
         \vdots & \vdots & \vdots & \vdots\\
         * &  \cdots & * & W_n(t)
-        \end{bmatrix}
-    \end{align*}
-    其中“*”表示我们不关注的元素，出现这种元素是因为只需要计算$\mathbf{y}$的第一个分量。代入前一定理进行计算（提示：后两个等号都在对明确列出所有元素的矩阵与列向量之积进行运算）：\begin{align*}
-        &\phi(t)\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,ds\\
-        =&\int_{t_0}^t \frac{\phi(t)}{W(s)}\begin{bmatrix}
+        \end{bmatrix},
+    \end{equation}
+    其中“*”表示我们不关注的元素，出现这种元素是因为只需要计算$\mathbf{y}$的第一个分量。代入前一定理进行计算（提示：后两个等号都在对明确列出所有元素的矩阵与列向量之积进行运算）：
+    \begin{align}
+        \phi(t)\int_{t_0}^t \phi^{-1}(s)\mathbf{f}(s)\,\dd s
+        &=\int_{t_0}^t \frac{\phi(t)}{W(s)}\begin{bmatrix}
         * & \cdots & * & W_1(t)\\
         * &  \cdots & * & W_2(t)\\
         \vdots & \vdots & \vdots & \vdots\\
@@ -456,8 +524,8 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
         \vdots\\
         0\\
         f(t)
-        \end{bmatrix}\,ds\\
-        =&\int_{t_0}^t \frac{f(s)}{W(s)}\begin{bmatrix}
+        \end{bmatrix}\,\dd s\nonumber\\
+        &=\int_{t_0}^t \frac{f(s)}{W(s)}\begin{bmatrix}
         y_1(t) & y_2(t) & \cdots & y_n(t)\\
         * & * & \cdots & *\\
         \vdots & \vdots & \ddots & \vdots\\
@@ -467,9 +535,9 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
         W_2(s)\\
         \vdots\\
         W_n(s)
-        \end{bmatrix}\,ds\\
-        =&\sum_{k=1}^n y_k(t)\int_{t_0}^t \frac{W_k(s)}{W(s)}f(s)\,ds
-    \end{align*}
+        \end{bmatrix}\,\dd s\nonumber\\
+        &=\sum_{k=1}^n y_k(t)\int_{t_0}^t \frac{W_k(s)}{W(s)}f(s)\,\dd s.
+    \end{align}
 \end{proof}
 
 然而，寻找基本解组是困难的，这一结果更多用于理论推导。本书不单独讨论高阶线性方程的求解技术，对于更特殊的常系数线性方程，上一节中展示的方程求解办法就已经较为完善了，而进一步的求解方法需要用到拉普拉斯变换，见\refsec{Laplace_ODE}。%将方程对应到方程组的意义，从数学上讲，是为了得到对解空间的理解和好用的Wronsky行列式；从信号与系统的角度来讲，则是为了导出系统的状态变量分析这一主题。
@@ -481,64 +549,75 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
 上一小节中对线性方程组的求解，全部都建立在已知基本解矩阵的基础上，然而，并不存在一个行之有效的方法，使得对于任意的线性方程组，都能够求出其基本解矩阵。而本小节将系数矩阵$A$限制为常数矩阵，我们将看到，常系数线性方程组的基本解矩阵可以通过矩阵指数函数来求得。
 
 \begin{theorem}
-    齐次方程组\begin{align*}
-    \frac{d\mathbf{y}}{dt}=A\mathbf{y}
-    \end{align*}
-    的基本解矩阵为\begin{align*}
-    \phi(t)=\mathrm{e}^{At}=\sum_{k=0}^{\infty}\frac{(At)^k}{k!}
-    \end{align*}
+    齐次方程组
+    \begin{equation}
+        \frac{\dd\mathbf{y}}{\dd t}=A\mathbf{y}
+    \end{equation}
+    的基本解矩阵为
+    \begin{equation}
+        \phi(t)=\e^{At}=\sum_{k=0}^{\infty}\frac{(At)^k}{k!}.
+    \end{equation}
 \end{theorem}
 \begin{proof}
     $\phi(t)$在$\mathbb{R}$上内闭一致收敛，可以逐项求导，得到：
-    \begin{align*}
-    \frac{d\phi(t)}{dt}=\sum_{k=1}^{\infty}\frac{A^k t^{k-1}}{(k-1)!}=A\sum_{k=0}^{\infty}\frac{A^k t^k}{k!}=A\phi(t)
-    \end{align*}
-    又因为$\phi(0)=I$，$[\phi(t)]^{-1}=\mathrm{e}^{-At}$，因此$\phi(t)$是基本解矩阵。
+    \begin{equation}
+        \frac{\dd\phi(t)}{\dd t}=\sum_{k=1}^{\infty}\frac{A^k t^{k-1}}{(k-1)!}=A\sum_{k=0}^{\infty}\frac{A^k t^k}{k!}=A\phi(t).
+    \end{equation}
+    又因为$\phi(0)=I$，$[\phi(t)]^{-1}=\e^{-At}$，因此$\phi(t)$是基本解矩阵。
 \end{proof}
 
-计算$\phi(t)=\mathrm{e}^{At}$的标准做法是将$A$进行Jordan分解，并利用\begin{align*}
-    \mathrm{e}^{At}=\mathrm{e}^{PJP^{-1}}=Pe^{Jt}P^{-1}
-\end{align*}
+计算$\phi(t)=\e^{At}$的标准做法是将$A$进行Jordan分解，并利用
+\begin{equation}
+    \e^{At}=\e^{PJP^{-1}}=P\e^{Jt}P^{-1}
+\end{equation}
 进行计算。不过，本书不打算详细讲解这种计算方法，因为在\refsec{Laplace_ODE}中我们将使用拉普拉斯变换给出更为简洁有效的计算方式。对此感兴趣的读者可以参考常微分方程\cite{ode}或矩阵论的教材。
 
 除了能够求出基本解矩阵，线性方程组是否是常系数的，在求解流程上并没有很显著的区别。代入非齐次方程的通解计算公式，可得：
 \begin{theorem}
-    设$\phi(t)=\mathrm{e}^{At}$是齐次线性微分方程组
-    $$\frac{d\mathbf{y}}{dt}=A\mathbf{y}$$
+    设$\phi(t)=\e^{At}$是齐次线性微分方程组
+    \begin{equation}
+        \frac{\dd\mathbf{y}}{\dd t}=A\mathbf{y}
+    \end{equation}
     的基本解矩阵，则非齐次方程组
-    $$\frac{d\mathbf{y}}{dt}=A\mathbf{y}+\mathbf{f}(t)$$
-    的通解为\begin{align*}
-    \mathbf{y}(t)=\mathrm{e}^{At}\left(\mathbf{c}+\int_{t_0}^t \mathrm{e}^{-As}\mathbf{f}(s)\,ds\right)=\mathrm{e}^{At}\mathbf{c}+\int_{t_0}^t \mathrm{e}^{A(t-s)}\mathbf{f}(s)\,ds
-    \end{align*}
+    \begin{equation}
+        \frac{\dd\mathbf{y}}{\dd t}=A\mathbf{y}+\mathbf{f}(t)
+    \end{equation}
+    的通解为
+    \begin{equation}
+        \mathbf{y}(t)=\e^{At}\paren{\mathbf{c}+\int_{t_0}^t \e^{-As}\mathbf{f}(s)\,\dd s}=\e^{At}\mathbf{c}+\int_{t_0}^t \e^{A(t-s)}\mathbf{f}(s)\,\dd s.
+    \end{equation}
 \end{theorem}
 
 \begin{corollary}\label{cor:differential_equation_system}
-    非齐次方程组满足初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的解为\begin{align*}
-    \mathbf{y}(t)=\mathrm{e}^{A(t-t_0)}\mathbf{y}_0+\int_{t_0}^t \mathrm{e}^{A(t-s)}\mathbf{f}(s)\,ds
-    \end{align*}
+    非齐次方程组满足初始条件$\mathbf{y}(t_0)=\mathbf{y}_0$的解为
+    \begin{equation}
+        \mathbf{y}(t)=\e^{A(t-t_0)}\mathbf{y}_0+\int_{t_0}^t \e^{A(t-s)}\mathbf{f}(s)\,\dd s.
+    \end{equation}
 \end{corollary}
 
 这一推论的证明是类似的，留予读者练习。
 
 \begin{definition}[矩阵值函数的卷积]
-    设$A(t)$和$B(t)$分别是$m\times n$和$n\times p$的矩阵值函数，定义它们的卷积为\begin{align*}
-    (A*B)(t)=\int_{-\infty}^{\infty} A(t-s)B(s)\,ds
-    \end{align*}
+    设$A(t)$和$B(t)$分别是$m\times n$和$n\times p$的矩阵值函数，定义它们的卷积为
+    \begin{equation}
+        (A*B)(t)=\int_{-\infty}^{\infty} A(t-s)B(s)\,\dd s.
+    \end{equation}
 \end{definition}
 
 特别地，向量值函数和数量值函数也可视作特殊的矩阵值函数，只要矩阵的形状能够进行矩阵乘法即可。由于矩阵的乘法通常不具有交换律，\textbf{矩阵值函数的卷积也不具有交换律}。
 
 以上公式同样可以用线性时不变系统的视角来解释：如果以$\mathbf{f}(t)$作为系统的激励，$\mathbf{y}(t)$作为系统的响应，则以上公式中前半部分为零输入响应，\textbf{后半部分为零状态响应，它是基本解矩阵与激励的“卷积”}。
 
-类似于\refsub{fundamental_solution}中用基本解得到的方程的解的公式，\begin{align*}
-    \mathbf{y}(t)=\mathrm{e}^{A(t-t_0)}\mathbf{y}_0+\int_{t_0}^t \mathrm{e}^{A(t-s)}\mathbf{f}(s)\,ds
-\end{align*}
-中给出的是基本解矩阵$\mathrm{e}^{At}$与非齐次项$\mathbf{f}(t)$在有限区间上的“卷积积分”。称之为卷积，一方面是因为激励是在$t_0$时刻才开始施加于系统的，应当认为$\mathbf{f}(t)$在$t<t_0$时为零；另一方面，充当“基本解”这个角色的实际上是$\phi(t)u(t)$，这样，积分限就可以由$(-\infty,\infty)$改为$(t_0,t)$。
+类似于\refsub{fundamental_solution}中用基本解得到的方程的解的公式，
+\begin{equation}
+    \mathbf{y}(t)=\e^{A(t-t_0)}\mathbf{y}_0+\int_{t_0}^t \e^{A(t-s)}\mathbf{f}(s)\,\dd s
+\end{equation}
+中给出的是基本解矩阵$\e^{At}$与非齐次项$\mathbf{f}(t)$在有限区间上的“卷积积分”。称之为卷积，一方面是因为激励是在$t_0$时刻才开始施加于系统的，应当认为$\mathbf{f}(t)$在$t<t_0$时为零；另一方面，充当“基本解”这个角色的实际上是$\phi(t)u(t)$，这样，积分限就可以由$(-\infty,\infty)$改为$(t_0,t)$。
 
 \subsection{*连续系统的状态变量分析}\label{sub:state_variable_analysis}
 
 \begin{definition}[状态变量]
-    \textbf{状态变量}(state variable)是指能够唯一确定系统状态的最小的一组变量。只要知道$t=t_0$时刻的状态变量值及$t\geq t_0$时的激励，就能完全确定系统在$t\geq t_0$时的行为，包括状态$\mathbf{q}(t)$、状态变化率$\dfrac{d\mathbf{q}}{dt}$和响应$\mathbf{y}(t)$。
+    \textbf{状态变量}(state variable)是指能够唯一确定系统状态的最小的一组变量。只要知道$t=t_0$时刻的状态变量值及$t\geq t_0$时的激励，就能完全确定系统在$t\geq t_0$时的行为，包括状态$\mathbf{q}(t)$、状态变化率$\displaystyle\frac{\dd\mathbf{q}}{\dd t}$和响应$\mathbf{y}(t)$。
 
     将状态变量的个数$n$称为系统的\textbf{阶数}。
 \end{definition}
@@ -557,16 +636,18 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
 
 本节开头的例子中，$i_L(t)$和$v_C(t)$就是状态变量。不关心系统内部的情况，只研究激励与响应随时间、频率的变化，称为系统的\textbf{输入输出描述法}或\textbf{外部描述法}，而分析状态变量则要求我们研究系统的内部特征。
 
-一般地，一个系统的状态变量可以描述为包含它与激励的常微分方程组，而响应可以描述为激励与状态变量的函数。换言之，状态变量的定义可以表述为：\begin{align*}
-    \frac{d\mathbf{q}}{dt}&=\mathbf{f}(\mathbf{q}(t),\mathbf{e}(t))\\
-    \mathbf{r}(t)&=\mathbf{g}(\mathbf{q}(t),\mathbf{e}(t))
-\end{align*}
+一般地，一个系统的状态变量可以描述为包含它与激励的常微分方程组，而响应可以描述为激励与状态变量的函数。换言之，状态变量的定义可以表述为：
+\begin{align}
+    \frac{\dd\mathbf{q}}{\dd t}&=\mathbf{f}(\mathbf{q}(t),\mathbf{e}(t)),\\
+    \mathbf{r}(t)&=\mathbf{g}(\mathbf{q}(t),\mathbf{e}(t)),
+\end{align}
 其中，$\mathbf{e}(t)$和$\mathbf{r}(t)$分别表示系统的激励和响应。
 
-进一步，设$\mathbf{f}$和$\mathbf{g}$均为线性函数，则\begin{align*}
-    \frac{d\mathbf{q}}{dt}&=A(t)\mathbf{q}(t)+B(t)\mathbf{e}(t)\\
-    \mathbf{r}(t)&=C(t)\mathbf{q}(t)+D(t)\mathbf{e}(t)
-\end{align*}
+进一步，设$\mathbf{f}$和$\mathbf{g}$均为线性函数，则
+\begin{align}
+    \frac{\dd\mathbf{q}}{\dd t}&=A(t)\mathbf{q}(t)+B(t)\mathbf{e}(t),\\
+    \mathbf{r}(t)&=C(t)\mathbf{q}(t)+D(t)\mathbf{e}(t).
+\end{align}
 在矩阵$A(t),B(t),C(t),D(t)$依赖于时间$t$的情况下，系统具有因果性和线性性；而如果它们是常数矩阵，则系统还具有线性时不变性。
 
 从前几个小节的内容可知，只有在$A$为常数矩阵的情况下，才能确保以上微分方程组可以求解。而通常来说没有将矩阵$B,C,D$考虑为矩阵值函数的必要，否则我们对系统的建模可能是不够精确、直观的。因此，我们\textbf{总是考虑这四个矩阵为常数的情形，以及用上述方程描述的因果的线性时不变系统}。
@@ -576,55 +657,62 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
 \end{definition}
 
 \begin{example}
-    本节开头的例子中，方程\begin{align*}
-            \begin{bmatrix}
-                \frac{di_L(t)}{dt}\\
-                \frac{du_C(t)}{dt}
-            \end{bmatrix}=
-            \begin{bmatrix}
-                -\frac{R}{L} & -\frac{1}{L}\\
-                \frac{1}{C} & 0
-            \end{bmatrix}
-            \begin{bmatrix}
-                i_L(t)\\
-                u_C(t)
-            \end{bmatrix}+
-            \begin{bmatrix}
-                \frac{1}{L}\\
-                0
-            \end{bmatrix}e(t)
-        \end{align*}
+    本节开头的例子中，方程
+    \begin{equation}
+        \begin{bmatrix}
+            \frac{\dd i_L(t)}{\dd t}\\
+            \frac{\dd u_C(t)}{\dd t}
+        \end{bmatrix}=
+        \begin{bmatrix}
+            -\frac{R}{L} & -\frac{1}{L}\\
+            \frac{1}{C} & 0
+        \end{bmatrix}
+        \begin{bmatrix}
+            i_L(t)\\
+            u_C(t)
+        \end{bmatrix}+
+        \begin{bmatrix}
+            \frac{1}{L}\\
+            0
+        \end{bmatrix}e(t)
+    \end{equation}
     就描述了这个系统中的状态变量与激励的关系，状态变量满足一个常系数线性微分方程组，而激励为方程组的非齐次项；响应直接取自两个状态变量。
 \end{example}
 
-上一节中，我们已经给出了关于状态变量的方程组的求解方法。已知初始条件$\mathbf{q}(0)$，则状态变量的解为\begin{align*}
-    \mathbf{q}(t)=\mathrm{e}^{A(t-t_0)}\mathbf{q}(0)+\int_{0}^t \mathrm{e}^{A(t-s)}B\mathbf{e}(s)\,ds
-\end{align*}
-因此又将方程的基本解矩阵$\mathrm{e}^{At}$称为\textbf{状态转移矩阵}(state transition matrix)，它与激励共同决定了状态矢量在状态空间中的移动情况。
+上一节中，我们已经给出了关于状态变量的方程组的求解方法。已知初始条件$\mathbf{q}(0)$，则状态变量的解为
+\begin{equation}
+    \mathbf{q}(t)=\e^{At}\mathbf{q}(0)+\int_{0}^t \e^{A(t-s)}B\mathbf{e}(s)\,\dd s,
+\end{equation}
+因此又将方程的基本解矩阵$\e^{At}$称为\textbf{状态转移矩阵}(state transition matrix)，它与激励共同决定了状态矢量在状态空间中的移动情况。
 
-考虑将系统矩阵做Jordan分解：$A=PJP^{-1}$，则状态矢量应该变为$\mathbf{z}(t)=P^{-1}\mathbf{q}(t)$，描述系统的方程变为：\begin{align*}
-    \frac{d\mathbf{z}}{dt}&=J\mathbf{z}(t)+P^{-1}B\mathbf{e}(t)\\
-    \mathbf{r}(t)&=CP\mathbf{z}(t)+D\mathbf{e}(t)
-\end{align*}
+考虑将系统矩阵做Jordan分解：$A=PJP^{-1}$，则状态矢量应该变为$\mathbf{z}(t)=P^{-1}\mathbf{q}(t)$，描述系统的方程变为：
+\begin{align}
+    \frac{\dd\mathbf{z}}{\dd t}&=J\mathbf{z}(t)+P^{-1}B\mathbf{e}(t),\\
+    \mathbf{r}(t)&=CP\mathbf{z}(t)+D\mathbf{e}(t).
+\end{align}
 
 将状态变量进行上述的可逆线性变换后，\textbf{可以根据Jordan块的结构将系统拆分为若干互不耦合}（即互相独立）\textbf{的子系统的并联}，将这种操作称为状态变量的\textbf{对角化}(diagonalization)，这种分析方法称为系统的\textbf{模态分析}(modal analysis)，每个子系统称为一个\textbf{模态}(mode)。变换矩阵$P$又称为系统的\textbf{模态矩阵}(modal matrix)。
 
-习惯上，将状态变量对角化后的系统的方程组记为\begin{align*}
-    \frac{d\mathbf{z}}{dt}&=\hat{A}\mathbf{z}(t)+\hat{B}\mathbf{e}(t)\\
-    \mathbf{r}(t)&=\hat{C}\mathbf{z}(t)+\hat{D}\mathbf{e}(t)
-\end{align*}
-其中\begin{align*}
-    \hat{A}=P^{-1}AP=J,\hat{B}=P^{-1}B,\hat{C}=CP,\hat{D}=D
-\end{align*}
+习惯上，将状态变量对角化后的系统的方程组记为
+\begin{align}
+    \frac{\dd\mathbf{z}}{\dd t}&=\hat{A}\mathbf{z}(t)+\hat{B}\mathbf{e}(t),\\
+    \mathbf{r}(t)&=\hat{C}\mathbf{z}(t)+\hat{D}\mathbf{e}(t),
+\end{align}
+其中
+\begin{equation}
+    \hat{A}=P^{-1}AP=J,\quad \hat{B}=P^{-1}B,\quad \hat{C}=CP,\quad \hat{D}=D.
+\end{equation}
 
-特别地，如果$A$是可对角化的，则每个子系统都是一阶的，状态变量的方程为\begin{align*}
-    \frac{dz_k}{dt}=\lambda_k z_k(t)+\mathbf{p}_k^T B\mathbf{e}(t),\quad k=1,2,\cdots,n
-\end{align*}
-其中$\lambda_k$是$A$的第$k$个特征值，$\mathbf{p}_k^T$是$P^{-1}$的第$k$行，$\mathbf{p}_k^T B$是$\hat{B}$的第$k$行。每个子系统的状态变量$z_k(t)$的解为\begin{align*}
-    z_k(t)=\mathrm{e}^{\lambda_k t}z_k(0)+\int_0^t \mathrm{e}^{\lambda_k (t-s)}\mathbf{p}_k^TB\mathbf{e}(s)\,ds
-\end{align*}
+特别地，如果$A$是可对角化的，则每个子系统都是一阶的，状态变量的方程为
+\begin{equation}
+    \frac{\dd z_k}{\dd t}=\lambda_k z_k(t)+\mathbf{p}_k^T B\mathbf{e}(t),\quad k=1,2,\cdots,n,
+\end{equation}
+其中$\lambda_k$是$A$的第$k$个特征值，$\mathbf{p}_k^T$是$P^{-1}$的第$k$行，$\mathbf{p}_k^T B$是$\hat{B}$的第$k$行。每个子系统的状态变量$z_k(t)$的解为
+\begin{equation}
+    z_k(t)=\e^{\lambda_k t}z_k(0)+\int_0^t \e^{\lambda_k (t-s)}\mathbf{p}_k^TB\mathbf{e}(s)\,\dd s.
+\end{equation}
 
-在$\hat{B}$的第$k$行不全为0的情况下，通过适当地选取激励信号$\mathbf{e}(t)$，不论状态变量$z_k(t)$的初始值如何，都可以使得$z_k(t)$在有限的时间内达到任意的值，这表明系统的第$k$个模态是可以通过激励控制的，即该模态与输入\textbf{耦合}。要研究状态向量是否可以被适当的激励引向状态空间中的特定位置，就引出了系统的\textbf{可控性}(controllability)这一重要概念：
+在$\hat{B}$的第$k$行不全为$0$的情况下，通过适当地选取激励信号$\mathbf{e}(t)$，不论状态变量$z_k(t)$的初始值如何，都可以使得$z_k(t)$在有限的时间内达到任意的值，这表明系统的第$k$个模态是可以通过激励控制的，即该模态与输入\textbf{耦合}。要研究状态向量是否可以被适当的激励引向状态空间中的特定位置，就引出了系统的\textbf{可控性}(controllability)这一重要概念：
 
 \begin{definition}[可控性]
     如果对于任意起始状态$\mathbf{q}(0-)$和任意目标状态$\mathbf{q}_f$，存在激励信号$\mathbf{e}(t)$能够在有限时间内使得状态矢量到达$\mathbf{q}_f$，则称系统是\textbf{可控}的。
@@ -632,9 +720,9 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
     如果只有部分模态是可控的，则称系统是\textbf{部分可控}的。
 \end{definition}
 
-对于能够用上述方程描述的系统，\textbf{可控性要求状态变量与输入耦合}，仅仅取决于$\hat{A}$和$\hat{B}$。如果系统矩阵$A$可对角化，则每个模态仅一个状态变量，每个状态变量由一阶方程描述，\textbf{$\hat{B}$的第$k$行不全为0，就等价于第$k$个模态是可控的}；如果系统矩阵不可对角化，则每个模态由多个状态变量描述，子系统的系统矩阵为Jordan块：
-\begin{align*}
-    \frac{d}{dt}\begin{bmatrix}
+对于能够用上述方程描述的系统，\textbf{可控性要求状态变量与输入耦合}，仅仅取决于$\hat{A}$和$\hat{B}$。如果系统矩阵$A$可对角化，则每个模态仅一个状态变量，每个状态变量由一阶方程描述，\textbf{$\hat{B}$的第$k$行不全为$0$，就等价于第$k$个模态是可控的}；如果系统矩阵不可对角化，则每个模态由多个状态变量描述，子系统的系统矩阵为Jordan块：
+\begin{equation}
+    \frac{\dd}{\dd t}\begin{bmatrix}
     z_k\\
     z_{k+1}\\
     \vdots\\
@@ -655,56 +743,65 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
     \mathbf{p}_{k+1}^T B\mathbf{e}(t)\\
     \vdots\\
     \mathbf{p}_{k+m-1}^T B\mathbf{e}(t)
-    \end{bmatrix}
-\end{align*}
-此时模态内的最后一个状态变量由一阶方程描述，而其余状态变量受自身、激励以及下一个状态变量的控制，要使得该模块可控，必须保证$\mathbf{p}_{k+m-1}^T B\mathbf{e}(t)$不全为0。事实上，只要最后一个状态变量可控，则整个模态都是可控的。由于可以设计后一状态变量达到指定状态的路径，即便前一状态变量不直接与输入耦合，也可以到达任意指定状态，我们通过一个二阶Jordan块的例子来说明这一点：
+    \end{bmatrix}.
+\end{equation}
+此时模态内的最后一个状态变量由一阶方程描述，而其余状态变量受自身、激励以及下一个状态变量的控制，要使得该模块可控，必须保证$\mathbf{p}_{k+m-1}^T B\mathbf{e}(t)$不全为$0$。事实上，只要最后一个状态变量可控，则整个模态都是可控的。由于可以设计后一状态变量达到指定状态的路径，即便前一状态变量不直接与输入耦合，也可以到达任意指定状态，我们通过一个二阶Jordan块的例子来说明这一点：
 \begin{example}
-    设系统某一模态的状态变量为$z_1(t),z_2(t)$，该子系统描述为：\begin{align*}
-    \frac{d}{dt}\begin{bmatrix}
-    z_1\\
-    z_2
-    \end{bmatrix}=\begin{bmatrix}
-    \lambda & 1\\
-    0 & \lambda
-    \end{bmatrix}\begin{bmatrix}
-    z_1\\
-    z_2
-    \end{bmatrix}+\begin{bmatrix}
-    0\\
-    e(t)
-    \end{bmatrix}
-    \end{align*}
+    设系统某一模态的状态变量为$z_1(t),z_2(t)$，该子系统描述为：
+    \begin{equation}
+        \frac{\dd}{\dd t}\begin{bmatrix}
+        z_1\\
+        z_2
+        \end{bmatrix}=\begin{bmatrix}
+        \lambda & 1\\
+        0 & \lambda
+        \end{bmatrix}\begin{bmatrix}
+        z_1\\
+        z_2
+        \end{bmatrix}+\begin{bmatrix}
+        0\\
+        e(t)
+        \end{bmatrix}.
+    \end{equation}
 
-    不妨设两个状态变量的起始状态均为0，要使系统在$t=T$时刻达到状态$z_1(T)=z_{1f},z_2(T)=z_{2f}$。下面来设计这个激励信号。
+    不妨设两个状态变量的起始状态均为$0$，要使系统在$t=T$时刻达到状态$z_1(T)=z_{1f},\ z_2(T)=z_{2f}$。下面来设计这个激励信号。
 
-    首先，解关于$z_1(t)$的一阶微分方程，得到\begin{align*}
-    z_1(t)=\mathrm{e}^{\lambda t}\int_0^t \mathrm{e}^{-\lambda s}z_2(s)\,ds
-    \end{align*}
+    首先，解关于$z_1(t)$的一阶微分方程，得到
+    \begin{equation}
+        z_1(t)=\e^{\lambda t}\int_0^t \e^{-\lambda s}z_2(s)\,\dd s.
+    \end{equation}
 
-    令$z_1(T)=z_{1f}$，则\begin{align*}
-    z_{1f}=\mathrm{e}^{\lambda T}\int_0^T \mathrm{e}^{-\lambda s}z_2(s)\,ds
-    \end{align*}
-    这是一个关于$z_2(t)$的积分方程。考虑到$z_2(t)$满足\begin{align*}
-    z_2(0)=0,z_2(T)=z_{2f},\quad \int_{0}^T \mathrm{e}^{-\lambda s}z_2(s)\,ds=z_{1f}\mathrm{e}^{-\lambda T}
-    \end{align*}
-    这三个约束条件，我们不妨尝试给$z_2(t)$分配三个待定系数，并考虑最简单的情况，即$z_2(t)$为二阶多项式：\begin{align*}
-    z_2(t)=a t^2+bt+c
-    \end{align*}
+    令$z_1(T)=z_{1f}$，则
+    \begin{equation}
+        z_{1f}=\e^{\lambda T}\int_0^T \e^{-\lambda s}z_2(s)\,\dd s.
+    \end{equation}
+    这是一个关于$z_2(t)$的积分方程。考虑到$z_2(t)$满足
+    \begin{equation}
+        z_2(0)=0,\quad z_2(T)=z_{2f},\quad \int_{0}^T \e^{-\lambda s}z_2(s)\,\dd s=z_{1f}\e^{-\lambda T}
+    \end{equation}
+    这三个约束条件，我们不妨尝试给$z_2(t)$分配三个待定系数，并考虑最简单的情况，即$z_2(t)$为二阶多项式：
+    \begin{equation}
+        z_2(t)=at^2+bt+c.
+    \end{equation}
 
-    代入约束条件，得到\begin{align*}
-    c=0,\quad 2aT+b=z_{2f},
-    \end{align*}
-    \begin{align*}
-    z_{1f}\mathrm{e}^{-\lambda T}&=\int_0^T \mathrm{e}^{-\lambda s}(a s^2+bs)\,ds\\
-    &=\left(-\frac{a}{\lambda}T^2-\frac{b}{\lambda}T+\frac{2a}{\lambda^2}T+\frac{b}{\lambda^2}\right)\mathrm{e}^{-\lambda T}-\frac{2a}{\lambda^2}-\frac{b}{\lambda^2}
-    \end{align*}
-    解得\begin{align*}
-    a&=\frac{\lambda^2 z_{1f}\mathrm{e}^{-\lambda T}-\lambda z_{2f}\mathrm{e}^{-\lambda T}}{T^2},b=\frac{2\lambda z_{2f}\mathrm{e}^{-\lambda T}-2\lambda^2 z_{1f}\mathrm{e}^{-\lambda T}}{T},c=0
-    \end{align*}
+    代入约束条件，得到
+    \begin{equation}
+        c=0,\quad 2aT+b=z_{2f},
+    \end{equation}
+    \begin{align}
+        z_{1f}\e^{-\lambda T}&=\int_0^T \e^{-\lambda s}(as^2+bs)\,\dd s\nonumber\\
+        &=\paren{-\frac{a}{\lambda}T^2-\frac{b}{\lambda}T+\frac{2a}{\lambda^2}T+\frac{b}{\lambda^2}}\e^{-\lambda T}-\frac{2a}{\lambda^2}-\frac{b}{\lambda^2}.
+    \end{align}
+    解得
+    \begin{align}
+        a&=\frac{\lambda^2 z_{1f}\e^{-\lambda T}-\lambda z_{2f}\e^{-\lambda T}}{T^2},\nonumber\\
+        b&=\frac{2\lambda z_{2f}\e^{-\lambda T}-2\lambda^2 z_{1f}\e^{-\lambda T}}{T},\quad c=0.
+    \end{align}
 
-    于是，我们设计出了一个激励，使得两个状态变量同时达到目标状态：\begin{align*}
-        e(t)=\frac{d z_2}{dt}-\lambda z_2(t)=2at+b-\lambda (a t^2+bt)
-    \end{align*}
+    于是，我们设计出了一个激励，使得两个状态变量同时达到目标状态：
+    \begin{equation}
+        e(t)=\frac{\dd z_2}{\dd t}-\lambda z_2(t)=2at+b-\lambda (at^2+bt).
+    \end{equation}
 \end{example}
 
 可见，\textbf{每个模态的最后一个状态变量（链尾）与输入耦合，就等价于该模态是可控的}。
@@ -712,45 +809,51 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
 与之类似的还有系统的\textbf{可观性}(observability)，它要求\textbf{状态变量与输出耦合}：
 
 \begin{definition}[可观性]
-    如果给定激励信号$\mathbf{e}(t)$，总能根据系统在有限时间$t_f$内的响应$\mathbf{r}(t),t\in[0,t_f]$唯一确定所有状态变量的起始状态$\mathbf{q}(0-)$，则称系统是\textbf{可观}的。
+    如果给定激励信号$\mathbf{e}(t)$，总能根据系统在有限时间$t_f$内的响应$\mathbf{r}(t),\ t\in[0,t_f]$唯一确定所有状态变量的起始状态$\mathbf{q}(0-)$，则称系统是\textbf{可观}的。
 
     如果只能确定部分状态变量的起始状态，则称系统是\textbf{部分可观}的。
 \end{definition}
 
-类似地，可观性仅仅取决于$\hat{A}$和$\hat{C}$。考虑输出方程\begin{align*}
-    \mathbf{r}(t)&=\hat{C}\mathbf{z}(t)+\hat{D}\mathbf{e}(t)\\
-    \mathbf{r}_k(t)&=\sum_{j=1}^n \hat{C}_{kj} z_j(t)+\sum_{j=1}^m \hat{D}_{kj} e_j(t)
-\end{align*}
-如果系统矩阵$A$可对角化，则每个模态仅一个状态变量，每个状态变量都独立地由一阶方程描述，\textbf{$\hat{C}$的第$k$行不全为0，就等价于第$k$个模态是可观的}，即该模态对应的子系统是可观的；如果系统矩阵不可对角化，则每个模态由多个状态变量描述，子系统的系统矩阵为Jordan块，此时模态内的后一状态变量可以由前一状态变量观测。我们仍以一个二阶Jordan块的例子来说明这一点：
+类似地，可观性仅仅取决于$\hat{A}$和$\hat{C}$。考虑输出方程
+\begin{align}
+    \mathbf{r}(t)&=\hat{C}\mathbf{z}(t)+\hat{D}\mathbf{e}(t),\\
+    \mathbf{r}_k(t)&=\sum_{j=1}^n \hat{C}_{kj} z_j(t)+\sum_{j=1}^m \hat{D}_{kj} e_j(t).
+\end{align}
+如果系统矩阵$A$可对角化，则每个模态仅一个状态变量，每个状态变量都独立地由一阶方程描述，\textbf{$\hat{C}$的第$k$行不全为$0$，就等价于第$k$个模态是可观的}，即该模态对应的子系统是可观的；如果系统矩阵不可对角化，则每个模态由多个状态变量描述，子系统的系统矩阵为Jordan块，此时模态内的后一状态变量可以由前一状态变量观测。我们仍以一个二阶Jordan块的例子来说明这一点：
 \begin{example}
-    设系统某一模态的状态变量为$z_1(t),z_2(t)$，该子系统描述为：\begin{align*}
-    \frac{d}{dt}\begin{bmatrix}
-    z_1\\
-    z_2
-    \end{bmatrix}=\begin{bmatrix}
-    \lambda & 1\\
-    0 & \lambda
-    \end{bmatrix}\begin{bmatrix}
-    z_1\\
-    z_2
-    \end{bmatrix}
-    \end{align*}
+    设系统某一模态的状态变量为$z_1(t),z_2(t)$，该子系统描述为：
+    \begin{equation}
+        \frac{\dd}{\dd t}\begin{bmatrix}
+        z_1\\
+        z_2
+        \end{bmatrix}=\begin{bmatrix}
+        \lambda & 1\\
+        0 & \lambda
+        \end{bmatrix}\begin{bmatrix}
+        z_1\\
+        z_2
+        \end{bmatrix}.
+    \end{equation}
 
-    不妨设激励信号为0。下面使用响应在有限时间段$[0,T]$内的值来确定状态变量的起始状态$z_1(0-),z_2(0-)$。
+    不妨设激励信号为$0$。下面使用响应在有限时间段$[0,T]$内的值来确定状态变量的起始状态$z_1(0-),z_2(0-)$。
 
-    首先，解关于$z_2(t)$的一阶微分方程，得到\begin{align*}
-    z_2(t)=\mathrm{e}^{\lambda t}z_2(0-)
-    \end{align*}
-    再来解关于$z_1(t)$的一阶微分方程，得到\begin{align*}
-    z_1(t)&=\mathrm{e}^{\lambda t}\int_0^t \mathrm{e}^{-\lambda s}z_2(s)\,ds+\mathrm{e}^{\lambda t}z_1(0-)\\
-    &=\mathrm{e}^{\lambda t}\int_0^t \mathrm{e}^{-\lambda s}\mathrm{e}^{\lambda s}z_2(0-)\,ds+\mathrm{e}^{\lambda t}z_1(0-)\\
-    &=\mathrm{e}^{\lambda t}(tz_2(0-)+z_1(0-))
-    \end{align*}
+    首先，解关于$z_2(t)$的一阶微分方程，得到
+    \begin{equation}
+        z_2(t)=\e^{\lambda t}z_2(0-),
+    \end{equation}
+    再来解关于$z_1(t)$的一阶微分方程，得到
+    \begin{align}
+        z_1(t)&=\e^{\lambda t}\int_0^t \e^{-\lambda s}z_2(s)\,\dd s+\e^{\lambda t}z_1(0-)\nonumber\\
+        &=\e^{\lambda t}\int_0^t \e^{-\lambda s}\e^{\lambda s}z_2(0-)\,\dd s+\e^{\lambda t}z_1(0-)\nonumber\\
+        &=\e^{\lambda t}\paren{tz_2(0-)+z_1(0-)}.
+    \end{align}
 
-    如果响应是与$z_1(t)$耦合而不与$z_2(t)$耦合的，则不妨设$r(t)=z_1(t)$，则\begin{align*}
-    z_1(0-)=\lim_{t\to 0} \mathrm{e}^{-\lambda t}r(t),z_2(0-)=\lim_{t\to 0} \frac{\mathrm{e}^{-\lambda t}r(t)-z_1(0-)}{t}
-    \end{align*}
-    如果响应是与$z_2(t)$耦合而不与$z_1(t)$耦合的，则不妨设$r(t)=z_2(t)$，此时只能求出$z_2(0-)=\lim_{t\to 0} \mathrm{e}^{-\lambda t}r(t)$，而无法求出$z_1(0-)$。
+    如果响应是与$z_1(t)$耦合而不与$z_2(t)$耦合的，则不妨设$r(t)=z_1(t)$，则
+    \begin{align}
+        z_1(0-)&=\lim_{t\to 0} \e^{-\lambda t}r(t),\\
+        z_2(0-)&=\lim_{t\to 0} \frac{\e^{-\lambda t}r(t)-z_1(0-)}{t}.
+    \end{align}
+    如果响应是与$z_2(t)$耦合而不与$z_1(t)$耦合的，则不妨设$r(t)=z_2(t)$，此时只能求出$z_2(0-)=\lim_{t\to 0} \e^{-\lambda t}r(t)$，而无法求出$z_1(0-)$。
 \end{example}
 
 可见，\textbf{只要模态内的第一个状态变量（链首）与输出耦合，就等价于该模态是可观的}。
@@ -759,36 +862,45 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
 
 \begin{theorem}[可控性的满秩判别法]
     一个$n$阶系统是可控的，当且仅当它的\textbf{可控矩阵}(controllable matrix)
-    \begin{align*}
-    \mathcal{C} =\begin{bmatrix}
-    B & AB & A^2B & \cdots & A^{n-1}B
-    \end{bmatrix}
-    \end{align*}
-    是行满秩的，即$\mathrm{rank}\mathcal{C}=n$。
+    \begin{equation}
+        \mathcal{C}=\begin{bmatrix}
+        B & AB & A^2B & \cdots & A^{n-1}B
+        \end{bmatrix}
+    \end{equation}
+    是行满秩的，即$\rank\mathcal{C}=n$。
 \end{theorem}
 \begin{proof}
-    不妨设起始状态为$\mathbf{q}(0-)=\mathbf{0}$。根据状态变量的解的公式，\begin{align*}
-    \mathbf{q}(T)=\int_0^T \mathrm{e}^{A(T-s)}B\mathbf{e}(s)\,ds
-    \end{align*}
+    不妨设起始状态为$\mathbf{q}(0-)=\mathbf{0}$。根据状态变量的解的公式，
+    \begin{equation}
+        \mathbf{q}(T)=\int_0^T \e^{A(T-s)}B\mathbf{e}(s)\,\dd s.
+    \end{equation}
 
-    将矩阵指数函数$\mathrm{e}^{A(T-s)}$展开为幂级数，根据该级数的内闭一致收敛性，可以交换积分与求和的顺序，得到：\begin{align*}
-    \mathbf{q}(T)=&\int_0^T \sum_{k=0}^\infty \frac{A^k(T-s)^k}{k!}B\mathbf{e}(s)\,ds\\
-    =&\sum_{k=0}^\infty A^k B\int_0^T \frac{(T-s)^k}{k!} \mathbf{e}(s)\,ds
-    \end{align*}
+    将矩阵指数函数$\e^{A(T-s)}$展开为幂级数，根据该级数的内闭一致收敛性，可以交换积分与求和的顺序，得到：
+    \begin{align}
+        \mathbf{q}(T)&=\int_0^T \sum_{k=0}^\infty \frac{A^k(T-s)^k}{k!}B\mathbf{e}(s)\,\dd s\nonumber\\
+        &=\sum_{k=0}^\infty A^k B\int_0^T \frac{(T-s)^k}{k!} \mathbf{e}(s)\,\dd s.
+    \end{align}
 
     在适当的激励选取下，列向量
-    $$\int_0^T \frac{(T-s)^k}{k!} \mathbf{e}(s)\,ds$$
+    \begin{equation}
+        \int_0^T \frac{(T-s)^k}{k!} \mathbf{e}(s)\,\dd s
+    \end{equation}
     可以取$\mathbb{R}^n$中的任意值。矩阵右乘一个列向量，相当于对矩阵进行列变换，因此$\mathbf{q}(T)$可以取$\mathbb{R}^n$中的任意值当且仅当矩阵列$\{A^k B\}_{k=0}^\infty$的列向量能够张成全空间$\mathbb{R}^n$。
 
     由Cayley-Hamilton定理，$A$满足它的特征多项式，因此存在一个$n$阶多项式$p(x)$使得
-    $$p(A)=A^n+a_1 A^{n-1}+\cdots+a_{n-1}A+a_n I=0$$
+    \begin{equation}
+        p(A)=A^n+a_1 A^{n-1}+\cdots+a_{n-1}A+a_n I=0,
+    \end{equation}
     即
-    $$A^n=-a_1 A^{n-1}-\cdots-a_{n-1}A-a_n I$$
-    这表明$\forall k\geq n$，$A^k$都可以表示为$A^0,A^1,\cdots,A^{n-1}$的线性组合。因此，$\{A^k B\}_{k=0}^\infty$的列向量能够张成全空间$\mathbb{R}^n$当且仅当$\{A^k B\}_{k=0}^{n-1}$的列向量能够张成全空间$\mathbb{R}^n$，而这一条件就等价于可控矩阵\begin{align*}
-    \begin{bmatrix}
-    B & AB & A^2B & \cdots & A^{n-1}B
-    \end{bmatrix}
-    \end{align*}
+    \begin{equation}
+        A^n=-a_1 A^{n-1}-\cdots-a_{n-1}A-a_n I.
+    \end{equation}
+    这表明$\forall k\geq n$，$A^k$都可以表示为$A^0,A^1,\cdots,A^{n-1}$的线性组合。因此，$\{A^k B\}_{k=0}^\infty$的列向量能够张成全空间$\mathbb{R}^n$当且仅当$\{A^k B\}_{k=0}^{n-1}$的列向量能够张成全空间$\mathbb{R}^n$，而这一条件就等价于可控矩阵
+    \begin{equation}
+        \begin{bmatrix}
+        B & AB & A^2B & \cdots & A^{n-1}B
+        \end{bmatrix}
+    \end{equation}
     列空间的秩为$n$，由于系统矩阵$A$一定是$n$阶矩阵，而输入矩阵$B$的行数为$n$，可控阵的行数也为$n$，因此可控性等价于可控阵行满秩。
 \end{proof}
 
@@ -812,32 +924,33 @@ $$\frac{d\mathbf{y}}{dt}=\mathbf{f}(t,\mathbf{y})$$
 
 \begin{theorem}[可观性的满秩判别法]
     一个$n$阶系统是可观的，当且仅当它的\textbf{可观矩阵}(observable matrix)
-    \begin{align*}
-    \mathcal{O} =\begin{bmatrix}
-    C\\
-    CA\\
-    CA^2\\
-    \vdots\\
-    CA^{n-1}
-    \end{bmatrix}
-    \end{align*}
-    是列满秩的，即$\mathrm{rank}\mathcal{O}=n$。
+    \begin{equation}
+        \mathcal{O}=\begin{bmatrix}
+        C\\
+        CA\\
+        CA^2\\
+        \vdots\\
+        CA^{n-1}
+        \end{bmatrix}
+    \end{equation}
+    是列满秩的，即$\rank\mathcal{O}=n$。
 \end{theorem}
 \begin{proof}
     设系统的状态矩阵、输入矩阵和输出矩阵分别为$A,B,C$，则其对偶系统的状态矩阵、输入矩阵和输出矩阵分别为$A^T,C^T,B^T$。根据可控性的满秩判别法，对偶系统是可控的当且仅当\textbf{可控矩阵}
-    \begin{align*}
-    \begin{bmatrix}
-    C^T & A^TC^T & (A^T)^2C^T & \cdots & (A^T)^{n-1}C^T
-    \end{bmatrix}
-    \end{align*}
-    是行满秩的。而该矩阵恰为可观矩阵\begin{align*}
-    \begin{bmatrix}
-    C\\
-    CA\\
-    CA^2\\
-    \vdots\\
-    CA^{n-1}
-    \end{bmatrix}
-    \end{align*}
+    \begin{equation}
+        \begin{bmatrix}
+        C^T & A^TC^T & (A^T)^2C^T & \cdots & (A^T)^{n-1}C^T
+        \end{bmatrix}
+    \end{equation}
+    是行满秩的。而该矩阵恰为可观矩阵
+    \begin{equation}
+        \begin{bmatrix}
+        C\\
+        CA\\
+        CA^2\\
+        \vdots\\
+        CA^{n-1}
+        \end{bmatrix}
+    \end{equation}
     的转置。由于系统的可观性等价于其对偶系统的可控性，因此系统是可观的当且仅当可观矩阵是列满秩的。
 \end{proof}

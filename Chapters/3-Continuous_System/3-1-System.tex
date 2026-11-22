@@ -2,13 +2,13 @@
 
 \subsection{系统的基本概念}\label{sub:concepts_of_system}
 
-对于单输入单输出系统，将输入信号称为\textbf{激励} (excitation)，输出信号称为\textbf{响应} (response)，并将时域信号分别用$e(t),r(t)$表示，如果系统用字母H表示，可以记$r(t)=H[e(t)]$，或更简洁地，$r(t)=He(t)$。$H$是函数空间上的映射。
+对于单输入单输出系统，将输入信号称为\textbf{激励}(excitation)，输出信号称为\textbf{响应}(response)，并将时域信号分别用$e(t),r(t)$表示，如果系统用字母$H$表示，可以记$r(t)=H[e(t)]$，或更简洁地，$r(t)=He(t)$。$H$是函数空间上的映射。
 
 \begin{example}
     给定以下一阶动态电路，并设各元件无初始储能。
     \begin{center}
         \begin{circuitikz}[american]
-            \draw (0,0) to[V=$1$V] (0,3)
+            \draw (0,0) to[V=$1\,\mathrm{V}$] (0,3)
             to[closing switch] (5,3)
             to[C=$C$] (5,0)
             to[R=$R$] (0,0);
@@ -16,30 +16,38 @@
     \end{center}
     在$t=0$时刻闭合开关，则系统的激励为$e(t)=u(t)$。如果认为电容两端的电压$u_C(t)$是系统的响应$r(t)$，则可以用$r(t)=H[e(t)]$来表示这个系统。
 
-    使用三要素法分析该电路。初状态下$u_C(0)=0$V，末状态下$u_C(\infty)=1$V，时间常数$\tau=RC$，因此
-    \[e(t)=u_C(t)=1-\mathrm{e}^{t/RC}\]
+    使用三要素法分析该电路。初状态下$u_C(0)=0\,\mathrm{V}$，末状态下$u_C(\infty)=1\,\mathrm{V}$，时间常数$\tau=RC$，因此
+    \begin{equation}
+        r(t)=u_C(t)=1-\e^{-t/RC}.
+    \end{equation}
 \end{example}
 
-本章主要介绍连续系统，即激励与响应均为连续信号的系统。与之相对，激励与响应均为离散信号的系统称为离散系统，我们将在第六章和第七章专门讨论离散系统。
+本章主要介绍连续系统，即激励与响应均为连续信号的系统。与之相对，激励与响应均为序列的系统称为离散系统，我们将在第六章和第七章专门讨论离散系统。
 
 一般来说，如果我们对连续系统进行适当的建模，则可以用函数方程来描述这个系统。函数方程不意味着我们一定能够给出响应关于激励的封闭表达式。
 \begin{example}
-设激励$e(t)$与响应$r(t)$满足
-\[r^3(t)+4r(t)=\exp e(t)\]
-这是一个超越方程，但由于$f(x)=x^3+4x$严格单调递增，可由激励唯一确定响应的值，这也是一个系统。
+    设激励$e(t)$与响应$r(t)$满足
+    \begin{equation}
+        r^3(t)+4r(t)=\exp e(t),
+    \end{equation}
+    这是一个超越方程，但由于$f(x)=x^3+4x$严格单调递增，可由激励唯一确定响应的值，这也是一个系统。
 \end{example}
 
 其中，我们特别关注能够用\textbf{常系数线性微分方程（组）}描述的系统，例如，第一个例子中的动态电路就可以用一阶常系数线性微分方程来描述。我们首先给出微分方程的概念：
 \begin{definition}[微分方程]
     \label{def:ODE}
-    称如下形式的方程为\textbf{常微分方程}(ordinary differential equation,ODE)\cite{ode}：
-    \[F(x,y,y',\cdots,y^{(n)})=0,\quad n\geq 1\]
+    称如下形式的方程为\textbf{常微分方程}(ordinary differential equation, ODE)\cite{ode}：
+    \begin{equation}
+        F(x,y,y',\cdots,y^{(n)})=0,\quad n\geq 1,
+    \end{equation}
     其中$F$为已知函数，自变量$x$在$\mathbb{R}$的某个区间上变化，未知函数$y\in\mathbb{R}$，正整数$n$称为方程的\textbf{阶}。如果$n\geq 2$，则方程称为\textbf{高阶微分方程}。
 \end{definition}
 \begin{definition}[初值问题]
     \label{def:initial_value_prob}
-    数学上，将微分方程中的函数在某一点的各阶导数值称为\textbf{初始条件}，以$t=0$时刻为例，又称为\textbf{0时刻状态}：
-    \[y(0)=y_0,y'(0)=y'_0,\cdots,y^{(n-1)}(0)=y^{(n-1)}_0\]
+    数学上，将微分方程中的函数在某一点的各阶导数值称为\textbf{初始条件}，以$t=0$时刻为例，又称为\textbf{$0$时刻状态}：
+    \begin{equation}
+        y(0)=y_0,\quad y'(0)=y'_0,\quad \cdots,\quad y^{(n-1)}(0)=y^{(n-1)}_0,
+    \end{equation}
     我们称这样的问题为\textbf{初值问题}。
 \end{definition}
 
@@ -47,71 +55,81 @@
 
 \begin{definition}[线性系统]
     \label{def:system_linear}
-    如果算子H是线性的，即
-\[\forall a,b\in\mathbb{C},\forall e_1(t),e_2(t),\quad H[ae_1(t)+be_2(t)]=aH[e_1(t)]+bH[e_2(t)]\]
-就说系统是\textbf{线性系统}(linear system)，且满足叠加法则 (principle of superposition)。
+    如果算子$H$是线性的，即
+    \begin{equation}
+        \forall a,b\in\mathbb{C},\ \forall e_1(t),e_2(t),\quad H\sbr{ae_1(t)+be_2(t)}=aH\sbr{e_1(t)}+bH\sbr{e_2(t)},
+    \end{equation}
+    就说系统是\textbf{线性系统}(linear system)，且满足叠加法则(principle of superposition)。
 \end{definition}
 
 \begin{definition}[时不变性和移不变性]
     \label{def:time_invariant}
     如果一个系统的输出不依赖于输入信号施加于系统的时间，输入信号发生时移，输出信号也发生相同的时移，即
-    $$\forall b\in\mathbb{R},\quad H[e(t-b)]=r(t-b),\text{即}H[\tau_b e(t)]=\tau_b r(t)$$
+    \begin{equation}
+        \forall b\in\mathbb{R},\quad H\sbr{e(t-b)}=r(t-b),\quad \text{即}\ H\sbr{\tau_b e(t)}=\tau_b r(t),
+    \end{equation}
     则称该系统是\textbf{时不变的}(time-invariant)。如果激励和响应的自变量是空间变量，$b$是空间中的向量，则称该系统是\textbf{移不变的}(shift-invariant)。后文中一般不特意区分时域和空间域。
 \end{definition}
 \begin{definition}[线性时不变系统]
     \label{def:LTI}
-    如果一个系统既是线性的又是时不变的，就说它是\textbf{线性时不变系统}(linear time-invariant system,LTI)。
+    如果一个系统既是线性的又是时不变的，就说它是\textbf{线性时不变系统}(linear time-invariant system, LTI)。
 \end{definition}
 
 对于线性时不变系统，定义：
 
 \begin{definition}[单位脉冲响应与单位阶跃响应]
     \label{def:unit_immpulse_response}
-    当$e(t)=\delta(t)$时，零状态响应$r_{zs}(t)$为\textbf{单位脉冲响应}；当$e(t)=u(t)$时，零状态响应$r_{zs}(t)$称为\textbf{单位阶跃响应}。习惯上，将单位脉冲响应记为$h(t)$，单位阶跃响应记为$g(t)$。
+    当$e(t)=\delta(t)$时，零状态响应$r_{\zs}(t)$为\textbf{单位脉冲响应}；当$e(t)=u(t)$时，零状态响应$r_{\zs}(t)$称为\textbf{单位阶跃响应}。习惯上，将单位脉冲响应记为$h(t)$，单位阶跃响应记为$g(t)$。
 \end{definition}
 
 常微分方程的解空间是有限维的，只要给定足够的初值数量，就可以唯一确定方程的解，因此常微分方程系统都具有\textbf{马尔可夫性}。在\refsub{compare_to_high_order}中，我们将对线性微分方程组的解空间维数进行说明。
 
 \begin{definition}[马尔可夫性]
     \label{def:system_markov}
-    只要知道了$t=t_0$时刻的系统状态，未来的响应$r(t)(t>t_0)$就与过去的激励$e(t)(t<t_0)$无关，称这样的系统具有\textbf{马尔可夫性}或\textbf{无后效性}。
+    只要知道了$t=t_0$时刻的系统状态，未来的响应$r(t)\ (t>t_0)$就与过去的激励$e(t)\ (t<t_0)$无关，称这样的系统具有\textbf{马尔可夫性}或\textbf{无后效性}。
 \end{definition}
 
 对于同时具有线性性和马尔可夫性的系统，在某一时刻（通常取为$t=0$时刻）以前的激励归结为系统的初始条件，在$t>0$时，即便激励为零，响应也可能不为零。由系统的线性性，可以将$r(t)$分解为两部分：
 \begin{definition}[零输入响应与零状态响应]
     \label{def:zir_zsr}
-   \textbf{零输入响应}(zero input response,$r_{zi}(t)$)是指$e(t)=0$时，由于初始条件而产生的响应；\textbf{零状态响应}(zero state response,$r_{zs}(t)$)是指将系统初始能量置零时的响应。\textbf{全响应}$r(t)=r_{zi}(t)+r_{zs}(t)$。
+    \textbf{零输入响应}(zero input response, $r_{\zi}(t)$)是指$e(t)=0$时，由于初始条件而产生的响应；\textbf{零状态响应}(zero state response, $r_{\zs}(t)$)是指将系统初始能量置零时的响应。\textbf{全响应}$r(t)=r_{\zi}(t)+r_{\zs}(t)$。
 \end{definition}
-对于零输入响应不为0的线性系统，考虑以两个激励$e_1(t),e_2(t)$的线性组合作为输入，则按照先前对线性系统的定义，直接将对应的两个响应$r_1(t),r_2(t)$进行线性组合，则零输入响应被重复计算，这不是我们希望看到的。在这样的语境下，我们其实应该定义\textbf{零状态响应对激励线性、零输入响应对初始条件线性的系统为线性系统}。
+对于零输入响应不为$0$的线性系统，考虑以两个激励$e_1(t),e_2(t)$的线性组合作为输入，则按照先前对线性系统的定义，直接将对应的两个响应$r_1(t),r_2(t)$进行线性组合，则零输入响应被重复计算，这不是我们希望看到的。在这样的语境下，我们其实应该定义\textbf{零状态响应对激励线性、零输入响应对初始条件线性的系统为线性系统}。
 
 此外，系统还有一些其他的特性，例如稳定性、可逆性和即时性。系统的其他特性将在后文中陆续介绍。
 
 \begin{definition}[稳定性]
     \label{def:system_stability}
-    如果一个系统在激励信号有界时，响应也是有界的，则称之为\textbf{稳定系统}(bounded-input bounded-output,BIBO)，即
-    \[e(t)\in L^\infty(\mathbb{R})\implies r(t)\in L^\infty(\mathbb{R})\]
+    如果一个系统在激励信号有界时，响应也是有界的，则称之为\textbf{稳定系统}(bounded-input bounded-output, BIBO)，即
+    \begin{equation}
+        e(t)\in L^\infty(\mathbb{R})\implies r(t)\in L^\infty(\mathbb{R}).
+    \end{equation}
 \end{definition}
 我们将在\refsub{stability_of_system}和\refsub{discrete_system_function}中，分别借助拉普拉斯变换和z变换的理论，给出连续的和离散的线性时不变系统具有稳定性的充分必要条件。
 
 \begin{definition}[可逆性]
     \label{def:system_inversion}
-    如果H（作为映射）如果是单射，则也是双射（因为我们不关注其值域），于是H是可逆的。换句话说，一种响应仅可能对应唯一的激励。
+    如果$H$（作为映射）是单射，则也是双射（因为我们不关注其值域），于是$H$是可逆的。换句话说，一种响应仅可能对应唯一的激励。
 \end{definition}
 
 \begin{definition}[即时性与记忆性]
     \label{def:system_memory}
-一个系统具有\textbf{即时性}（或无记忆性），如果该系统在任意时刻$t$的状态完全且唯一地取决于该时刻的系统状态与激励，而不显式地依赖于任何过去时刻$t'<t$的系统状态或历史激励。
+    一个系统具有\textbf{即时性}（或无记忆性），如果该系统在任意时刻$t$的状态完全且唯一地取决于该时刻的系统状态与激励，而不显式地依赖于任何过去时刻$t'<t$的系统状态或历史激励。
 
-一个系统具有\textbf{记忆性}（或历史依赖性），如果系统的响应在任意时刻$t$的状态演化率显式地依赖于过去时刻$t'<t$的系统状态或历史激励，而不能被简化为仅依赖于当前时刻$t$的量。
+    一个系统具有\textbf{记忆性}（或历史依赖性），如果系统的响应在任意时刻$t$的状态演化率显式地依赖于过去时刻$t'<t$的系统状态或历史激励，而不能被简化为仅依赖于当前时刻$t$的量。
 \end{definition}
 
 相比马尔可夫性，即时性对系统的约束要强得多：
 
 \begin{example}[积分方程]
     设系统由积分方程
-    $$r(t)=\int_{-\infty}^{t}e(y)\,dy$$
+    \begin{equation}
+        r(t)=\int_{-\infty}^{t}e(y)\,\dd y
+    \end{equation}
     描述，它的响应依赖于$t$以前所有时刻的激励，因此该系统是记忆系统；如果知道$r(t_0)$，则可以得到
-    $$r(t)=\int_{t_0}^{t}e(y)\,dy,\quad t>t_0$$
+    \begin{equation}
+        r(t)=\int_{t_0}^{t}e(y)\,\dd y,\quad t>t_0,
+    \end{equation}
     因此该系统具有马尔可夫性。
 \end{example}
 
@@ -120,35 +138,35 @@
 \subsection{常见线性系统}\label{sub:ordinary_system}
 
 \begin{example}[时域乘积]
-\begin{equation*}
-    r(t)=f(t)e(t)
-\end{equation*}
-例如描述开关开闭的系统，$f(t)=\chi_{[T_1,T_2]}(t)$或$u(t)$。
+    \begin{equation}
+        r(t)=f(t)e(t),
+    \end{equation}
+    例如描述开关开闭的系统，$f(t)=\chi_{[T_1,T_2]}(t)$或$u(t)$。
 \end{example}
 
 \begin{example}[对核积分]
-\begin{equation*}
-    r(t)=\int_{a}^{b}k(x,y)e(y)\,dy
-\end{equation*}
-其中，$k(x,y)$称为\textbf{核函数}(kernel)，$\int_{a}^{b}k(x,y)e(y)\,dy$称为\textbf{对核函数积分}(integrating against a kernel)，简称\textbf{对核积分}。
+    \begin{equation}
+        r(t)=\int_{a}^{b}k(x,y)e(y)\,\dd y,
+    \end{equation}
+    其中，$k(x,y)$称为\textbf{核函数}(kernel)，$\int_{a}^{b}k(x,y)e(y)\,\dd y$称为\textbf{对核函数积分}(integrating against a kernel)，简称\textbf{对核积分}。
 \end{example}
 根据积分的线性性，对核积分系统也是线性的。习惯上将核函数的符号取为$k$。我们将在下一小节中看到，线性系统总能描述为对核积分系统，因此它是我们考虑的主要的连续线性系统的类型。利用核函数可以定义：
 
-\begin{definition}[转置系统对称系统与自伴系统]
+\begin{definition}[转置系统、对称系统与自伴系统]
     类比线性代数中算子的转置以及对称算子、自伴算子，对于对核积分系统
-    $r(t)=\int_{a}^{b}k(x,y)e(y)\,dy$
+    $r(t)=\int_{a}^{b}k(x,y)e(y)\,\dd y$
     有：
-\begin{itemize}
-    \item 转置系统$H^T$描述为$H^T[e(t)]=\int_{a}^{b}k(y,x)e(y)\,dy$
-    \item 如果$k(x,y)=k(y,x)$，称k是\textbf{对称的}并将系统称为\textbf{对称系统}
-    \item 如果$k(x,y)=\overline{k(y,x)}$，称k是\textbf{埃尔米特的}并将系统称为\textbf{自伴系统}。
-\end{itemize}
+    \begin{itemize}
+        \item 转置系统$H^T$描述为$H^T[e(t)]=\int_{a}^{b}k(y,x)e(y)\,\dd y$；
+        \item 如果$k(x,y)=k(y,x)$，称$k$是\textbf{对称的}并将系统称为\textbf{对称系统}；
+        \item 如果$k(x,y)=\overline{k(y,x)}$，称$k$是\textbf{埃尔米特的}并将系统称为\textbf{自伴系统}。
+    \end{itemize}
 \end{definition}
 
 \begin{example}[傅里叶变换]
-$r(t)=\mathcal{F} e(t)$.
+    $r(t)=\mathcal{F} e(t)$。
 
-在一些光学仪器中可以实现空间上的傅里叶变换，这时变量t是多维的空间变量，例如矩孔夫琅禾费衍射装置。
+    在一些光学仪器中可以实现空间上的傅里叶变换，这时变量$t$是多维的空间变量，例如矩孔夫琅禾费衍射装置。
 \end{example}
 
 %类似地，对于周期离散信号，矩阵乘法定义了线性系统：
@@ -162,82 +180,102 @@ $r(t)=\mathcal{F} e(t)$.
 下面给出三个线性时不变系统的例子：
 
 \begin{example}[卷积]
-    取定衰减足够快的连续信号$h$，$r(t)=h*e(t)$.
+    取定衰减足够快的连续信号$h$，$r(t)=h*e(t)$。
 \end{example}
 
 \begin{example}[信号平移]
-    取定时延b，$r(t)=e(t-b)$.它也是时滞系统，只不过不涉及微分的运算。
+    取定时延$b$，$r(t)=e(t-b)$。它也是时滞系统，只不过不涉及微分的运算。
 \end{example}
 
 \begin{example}[微分器与积分器]
-    积分器是由积分方程$$r(t)=\int_{-\infty}^{t}e(y)\,dy$$描述的系统；微分器是由微分方程$$r(t)=\frac{de(t)}{dt}$$描述的系统。它们可以通过运算放大器实现。
+    积分器是由积分方程
+    \begin{equation}
+        r(t)=\int_{-\infty}^{t}e(y)\,\dd y
+    \end{equation}
+    描述的系统；微分器是由微分方程
+    \begin{equation}
+        r(t)=\frac{\dd e(t)}{\dd t}
+    \end{equation}
+    描述的系统。它们可以通过运算放大器实现。
 \end{example}
 
 \subsection{系统的级联}\label{sub:cascade}
 将一个系统的响应作为另一个系统的激励，这样的系统连接方式称为系统的\textbf{级联}(cascade)，下面就来研究这个话题。
 \begin{theorem}[线性系统的级联]
-    设有两线性系统K,L,将两系统级联之后，所得的新系统仍是线性系统。
+    设有两线性系统$K,L$，将两系统级联之后，所得的新系统仍是线性系统。
 \end{theorem}
 \begin{proof}
     先利用$K$的线性性，再利用$L$的线性性，得到：
-    \begin{align*}
-    LK[ae_1+be_2]=L[aK[e_1]+bK[e_2]]=aLK[e_1]+bLK[e_2]
-\end{align*}
+    \begin{equation}
+        LK\sbr{ae_1+be_2}=L\sbr{aK[e_1]+bK[e_2]}=aLK[e_1]+bLK[e_2].
+    \end{equation}
 \end{proof}
 
 对核积分系统的级联也是对核积分系统，并且级联系统的核函数可以视作前级系统的核函数作为后级系统的激励信号输入后得到的响应函数：
 \begin{proposition}[对核积分系统的级联]
-    设有两对核积分系统K，L：
-    \[K[e(t)](x)=\int_{a}^{b}k(x,y)e(y)\,dy,\quad L[e(t)](x)=\int_{c}^{d}l(x,y)e(y)\,dy\]
-则级联系统$H=LK$也是对核积分系统，并且核函数为\begin{equation*}
-    h(x,z)=L_y[k(y,z)](x)=\int_{c}^{d}l(x,y)k(y,z)\,dy
-\end{equation*}
-其中$L_y[k(y,z)]$表示$k(x,y)$作为y的函数输入系统L，输出为$x,z$的双变量函数。
+    设有两对核积分系统$K$，$L$：
+    \begin{equation}
+        K\sbr{e(t)}(x)=\int_{a}^{b}k(x,y)e(y)\,\dd y,\quad L\sbr{e(t)}(x)=\int_{c}^{d}l(x,y)e(y)\,\dd y,
+    \end{equation}
+    则级联系统$H=LK$也是对核积分系统，并且核函数为
+    \begin{equation}
+        h(x,z)=L_y\sbr{k(y,z)}(x)=\int_{c}^{d}l(x,y)k(y,z)\,\dd y,
+    \end{equation}
+    其中$L_y[k(y,z)]$表示$k(x,y)$作为$y$的函数输入系统$L$，输出为$x,z$的双变量函数。
 \end{proposition}
 
-\begin{proof}\begin{align*}
-    H[e(z)](x)&=LK[e(z)](x)\\
-    &=\int_{c}^{d}l(x,y)\left(\int_{a}^{b}k(y,z)e(z)\,dz\right)\,dy\\
-    &=\int_{a}^{b}e(z)\,dz\int_{c}^{d}l(x,y)k(y,z)\,dy\\
-    &=\int_{a}^{b}h(x,z)e(z)\,dz
-\end{align*}
+\begin{proof}
+    \begin{align}
+        H[e(z)](x)&=LK[e(z)](x)\nonumber\\
+        &=\int_{c}^{d}l(x,y)\paren{\int_{a}^{b}k(y,z)e(z)\,\dd z}\,\dd y\nonumber\\
+        &=\int_{a}^{b}e(z)\,\dd z\int_{c}^{d}l(x,y)k(y,z)\,\dd y\nonumber\\
+        &=\int_{a}^{b}h(x,z)e(z)\,\dd z.
+    \end{align}
 \end{proof}
 
-函数与$\delta$的卷积还是它本身，这就好比信号在进入任何一个系统前，先经过了一个与$\delta$卷积的线性时不变系统，利用这一观点即可得到\textbf{叠加定理}(superposition thoerem)\cite{brad_osgood_ee261}，由于它是泛函分析中对应定理的特殊形式，有时也将它称为\textbf{施瓦兹核定理}(Schwartz kernel thoerem)。
+函数与$\delta$的卷积还是它本身，这就好比信号在进入任何一个系统前，先经过了一个与$\delta$卷积的线性时不变系统，利用这一观点即可得到\textbf{叠加定理}(superposition theorem)\cite{brad_osgood_ee261}，由于它是泛函分析中对应定理的特殊形式，有时也将它称为\textbf{施瓦兹核定理}(Schwartz kernel theorem)。
 \begin{theorem}[叠加定理/施瓦兹核定理]\label{thm:superposition}
-    \begin{equation*}
-        r(x)=\int_{-\infty}^{\infty}k(x,y)e(y)\,dy
-    \end{equation*}
-其中$k(x,y)$是线性系统H的核函数。
+    \begin{equation}
+        r(x)=\int_{-\infty}^{\infty}k(x,y)e(y)\,\dd y,
+    \end{equation}
+    其中$k(x,y)$是线性系统$H$的核函数。
 \end{theorem}
-\begin{proof}\begin{align*}
-    H[e(y)]&=H[e*\delta(y)]\\
-    &=H\left[\int_{-\infty}^{\infty}\delta(x-y)e(y)\,dy\right]\\
-    &=\int_{-\infty}^{\infty}H[\delta(x-y)]e(y)\,dy
-\end{align*}
-令$k(x,y)=H[\delta(x-y)]$即得。
+\begin{proof}
+    \begin{align}
+        H[e(y)]&=H[e*\delta(y)]\nonumber\\
+        &=H\sbr{\int_{-\infty}^{\infty}\delta(x-y)e(y)\,\dd y}\nonumber\\
+        &=\int_{-\infty}^{\infty}H[\delta(x-y)]e(y)\,\dd y.
+    \end{align}
+    令$k(x,y)=H[\delta(x-y)]$即得。
 \end{proof}
 
 特别地，有限区间上的对核积分系统也满足叠加定理，此时核函数满足：
-\[k(x,y)=k(x,y)\chi_{[a,b]}(y)\]
+\begin{equation}
+    k(x,y)=k(x,y)\chi_{[a,b]}(y).
+\end{equation}
 
 至此可以看出，系统的线性性就等价于系统能够用对核积分来描述，并且核函数总为
-$$k(x,y)=H_x[\delta(x-y)]$$
+\begin{equation}
+    k(x,y)=H_x\sbr{\delta(x-y)}.
+\end{equation}
 
 \begin{proposition}[线性系统的等价定义]
     “系统$H$是线性系统”等价于“响应是激励对核$k(x,y)$的无穷限积分”。
 \end{proposition}
 
 对于线性时不变系统，叠加定理具有更加优美的形式。作为线性系统而定义的核函数$k(x,y)$，恰为平移后的单位脉冲响应$h(x-y)$：
-\[k(x,y)=H_x[\delta(x-y)]=H[\tau_y\delta(x)]=\tau_y H[\delta(x)]=h(x-y)\]
+\begin{equation}
+    k(x,y)=H_x\sbr{\delta(x-y)}=H\sbr{\tau_y\delta(x)}=\tau_y H\sbr{\delta(x)}=h(x-y).
+\end{equation}
 带入叠加定理，即得：
-\begin{align*}
-    r(x)=\int_{-\infty}^{\infty}h(x-y)e(y)\,dy=(h*e)(t)
-\end{align*}
+\begin{equation}
+    r(x)=\int_{-\infty}^{\infty}h(x-y)e(y)\,\dd y=(h*e)(x).
+\end{equation}
 
-也就是说，\textbf{信号经过线性时不变系统相当于与这个系统的单位脉冲响应做卷积}，这样，对线性时不变系统的研究归结为对单位脉冲响应的研究，极大地降低了研究的难度。另一方面，卷积描述的系统也是线性时不变的：\begin{align*}
-    H[\tau_b e(y)](x)=(h*\tau_b e)(x)=\tau_b(h*e)(x)=\tau_b H[e(y)]
-\end{align*}
+也就是说，\textbf{信号经过线性时不变系统相当于与这个系统的单位脉冲响应做卷积}，这样，对线性时不变系统的研究归结为对单位脉冲响应的研究，极大地降低了研究的难度。另一方面，卷积描述的系统也是线性时不变的：
+\begin{equation}
+    H\sbr{\tau_b e(y)}(x)=(h*\tau_b e)(x)=\tau_b(h*e)(x)=\tau_b H[e(y)].
+\end{equation}
 而线性性是显然的。总之，我们有：
 \begin{proposition}[线性时不变系统的等价定义]
     \label{prop:LTI_conv}
@@ -249,15 +287,17 @@ $$k(x,y)=H_x[\delta(x-y)]$$
 \begin{proposition}[单位阶跃响应]
     \label{prop:step_response}
     线性时不变系统的单位阶跃响应为
-    $$g(t)=\int_{-\infty}^{t}h(y)\,dy$$
+    \begin{equation}
+        g(t)=\int_{-\infty}^{t}h(y)\,\dd y,
+    \end{equation}
     其中$h(t)$为系统的单位脉冲响应。
 \end{proposition}
 \begin{proof}
-\begin{align*}
-    g(t)&=H[u(t)]=(u*h)(t)\\
-    &=\int_{-\infty}^{\infty}u(t-y)h(y)\,dy\\
-    &=\int_{-\infty}^{t}h(y)\,dy
-\end{align*}
+    \begin{align}
+        g(t)&=H[u(t)]=(u*h)(t)\nonumber\\
+        &=\int_{-\infty}^{\infty}u(t-y)h(y)\,\dd y\nonumber\\
+        &=\int_{-\infty}^{t}h(y)\,\dd y.
+    \end{align}
 \end{proof}
 
 最后，我们来说明系统的一个重要特性：\textbf{因果性}，并利用$r(t)=(h*e)(t)$给出线性时不变系统的因果性条件。
@@ -265,8 +305,8 @@ $$k(x,y)=H_x[\delta(x-y)]$$
 \begin{definition}[因果性]
     \label{def:causuality}
     如果系统的响应仅依赖于过去的激励而不依赖于未来的激励，即
-    \begin{equation}
-        \forall t_0,\quad \left(e_1(t)=e_2(t)\ \mathrm{for}\ t<t_0\right)\implies \left(r_1(t)=r_2(t)\ \mathrm{for}\ t<t_0\right)\label{eq:4.1}
+    \begin{equation}\label{eq:causality}
+        \forall t_0,\quad \paren{e_1(t)=e_2(t)\ \mathrm{for}\ t<t_0}\implies \paren{r_1(t)=r_2(t)\ \mathrm{for}\ t<t_0},
     \end{equation}
     则该系统是\textbf{因果的}(casual)，上述条件称为\textbf{因果性条件}(casuality condition)。
 \end{definition}
@@ -276,33 +316,39 @@ $$k(x,y)=H_x[\delta(x-y)]$$
 对于特殊的系统类型，因果性条件具有更加简洁的形式：
 
 \begin{proposition}
-对于线性系统，因果性条件等价于
-\begin{equation}
-    \forall t_0,\quad \left(e(t)=0\ \mathrm{for}\ t<t_0\right)\implies \left(r(t)=0\ \mathrm{for}\ t<t_0\right)\label{eq:4.2}
-\end{equation}
+    对于线性系统，因果性条件等价于
+    \begin{equation}\label{eq:linear_causality}
+        \forall t_0,\quad \paren{e(t)=0\ \mathrm{for}\ t<t_0}\implies \paren{r(t)=0\ \mathrm{for}\ t<t_0}.
+    \end{equation}
 \end{proposition}
 \begin{proof}
-只要取$e_1(t)=e(t),e_2(t)=0$，就从\refeqn{4.1}推出\refeqn{4.2}；反之，如果\refeqn{4.2}成立，则任意$e_1,e_2$满足
-$$e_1(t)=e_2(t)\ \mathrm{for}\ t<t_0,\text{即}e_1(t)-e_2(t)=0\ \mathrm{for}\ t<t_0$$
-根据\refeqn{4.2}，有
-$$r_1(t)-r_2(t)=0\ \mathrm{for}\ t<t_0,\text{即}r_1(t)=r_2(t)\ \mathrm{for}\ t<t_0$$
+    只要取$e_1(t)=e(t),\ e_2(t)=0$，就从\refeqn{causality}推出\refeqn{linear_causality}；反之，如果\refeqn{linear_causality}成立，则任意$e_1,e_2$满足
+    \begin{equation}
+        e_1(t)=e_2(t)\ \mathrm{for}\ t<t_0,\quad\text{即}\quad e_1(t)-e_2(t)=0\ \mathrm{for}\ t<t_0,
+    \end{equation}
+    根据\refeqn{linear_causality}，有
+    \begin{equation}
+        r_1(t)-r_2(t)=0\ \mathrm{for}\ t<t_0,\quad\text{即}\quad r_1(t)=r_2(t)\ \mathrm{for}\ t<t_0.
+    \end{equation}
 \end{proof}
 
 \begin{proposition}
-对于线性时不变系统，因果性条件等价于
-\begin{equation}
-    \left(e(t)=0\ \mathrm{for}\ t<0\right)\implies \left(r(t)=0\ \mathrm{for}\ t<0\right)\label{eq:4.3}
-\end{equation}
-或者更简便的
-\begin{equation}
-    h(t)=0\ \mathrm{for}\ t<0\label{eq:4.4}
-\end{equation}
-其中h为单位脉冲响应。
+    对于线性时不变系统，因果性条件等价于
+    \begin{equation}\label{eq:lti_causality_io}
+        \paren{e(t)=0\ \mathrm{for}\ t<0}\implies \paren{r(t)=0\ \mathrm{for}\ t<0},
+    \end{equation}
+    或者更简便的
+    \begin{equation}\label{eq:lti_causality_h}
+        h(t)=0\ \mathrm{for}\ t<0,
+    \end{equation}
+    其中$h$为单位脉冲响应。
 \end{proposition}
 \begin{proof}
-只要取$t_0=0$，就从\refeqn{4.2}推出\refeqn{4.3}；用时不变性，\refeqn{4.3}可以推出\refeqn{4.2}。
+    只要取$t_0=0$，就从\refeqn{linear_causality}推出\refeqn{lti_causality_io}；用时不变性，\refeqn{lti_causality_io}可以推出\refeqn{linear_causality}。
 
-对于单位脉冲响应，
-$$\delta=0\ \mathrm{for}\ t<0\implies h(t)=0\ \mathrm{for}\ t<0$$
-反过来，如果$h(t)=0,e(t)=0\ \mathrm{for}\ t<0$,则根据\cref{prop:conv_supp}，有$r(t)=(h*e)(t)=0\ \mathrm{for}\ t<0$.
+    对于单位脉冲响应，
+    \begin{equation}
+        \delta=0\ \mathrm{for}\ t<0\implies h(t)=0\ \mathrm{for}\ t<0.
+    \end{equation}
+    反过来，如果$h(t)=0,\ e(t)=0\ \mathrm{for}\ t<0$，则根据\cref{prop:conv_supp}，有$r(t)=(h*e)(t)=0\ \mathrm{for}\ t<0$。
 \end{proof}

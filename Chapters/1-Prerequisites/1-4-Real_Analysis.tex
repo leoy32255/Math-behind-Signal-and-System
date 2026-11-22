@@ -1,13 +1,15 @@
 \section{实变函数概要}\label{sec:Real_Analysis}
 
-读者可能已经注意到，并不是所有的函数都是可积的，例如$\mathrm{e}^x$的能量与功率都是无限的，因此它既不属于能量信号，也不属于功率信号；另一种情况下，函数本身的性质比较差，以至于在黎曼积分的框架下说不清它的积分（或能量）是什么：
+读者可能已经注意到，并不是所有的函数都是可积的，例如$\e^x$的能量与功率都是无限的，因此它既不属于能量信号，也不属于功率信号；另一种情况下，函数本身的性质比较差，以至于在黎曼积分的框架下说不清它的积分（或能量）是什么：
 \begin{example}[狄利克雷函数]
-    \[\chi_{\mathbb{Q}}(x)=
-        \begin{cases}
-            1 & x \in \mathbb{Q}    \\
-            0 & x \in \mathbb{Q} ^c
-        \end{cases}\]
-    （其中$\mathbb{Q}$ 表示有理数集，上标c表示取补集）
+    \begin{equation}
+        \chi_{\mathbb{Q}}(x)=
+        \begin{dcases}
+            1, & x \in \mathbb{Q},    \\
+            0, & x \in \mathbb{Q}^c.
+        \end{dcases}
+    \end{equation}
+    （其中$\mathbb{Q}$表示有理数集，上标$c$表示取补集）
 \end{example}
 它在黎曼积分的意义下是不可积的，因为它在所有点不连续，但是这样的函数在\textbf{勒贝格积分}的意义下可积。尽管工程上我们很少考虑这样的函数，但由勒贝格积分描述的函数空间（见\refsub{Lp_space}）具有很好的性质，这是黎曼积分做不到的。
 
@@ -20,33 +22,42 @@
 首先，我们给出\textbf{外测度}和\textbf{可测集}的概念。
 \begin{definition}[勒贝格外测度]
     设集合$A\subset\mathbb{R}$，其勒贝格外测度定义为
-    \[m^*(A)=\inf\left\{\sum_{k=1}^{\infty}l(I_k)\left|A\subset\bigcup_{k=1}^{\infty}I_k\right.\right\}\]
+    \begin{equation}
+        m^*(A)=\inf\braces{\sum_{k=1}^{\infty}l(I_k)\,\middle|\,A\subset\bigcup_{k=1}^{\infty}I_k},
+    \end{equation}
     其中$\inf$取自所有覆盖$A$的可数开区间族$\{I_k\}_{k=1}^{\infty}$，$l(I_k)$表示区间$I_k$的长度。
 \end{definition}
 这个定义看起来不是很直观，但它很好地\textbf{描述了“集合的长度”这一概念}，例如，对于任何一个区间$I$来说，总有$l(I)=m^*(I)$。此外，外测度的以下基本性质符合我们的直观：
 \begin{proposition}[外测度的性质]
-    \quad
     \begin{itemize}
-        \item 单调性：设$A\subset B$，则$m^*(A)\leq m^*(B)$
-        \item 平移不变性：实数集$A$的平移记为为$A+y=\{x\in \mathbb{R}|x-y\in A\}$，满足$m^*(A+y)=m^*(A)$
+        \item 单调性：设$A\subset B$，则$m^*(A)\leq m^*(B)$；
+        \item 平移不变性：实数集$A$的平移记为为$A+y=\{x\in \mathbb{R} \mid x-y\in A\}$，满足$m^*(A+y)=m^*(A)$；
         \item 次可数可加性：设$\{E_k\}_{k=1}^{\infty}$是可数集族，则
-              $$m^*\left(\bigcup_{k=1}^{\infty}E_k\right)\leq\sum_{k=1}^{\infty}m^*(E_k)$$
+              \begin{equation}
+                  m^*\paren{\bigcup_{k=1}^{\infty}E_k}\leq\sum_{k=1}^{\infty}m^*(E_k).
+              \end{equation}
     \end{itemize}
 \end{proposition}
 
 次可数可加性使用不等号，是为了涵盖$\{E_k\}_{k=1}^{\infty}$相互重叠的情形。然而，即使各集合互不相交，外测度也未必满足可数可加性，即
-$$m^*\left(\bigsqcup_{k=1}^{\infty}E_k\right)\neq\sum_{k=1}^{\infty}m^*(E_k)$$
+\begin{equation}
+    m^*\paren{\bigsqcup_{k=1}^{\infty}E_k}\neq\sum_{k=1}^{\infty}m^*(E_k),
+\end{equation}
 其中$\bigsqcup E_k$表示集族$\{E_k\}$是彼此不交的。要使测度满足可数可加性，集合列中的每个集合都须\textbf{可测}。
 
 \begin{definition}[可测集]
     若集合$E$满足
-    $$\forall A,\quad m^*(A)=m^*(A\cap E)+m^*(A\cap E^c)$$
+    \begin{equation}
+        \forall A,\quad m^*(A)=m^*(A\cap E)+m^*(A\cap E^c),
+    \end{equation}
     则称$E$为\textbf{可测集}。上述条件称为\textbf{Carathéodory条件}或\textbf{卡氏条件}。可测集的\textbf{勒贝格测度}定义为其勒贝格外测度，即$m(E)=m^*(E)$。
 \end{definition}
 尽管不是所有集合都能用测度来描述长度，但可测意味着一个集合边界清晰，可以以较高的精度描述它的“长度”。
 
 勒贝格测度对不交可数集族具有可数可加性：
-\[m\left(\bigsqcup_{k=1}^{\infty}E_k\right)=\sum_{k=1}^{\infty}m(E_k)\]
+\begin{equation}
+    m\paren{\bigsqcup_{k=1}^{\infty}E_k}=\sum_{k=1}^{\infty}m(E_k).
+\end{equation}
 
 常见集合几乎都是可测的，例如区间及其交、并集。然而，Vitali定理\cite{real_analysis}表明，可借助选择公理构造任意正测度集的不可测子集。
 
@@ -64,9 +75,11 @@ $$m^*\left(\bigsqcup_{k=1}^{\infty}E_k\right)\neq\sum_{k=1}^{\infty}m^*(E_k)$$
     外测度为0的集合都是可测的，称之为\textbf{零测集}。
 \end{proposition}
 \begin{proof}
-    设$m^*(E)=0$，则对于任意集合$A$，$A\cap E,A\cup E^c\subset E$，根据外测度的单调性，有$m^*(A\cap E),m^*(A\cap E^c)\leq m^*(E)=0$，因此$m^*(A\cap E)=m^*(A\cap E^c)=0$。
+    设$m^*(E)=0$，则对于任意集合$A$，$A\cap E,\ A\cup E^c\subset E$，根据外测度的单调性，有$m^*(A\cap E),\ m^*(A\cap E^c)\leq m^*(E)=0$，因此$m^*(A\cap E)=m^*(A\cap E^c)=0$。
     因此，
-    \[m^*(A)=m^*(A\cap E)+m^*(A\cap E^c)=0\]
+    \begin{equation}
+        m^*(A)=m^*(A\cap E)+m^*(A\cap E^c)=0.
+    \end{equation}
 \end{proof}
 
 \begin{example}
@@ -78,12 +91,14 @@ $$m^*\left(\bigsqcup_{k=1}^{\infty}E_k\right)\neq\sum_{k=1}^{\infty}m^*(E_k)$$
 \end{definition}
 
 \begin{example}[几乎处处相等]
-    函数$f,g:E\to\mathbb{R}$在$E$上\textbf{几乎处处相等}，如果存在一个零测子集$E_0$，使得对于所有$x\in E\setminus E_0$，有$f(x)=g(x)$，记为$f=g,\mathrm{a.e.}$几乎处处相等是一种等价关系。此时，我们\textbf{不区分$f$和$g$}，因为这样的两个函数性质类似，并且我们将看到在$f,g$可积时，它们的积分值相等。
+    函数$f,g:E\to\mathbb{R}$在$E$上\textbf{几乎处处相等}，如果存在一个零测子集$E_0$，使得对于所有$x\in E\setminus E_0$，有$f(x)=g(x)$，记为$f=g,\ \aee$。几乎处处相等是一种等价关系。此时，我们\textbf{不区分$f$和$g$}，因为这样的两个函数性质类似，并且我们将看到在$f,g$可积时，它们的积分值相等。
 \end{example}
 
 \begin{definition}[可测函数]
     定义在可测集上的函数$f:E\to\mathbb{R}$是\textbf{可测}的，如果
-    $$\forall c\in\mathbb{R},\quad E_c=\left\{x\in E\left| f(x)<c\right.\right\}\text{可测}$$
+    \begin{equation}
+        \forall c\in\mathbb{R},\quad E_c=\{x\in E \mid f(x)<c\}\text{可测}.
+    \end{equation}
 \end{definition}
 
 可测函数集构成线性空间，并且两个可测函数之积可测，因此可测函数集构成$\mathbb{R}$-代数。
@@ -111,15 +126,18 @@ $$m^*\left(\bigsqcup_{k=1}^{\infty}E_k\right)\neq\sum_{k=1}^{\infty}m^*(E_k)$$
 
 \begin{definition}[几乎处处收敛]
     函数列$\{f_n:E\to\mathbb{R}\}_{n=1}^{\infty}$在$E$上\textbf{几乎处处收敛}于函数$f:E\to\mathbb{R}$，如果存在一个零测度集$E_0$，使得
-    $$\forall x\in E\setminus E_0,\quad\lim_{n\to\infty}f_n(x)=f(x)$$
-    记为$f_n\to f,\mathrm{a.e.}$
+    \begin{equation}
+        \forall x\in E\setminus E_0,\quad \lim_{n\to\infty}f_n(x)=f(x),
+    \end{equation}
+    记为$f_n\to f,\ \aee$。
 \end{definition}
 
 \begin{example}
     设$E=[0,1]$，并定义
-    \[f_n(x)=(-1)^n\chi_{\mathbb{Q}}(x).
-    \]
-    对任意无理数$x\in E\setminus\mathbb{Q}$，恒有$f_n(x)=0$，故$f_n(x)\to0$；而对任意有理数$x\in E\cap\mathbb{Q}$，数列$\{f_n(x)\}$在$-1$与$1$之间振荡，因而不收敛。由于$E\cap\mathbb{Q}$是零测集，$f_n$几乎处处收敛于零函数，但并不在$E$上逐点收敛。%值得注意的是，不收敛点集虽然测度为零，却在$E$中稠密。
+    \begin{equation}
+        f_n(x)=(-1)^n\chi_{\mathbb{Q}}(x).
+    \end{equation}
+    对任意无理数$x\in E\setminus\mathbb{Q}$，恒有$f_n(x)=0$，故$f_n(x)\to 0$；而对任意有理数$x\in E\cap\mathbb{Q}$，数列$\{f_n(x)\}$在$-1$与$1$之间振荡，因而不收敛。由于$E\cap\mathbb{Q}$是零测集，$f_n$几乎处处收敛于零函数，但并不在$E$上逐点收敛。%值得注意的是，不收敛点集虽然测度为零，却在$E$中稠密。
 \end{example}
 %
 % 对于可测函数，若不区分几乎处处相等的函数，则几乎处处收敛就相当于逐点收敛。在这样的约定下，函数列\textbf{在零测集上不好的性质几乎不会影响到全局性质}。
@@ -136,12 +154,18 @@ $$m^*\left(\bigsqcup_{k=1}^{\infty}E_k\right)\neq\sum_{k=1}^{\infty}m^*(E_k)$$
 
 \begin{definition}[黎曼积分]
     设$f:[a,b]\to\mathbb{R}$有界，$P=\{x_0,x_1,\dots,x_n\}$是区间$[a,b]$的一个划分，$a=x_0<x_1<\cdots <x_n=b$，对于每个子区间$[x_{k-1},x_k]$，定义
-    \[m_k=\inf_{x\in [x_{k-1},x_k]}f(x),\quad M_k=\sup_{x\in [x_{k-1},x_k]}f(x)\]
+    \begin{equation}
+        m_k=\inf_{x\in [x_{k-1},x_k]}f(x),\quad M_k=\sup_{x\in [x_{k-1},x_k]}f(x).
+    \end{equation}
     由此分别定义$f$对$P$的上、下\textbf{达布和}(Darboux sum)：
-    \[U(f,P)=\sum_{k=1}^{n}M_k(x_k-x_{k-1}),\quad L(f,P)=\sum_{k=1}^{n}m_k(x_k-x_{k-1})\]
+    \begin{equation}
+        U(f,P)=\sum_{k=1}^{n}M_k(x_k-x_{k-1}),\quad L(f,P)=\sum_{k=1}^{n}m_k(x_k-x_{k-1}).
+    \end{equation}
     如果
-    \[\inf_{P}U(f,P)=\sup_{P}L(f,P)\]
-    则称$f$在$[a,b]$上\textbf{黎曼可积}，并将上述公共值定义为$f$在$[a,b]$上的\textbf{黎曼积分}，为了区分于勒贝格积分，记为$(R)\int_{a}^{b}f(x)\,dx$。
+    \begin{equation}
+        \inf_{P}U(f,P)=\sup_{P}L(f,P),
+    \end{equation}
+    则称$f$在$[a,b]$上\textbf{黎曼可积}，并将上述公共值定义为$f$在$[a,b]$上的\textbf{黎曼积分}，为了区分于勒贝格积分，记为$(R)\int_{a}^{b}f(x)\,\dd x$。
 \end{definition}
 
 这个定义实质上实质上是先定义了\textbf{阶梯函数}的黎曼积分，然后通过阶梯函数对被积函数进行上、下逼近，从而定义了被积函数的黎曼积分。阶梯函数的定义如下：
@@ -150,7 +174,9 @@ $$m^*\left(\bigsqcup_{k=1}^{\infty}E_k\right)\neq\sum_{k=1}^{\infty}m^*(E_k)$$
     如果函数$\varphi:[a,b]\to\mathbb{R}$的定义域可以被划分为有限的子区间族$\{[x_{k-1},x_k]\}_{k=1}^{n}$（严格来说需要处理区间端点，但区间端点属于左侧、右侧的集合均没有影响），使得$\varphi$在每个子区间的内部$(x_{k-1},x_k)$为常数函数，则称$\varphi$是定义在$[a,b]$上的\textbf{阶梯函数}。
 
     显然阶梯函数黎曼可积，并且
-    $$\int_{a}^{b}\varphi(x)\,dx=\sum_{k=1}^{n}\varphi(x)(x_k-x_{k-1})$$
+    \begin{equation}
+        \int_{a}^{b}\varphi(x)\,\dd x=\sum_{k=1}^{n}\varphi(x)(x_k-x_{k-1}).
+    \end{equation}
 \end{definition}
 
 勒贝格定理\cite{real_analysis}表明，闭区间上的有界函数$f$黎曼可积的充要条件是$f$在$[a,b]$中的不连续点构成零测集。狄利克雷函数$\chi_{\mathbb{Q}}$在$[0,1]$处处不连续，因此它在黎曼积分的意义下不可积，而\textbf{勒贝格积分扩展了有界区间上可积函数的范围}，这是勒贝格积分的第一条重要优势。
@@ -161,90 +187,123 @@ $$m^*\left(\bigsqcup_{k=1}^{\infty}E_k\right)\neq\sum_{k=1}^{\infty}m^*(E_k)$$
     若存在函数$\varphi:E\to\mathbb{R}$的定义域$E$的一个有限的可测集划分$\{E_k\}_{k=1}^{n}$，使得$\varphi$在每个可测子集$E_k$上为常数函数，则称$\varphi$是定义在$E$上的\textbf{简单函数}(simple function)。
 
     简单函数可以表示为：
-    \[\varphi=\sum_{k=1}^{n}a_k\chi_{E_k},\quad\text{其中}E_k=\varphi^{-1}(a_k)=\{x\in E|\varphi(x)=a_k\}\]
+    \begin{equation}
+        \varphi=\sum_{k=1}^{n}a_k\chi_{E_k},\quad \text{其中}E_k=\varphi^{-1}(a_k)=\{x\in E \mid \varphi(x)=a_k\},
+    \end{equation}
     称之为简单函数的\textbf{典范表示}(canonical representation)。
 \end{definition}
 
 显然，简单函数是可测的。对于非负简单函数$\varphi=\sum_{k=1}^{n}a_k\chi_{E_k}$，定义
-\[\int_{E}\varphi\,dm=\sum_{k=1}^{n}a_k m(E_k)\]
-其中$dm$表示勒贝格测度，并约定$0\cdot\infty=0$。积分值允许为$+\infty$。
+\begin{equation}
+    \int_{E}\varphi\,\dd m=\sum_{k=1}^{n}a_k m(E_k),
+\end{equation}
+其中$\dd m$表示勒贝格测度，并约定$0\cdot\infty=0$。积分值允许为$+\infty$。
 \begin{remark}*
-    对于单调递增的有界变差函数$f$，可以由$f$的增量定义新的测度，并由此引出\textbf{勒贝格-斯蒂尔杰斯积分}，此时$dm$就应替换为$df$，但我们不在这里展开讨论，感兴趣的读者可以参考\cite{simple_real_analysis}或\cite{chentianquan}，它实际上是分部积分的基础。
+    对于单调递增的有界变差函数$f$，可以由$f$的增量定义新的测度，并由此引出\textbf{勒贝格-斯蒂尔杰斯积分}，此时$\dd m$就应替换为$\dd f$，但我们不在这里展开讨论，感兴趣的读者可以参考\cite{simple_real_analysis}或\cite{chentianquan}，它实际上是分部积分的基础。
 \end{remark}
 
 我们先用非负简单函数从下方逼近非负可测函数来定义其勒贝格积分，再借助函数的正部和负部处理一般情形。
 
 \begin{definition}[非负可测函数的勒贝格积分]
     设$f:E\to[0,+\infty)$是非负可测函数，则定义$f$在$E$上的\textbf{勒贝格积分}为
-    \[\int_{E}f\,dm=\sup_{0\leq \varphi\leq f}\int_{E}\varphi\,dm\]
+    \begin{equation}
+        \int_{E}f\,\dd m=\sup_{0\leq \varphi\leq f}\int_{E}\varphi\,\dd m,
+    \end{equation}
     其中$\varphi$取遍定义在$E$上的非负简单函数。该积分取值于$[0,+\infty]$。
 
-    若$\int_{E}f\,dm<\infty$，则称$f$在$E$上\textbf{可积}。不可积的非负函数仍有勒贝格积分，其值为$+\infty$。
+    若$\int_{E}f\,\dd m<\infty$，则称$f$在$E$上\textbf{可积}。不可积的非负函数仍有勒贝格积分，其值为$+\infty$。
 \end{definition}
 
 这个定义不要求$f$有界，也不要求$E$的测度有限。若$m(E)<\infty$且$f$有界，则$f$自然可积。
 
 \begin{theorem}[非负可测函数的勒贝格积分的线性性]
     设$f,g:E\to[0,+\infty)$是非负可测函数，$\forall\alpha,\beta\in[0,+\infty)$，有
-    \[\int_{E}(\alpha f+\beta g)\,dm=\alpha\int_{E}f\,dm+\beta\int_{E}g\,dm\]
+    \begin{equation}
+        \int_{E}(\alpha f+\beta g)\,\dd m=\alpha\int_{E}f\,\dd m+\beta\int_{E}g\,\dd m,
+    \end{equation}
     其中涉及无穷大的运算按$0\cdot\infty=0$处理。
 \end{theorem}
 
 非负可测函数的积分还具有单调性和区域可加性：若$0\leq f\leq g$，则
-\[\int_E f\,dm\leq\int_E g\,dm;\]
+\begin{equation}
+    \int_E f\,\dd m\leq\int_E g\,\dd m;
+\end{equation}
 若$A,B\subset E$是互不相交的可测集，则
-\[\int_{A\sqcup B}f\,dm=\int_A f\,dm+\int_B f\,dm.\]
+\begin{equation}
+    \int_{A\sqcup B}f\,\dd m=\int_A f\,\dd m+\int_B f\,\dd m.
+\end{equation}
 
 积分不受零测集上的函数值影响，具体表现为下面的命题。
 
 \begin{proposition}
     设$f:E\to[0,+\infty)$是非负可测函数，则\\
-    \ding{172}$\int_{E}f\,dm=0\iff f=0,\mathrm{a.e.}$；\\
-    \ding{173}若$E_0$是$E$的零测子集，则$\int_{E}f\,dm=\int_{E\setminus E_0}f\,dm$。
+    \ding{172} $\int_{E}f\,\dd m=0\iff f=0,\ \aee$；\\
+    \ding{173} 若$E_0$是$E$的零测子集，则$\int_{E}f\,\dd m=\int_{E\setminus E_0}f\,\dd m$。
 \end{proposition}
 
 为了将积分推广到可能取正值和负值的函数，我们把函数分解为两个非负部分。
 
 \begin{definition}[函数的正部与负部]
-    函数$f:E\to\mathbb{R}$的\textbf{正部}与\textbf{负部}分别定义为$$f^+(x)=\max\{f(x),0\},\quad f^-(x)=-\min\{f(x),0\}$$
-    易见$f=f^+-f^-,|f|=f^++f^-$。
+    函数$f:E\to\mathbb{R}$的\textbf{正部}与\textbf{负部}分别定义为
+    \begin{equation}
+        f^+(x)=\max\{f(x),0\},\quad f^-(x)=-\min\{f(x),0\}.
+    \end{equation}
+    易见$f=f^+-f^-,\ |f|=f^++f^-$。
 \end{definition}
 后文中将定义函数的翻转为$f^-(x)=f(-x)$，请读者注意它们的区别，正部与负部这一概念及其符号仅在本节中使用。
 
 \begin{definition}[可测函数的勒贝格积分]
     设$f:E\to\mathbb{R}$是可测函数，如果$f^+,f^-$均可积，则称$f$是可积的，并定义$f$在$E$上的勒贝格积分为
-    \[\int_{E}f\,dm=\int_{E}f^+\,dm-\int_{E}f^-\,dm\]
+    \begin{equation}
+        \int_{E}f\,\dd m=\int_{E}f^+\,\dd m-\int_{E}f^-\,\dd m.
+    \end{equation}
     $f$的可积性等价于$|f|$的可积性，因为
-    \[\int_{E}|f|\,dm=\int_{E}f^+\,dm+\int_{E}f^-\,dm<\infty\]
+    \begin{equation}
+        \int_{E}|f|\,\dd m=\int_{E}f^+\,\dd m+\int_{E}f^-\,\dd m<\infty.
+    \end{equation}
 \end{definition}
 
 由定义立即得到勒贝格积分的绝对值不等式
-\[\left|\int_{E}f\,dm\right|\leq \int_{E}|f|\,dm.\]
+\begin{equation}
+    \abs{\int_{E}f\,\dd m}\leq \int_{E}|f|\,\dd m.
+\end{equation}
 
 对于黎曼积分，绝对可积性强于可积性，并称可积却不绝对可积的函数是\textbf{条件可积}的，例如，\cref{def:sinc}给出的采样函数就是条件可积的。但是，从前一定义可以看出，对于勒贝格积分，\textbf{可积性与绝对可积性是等价的}。
 
 \begin{proposition}[勒贝格积分的基本性质]
     设$f,g:E\to\mathbb{R}$可积，$\alpha,\beta\in\mathbb{R}$，则：\\
-    \ding{172}$\alpha f+\beta g$可积，并且
-    \[\int_E(\alpha f+\beta g)\,dm=\alpha\int_E f\,dm+\beta\int_E g\,dm;\]
-    \ding{173}若$f\leq g$，则
-    \[\int_E f\,dm\leq\int_E g\,dm;\]
-    \ding{174}若$A,B\subset E$是互不相交的可测集，则
-    \[\int_{A\sqcup B}f\,dm=\int_A f\,dm+\int_B f\,dm.\]
+    \ding{172} $\alpha f+\beta g$可积，并且
+    \begin{equation}
+        \int_E(\alpha f+\beta g)\,\dd m=\alpha\int_E f\,\dd m+\beta\int_E g\,\dd m;
+    \end{equation}
+    \ding{173} 若$f\leq g$，则
+    \begin{equation}
+        \int_E f\,\dd m\leq\int_E g\,\dd m;
+    \end{equation}
+    \ding{174} 若$A,B\subset E$是互不相交的可测集，则
+    \begin{equation}
+        \int_{A\sqcup B}f\,\dd m=\int_A f\,\dd m+\int_B f\,\dd m.
+    \end{equation}
 \end{proposition}
 
 \begin{theorem}[比较判别法]
     设$f,g:E\to\mathbb{R}$是可测函数，$g\geq|f|$，如果$g$可积，则$f$可积，并且
-    \[\left|\int_{E}f\,dm\right|\leq \int_{E}|f|\,dm\leq \int_{E}g\,dm\]
+    \begin{equation}
+        \abs{\int_{E}f\,\dd m}\leq \int_{E}|f|\,\dd m\leq \int_{E}g\,\dd m.
+    \end{equation}
 \end{theorem}
 
-由于单点集是零测集，区间端点是否包含在积分区域中不会影响积分值，因此记号$\int_{a}^{b}f\,dm$是良定义的：
-\[\int_{a}^{b}f\,dm=\int_{[a,b]}f\,dm=\int_{(a,b)}f\,dm=\int_{[a,b)}f\,dm=\int_{(a,b]}f\,dm\]
-在不致混淆时，也沿用$\int_{a}^{b}f(x)\,dx$的记号表示勒贝格积分。
+由于单点集是零测集，区间端点是否包含在积分区域中不会影响积分值，因此记号$\int_{a}^{b}f\,\dd m$是良定义的：
+\begin{equation}
+    \int_{a}^{b}f\,\dd m=\int_{[a,b]}f\,\dd m=\int_{(a,b)}f\,\dd m=\int_{[a,b)}f\,\dd m=\int_{(a,b]}f\,\dd m.
+\end{equation}
+在不致混淆时，也沿用$\int_{a}^{b}f(x)\,\dd x$的记号表示勒贝格积分。
 
 \begin{theorem}
     设$f:[a,b]\to\mathbb{R}$是黎曼可积函数，则$f$也是勒贝格可积的，并且
-    \[(R)\int_{a}^{b}f(x)\,dx=\int_{a}^{b}f\,dm.\]
+    \begin{equation}
+        (R)\int_{a}^{b}f(x)\,\dd x=\int_{a}^{b}f\,\dd m.
+    \end{equation}
 \end{theorem}
 
 可见，在有界区间上，\textbf{勒贝格积分是黎曼积分的推广}。
@@ -252,18 +311,26 @@ $$m^*\left(\bigsqcup_{k=1}^{\infty}E_k\right)\neq\sum_{k=1}^{\infty}m^*(E_k)$$
 下面依次介绍三个用于交换极限与积分顺序的重要结果。前两个定理针对非负函数，控制收敛定理则适用于一般可积函数列。
 
 \begin{theorem}[Levi单调收敛定理]
-    设$\{f_n:E\to[0,+\infty)\}$是递增的非负可测函数列，且$f_n\to f,\mathrm{a.e.}$，则
-    \[\int_{E}f\,dm=\lim_{n\to\infty}\int_{E}f_n\,dm.\]
+    设$\{f_n:E\to[0,+\infty)\}$是递增的非负可测函数列，且$f_n\to f,\ \aee$，则
+    \begin{equation}
+        \int_{E}f\,\dd m=\lim_{n\to\infty}\int_{E}f_n\,\dd m.
+    \end{equation}
 \end{theorem}
 后文中将它简称为“单调收敛定理”。它表明，对于非负递增的可测函数列，总能\textbf{交换极限与积分}的顺序。特别地，若$\sum_{n=1}^{\infty}f_n$是非负可测函数项级数，其部分和$s_n=\sum_{i=1}^{n}f_i$几乎处处收敛于$s$，则
-\[\int_{E}s\,dm=\lim_{n\to\infty}\int_{E}s_n\,dm=\sum_{n=1}^{\infty}\int_{E}f_n\,dm.\]
+\begin{equation}
+    \int_{E}s\,\dd m=\lim_{n\to\infty}\int_{E}s_n\,\dd m=\sum_{n=1}^{\infty}\int_{E}f_n\,\dd m.
+\end{equation}
 因此，非负可测函数项级数可以\textbf{逐项积分}。
 
 \begin{theorem}[Fatou引理]
     设$\{f_n:E\to[0,+\infty)\}$是非负可测函数列，则
-    \[\int_{E}\liminf_{n\to\infty}f_n\,dm\leq \liminf_{n\to\infty}\int_{E}f_n\,dm.\]
-    特别地，若$f_n\to f,\mathrm{a.e.}$，则
-    \[\int_{E}f\,dm\leq \liminf_{n\to\infty}\int_{E}f_n\,dm.\]
+    \begin{equation}
+        \int_{E}\liminf_{n\to\infty}f_n\,\dd m\leq \liminf_{n\to\infty}\int_{E}f_n\,\dd m.
+    \end{equation}
+    特别地，若$f_n\to f,\ \aee$，则
+    \begin{equation}
+        \int_{E}f\,\dd m\leq \liminf_{n\to\infty}\int_{E}f_n\,\dd m.
+    \end{equation}
 \end{theorem}
 
 Fatou引理给出了积分与下极限之间的基本不等式，也是证明其他收敛定理的重要工具。
@@ -271,8 +338,10 @@ Fatou引理给出了积分与下极限之间的基本不等式，也是证明其
 下面的定理是本书中\textbf{用于极限与积分换序的主要定理}：
 \begin{theorem}[Lebesgue控制收敛定理]
     \label{thm:DCT}
-    设$\{f_n:E\to\mathbb{R}\}$是可测函数列，$f_n\to f,\mathrm{a.e.}$，如果存在一个可积函数$g:E\to[0,+\infty)$，使得$\forall n\in\mathbb{N}$，$\forall x\in E$，有$|f_n(x)|\leq g(x)$，则$f$可积，并且
-    \[\int_{E}f\,dm=\lim_{n\to\infty}\int_{E}f_n\,dm\]
+    设$\{f_n:E\to\mathbb{R}\}$是可测函数列，$f_n\to f,\ \aee$，如果存在一个可积函数$g:E\to[0,+\infty)$，使得$\forall n\in\mathbb{N}$，$\forall x\in E$，有$|f_n(x)|\leq g(x)$，则$f$可积，并且
+    \begin{equation}
+        \int_{E}f\,\dd m=\lim_{n\to\infty}\int_{E}f_n\,\dd m.
+    \end{equation}
 \end{theorem}
 
 后文中将它简称为“控制收敛定理”。\textbf{此定理容易推广到实变量的复值函数列}，只要分别考虑实部和虚部即可。
@@ -280,173 +349,237 @@ Fatou引理给出了积分与下极限之间的基本不等式，也是证明其
 作为使用控制收敛定理的例子，也作为勒贝格积分的优秀性质，我们给出以下定理：
 \begin{theorem}[勒贝格积分的可数可加性]
     设$f:E\to\mathbb{R}$是可测函数，$\{E_k\}_{k=1}^{\infty}$是$E$的可测划分，则
-    \[\int_{E}f\,dm=\sum_{k=1}^{\infty}\int_{E_k}f\,dm\]
+    \begin{equation}
+        \int_{E}f\,\dd m=\sum_{k=1}^{\infty}\int_{E_k}f\,\dd m.
+    \end{equation}
 \end{theorem}
 \begin{proof}
     记$\chi_n$为$\sqcup_{k=1}^n E_k$的特征函数，则$f\cdot\chi_n\to f$，且$|f\cdot\chi_n|\leq |f|$，由控制收敛定理，
-    \[\int_{E}f\,dm=\lim_{n\to\infty}\int_{E}f\cdot\chi_n\,dm=\lim_{n\to\infty}\sum_{k=1}^{\infty}\int_{E_k}f\cdot\chi_n\,dm=\sum_{k=1}^{\infty}\int_{E_k}f\,dm\]
+    \begin{equation}
+        \int_{E}f\,\dd m=\lim_{n\to\infty}\int_{E}f\cdot\chi_n\,\dd m=\lim_{n\to\infty}\sum_{k=1}^{\infty}\int_{E_k}f\cdot\chi_n\,\dd m=\sum_{k=1}^{\infty}\int_{E_k}f\,\dd m.
+    \end{equation}
 \end{proof}
 \begin{corollary}
     设$f:E\to\mathbb{R}$可积，则\\
-    \ding{172}若$\{A_n\}_{n=1}^{\infty}$是$E$的上升的可测集子族，即$A_n\subset A_{n+1}\subset E,\forall n$，则
-    \[\int_{\bigcup_{n=1}^{\infty}A_n}f\,dm=\lim_{n\to\infty}\int_{A_n}f\,dm\]
-    \ding{173}若$\{B_n\}_{n=1}^{\infty}$是$E$的下降的可测集子族，即$B_n\supset B_{n+1}\supset E,\forall n$，则
-    \[\int_{\bigcap_{n=1}^{\infty}B_n}f\,dm=\lim_{n\to\infty}\int_{B_n}f\,dm\]
+    \ding{172} 若$\{A_n\}_{n=1}^{\infty}$是$E$的上升的可测集子族，即$A_n\subset A_{n+1}\subset E,\ \forall n$，则
+    \begin{equation}
+        \int_{\bigcup_{n=1}^{\infty}A_n}f\,\dd m=\lim_{n\to\infty}\int_{A_n}f\,\dd m;
+    \end{equation}
+    \ding{173} 若$\{B_n\}_{n=1}^{\infty}$是$E$的下降的可测集子族，即$B_n\supset B_{n+1}\supset E,\ \forall n$，则
+    \begin{equation}
+        \int_{\bigcap_{n=1}^{\infty}B_n}f\,\dd m=\lim_{n\to\infty}\int_{B_n}f\,\dd m.
+    \end{equation}
 \end{corollary}
 \begin{proof}
-    通过一个常见的手法，我们将\textbf{具有单调性的集合列转化为不交的集合列}。令$E_1=A_1,E_n=A_n\setminus A_{n-1},n\geq 2$，则$\{E_n\}_{n=1}^{\infty}$是不交的，并且$\bigcup_{n=1}^{\infty}A_n=\bigcup_{n=1}^{\infty}E_n$，由积分的可数可加性，
-    \[\int_{\bigcup_{n=1}^{\infty}A_n}f\,dm=\sum_{n=1}^{\infty}\int_{E_n}f\,dm=\lim_{n\to\infty}\sum_{i=1}^{n}\int_{E_i}f\,dm=\lim_{n\to\infty}\int_{\bigcup_{i=1}^{n}A_i}f\,dm=\lim_{n\to\infty}\int_{A_n}f\,dm\]
+    通过一个常见的手法，我们将\textbf{具有单调性的集合列转化为不交的集合列}。令$E_1=A_1,\ E_n=A_n\setminus A_{n-1},\ n\geq 2$，则$\{E_n\}_{n=1}^{\infty}$是不交的，并且$\bigcup_{n=1}^{\infty}A_n=\bigcup_{n=1}^{\infty}E_n$，由积分的可数可加性，
+    \begin{equation}
+        \int_{\bigcup_{n=1}^{\infty}A_n}f\,\dd m=\sum_{n=1}^{\infty}\int_{E_n}f\,\dd m=\lim_{n\to\infty}\sum_{i=1}^{n}\int_{E_i}f\,\dd m=\lim_{n\to\infty}\int_{\bigcup_{i=1}^{n}A_i}f\,\dd m=\lim_{n\to\infty}\int_{A_n}f\,\dd m.
+    \end{equation}
     因此\ding{172}得证，考虑$B_n=E\setminus A_n$并用德摩根律：
-    \[\bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}(E\setminus A_n)=E\setminus \bigcap_{n=1}^{\infty}A_n=E\]
+    \begin{equation}
+        \bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}(E\setminus A_n)=E\setminus \bigcap_{n=1}^{\infty}A_n=E,
+    \end{equation}
     即可证明\ding{173}。
 \end{proof}
 
 特别地，考虑上升的集合列$\{[-n,n]\}_{n=1}^{\infty}$及$\mathbb{R}$上的可积函数$f$，有
-\[\int_{\mathbb{R}}f\,dm=\lim_{n\to\infty}\int_{[-n,n]}f\,dm\]
+\begin{equation}
+    \int_{\mathbb{R}}f\,\dd m=\lim_{n\to\infty}\int_{[-n,n]}f\,\dd m.
+\end{equation}
 这个性质也是黎曼积分不具备的。黎曼积分的无穷限反常积分需要考虑积分上下限是否有关联，例如主值意义下的积分有时不等于普通意义下的积分，而勒贝格积分则不存在这样的情况。
 
 \begin{example}
-    考虑函数$f(x)=x$，它在$\mathbb{R}$上不可积，但在区间$[-n,n]$上可积，并且\[\int_{[-n,n]}f\,dm=0\]
+    考虑函数$f(x)=x$，它在$\mathbb{R}$上不可积，但在区间$[-n,n]$上可积，并且
+    \begin{equation}
+        \int_{[-n,n]}f\,\dd m=0.
+    \end{equation}
     我们定义$f$在主值意义下的积分为
-    \[\mathrm{p.v.}\int_{\mathbb{R}}f\,dm=\lim_{n\to\infty}\int_{[-n,n]}f\,dm=0\]
+    \begin{equation}
+        \pv\int_{\mathbb{R}}f\,\dd m=\lim_{n\to\infty}\int_{[-n,n]}f\,\dd m=0.
+    \end{equation}
     在主值意义下，$f$是可积的。但在勒贝格积分的意义下，$f$不可积，因为
-    \[\int_{\mathbb{R}}|f|\,dm=\int_{\mathbb{R}}|x|\,dm=+\infty\]
+    \begin{equation}
+        \int_{\mathbb{R}}|f|\,\dd m=\int_{\mathbb{R}}|x|\,\dd m=+\infty.
+    \end{equation}
 \end{example}
 
 \textbf{黎曼积分的计算技巧在多数情况下同样适用于勒贝格积分}：
 \begin{theorem}[勒贝格积分的变量代换]
-    设$f:[a,b]\to\mathbb{R}$可积，递增函数$g:[c,d]\to \mathbb{R}$可导，并且$g(c)=a,g(d)=b$，则
-    \[\int_{a}^{b}f\,dm=\int_{c}^{d}f\circ g\cdot g'\,dm\]
+    设$f:[a,b]\to\mathbb{R}$可积，递增函数$g:[c,d]\to \mathbb{R}$可导，并且$g(c)=a,\ g(d)=b$，则
+    \begin{equation}
+        \int_{a}^{b}f\,\dd m=\int_{c}^{d}f\circ g\cdot g'\,\dd m.
+    \end{equation}
 \end{theorem}
 
 \begin{theorem}[勒贝格积分的分部积分法]
     设$f,g:[a,b]\to\mathbb{R}$可导，则
-    \[\int_{a}^{b}f g'\,dm=\evalat{fg}{a}{b}-\int_{a}^{b}f' g\,dm\]
+    \begin{equation}
+        \int_{a}^{b}f g'\,\dd m=\evalat{fg}{a}{b}-\int_{a}^{b}f' g\,\dd m.
+    \end{equation}
 \end{theorem}
 
 \subsection{\texorpdfstring{$L^p$空间与$l^p$空间}{Lp空间与lp空间}}\label{sub:Lp_space}
 
-本小节主要介绍两类常用的线性赋范空间：$L^p$空间和$l^p$空间$(1\leq p\leq \infty)$，前者是处理连续信号的，而后者是处理离散信号的。
+本小节主要介绍两类常用的线性赋范空间：$L^p$空间和$l^p$空间（$1\leq p\leq \infty$），前者是处理连续信号的，而后者是处理序列的。
 
 \begin{definition}[$L^p$空间]\label{def:Lp}
-    设$E$是可测集，$L^p(E)(0<p<\infty)$空间表示在$E$上$p$次勒贝格可积的函数组成的函数空间，即
-    \[L^p(E):=\left\{f:E\rightarrow \mathbb{C} \left| \int_{E}|f(t)|^p\,dm<\infty\right.\right\}\]
+    设$E$是可测集，$L^p(E)\ (0<p<\infty)$空间表示在$E$上$p$次勒贝格可积的函数组成的函数空间，即
+    \begin{equation}
+        L^p(E):=\braces{f:E\rightarrow \mathbb{C} \,\middle|\, \int_{E}|f(t)|^p\,\dd m<\infty}.
+    \end{equation}
 \end{definition}
 
 \begin{definition}[$L^{\infty}$空间]\label{def:L_infty}
     设$E$是可测集，$L^{\infty}(E)$空间表示在$E$上\textbf{本性有界}(essentially bounded)的函数组成的函数空间，即
-    \[L^{\infty}(E):=\left\{f:E\rightarrow \mathbb{C} \left|\exists M<\infty,|f|\leq M,\mathrm{a.e.}\right.\right\}\]
+    \begin{equation}
+        L^{\infty}(E):=\braces{f:E\rightarrow \mathbb{C} \,\middle|\, \exists M<\infty,\ |f|\leq M,\ \aee}.
+    \end{equation}
 \end{definition}
 
 \begin{definition}[$l^p$空间]\label{def:lp}
-    设$E$是可数集，$l^p(E)(0<p<\infty)$空间表示在可数集$E$上$p$次可和的函数组成的函数空间，即
-    \[l^p(E):=\left\{f:E\rightarrow \mathbb{C} \left| \sum_{n\in E}|f(n)|^p<\infty\right.\right\}\]
+    设$E$是可数集，$l^p(E)\ (0<p<\infty)$空间表示在可数集$E$上$p$次可和的函数组成的函数空间，即
+    \begin{equation}
+        l^p(E):=\braces{f:E\rightarrow \mathbb{C} \,\middle|\, \sum_{n\in E}|f(n)|^p<\infty}.
+    \end{equation}
 \end{definition}
 
-一般而言，在考虑$l^p$空间时，可数集$E$取为$\mathbb{N}$，$\mathbb{N} ^*$（数列）或$\mathbb{Z}$（离散信号）。本小节的后续内容中，默认取$E=\mathbb{N}$。
+一般而言，在考虑$l^p$空间时，可数集$E$取为$\mathbb{N}$，$\mathbb{N}^*$（数列）或$\mathbb{Z}$（序列）。本小节的后续内容中，默认取$E=\mathbb{N}$。
 
 \begin{definition}[$l^{\infty}$空间]\label{def:l_infty}
     $l^{\infty}$表示有界数列空间，即
-    \[l^{\infty}:=\left\{\{x_n\}_{n=0}^{\infty} \left|\exists M<\infty,|x_n|\leq M,\forall n\in \mathbb{N}\right.\right\}\]
+    \begin{equation}
+        l^{\infty}:=\braces{\{x_n\}_{n=0}^{\infty} \,\middle|\, \exists M<\infty,\ |x_n|\leq M,\ \forall n\in \mathbb{N}}.
+    \end{equation}
 \end{definition}
 
 \begin{lemma}
     $\forall a,b\in\mathbb{C}$，当$p\geq 1$时，有
-    \[|a+b|^p\leq 2^{p-1}(|a|^p+|b|^p)\leq 2^p\max\{|a|^p,|b|^p\}\]
+    \begin{equation}
+        |a+b|^p\leq 2^{p-1}(|a|^p+|b|^p)\leq 2^p\max\{|a|^p,|b|^p\},
+    \end{equation}
     当$0<p<1$时，有
-    \[|a+b|^p\leq |a|^p+|b|^p\]
+    \begin{equation}
+        |a+b|^p\leq |a|^p+|b|^p.
+    \end{equation}
 \end{lemma}
 \begin{proof}
     由三角不等式，$|a+b|\leq |a|+|b|$。当$p\geq 1$时，函数$x\mapsto x^p$在$[0,\infty)$上是凸函数，因此
-    \[\left(\frac{|a|+|b|}{2}\right)^p\leq \frac{|a|^p+|b|^p}{2}.\]
+    \begin{equation}
+        \paren{\frac{|a|+|b|}{2}}^p\leq \frac{|a|^p+|b|^p}{2}.
+    \end{equation}
     从而
-    \[|a+b|^p\leq (|a|+|b|)^p\leq 2^{p-1}(|a|^p+|b|^p)\leq 2^p\max\{|a|^p,|b|^p\}.\]
+    \begin{equation}
+        |a+b|^p\leq (|a|+|b|)^p\leq 2^{p-1}(|a|^p+|b|^p)\leq 2^p\max\{|a|^p,|b|^p\}.
+    \end{equation}
 
     当$0<p<1$时，若$|a|+|b|=0$，结论显然成立；否则令
-    \[\lambda=\frac{|a|}{|a|+|b|}\in[0,1].\]
+    \begin{equation}
+        \lambda=\frac{|a|}{|a|+|b|}\in[0,1].
+    \end{equation}
     由于$0<p<1$，有$\lambda^p\geq\lambda$及$(1-\lambda)^p\geq 1-\lambda$，故
-    \begin{align*}
+    \begin{align}
         |a|^p+|b|^p
-        &=(|a|+|b|)^p\bigl(\lambda^p+(1-\lambda)^p\bigr)\\
+        &=(|a|+|b|)^p\bigl(\lambda^p+(1-\lambda)^p\bigr)\nonumber\\
         &\geq (|a|+|b|)^p
         \geq |a+b|^p.
-    \end{align*}
+    \end{align}
 \end{proof}
 
 由此可以推出以上几种空间都是线性空间。此外，在$0<p<1$时，$L^p(E)$和$l^p$空间是度量空间，它们的度量分别为
-\[d(f,g)=\int_{E}|f-g|^p\,dm,\quad d(\{x_n\},\{y_n\})=\sum_{n=0}^{\infty}|x_n-y_n|^p\]
+\begin{equation}
+    d(f,g)=\int_{E}|f-g|^p\,\dd m,\quad d(\{x_n\},\{y_n\})=\sum_{n=0}^{\infty}|x_n-y_n|^p.
+\end{equation}
 
 不过，$0<p<1$的情况不是我们的主要目标，因为它们不构成范数空间。下面，我们给出以上几种空间在$1\leq p \leq \infty$时的范数定义；由Minkowski不等式可知，这些范数满足三角不等式，因而相应的空间是线性赋范空间。
 
 \begin{definition}[$L^p$空间的范数]
     设$E$是可测集，如果$1\leq p<\infty$，定义
-    \[\|f\|_p=\left(\int_{E}|f(t)|^p\,dm\right)^{1/p}\]
+    \begin{equation}
+        \|f\|_p=\paren{\int_{E}|f(t)|^p\,\dd m}^{1/p},
+    \end{equation}
     如果$p=\infty$，定义
-    \[\|f\|_{\infty}=\inf\{M<\infty||f|\leq M,\mathrm{a.e.}\}\]
+    \begin{equation}
+        \|f\|_{\infty}=\inf\{M<\infty \mid |f|\leq M,\ \aee\},
+    \end{equation}
     即$f$的本性上确界。
 \end{definition}
 
-在$L^p$空间中，我们\textbf{不区分几乎处处相等的函数}，即如果$f=g,\mathrm{a.e.}$，则$f$与$g$在$L^p$空间中是等价的，因此，以上范数定义中的函数$f$可以理解为等价类中的任意一个代表元。在这个意义下，范数的同一性是成立的。容易验证，非负性和齐次性也是成立的。
+在$L^p$空间中，我们\textbf{不区分几乎处处相等的函数}，即如果$f=g,\ \aee$，则$f$与$g$在$L^p$空间中是等价的，因此，以上范数定义中的函数$f$可以理解为等价类中的任意一个代表元。在这个意义下，范数的同一性是成立的。容易验证，非负性和齐次性也是成立的。
 
 \begin{definition}[$l^p$空间的范数]
     设$1\leq p<\infty$，对于$\{x_n\}\in l^p$，定义
-    \[\|\{x_n\}\|_p=\left(\sum_{n=0}^{\infty}|x_n|^p\right)^{1/p}\]
+    \begin{equation}
+        \|\{x_n\}\|_p=\paren{\sum_{n=0}^{\infty}|x_n|^p}^{1/p},
+    \end{equation}
     对于$\{x_n\}\in l^{\infty}$，定义
-    \[\|\{x_n\}\|_{\infty}=\sup_{n\in \mathbb{N}}|x_n|\]
+    \begin{equation}
+        \|\{x_n\}\|_{\infty}=\sup_{n\in \mathbb{N}}|x_n|.
+    \end{equation}
 \end{definition}
 
 以下设$p,q\in[1,\infty]$满足
-\[\frac{1}{p}+\frac{1}{q}=1,\]
+\begin{equation}
+    \frac{1}{p}+\frac{1}{q}=1,
+\end{equation}
 其中约定$1/\infty=0$。这样的$p,q$称为一对共轭指数。
 
 \begin{theorem}[Hölder不等式]\label{thm:holder}
-    设$f\in L^p(E),g\in L^q(E)$，有$f\cdot g\in L^1(E)$，并且
-    \[\int_{E}|fg|\,dm\leq \|f\|_p\cdot \|g\|_q\]
-    当$1<p,q<\infty$且$f,g$不几乎处处为零时，等号成立当且仅当存在$\lambda>0$使得$|f|^p=\lambda |g|^q,\mathrm{a.e.}$
+    设$f\in L^p(E),\ g\in L^q(E)$，有$f\cdot g\in L^1(E)$，并且
+    \begin{equation}
+        \int_{E}|fg|\,\dd m\leq \|f\|_p\cdot \|g\|_q.
+    \end{equation}
+    当$1<p,q<\infty$且$f,g$不几乎处处为零时，等号成立当且仅当存在$\lambda>0$使得$|f|^p=\lambda |g|^q,\ \aee$。
 \end{theorem}
 
 \begin{theorem}[Minkowski不等式]\label{thm:minkowski}
     $\forall f,g\in L^p(E)$，有$f+g\in L^p(E)$，并且
-    \[\|f+g\|_p\leq \|f\|_p+\|g\|_p\]
-    当$1<p<\infty$且$f,g$不几乎处处为零时，等号成立当且仅当存在$\lambda>0$使得$f=\lambda g,\mathrm{a.e.}$
+    \begin{equation}
+        \|f+g\|_p\leq \|f\|_p+\|g\|_p.
+    \end{equation}
+    当$1<p<\infty$且$f,g$不几乎处处为零时，等号成立当且仅当存在$\lambda>0$使得$f=\lambda g,\ \aee$。
 \end{theorem}
 
 Minkowski不等式表明，$L^p(E)$空间的范数满足三角不等式，因此是线性赋范空间。
 
-利用积分的连续性，只要令$\mathbb{R} $上的函数在区间$[n,n+1)(n\in\mathbb{Z} )$上取常值，即可得到上述不等式的离散形式，从而证明$l^p$空间也是线性赋范空间。
+利用积分的连续性，只要令$\mathbb{R}$上的函数在区间$[n,n+1)\ (n\in\mathbb{Z})$上取常值，即可得到上述不等式的离散形式，从而证明$l^p$空间也是线性赋范空间。
 
 另外，Hölder不等式还能够推出有限测度集上$L^p$空间的包含关系：
 \begin{corollary}
-    设$m(E)<\infty$，则$\forall 1\leq p_1<p_2\leq \infty$，有$L^{p_2}(E)\subset L^{p_1}(E)$，并且\begin{align*}
-        \exists c\geq 0,\forall f\in L^{p_2}(E),\quad\|f\|_{p_1}\leq c\cdot \|f\|_{p_2}
-    \end{align*}
+    设$m(E)<\infty$，则$\forall 1\leq p_1<p_2\leq \infty$，有$L^{p_2}(E)\subset L^{p_1}(E)$，并且
+    \begin{equation}
+        \exists c\geq 0,\ \forall f\in L^{p_2}(E),\quad \|f\|_{p_1}\leq c\cdot \|f\|_{p_2}.
+    \end{equation}
 \end{corollary}
 \begin{proof}
     $p_2=\infty$的情况显然成立，下面我们证明$1\leq p_1<p_2<\infty$的情况。
 
-    令$p=p_2/p_1>1,1/p+1/q=1$，则\begin{align*}
-        \|f\|_{p_1}^{p_1} & =\int_{E}|f|^{p_1}\,dm                                                                            \\
-                          & =\int_{E}|f|^{p_1}\cdot \chi_E\,dm                                                                \\
-                          & \leq \left(\int_{E}|f|^{p_1\cdot p}\,dm\right)^{1/p}\cdot \left(\int_{E}\chi_E^q\,dm\right)^{1/q} \\
-                          & =m(E)^{1/q}\cdot \|f\|_{p_2}^{p_1}
-    \end{align*}
-    即\begin{align*}
-        \|f\|_{p_1}\leq m(E)^{\frac{1}{p_1}-\frac{1}{p_2}}\cdot \|f\|_{p_2}
-    \end{align*}
+    令$p=p_2/p_1>1,\ 1/p+1/q=1$，则
+    \begin{align}
+        \|f\|_{p_1}^{p_1} & =\int_{E}|f|^{p_1}\,\dd m\nonumber                                                                      \\
+                          & =\int_{E}|f|^{p_1}\cdot \chi_E\,\dd m\nonumber                                                          \\
+                          & \leq \paren{\int_{E}|f|^{p_1\cdot p}\,\dd m}^{1/p}\cdot \paren{\int_{E}\chi_E^q\,\dd m}^{1/q}\nonumber \\
+                          & =m(E)^{1/q}\cdot \|f\|_{p_2}^{p_1},
+    \end{align}
+    即
+    \begin{equation}
+        \|f\|_{p_1}\leq m(E)^{\frac{1}{p_1}-\frac{1}{p_2}}\cdot \|f\|_{p_2}.
+    \end{equation}
 \end{proof}
 
-对于无限测度集，$L^p$空间互不包含。例如，\refsub{int_sin}中指出采样函数在$\mathbb{R} $上条件可积而不绝对可积，因此$\sin t/t\notin L^1(\mathbb{R} )$，但容易验证，$\sin t/t\in L^2(\mathbb{R} )$。
+对于无限测度集，$L^p$空间互不包含。例如，\refsub{int_sin}中指出采样函数在$\mathbb{R}$上条件可积而不绝对可积，因此$\sin t/t\notin L^1(\mathbb{R})$，但容易验证，$\sin t/t\in L^2(\mathbb{R})$。
 
 $L^p$空间的完备性证明较为复杂，我们仅仅给出结论：
 \begin{claim}[Riesz-Fischer定理]\label{claim:Lp_complete}
     设$E$可测，$1\leq p\leq \infty$，则$L^p(E)$空间是完备的。
 \end{claim}
-容易由$L^p(\mathbb{R} )$的完备性推知$l^p$空间的完备性。至此，我们证明了：\textbf{$L^p$空间和$l^p$空间都是完备的线性赋范空间，即Banach空间}。
+容易由$L^p(\mathbb{R})$的完备性推知$l^p$空间的完备性。至此，我们证明了：\textbf{$L^p$空间和$l^p$空间都是完备的线性赋范空间，即Banach空间}。
 
 另外，在$p=2$时，容易给出$L^2(E)$空间的内积（$l^2$空间同理）：
 \begin{definition}[$L^2$空间的内积]\label{def:L2_inner_product}
     设$E$可测，定义$L^2(E)$空间的内积为
-    \[(f,g)=\int_{E}f\cdot \overline{g}\,dm\]
+    \begin{equation}
+        (f,g)=\int_{E}f\cdot \overline{g}\,\dd m.
+    \end{equation}
 \end{definition}
 
 %为了区分于分布理论的符号，本书中总是用$(\cdot,\cdot)$来表示$L^2(E)$空间的内积。
@@ -454,7 +587,9 @@ $L^p$空间的完备性证明较为复杂，我们仅仅给出结论：
 显然，$L^2(E)$空间的范数可以由这个内积导出。因此，\textbf{$L^2(E)$空间构成完备的内积空间，即希尔伯特空间}。
 
 令$f=g$，有
-$$(f,f)=\int_{E}|f|^2\,dm=E$$
+\begin{equation}
+    (f,f)=\int_{E}|f|^2\,\dd m=E,
+\end{equation}
 其中$E$为$f$的能量。因此，如果不考虑$(f,f)=0$的情况，则我们在第一节中定义的能量信号恰好就是$L^2(\mathbb{R})$。工程上要求能量信号的能量非零、功率信号的功率非零是自然的，但却带来了数学上的麻烦，因此，\textbf{本书的后续内容中不特意区分能量信号、功率信号的能量和功率是否为0}。
 
 %下面考虑$L^p(E)$空间的对偶空间。由Hölder不等式可知，任取$L^q(E)$中的函数$g$，$g$都定义了一个$L^p(E)$的泛函：\begin{align*}
@@ -482,9 +617,13 @@ $\mathbb{R}^n$上的勒贝格测度可以视作$\mathbb{R}$上的勒贝格测度
 
 \begin{definition}[区间]
     集合$I$是$\mathbb{R}^n$中的\textbf{区间}，如果它是$\mathbb{R}$中的区间族$\{I_k\}_{k=1}^n$的$n$重笛卡尔积：
-    $$I=I_1\times I_2\times\cdots\times I_n$$
+    \begin{equation}
+        I=I_1\times I_2\times\cdots\times I_n.
+    \end{equation}
     将区间$I$的\textbf{体积}$\vol(I)$定义为：
-    $$\vol(I)=\prod_{k=1}^n l(I_k)$$
+    \begin{equation}
+        \vol(I)=\prod_{k=1}^n l(I_k),
+    \end{equation}
     其中$l(\cdot)$表示$\mathbb{R}$中的区间长度。
 \end{definition}
 
@@ -492,27 +631,37 @@ $\mathbb{R}^n$上的勒贝格测度可以视作$\mathbb{R}$上的勒贝格测度
 
 \begin{definition}[$\mathbb{R}^n$上的勒贝格外测度]
     设集合$A\subset\mathbb{R}^n$，其勒贝格外测度定义为
-    \[\mu_n^*(A)=\inf\left\{\sum_{k=1}^{\infty}\vol(I_k)\left|A\subset\bigcup_{k=1}^{\infty}I_k\right.\right\}\]
+    \begin{equation}
+        \mu_n^*(A)=\inf\braces{\sum_{k=1}^{\infty}\vol(I_k)\,\middle|\,A\subset\bigcup_{k=1}^{\infty}I_k},
+    \end{equation}
     其中$\inf$取自所有覆盖$A$的可数开区间族$\{I_k\}_{k=1}^{\infty}$。
 \end{definition}
 
 \begin{definition}[$\mathbb{R}^n$上的勒贝格可测集]
     若集合$E\subset \mathbb{R}^n$满足卡氏条件：
-    $$\forall A\subset \mathbb{R}^n,\quad \mu_n^*(A)=\mu_n^*(A\cap E)+\mu_n^*(A\cap E^c)$$
+    \begin{equation}
+        \forall A\subset \mathbb{R}^n,\quad \mu_n^*(A)=\mu_n^*(A\cap E)+\mu_n^*(A\cap E^c),
+    \end{equation}
     则称$E$为\textbf{$\mu_n$-可测集}，在不引起歧义时也可以直接称之为可测集。可测集的\textbf{勒贝格测度}定义为其勒贝格外测度，即$\mu_n(E)=\mu_n^*(E)$。
 \end{definition}
 
 $\mu_n(\cdot)$具有与$m(\cdot)$类似的性质，此处不再赘述。特别地，我们仍然约定$0\cdot\infty=0$；作为一种乘积测度，勒贝格测度是良定义的，即
-$$\mu_{m+n}=\mu_m\times \mu_n=\mu_n\times \mu_m$$
+\begin{equation}
+    \mu_{m+n}=\mu_m\times \mu_n=\mu_n\times \mu_m.
+\end{equation}
 
 \begin{claim}
     设$L:\mathbb{R}^n\to \mathbb{R}^n$是线性算子，$E\subset\mathbb{R}^n$是$\mu_n$-可测集，则$L(E)$也是$\mu_n$-可测集，并且
-    $$\mu_n(L(E))=|\det L|\mu_n(E)$$
+    \begin{equation}
+        \mu_n(L(E))=|\det L|\mu_n(E).
+    \end{equation}
 \end{claim}
 
 \begin{example}
-    在$\mathbb{R}^n$中，（作为$n$维线性空间的）真子空间$V$的勒贝格测度为0.这是因为$V$总能在适当的可逆线性变换下变为$\mathbb{R}^k\times\{\mathbf{0}\}$，其中$k$为小于$n$的正整数，根据定义，
-    $$\mu_n(\mathbb{R}^k\times\{\mathbf{0}\})=\vol(\mathbb{R}^k\times\{\mathbf{0}\})=\infty\cdot 0=0$$
+    在$\mathbb{R}^n$中，（作为$n$维线性空间的）真子空间$V$的勒贝格测度为0。这是因为$V$总能在适当的可逆线性变换下变为$\mathbb{R}^k\times\{\mathbf{0}\}$，其中$k$为小于$n$的正整数，根据定义，
+    \begin{equation}
+        \mu_n(\mathbb{R}^k\times\{\mathbf{0}\})=\vol(\mathbb{R}^k\times\{\mathbf{0}\})=\infty\cdot 0=0.
+    \end{equation}
     由此可知$V$的任何子集也都是零测集。
 \end{example}
 
@@ -520,102 +669,127 @@ $$\mu_{m+n}=\mu_m\times \mu_n=\mu_n\times \mu_m$$
 
 以下两个定理表明，在多数情况下可以交换重积分的积分次序：
 \begin{theorem}[Tonelli定理]\label{thm:tonelli}
-    设$X\subset\mathbb{R}^m,Y\subset\mathbb{R}^n$，函数$k:X\times Y\to[0,\infty)$是$\mu_{m+n}$-可测的，则\begin{enumerate}
-        \item 函数$\mathbf{x}\mapsto \int_{Y}k(\mathbf{x},\mathbf{y})\,d\mathbf{y}$在$X$上几乎处处有定义且$\mu_m$-可测；
-        \item 函数$\mathbf{y}\mapsto \int_{X}k(\mathbf{x},\mathbf{y})\,d\mathbf{x}$在$Y$上几乎处处有定义且$\mu_n$-可测；
+    设$X\subset\mathbb{R}^m,\ Y\subset\mathbb{R}^n$，函数$k:X\times Y\to[0,\infty)$是$\mu_{m+n}$-可测的，则
+    \begin{enumerate}
+        \item 函数$\mathbf{x}\mapsto \int_{Y}k(\mathbf{x},\mathbf{y})\,\dd\mathbf{y}$在$X$上几乎处处有定义且$\mu_m$-可测；
+        \item 函数$\mathbf{y}\mapsto \int_{X}k(\mathbf{x},\mathbf{y})\,\dd\mathbf{x}$在$Y$上几乎处处有定义且$\mu_n$-可测；
         \item 积分次序可交换：
-              $$\int_{X\times Y}k(\mathbf{x},\mathbf{y})\,d\mathbf{x}d\mathbf{y}=\int_X\left[\int_Y k(\mathbf{x},\mathbf{y})\,d\mathbf{y}\right]\,d\mathbf{x}=\int_Y\left[\int_X k(\mathbf{x},\mathbf{y})\,d\mathbf{x}\right]\,d\mathbf{y}$$
+              \begin{equation}
+                  \int_{X\times Y}k(\mathbf{x},\mathbf{y})\,\dd\mathbf{x}\,\dd\mathbf{y}=\int_X\sbr{\int_Y k(\mathbf{x},\mathbf{y})\,\dd\mathbf{y}}\,\dd\mathbf{x}=\int_Y\sbr{\int_X k(\mathbf{x},\mathbf{y})\,\dd\mathbf{x}}\,\dd\mathbf{y}.
+              \end{equation}
     \end{enumerate}
-    这里不要求$k$可积，因此以上各式可同时取$\infty$.
+    这里不要求$k$可积，因此以上各式可同时取$\infty$。
 \end{theorem}
 
 \begin{theorem}[Fubini定理]\label{thm:fubini}
-    设$X\subset\mathbb{R}^m,Y\subset\mathbb{R}^n$，函数$k:X\times Y\to\mathbb{R}$可积，则\begin{enumerate}
-        \item 函数$\mathbf{x}\mapsto \int_{Y}k(\mathbf{x},\mathbf{y})\,d\mathbf{y}$在$X$上几乎处处有定义且$\mu_m$-可积；
-        \item 函数$\mathbf{y}\mapsto \int_{X}k(\mathbf{x},\mathbf{y})\,d\mathbf{x}$在$Y$上几乎处处有定义且$\mu_n$-可积；
+    设$X\subset\mathbb{R}^m,\ Y\subset\mathbb{R}^n$，函数$k:X\times Y\to\mathbb{R}$可积，则
+    \begin{enumerate}
+        \item 函数$\mathbf{x}\mapsto \int_{Y}k(\mathbf{x},\mathbf{y})\,\dd\mathbf{y}$在$X$上几乎处处有定义且$\mu_m$-可积；
+        \item 函数$\mathbf{y}\mapsto \int_{X}k(\mathbf{x},\mathbf{y})\,\dd\mathbf{x}$在$Y$上几乎处处有定义且$\mu_n$-可积；
         \item 积分次序可交换：
-              $$\int_{X\times Y}k(\mathbf{x},\mathbf{y})\,d\mathbf{x}d\mathbf{y}=\int_X\left[\int_Y k(\mathbf{x},\mathbf{y})\,d\mathbf{y}\right]\,d\mathbf{x}=\int_Y\left[\int_X k(\mathbf{x},\mathbf{y})\,d\mathbf{x}\right]\,d\mathbf{y}$$
+              \begin{equation}
+                  \int_{X\times Y}k(\mathbf{x},\mathbf{y})\,\dd\mathbf{x}\,\dd\mathbf{y}=\int_X\sbr{\int_Y k(\mathbf{x},\mathbf{y})\,\dd\mathbf{y}}\,\dd\mathbf{x}=\int_Y\sbr{\int_X k(\mathbf{x},\mathbf{y})\,\dd\mathbf{x}}\,\dd\mathbf{y}.
+              \end{equation}
     \end{enumerate}
 \end{theorem}
 相比Tonelli定理，Fubini定理虽要求$k$可积，却不要求$k$非负。
 
 将序列表示为在各区间$[n,n+1)$上取常值的可测函数，即可由积分换序定理得到相应的级数结论。例如：
 \begin{corollary}\label{cor:sequence_fubini_tonelli}
-    设$\{a_{ij}\}_{i,j=1}^{\infty}\subset\mathbb{R}$，则当$a_{ij}\ge 0$或$\sum_{j=1}^{\infty}\left(\sum_{i=1}^{\infty}|a_{ij}|\right)<\infty$时，可以交换求和次序：
-    $$\sum_{j=1}^{\infty}\left(\sum_{i=1}^{\infty}a_{ij}\right)=\sum_{i=1}^{\infty}\left(\sum_{j=1}^{\infty}a_{ij}\right)$$
+    设$\{a_{ij}\}_{i,j=1}^{\infty}\subset\mathbb{R}$，则当$a_{ij}\ge 0$或$\sum_{j=1}^{\infty}\paren{\sum_{i=1}^{\infty}|a_{ij}|}<\infty$时，可以交换求和次序：
+    \begin{equation}
+        \sum_{j=1}^{\infty}\paren{\sum_{i=1}^{\infty}a_{ij}}=\sum_{i=1}^{\infty}\paren{\sum_{j=1}^{\infty}a_{ij}}.
+    \end{equation}
 \end{corollary}
 
 \subsection{正交函数系}\label{sub:orthognal}
 \begin{definition}[正交基]
-    如果有内积空间$V$的一组基$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$，满足$\langle \mathbf{v}_i,\mathbf{v}_j\rangle =0,i \neq j$，则称这组基是一组\textbf{正交基}(orthognal bases)。\\
+    如果有内积空间$V$的一组基$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$，满足$\langle \mathbf{v}_i,\mathbf{v}_j\rangle =0,\ i \neq j$，则称这组基是一组\textbf{正交基}(orthognal bases)。
+
     如果对$V$中任一向量$\mathbf{w}$，均可以表示为这组基的线性组合：
-    \[\mathbf{w}=\sum_{i = 1}^{n}  c_i \mathbf{v}_i\]
-    则这组基是\textbf{完备正交基}(complete orthognal bases)。\\
-    如果$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$还满足$\langle \mathbf{v}_i,\mathbf{v}_i\rangle =1,i\in \{1,2,\dots ,n\}$，称这组基是\textbf{标准完备正交基} (complete othornormal bases)。
+    \begin{equation}
+        \mathbf{w}=\sum_{i = 1}^{n} c_i \mathbf{v}_i,
+    \end{equation}
+    则这组基是\textbf{完备正交基}(complete orthognal bases)。
+
+    如果$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$还满足$\langle \mathbf{v}_i,\mathbf{v}_i\rangle =1,\ i\in \{1,2,\dots ,n\}$，称这组基是\textbf{标准完备正交基}(complete othornormal bases)。
 \end{definition}
 
 \begin{theorem}\label{thm:vector_decomposition}
     设内积空间$V$有完备正交基$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$，则此空间中任意向量均有分解式
-    \begin{align*}
-        \mathbf{w}=\sum_{i=1}^{n}\frac{\langle \mathbf{w},\mathbf{v}_j \rangle}{\langle \mathbf{v}_j,\mathbf{v}_j \rangle}\mathbf{v}_i
-    \end{align*}
+    \begin{equation}
+        \mathbf{w}=\sum_{i=1}^{n}\frac{\langle \mathbf{w},\mathbf{v}_j \rangle}{\langle \mathbf{v}_j,\mathbf{v}_j \rangle}\mathbf{v}_i,
+    \end{equation}
     特别地，如果$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$是标准完备正交基，则
-    \begin{align*}
-        \mathbf{w}=\sum_{i=1}^{n}\langle \mathbf{w},\mathbf{v}_j \rangle\mathbf{v}_i
-    \end{align*}
+    \begin{equation}
+        \mathbf{w}=\sum_{i=1}^{n}\langle \mathbf{w},\mathbf{v}_j \rangle\mathbf{v}_i.
+    \end{equation}
 \end{theorem}
 \begin{proof}
-    将$\mathbf{w}=\sum_{i = 1}^{n}  c_i \mathbf{v}_i$两边同时对$\mathbf{v}_j$做内积，得到：
-    \begin{align*}
-        \langle \mathbf{w},\mathbf{v}_j \rangle=\left\langle \sum_{i = 1}^{n}  c_i \mathbf{v}_i,\mathbf{v}_j \right\rangle =c_j\left\langle \mathbf{v}_j,\mathbf{v}_j \right\rangle
-    \end{align*}
-    因此\begin{align*}
-        c_j=\frac{\langle \mathbf{w},\mathbf{v}_j \rangle}{\langle \mathbf{v}_j,\mathbf{v}_j \rangle},\quad\mathbf{w}=\sum_{j = 1}^{n}  \frac{\langle \mathbf{w},\mathbf{v}_j \rangle}{\langle \mathbf{v}_j,\mathbf{v}_j \rangle} \mathbf{v}_j
-    \end{align*}
-    对于标准正交基，有$\langle \mathbf{v}_j,\mathbf{v}_j \rangle=1$.
+    将$\mathbf{w}=\sum_{i = 1}^{n} c_i \mathbf{v}_i$两边同时对$\mathbf{v}_j$做内积，得到：
+    \begin{equation}
+        \langle \mathbf{w},\mathbf{v}_j \rangle=\braket{\sum_{i = 1}^{n} c_i \mathbf{v}_i,\mathbf{v}_j} =c_j\langle \mathbf{v}_j,\mathbf{v}_j \rangle.
+    \end{equation}
+    因此
+    \begin{equation}
+        c_j=\frac{\langle \mathbf{w},\mathbf{v}_j \rangle}{\langle \mathbf{v}_j,\mathbf{v}_j \rangle},\quad \mathbf{w}=\sum_{j = 1}^{n} \frac{\langle \mathbf{w},\mathbf{v}_j \rangle}{\langle \mathbf{v}_j,\mathbf{v}_j \rangle} \mathbf{v}_j.
+    \end{equation}
+    对于标准正交基，有$\langle \mathbf{v}_j,\mathbf{v}_j \rangle=1$。
 \end{proof}
 
 以下定理是勾股定理的高维推广：
 \begin{theorem}[毕达哥拉斯定理]\label{thm:gougu}
     设内积空间$V$有完备正交基$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$，则
-    \[|\mathbf{w}|^2=\sum_{i=1}^{n}|\langle\mathbf{w,v}_i\rangle|^2|\mathbf{v}_i|^2\]
+    \begin{equation}
+        |\mathbf{w}|^2=\sum_{i=1}^{n}|\langle\mathbf{w},\mathbf{v}_i\rangle|^2|\mathbf{v}_i|^2.
+    \end{equation}
     特别地，如果$\{\mathbf{v}_1,\mathbf{v}_2,\dots ,\mathbf{v}_n\}$是标准完备正交基，则
-    $$|\mathbf{w}|^2=\sum_{i=1}^{n}|\langle\mathbf{w,v}_i\rangle|^2$$
+    \begin{equation}
+        |\mathbf{w}|^2=\sum_{i=1}^{n}|\langle\mathbf{w},\mathbf{v}_i\rangle|^2.
+    \end{equation}
 \end{theorem}
 \begin{proof}
     直接将$\mathbf{w}$与自己做内积并带入\cref{thm:vector_decomposition}，得到
-    \begin{align*}
-        |\mathbf{w}|^2 & =\left\langle \sum_{i=1}^{n}\langle \mathbf{w},\mathbf{v}_i\rangle \mathbf{v}_i,\sum_{i=1}^{n}\langle \mathbf{w},\mathbf{v}_i\rangle \mathbf{v}_i\right\rangle                                                  \\
-                       & =\sum_{i=1}^{n}|\langle\mathbf{w,v}_i\rangle|^2\langle\mathbf{v}_i,\mathbf{v}_i\rangle+\sum_{1\leq i<j\leq n}\langle \mathbf{w,v}_i\rangle\langle \mathbf{w,v}_j\rangle\langle \mathbf{v}_i,\mathbf{v}_j\rangle \\
-                       & =\sum_{i=1}^{n}|\langle\mathbf{w,v}_i\rangle|^2|\mathbf{v}_i|^2
-    \end{align*}
+    \begin{align}
+        |\mathbf{w}|^2 & =\braket{\sum_{i=1}^{n}\langle \mathbf{w},\mathbf{v}_i\rangle \mathbf{v}_i,\sum_{i=1}^{n}\langle \mathbf{w},\mathbf{v}_i\rangle \mathbf{v}_i}\nonumber \\
+                       & =\sum_{i=1}^{n}|\langle\mathbf{w},\mathbf{v}_i\rangle|^2\langle\mathbf{v}_i,\mathbf{v}_i\rangle+\sum_{1\leq i<j\leq n}\langle \mathbf{w},\mathbf{v}_i\rangle\langle \mathbf{w},\mathbf{v}_j\rangle\langle \mathbf{v}_i,\mathbf{v}_j\rangle\nonumber \\
+                       & =\sum_{i=1}^{n}|\langle\mathbf{w},\mathbf{v}_i\rangle|^2|\mathbf{v}_i|^2.
+    \end{align}
 \end{proof}
 可见做正交基分解能够极大地简化对线性赋范空间的研究。
 
 我们知道，$L^2([0,T])$空间是完备的内积空间（\cref{claim:Lp_complete}），重述内积的定义\cref{def:L2_inner_product}如下：
 \begin{definition}[函数空间上的内积]
-    在空间\[L^2([0,T]):=\left\{f:[0,T]\rightarrow \mathbb{C} \left| \int_{T}|f(t)|^2\,\text dt<\infty\right.\right\}\]
+    在空间
+    \begin{equation}
+        L^2([0,T]):=\braces{f:[0,T]\rightarrow \mathbb{C} \,\middle|\, \int_{T}|f(t)|^2\,\dd t<\infty}
+    \end{equation}
     上定义内积：
-    \[(f,g):=\int_{T}f(t)\overline{g(t)}\,dt \]
+    \begin{equation}
+        (f,g):=\int_{T}f(t)\overline{g(t)}\,\dd t,
+    \end{equation}
     其中$\int_T$表示在区间$[0,T]$上做积分。对于周期函数，积分区域可以理解为任意长为$T$的区间。
 \end{definition}
 
 有了内积，就可以定义正交性，从而有正交函数系的概念：
 \begin{definition}[正交函数系]
     在$L^2([0,T])$空间中，如果函数列$\{f_i(t)\}_{i=1}^{\infty}$满足
-    \[(f_i,f_j)=\int_{T}f_i(t)f_j^*(t)\,dt=0,\quad i\neq j\]
+    \begin{equation}
+        (f_i,f_j)=\int_{T}f_i(t)f_j^*(t)\,\dd t=0,\quad i\neq j,
+    \end{equation}
     则称$\{f_i(t)\}_{i=1}^{\infty}$为$L^2([0,T])$空间中的一组\textbf{正交函数系}。
 \end{definition}
 
 \begin{definition}[完备正交函数系]
-    对于一个正交函数系$\{f_i(t)\}_{i=1}^{\infty}$，如果不存在非零的函数$g(t)\notin\{f_i(t)\}_{i=1}^{\infty}$使得$g(t)$与$\{f_i(t)\}_{i=1}^{\infty}$中的所有函数正交，就称$\{f_i(t)\}_{i=1}^{\infty}$为\textbf{完备正交函数系}
+    对于一个正交函数系$\{f_i(t)\}_{i=1}^{\infty}$，如果不存在非零的函数$g(t)\notin\{f_i(t)\}_{i=1}^{\infty}$使得$g(t)$与$\{f_i(t)\}_{i=1}^{\infty}$中的所有函数正交，就称$\{f_i(t)\}_{i=1}^{\infty}$为\textbf{完备正交函数系}。
 \end{definition}
 
-完备性意味着$L^2([0,T])$空间中的任一函数$f(t)$均可分解为这个函数系的级数$\sum_{i = 1}^{\infty}  a_i f_i(t)$，我们沿用\cref{thm:vector_decomposition}计算这些系数：
-\[a_i=\frac{(g,f_i)}{(f_i,f_i)}=\frac{\int_{T}g(t)f_i^*(t)\,dt}{\int_{T}|f_i(t)|^2\,dt}\]
+完备性意味着$L^2([0,T])$空间中的任一函数$f(t)$均可分解为这个函数系的级数$\sum_{i = 1}^{\infty} a_i f_i(t)$，我们沿用\cref{thm:vector_decomposition}计算这些系数：
+\begin{equation}
+    a_i=\frac{(g,f_i)}{(f_i,f_i)}=\frac{\int_{T}g(t)f_i^*(t)\,\dd t}{\int_{T}|f_i(t)|^2\,\dd t}.
+\end{equation}
 细心的读者可能已经发现，这里得到的公式用到了有限维线性空间中的结论，但要推广到无限维线性空间并不是显然的。我们将在\refsub{paseval}中给出帕塞瓦尔恒等式之后一并讨论这个问题。
 
-在下一章中我们将看到，三角函数系和指数函数系都是完备正交函数系，是傅里叶级数理论的基础。在添加适当权函数的前提下，\ref{sub:chebychev_polynomial}中介绍的切比雪夫多项式以及\refsub{bessel}中介绍的贝塞尔函数都是完备正交函数系；此外，典型的标准完备正交函数系还有勒让德多项式 (Legendre polynomials)、小波变换基函数 (wavelet basis functions)等。
+在下一章中我们将看到，三角函数系和指数函数系都是完备正交函数系，是傅里叶级数理论的基础。在添加适当权函数的前提下，\refsub{chebychev_polynomial}中介绍的切比雪夫多项式以及\refsub{bessel}中介绍的贝塞尔函数都是完备正交函数系；此外，典型的标准完备正交函数系还有勒让德多项式(Legendre polynomials)、小波变换基函数(wavelet basis functions)等。
 
 本书仅讨论三角函数系和指数函数系，它们的本质上都是\refsub{chebychev_polynomial}中介绍的\textbf{三角多项式}的延申。
-

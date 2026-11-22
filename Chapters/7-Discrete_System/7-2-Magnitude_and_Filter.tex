@@ -2,72 +2,98 @@
 
 \subsection{频率响应特性}\label{sub:discrete_system_freq_response}
 
-离散系统的系统函数$H(z)$是单位脉冲响应$h[n]$的z变换。在系统稳定的情况下，$h[n]\in l^1$，此时可以对单位脉冲响应做离散时间傅里叶变换，得到系统的\textbf{频率响应特性}，记为$H(\mathrm{e}^{\mathrm{i}\Omega})$，它是系统函数在单位圆上的限制，也是$h[n]$的DTFT，即
-$$H(\mathrm{e}^{\mathrm{i}\Omega})=H(z)|_{z=\mathrm{e}^{\mathrm{i}\Omega}}=\DTFT(h[n])(\e^{\im\Omega})$$
+离散系统的系统函数$H(z)$是单位脉冲响应$h[n]$的z变换。在系统稳定的情况下，$h[n]\in l^1$，此时可以对单位脉冲响应做离散时间傅里叶变换，得到系统的\textbf{频率响应特性}，记为$H(\e^{\im\Omega})$，它是系统函数在单位圆上的限制，也是$h[n]$的DTFT，即
+\begin{equation}
+    H(\e^{\im\Omega})=\evalat{H(z)}{z=\e^{\im\Omega}}{}=\DTFT(h[n])(\e^{\im\Omega}).
+\end{equation}
 
 利用DTFT的时域卷积和定理，我们有：
-$$R(\e^{\im\Omega})=H(\e^{\im\Omega})E(\e^{\im\Omega})$$
+\begin{equation}
+    R(\e^{\im\Omega})=H(\e^{\im\Omega})E(\e^{\im\Omega}).
+\end{equation}
 
-类似于连续系统，我们仍然将$|H(\mathrm{e}^{\mathrm{i}\Omega})|$称为系统的\textbf{幅频特性}，将$\arg H(\mathrm{e}^{\mathrm{i}\Omega})$称为系统的\textbf{相频特性}，我们仍将相频特性记为$\varphi(\Omega)$。我们同样可以对离散系统的相频特性做解卷绕处理，见\refsub{distortion}，但简洁起见，本章中不讨论$\varphi(\Omega)$跳变的情况。
+类似于连续系统，我们仍然将$|H(\e^{\im\Omega})|$称为系统的\textbf{幅频特性}，将$\arg H(\e^{\im\Omega})$称为系统的\textbf{相频特性}，我们仍将相频特性记为$\varphi(\Omega)$。我们同样可以对离散系统的相频特性做解卷绕处理，见\refsub{distortion}，但简洁起见，本章中不讨论$\varphi(\Omega)$跳变的情况。
 
 与连续系统一样，离散系统的可实现性要求系统具有因果性，此外，对于离散系统也有类似于\cref{def:paley_winner}的可实现性准则：
 
 \begin{definition}[离散系统的佩利-维纳准则]
     对于可实现的离散因果系统，其频率响应$H(\e^{\im\Omega})$满足
-    $$\int_{-\pi}^\pi \left|\ln\left|H(\e^{\im\Omega})\right|\right|\,d\Omega<\infty$$
+    \begin{equation}
+        \int_{-\pi}^{\pi}\abs{\ln\abs{H(\e^{\im\Omega})}}\,\dd\Omega<\infty.
+    \end{equation}
 \end{definition}
 
 \begin{definition}[离散能量有限系统]
-    如果稳定离散系统的单位脉冲响应平方可和：$h[n]\in l^2$，则由DTFT的帕塞瓦尔定理（\cref{thm:DTFT_plancherel}），$H(\e^{\im\Omega})\in L^2([-\pi,pi])$，称这样的系统是\textbf{能量有限}的。
+    如果稳定离散系统的单位脉冲响应平方可和：$h[n]\in l^2$，则由DTFT的帕塞瓦尔定理（\cref{thm:DTFT_plancherel}），$H(\e^{\im\Omega})\in L^2([-\pi,\pi])$，称这样的系统是\textbf{能量有限}的。
 \end{definition}
 
 \begin{claim}
     对于因果系统，如果$h[n]\in l^1$，则能量有限是满足佩利-维纳准则的充分不必要条件：
-    \[\int_{-\infty}^{\infty}\left|H(\e^{\im\Omega})\right|^2\,d\Omega<\infty\implies\int_{-\infty}^{\infty}\left|\ln|H(\omega)|\right|\,d\omega<\infty\]
+    \begin{equation}
+        \int_{-\infty}^{\infty}\abs{H(\e^{\im\Omega})}^2\,\dd\Omega<\infty\implies\int_{-\infty}^{\infty}\abs{\ln|H(\omega)|}\,\dd\omega<\infty.
+    \end{equation}
 \end{claim}
 
-佩利-维纳准则表明系统的对数幅度响应$\left|\ln\left|H(\e^{\im\Omega})\right|\right|$不能“陡峭截止”：
+佩利-维纳准则表明系统的对数幅度响应$\abs{\ln\abs{H(\e^{\im\Omega})}}$不能“陡峭截止”：
 \begin{example}
     设离散系统的幅度响应为
-    $$\left|H(\e^{\im\Omega})\right|=\begin{cases}
-        \e^{-1/|\Omega|},&\Omega\neq 0\\
-        1,&\Omega=0
-    \end{cases}$$
+    \begin{equation}
+        \abs{H(\e^{\im\Omega})}=\begin{dcases}
+            \e^{-1/|\Omega|}, & \Omega\neq 0, \\
+            1,                & \Omega=0.
+        \end{dcases}
+    \end{equation}
     由于
-    $$\int_{-\pi}^\pi \left|\ln\left|H(\e^{\im\Omega})\right|\right|\,d\Omega=\int_{-\pi}^\pi\frac{1}{|\Omega|}\,d\Omega=\infty$$
+    \begin{equation}
+        \int_{-\pi}^{\pi}\abs{\ln\abs{H(\e^{\im\Omega})}}\,\dd\Omega=\int_{-\pi}^{\pi}\frac{1}{|\Omega|}\,\dd\Omega=\infty,
+    \end{equation}
     系统违反了佩利-维纳准则，因此不是可实现的。
 \end{example}
 
 \subsection{数字滤波器}\label{sub:diital_filter}
 
-作为系统函数在单位圆上的限制，有$Y(\mathrm{e}^{\mathrm{i}\Omega})=H(\mathrm{e}^{\mathrm{i}\Omega})X(\mathrm{e}^{\mathrm{i}\Omega})$，因此，可以通过频率响应特性看出系统的滤波特性。对于非周期离散信号，高频信号指数字角频率接近$\pm\pi$的信号，一个离散系统如果对信号的低频成分有较大的增益，对高频成分有较小的增益，则称其为\textbf{低通滤波器}；如果对信号的高频成分有较大的增益，对低频成分有较小的增益，则称其为\textbf{高通滤波器}。其他类型的滤波器同理。
+作为系统函数在单位圆上的限制，有$Y(\e^{\im\Omega})=H(\e^{\im\Omega})X(\e^{\im\Omega})$，因此，可以通过频率响应特性看出系统的滤波特性。对于非周期序列，高频信号指数字角频率接近$\pm\pi$的信号，一个离散系统如果对信号的低频成分有较大的增益，对高频成分有较小的增益，则称其为\textbf{低通滤波器}；如果对信号的高频成分有较大的增益，对低频成分有较小的增益，则称其为\textbf{高通滤波器}。其他类型的滤波器同理。
 
-尽管可以处理离散信号而不仅仅是量化所得的数字信号，习惯上还是将这些滤波器称作\textbf{数字滤波器}(digital filter)。数字滤波器大多可以看作对特定模拟滤波器的逼近，只是逼近的方式多种多样，且性能各不相同，需要根据实际的工程需求进行选择和设计。
+尽管可以处理序列而不仅仅是量化所得的数字信号，习惯上还是将这些滤波器称作\textbf{数字滤波器}(digital filter)。数字滤波器大多可以看作对特定模拟滤波器的逼近，只是逼近的方式多种多样，且性能各不相同，需要根据实际的工程需求进行选择和设计。
 
 类似\cref{lemma:cos_filter}，我们有：
 \begin{lemma}\label{lemma:digital_cos_filter}
     设系统的单位脉冲响应$h[n]$是实序列，则当单频余弦序列$e[n]=\cos(\Omega_0 n+\theta)$通过系统时，响应为
-    $$r[n]=|H(\e^{\im\Omega_0})|\cos(\Omega_0 n+\theta+\varphi(\omega_0))$$
+    \begin{equation}
+        r[n]=|H(\e^{\im\Omega_0})|\cos(\Omega_0 n+\theta+\varphi(\Omega_0)).
+    \end{equation}
 \end{lemma}
 利用\cref{exmp:cos_DTFT}中的结果，容易得到以上引理，请读者自行完成证明。
 
 \begin{example}[模拟信号高通滤波的数字化实现]
-    对于$f(t)=\cos(2\pi f_1 t)+\cos(2\pi  f_2 t)$，其中$f_1=1$kHz,$f_2=6$kHz，使用高于奈奎斯特频率的采样率$f_s=16$kHz，我们希望使用数字滤波器对采样信号进行高通滤波，滤除$\cos(2\pi f_1 t)$而保留$\cos(2\pi f_2 t)$，再基于滤波器输出的离散信号还原模拟信号。
+    对于$f(t)=\cos(2\pi f_1 t)+\cos(2\pi f_2 t)$，其中$f_1=1\,\mathrm{kHz}$，$f_2=6\,\mathrm{kHz}$，使用高于奈奎斯特频率的采样率$f_s=16\,\mathrm{kHz}$，我们希望使用数字滤波器对采样序列进行高通滤波，滤除$\cos(2\pi f_1 t)$而保留$\cos(2\pi f_2 t)$，再基于滤波器输出的序列还原模拟信号。
 
-   基于巴特沃斯模拟低通原型，通过双线性变换法（本书不介绍数字滤波器的设计，感兴趣的读者请参考“数字信号处理”相关教材，例如\cite{dsp}），设计出的一个数字滤波器的系统函数如下：
-   $$H(z)=\frac{(1-z^-1)^3}{2(3+z^-2)}$$
-   频率响应为
-   $$H(\e^{\im\Omega})=\frac{(1-\e^{-\im\Omega})^3}{2(3+\e^{-2\im\Omega})}$$
+    基于巴特沃斯模拟低通原型，通过双线性变换法（本书不介绍数字滤波器的设计，感兴趣的读者请参考“数字信号处理”相关教材，例如\cite{dsp}），设计出的一个数字滤波器的系统函数如下：
+    \begin{equation}
+        H(z)=\frac{(1-z^{-1})^3}{2(3+z^{-2})},
+    \end{equation}
+    频率响应为
+    \begin{equation}
+        H(\e^{\im\Omega})=\frac{(1-\e^{-\im\Omega})^3}{2(3+\e^{-2\im\Omega})}.
+    \end{equation}
 
-   采样所得离散信号的数字角频率为
-   $$\Omega_1=\frac{2\pi f_1}{f_s}=\frac{\pi}{8},\quad \Omega_2=\frac{2\pi f_2}{f_s}=\frac{3\pi}{4}$$
-   代入得
-   $$H(\e^{\im\Omega_1})=0.0079\e^{\im 1.372\pi},\quad H(\e^{\im\Omega_2})=0.9975\e^{\im 0.273\pi}$$
-   利用\cref{lemma:digital_cos_filter}，滤波器输出序列为
-   $$r[n]=0.0079\cos(\Omega_1 n+1.372\pi)+0.9975\cos(\Omega_2 n+0.273\pi)$$
-   输出的模拟信号为
-   $$r(t)=0.0079\cos(2\pi f_1 t+1.372\pi)+0.9975\cos(2\pi f_2 t+0.273\pi)$$
-   可见我们达到了高通滤波的目的，对低频成分$f_1$的衰减为$20\lg(0.0079)=-42.1$dB，对高频成分$f_2$的衰减为$20\lg(0.9975)=-0.022$dB$\approx 0$dB.
+    采样所得序列的数字角频率为
+    \begin{equation}
+        \Omega_1=\frac{2\pi f_1}{f_s}=\frac{\pi}{8},\quad \Omega_2=\frac{2\pi f_2}{f_s}=\frac{3\pi}{4},
+    \end{equation}
+    代入得
+    \begin{equation}
+        H(\e^{\im\Omega_1})=0.0079\e^{\im 1.372\pi},\quad H(\e^{\im\Omega_2})=0.9975\e^{\im 0.273\pi}.
+    \end{equation}
+    利用\cref{lemma:digital_cos_filter}，滤波器输出序列为
+    \begin{equation}
+        r[n]=0.0079\cos(\Omega_1 n+1.372\pi)+0.9975\cos(\Omega_2 n+0.273\pi),
+    \end{equation}
+    输出的模拟信号为
+    \begin{equation}
+        r(t)=0.0079\cos(2\pi f_1 t+1.372\pi)+0.9975\cos(2\pi f_2 t+0.273\pi).
+    \end{equation}
+    可见我们达到了高通滤波的目的，对低频成分$f_1$的衰减为$20\lg(0.0079)=-42.1\,\mathrm{dB}$，对高频成分$f_2$的衰减为$20\lg(0.9975)=-0.022\,\mathrm{dB}\approx 0\,\mathrm{dB}$。
 \end{example}
 
 \subsection{零极点图}\label{sub:zero_pole}
@@ -90,8 +116,10 @@ $$R(\e^{\im\Omega})=H(\e^{\im\Omega})E(\e^{\im\Omega})$$
         \caption{离散系统的矢量图}
     \end{figure}
     该系统的系统函数具有如下形式：
-    $$H(z)=\frac{z-a}{(z+b+\mathrm{i}c)(z+b-\mathrm{i}c)},\quad a,b,c>0$$
-    因此幅频特性就是复平面上的向量$z-a$与向量$z+b+\mathrm{i}c$、$z+b-\mathrm{i}c$的长度之比。
+    \begin{equation}
+        H(z)=\frac{z-a}{(z+b+\im c)(z+b-\im c)},\quad a,b,c>0,
+    \end{equation}
+    因此幅频特性就是复平面上的向量$z-a$与向量$z+b+\im c$、$z+b-\im c$的长度之比。
 
     随矢量终点由$\Omega=0$向$\Omega=\pi$移动，由零点出发的矢量长度（分子）逐渐增加，而由极点出发的矢量长度（分母）逐渐减小，因此系统的增益在$\Omega=0$处较小，在$\Omega=\pi$处较大，具有高通滤波特性。
 \end{example}

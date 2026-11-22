@@ -1,164 +1,166 @@
 \subsubsection{基本概念}
 \begin{definition}[算子]
-从向量空间$V$映射到自身的线性映射称为\textbf{算子}(operator)。$V$上所有算子的集合记为$L(V)$。在线性代数语境下，$L(V) = \text{End}(V)$，后者是自同态幺半群。
+    从向量空间$V$映射到自身的线性映射称为\textbf{算子}(operator)。$V$上所有算子的集合记为$L(V)$。在线性代数语境下，$L(V) = \operatorname{End}(V)$，后者是自同态幺半群。
 \end{definition}
 
 \begin{definition}[不变子空间]
-设$T \in L(V)$。称$V$的子空间$U$是\textbf{不变的}(invariant)，若对每个$u \in U$均有$Tu \in U$，也即$T(U) \subseteq U$。
+    设$T \in L(V)$。称$V$的子空间$U$是\textbf{不变的}(invariant)，若对每个$u \in U$均有$Tu \in U$，也即$T(U) \subseteq U$。
 \end{definition}
 
 \begin{example}
-以下都是$V$在$T$下的不变子空间：
-\begin{itemize}
-    \item 零子空间$\{0\}$
-    \item 全空间$V$
-    \item 核空间$\ker T = \{v \in V \mid Tv = 0\}$
-    \item 像空间$T(V) = \{Tv \in V \mid v \in V\}$
-\end{itemize}
+    以下都是$V$在$T$下的不变子空间：
+    \begin{itemize}
+        \item 零子空间$\{0\}$
+        \item 全空间$V$
+        \item 核空间$\ker T = \{v \in V \mid Tv = 0\}$
+        \item 像空间$T(V) = \{Tv \in V \mid v \in V\}$
+    \end{itemize}
 \end{example}
 
 \begin{definition}[直和]
-线性空间的和定义为$V + W := \{v + w \mid v \in V \land w \in W\}$。
+    线性空间的和定义为$V + W := \{v + w \mid v \in V \land w \in W\}$。
 
-如果$V \cap W = \{0\}$，则称$V$与$W$的和为\textbf{直和}，记作$V \oplus W$。
+    如果$V \cap W = \{0\}$，则称$V$与$W$的和为\textbf{直和}，记作$V \oplus W$。
 \end{definition}
 
 \begin{theorem}
-$\dim(V \oplus W) = \dim(V \times W) = \dim V + \dim W$。
+    $\dim(V \oplus W) = \dim(V \times W) = \dim V + \dim W$。
 \end{theorem}
 
 \begin{definition}[特征值、特征向量]
-设$T \in L(V)$。称数$\lambda \in \mathbb{F}$为$T$的\textbf{特征值}(eigenvalue)，若存在$v \in V$使得$v \neq 0$且
-\[
-Tv = \lambda v
-\]
-此时这个$v$称为$T$属于$\lambda$的\textbf{特征向量}(eigenvector)。$\mathbb{F}$是$V$的基域，通常$\mathbb{F}$为$\mathbb{R}$或$\mathbb{C}$。
+    设$T \in L(V)$。称数$\lambda \in \mathbb{F}$为$T$的\textbf{特征值}(eigenvalue)，若存在$v \in V$使得$v \neq 0$且
+    \begin{equation}
+        Tv = \lambda v,
+    \end{equation}
+    此时这个$v$称为$T$属于$\lambda$的\textbf{特征向量}(eigenvector)。$\mathbb{F}$是$V$的基域，通常$\mathbb{F}$为$\mathbb{R}$或$\mathbb{C}$。
 \end{definition}
 
 将特征值的定义式移项得到$(T - \lambda I)v = 0$。这个方程有非零解的充要条件是$\det(T - \lambda I) = 0$。
 
 \begin{theorem}
-$\lambda$是$T$的特征值$\iff \det(T - \lambda I) = 0$。
+    $\lambda$是$T$的特征值$\iff \det(T - \lambda I) = 0$。
 \end{theorem}
 
 \begin{definition}[特征子空间]
-\textbf{特征子空间}定义为
-\[
-E(\lambda, T) = \ker(T - \lambda I) = \{v \in V \mid Tv = \lambda v\}
-\]
-特征子空间是$V$的线性子空间，且在$T$下不变。
+    \textbf{特征子空间}定义为
+    \begin{equation}
+        E(\lambda, T) = \ker(T - \lambda I) = \{v \in V \mid Tv = \lambda v\}.
+    \end{equation}
+    特征子空间是$V$的线性子空间，且在$T$下不变。
 \end{definition}
 
 \subsubsection{特征向量的线性无关性}
 
 \begin{theorem}
-属于不同特征值的特征向量线性无关。
+    属于不同特征值的特征向量线性无关。
 \end{theorem}
 
 \begin{proof}
-假设欲证结论不成立。那么存在最小的正整数$m$，使得$T$对应于其互异特征值$\lambda_1, \ldots, \lambda_m$的特征向量$v_1, \ldots, v_m$构成线性相关向量组（注意$m \geq 2$，因为根据定义，特征向量是非零的）。
+    假设欲证结论不成立。那么存在最小的正整数$m$，使得$T$对应于其互异特征值$\lambda_1, \ldots, \lambda_m$的特征向量$v_1, \ldots, v_m$构成线性相关向量组（注意$m \geq 2$，因为根据定义，特征向量是非零的）。
 
-于是，存在$a_1, \ldots, a_m \in \mathbb{F}$，其中各数均非零（因为$m$最小），使得
-\[
-a_1 v_1 + \cdots + a_m v_m = 0
-\]
+    于是，存在$a_1, \ldots, a_m \in \mathbb{F}$，其中各数均非零（因为$m$最小），使得
+    \begin{equation}
+        a_1 v_1 + \cdots + a_m v_m = 0.
+    \end{equation}
 
-将$T - \lambda_m I$作用于上式两侧，得
-\[
-a_1(\lambda_1 - \lambda_m)v_1 + \cdots + a_{m-1}(\lambda_{m-1} - \lambda_m)v_{m-1} = 0
-\]
+    将$T - \lambda_m I$作用于上式两侧，得
+    \begin{equation}
+        a_1(\lambda_1 - \lambda_m)v_1 + \cdots + a_{m-1}(\lambda_{m-1} - \lambda_m)v_{m-1} = 0.
+    \end{equation}
 
-因为特征值$\lambda_1, \ldots, \lambda_m$互异，所以上式中各系数均不等于$0$。于是$v_1, \ldots, v_{m-1}$就是由对应于$T$的互异特征值的$m-1$个特征向量构成的线性相关向量组，这和$m$最小的假设相矛盾。此矛盾说明欲证命题成立。
+    因为特征值$\lambda_1, \ldots, \lambda_m$互异，所以上式中各系数均不等于$0$。于是$v_1, \ldots, v_{m-1}$就是由对应于$T$的互异特征值的$m-1$个特征向量构成的线性相关向量组，这和$m$最小的假设相矛盾。此矛盾说明欲证命题成立。
 \end{proof}
 
 \begin{corollary}
-$V$上的每个算子至多有$\dim V$个互异特征值。
+    $V$上的每个算子至多有$\dim V$个互异特征值。
 \end{corollary}
 
 \begin{definition}[特征多项式]
-称$\varphi(\lambda) := \det(\lambda I - T)$为$T$的\textbf{特征多项式}(characteristic polynomial)。
+    称$\varphi(\lambda) := \det(\lambda I - T)$为$T$的\textbf{特征多项式}(characteristic polynomial)。
 \end{definition}
 
 根据代数基本定理，在复数域上特征多项式可完全分解：
-\[
-\varphi(\lambda) = \prod_{i=1}^{n}(\lambda - \lambda_i)
-\]
+\begin{equation}
+    \varphi(\lambda) = \prod_{i=1}^{n}(\lambda - \lambda_i),
+\end{equation}
 其中$\lambda_i$是$T$的特征值（计重数）。
 
 \begin{theorem}
-复线性空间上的算子一定有特征值。
+    复线性空间上的算子一定有特征值。
 
-实线性空间上，奇数维空间中的算子一定有特征值。
+    实线性空间上，奇数维空间中的算子一定有特征值。
 \end{theorem}
 
 \begin{theorem}
-复线性空间上算子的行列式等于它所有特征值的积：
-\[
-\det(T) = \prod_{i=1}^{n}\lambda_i
-\]
+    复线性空间上算子的行列式等于它所有特征值的积：
+    \begin{equation}
+        \det(T) = \prod_{i=1}^{n}\lambda_i.
+    \end{equation}
 \end{theorem}
 
 \begin{proof}
-\[
-(-1)^n\prod_{i=1}^{n}\lambda_i = \varphi(0) = \det(-T) = (-1)^n\det(T)
-\]
+    \begin{equation}
+        (-1)^n\prod_{i=1}^{n}\lambda_i = \varphi(0) = \det(-T) = (-1)^n\det(T).
+    \end{equation}
 \end{proof}
 
 \begin{corollary}
-方阵可逆当且仅当它的所有特征值不为零。
+    方阵可逆当且仅当它的所有特征值不为零。
 \end{corollary}
 
 \subsubsection{Cayley-Hamilton定理}
 
 \begin{theorem}[Cayley-Hamilton]
-设$n$阶方阵$A$的特征多项式为
-\[
-\varphi(\lambda) = \lambda^n + \alpha_1\lambda^{n-1} + \cdots + \alpha_{n-1}\lambda + \alpha_n
-\]
-则矩阵
-\[
-\varphi(A) := A^n + \alpha_1 A^{n-1} + \cdots + \alpha_{n-1}A + \alpha_n I_n
-\]
-是零矩阵，即$\varphi(A) = 0$。
+    设$n$阶方阵$A$的特征多项式为
+    \begin{equation}
+        \varphi(\lambda) = \lambda^n + \alpha_1\lambda^{n-1} + \cdots + \alpha_{n-1}\lambda + \alpha_n,
+    \end{equation}
+    则矩阵
+    \begin{equation}
+        \varphi(A) := A^n + \alpha_1 A^{n-1} + \cdots + \alpha_{n-1}A + \alpha_n I_n
+    \end{equation}
+    是零矩阵，即$\varphi(A) = 0$。
 \end{theorem}
 
 \begin{proof}
-设$B(\lambda) = \mathrm{adj}(\lambda I - A)$为$\lambda I - A$的伴随矩阵，则
-\[
-(\lambda I - A)B(\lambda) = \det(\lambda I - A) \cdot I = \varphi(\lambda)I
-\]
-$B(\lambda)$的元素是$\lambda I - A$的代数余子式，故为$\lambda$的次数不超过$n-1$的多项式。可写为
-\[
-B(\lambda) = B_0 + B_1\lambda + \cdots + B_{n-1}\lambda^{n-1}
-\]
-其中$B_i$为常数矩阵。于是
-\[
-(\lambda I - A)(B_0 + B_1\lambda + \cdots + B_{n-1}\lambda^{n-1}) = (\lambda^n + \alpha_1\lambda^{n-1} + \cdots + \alpha_n)I
-\]
+    设$B(\lambda) = \operatorname{adj}(\lambda I - A)$为$\lambda I - A$的伴随矩阵，则
+    \begin{equation}
+        (\lambda I - A)B(\lambda) = \det(\lambda I - A) \cdot I = \varphi(\lambda)I.
+    \end{equation}
+    $B(\lambda)$的元素是$\lambda I - A$的代数余子式，故为$\lambda$的次数不超过$n-1$的多项式。可写为
+    \begin{equation}
+        B(\lambda) = B_0 + B_1\lambda + \cdots + B_{n-1}\lambda^{n-1},
+    \end{equation}
+    其中$B_i$为常数矩阵。于是
+    \begin{equation}
+        (\lambda I - A)(B_0 + B_1\lambda + \cdots + B_{n-1}\lambda^{n-1}) = (\lambda^n + \alpha_1\lambda^{n-1} + \cdots + \alpha_n)I.
+    \end{equation}
 
-比较两边$\lambda$的同次幂系数：
-\begin{align*}
-B_{n-1} &= I \\
-B_{n-2} - AB_{n-1} &= \alpha_1 I \\
-B_{n-3} - AB_{n-2} &= \alpha_2 I \\
-&\vdots \\
--AB_0 &= \alpha_n I
-\end{align*}
+    比较两边$\lambda$的同次幂系数：
+    \begin{equation}
+        \begin{aligned}
+            B_{n-1} &= I, \\
+            B_{n-2} - AB_{n-1} &= \alpha_1 I, \\
+            B_{n-3} - AB_{n-2} &= \alpha_2 I, \\
+            &\vdotswithin{=} \\
+            -AB_0 &= \alpha_n I.
+        \end{aligned}
+    \end{equation}
 
-将第$k$个等式左乘$A^{n-k}$后相加：
-\begin{align*}
-& A^n B_{n-1} + A^{n-1}(B_{n-2} - AB_{n-1}) + A^{n-2}(B_{n-3} - AB_{n-2}) + \cdots + (-AB_0) \\
-=\;& A^n + \alpha_1 A^{n-1} + \alpha_2 A^{n-2} + \cdots + \alpha_n I = \varphi(A)
-\end{align*}
-左边化简后等于$0$，故$\varphi(A) = 0$。
+    将第$k$个等式左乘$A^{n-k}$后相加：
+    \begin{align}
+        & A^n B_{n-1} + A^{n-1}(B_{n-2} - AB_{n-1}) + A^{n-2}(B_{n-3} - AB_{n-2}) + \cdots + (-AB_0)\nonumber \\
+        =\;& A^n + \alpha_1 A^{n-1} + \alpha_2 A^{n-2} + \cdots + \alpha_n I = \varphi(A).
+    \end{align}
+    左边化简后等于$0$，故$\varphi(A) = 0$。
 \end{proof}
 
 \subsubsection{对角化}
 
 所谓对角化，用代数的语言说，就是空间的直和分解，每个项都是算子的一维不变子空间。即
-\[
-V = \bigoplus_{i=1}^{k} V_i
-\]
+\begin{equation}
+    V = \bigoplus_{i=1}^{k} V_i,
+\end{equation}
 其中$V_i$是$T$的一维不变子空间。
 
 此时从矩阵看上去，$T$的矩阵表示就是对角矩阵。
@@ -166,68 +168,68 @@ V = \bigoplus_{i=1}^{k} V_i
 因此我们有这样的问题，那就是什么时候我们能找到一个那样的直和分解。这样的条件就是矩阵的可对角化条件。
 
 \begin{definition}[代数重数与几何重数]
-记$\varphi(\lambda) = (\lambda - \lambda_0)^m g(\lambda)$，其中$g(\lambda_0) \neq 0$。称$m$为特征值$\lambda_0$的\textbf{代数重数}(algebraic multiplicity)。
+    记$\varphi(\lambda) = (\lambda - \lambda_0)^m g(\lambda)$，其中$g(\lambda_0) \neq 0$。称$m$为特征值$\lambda_0$的\textbf{代数重数}(algebraic multiplicity)。
 
-称$\dim E(\lambda_0, T)$为特征值$\lambda_0$的\textbf{几何重数}(geometric multiplicity)。
+    称$\dim E(\lambda_0, T)$为特征值$\lambda_0$的\textbf{几何重数}(geometric multiplicity)。
 \end{definition}
 
 \begin{theorem}
-对任意特征值，它的几何重数不超过代数重数。
+    对任意特征值，它的几何重数不超过代数重数。
 \end{theorem}
 
 \begin{proof}
-设$\lambda_0$是$T$的特征值，几何重数为$k = \dim E(\lambda_0, T)$。取$E(\lambda_0, T)$的一组基$\{v_1, \ldots, v_k\}$，扩充为$V$的基$\{v_1, \ldots, v_k, v_{k+1}, \ldots, v_n\}$。
+    设$\lambda_0$是$T$的特征值，几何重数为$k = \dim E(\lambda_0, T)$。取$E(\lambda_0, T)$的一组基$\{v_1, \ldots, v_k\}$，扩充为$V$的基$\{v_1, \ldots, v_k, v_{k+1}, \ldots, v_n\}$。
 
-在此基下，$T$的矩阵表示为
-\[
-A = \begin{bmatrix} \lambda_0 I_k & B \\ 0 & C \end{bmatrix}
-\]
-其中$I_k$是$k$阶单位矩阵。于是
-\[
-\det(\lambda I - A) = (\lambda - \lambda_0)^k \det(\lambda I_{n-k} - C)
-\]
-这表明$\lambda_0$的代数重数至少为$k$，即几何重数$\leq$代数重数。
+    在此基下，$T$的矩阵表示为
+    \begin{equation}
+        A = \begin{bmatrix} \lambda_0 I_k & B \\ 0 & C \end{bmatrix},
+    \end{equation}
+    其中$I_k$是$k$阶单位矩阵。于是
+    \begin{equation}
+        \det(\lambda I - A) = (\lambda - \lambda_0)^k \det(\lambda I_{n-k} - C).
+    \end{equation}
+    这表明$\lambda_0$的代数重数至少为$k$，即几何重数$\leq$代数重数。
 \end{proof}
 
 \begin{theorem}[对角化判定]
-矩阵（或算子）可对角化当且仅当所有特征值的代数重数都等于几何重数。
+    矩阵（或算子）可对角化当且仅当所有特征值的代数重数都等于几何重数。
 \end{theorem}
 
 \begin{proof}
-($\implies$)设$T$可对角化，则存在由特征向量组成的基。对特征值$\lambda_i$，设其代数重数为$m_i$，则在该基下对应$\lambda_i$的特征向量恰有$m_i$个，故几何重数$= m_i$。
+    ($\implies$) 设$T$可对角化，则存在由特征向量组成的基。对特征值$\lambda_i$，设其代数重数为$m_i$，则在该基下对应$\lambda_i$的特征向量恰有$m_i$个，故几何重数$= m_i$。
 
-($\impliedby$)设所有特征值满足几何重数$=$代数重数。设$\lambda_1, \ldots, \lambda_k$是互异特征值，代数重数分别为$m_1, \ldots, m_k$，则
-\[
-\sum_{i=1}^{k} \dim E(\lambda_i, T) = \sum_{i=1}^{k} m_i = n = \dim V
-\]
-又不同特征值的特征向量线性无关，故所有特征子空间的基向量合起来构成$V$的基，$T$在此基下为对角矩阵。
+    ($\impliedby$) 设所有特征值满足几何重数$=$代数重数。设$\lambda_1, \ldots, \lambda_k$是互异特征值，代数重数分别为$m_1, \ldots, m_k$，则
+    \begin{equation}
+        \sum_{i=1}^{k} \dim E(\lambda_i, T) = \sum_{i=1}^{k} m_i = n = \dim V.
+    \end{equation}
+    又不同特征值的特征向量线性无关，故所有特征子空间的基向量合起来构成$V$的基，$T$在此基下为对角矩阵。
 \end{proof}
 
 在矩阵（或算子）可对角化时，有
-\[
-V = \bigoplus_{i=1}^{k} E(\lambda_i, T)
-\]
+\begin{equation}
+    V = \bigoplus_{i=1}^{k} E(\lambda_i, T).
+\end{equation}
 注意这里的$E(\lambda_i, T)$不一定是一维的，但是我们可以把大于一维的特征子空间继续分解为$T$的一维不变子空间的直和，于是$T$可以对角化。
 
-特别地，当$T$有$n = \dim V$个互异特征值时，每个特征子空间只能是一维的，并且至少且至多有$n$个这样的子空间，于是$T$自然可以对角化。此时以$T$的特征向量构成$V$的一组基，$T$在这组基下的表示矩阵为对角矩阵$\mathrm{diag}\{\lambda_1, \ldots, \lambda_n\}$。
+特别地，当$T$有$n = \dim V$个互异特征值时，每个特征子空间只能是一维的，并且至少且至多有$n$个这样的子空间，于是$T$自然可以对角化。此时以$T$的特征向量构成$V$的一组基，$T$在这组基下的表示矩阵为对角矩阵$\diag\{\lambda_1, \ldots, \lambda_n\}$。
 
 下面给出一个不可对角化的例子：
 
 \begin{example}
-考虑矩阵
-\[
-A = \begin{bmatrix} 2 & 1 \\ 0 & 2 \end{bmatrix}
-\]
+    考虑矩阵
+    \begin{equation}
+        A = \begin{bmatrix} 2 & 1 \\ 0 & 2 \end{bmatrix}.
+    \end{equation}
 
-\textbf{特征值}：$A$的特征多项式为$(\lambda - 2)^2$，所以只有一个特征值$\lambda = 2$，代数重数为$2$。
+    \textbf{特征值}：$A$的特征多项式为$(\lambda - 2)^2$，所以只有一个特征值$\lambda = 2$，代数重数为$2$。
 
-\textbf{特征向量}：解$(A - 2I)v = 0$，即
-\[
-\begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} x \\ y \end{bmatrix} = 0 \Rightarrow y = 0
-\]
-所以特征向量形式为$(x, 0)^{\mathrm{T}}$，几何重数为$1$。
+    \textbf{特征向量}：解$(A - 2I)v = 0$，即
+    \begin{equation}
+        \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} x \\ y \end{bmatrix} = 0 \implies y = 0,
+    \end{equation}
+    所以特征向量形式为$(x, 0)^{\mathrm{T}}$，几何重数为$1$。
 
-由于几何重数小于代数重数，该矩阵不能对角化。
+    由于几何重数小于代数重数，该矩阵不能对角化。
 \end{example}
 
 
@@ -236,229 +238,233 @@ A = \begin{bmatrix} 2 & 1 \\ 0 & 2 \end{bmatrix}
 当矩阵不能对角化时，我们需要寻找更一般的分解方式。上述例子表明，有时我们不能找到足够多的线性无关特征向量，为此需要引入\textbf{广义特征向量}。
 
 \begin{definition}[根子空间]
-\textbf{根子空间}(root subspace)定义为
-\[
-G(\lambda, T) = \ker(T - \lambda I)^{\dim V} = \{v \in V \mid \exists m \in \mathbb{N}, (T - \lambda I)^m v = 0\}
-\]
-根子空间中的非零元称为\textbf{广义特征向量}(generalized eigenvector)。
+    \textbf{根子空间}(root subspace)定义为
+    \begin{equation}
+        G(\lambda, T) = \ker(T - \lambda I)^{\dim V} = \{v \in V \mid \exists m \in \mathbb{N},\ (T - \lambda I)^m v = 0\}.
+    \end{equation}
+    根子空间中的非零元称为\textbf{广义特征向量}(generalized eigenvector)。
 \end{definition}
 
 我们不定义“广义特征值”，因为那样定义出来的“广义特征值”就是特征值。即若存在非零向量$v$和正整数$m$使得$(T - \lambda I)^m v = 0$，则$\lambda$必是$T$的特征值。事实上，设$m$是使$(T - \lambda I)^m v = 0$成立的最小正整数，令$w = (T - \lambda I)^{m-1}v \neq 0$，则$(T - \lambda I)w = (T - \lambda I)^m v = 0$，即$Tw = \lambda w$，故$\lambda$是特征值，$w$是对应的特征向量。因此广义特征向量对应的“特征值”仍是普通特征值，无需引入新概念。
 \begin{theorem}
-特征值$\lambda_0$的代数重数等于$\dim G(\lambda_0, T)$.
+    特征值$\lambda_0$的代数重数等于$\dim G(\lambda_0, T)$。
 \end{theorem}
 根据这个定理我们就能自然看出几何重数一定不大于代数重数。
 
 仅靠特征子空间，未必能做直和分解的问题，即矩阵未必能对角化。而广义特征向量可以立刻帮我们解决这一问题。
 \begin{theorem}
-复线性空间上存在由算子的广义特征向量组成的基。
+    复线性空间上存在由算子的广义特征向量组成的基。
 \end{theorem}
 
 \begin{theorem}[根子空间分解]
-设$\mathbb{F}=\mathbb{C}$，$T \in L(V)$，$\lambda_1, \ldots, \lambda_k$是$T$的所有互异特征值，则
-\[
-V = \bigoplus_{i=1}^k G(\lambda_i, T)
-\]
+    设$\mathbb{F}=\mathbb{C}$，$T \in L(V)$，$\lambda_1, \ldots, \lambda_k$是$T$的所有互异特征值，则
+    \begin{equation}
+        V = \bigoplus_{i=1}^k G(\lambda_i, T).
+    \end{equation}
 \end{theorem}
 
 \begin{proof}
-设 $\lambda_1, \ldots, \lambda_k$ 是 $T$ 的所有互异特征值，记 $G_i = G(\lambda_i, T)$。首先证明不同根子空间的交为零：任取 $v \in G_i \cap G_j$（$i \neq j$），则存在正整数 $p, q$ 使得 $(T - \lambda_i I)^p v = 0$ 且 $(T - \lambda_j I)^q v = 0$。由于多项式 $(t - \lambda_i)^p$ 与 $(t - \lambda_j)^q$ 互质，存在多项式 $a(t), b(t)$ 满足
-\[
-a(t)(t - \lambda_i)^p + b(t)(t - \lambda_j)^q = 1
-\]
-代入 $T$ 并作用于 $v$ 得
-\[
-v = a(T)(T - \lambda_i I)^p v + b(T)(T - \lambda_j I)^q v = 0
-\]
-故 $G_i \cap G_j = \{0\}$。因此和 $\sum_{i=1}^k G_i$ 是直和。
+    设$\lambda_1, \ldots, \lambda_k$是$T$的所有互异特征值，记$G_i = G(\lambda_i, T)$。首先证明不同根子空间的交为零：任取$v \in G_i \cap G_j$（$i \neq j$），则存在正整数$p, q$使得$(T - \lambda_i I)^p v = 0$且$(T - \lambda_j I)^q v = 0$。由于多项式$(t - \lambda_i)^p$与$(t - \lambda_j)^q$互质，存在多项式$a(t), b(t)$满足
+    \begin{equation}
+        a(t)(t - \lambda_i)^p + b(t)(t - \lambda_j)^q = 1.
+    \end{equation}
+    代入$T$并作用于$v$得
+    \begin{equation}
+        v = a(T)(T - \lambda_i I)^p v + b(T)(T - \lambda_j I)^q v = 0,
+    \end{equation}
+    故$G_i \cap G_j = \{0\}$。因此和$\sum_{i=1}^k G_i$是直和。
 
-已知每个 $G_i$ 的维数等于 $\lambda_i$ 的代数重数，且所有特征值的代数重数之和为 $\dim V$，故
-\[
-\dim\left(\bigoplus_{i=1}^k G_i\right) = \sum_{i=1}^k \dim G_i = \sum_{i=1}^k \text{代数重数}(\lambda_i) = \dim V
-\]
-因此 $V = \bigoplus_{i=1}^k G_i$.
+    已知每个$G_i$的维数等于$\lambda_i$的代数重数，且所有特征值的代数重数之和为$\dim V$，故
+    \begin{equation}
+        \dim\paren{\bigoplus_{i=1}^k G_i} = \sum_{i=1}^k \dim G_i = \sum_{i=1}^k \text{代数重数}(\lambda_i) = \dim V.
+    \end{equation}
+    因此$V = \bigoplus_{i=1}^k G_i$。
 \end{proof}
 
 \begin{claim}[Schur引理]
     复线性空间上的算子在某个基下有上三角矩阵。
 \end{claim}
 
-由Schur引理，复线性空间上的算子一定可以上三角化，使矩阵有几乎一半的0；从这个定理又可以看出复算子一定可以分块对角化，使矩阵大约有了更多的0. 显然，矩阵中0的数量越多，矩阵的加法乘法幂次越容易计算。我们还要继续问：既然对角化不是普遍的，那我们是否能对于一般的复算子，让它（在某个基下）的矩阵有更多的0？
+由Schur引理，复线性空间上的算子一定可以上三角化，使矩阵有几乎一半的0；从这个定理又可以看出复算子一定可以分块对角化，使矩阵大约有了更多的$0$。显然，矩阵中0的数量越多，矩阵的加法乘法幂次越容易计算。我们还要继续问：既然对角化不是普遍的，那我们是否能对于一般的复算子，让它（在某个基下）的矩阵有更多的0？
 
 这个问题的答案由Jordan标准形给出。
 
 \subsubsection{Jordan块与Jordan标准形}
 \begin{definition}[幂零算子]
-设$N \in L(V)$。若存在正整数$m$使得$N^m = 0$，则称$N$为\textbf{幂零算子}（nilpotent operator）。使$N^m = 0$成立的最小正整数$m$称为$N$的\textbf{幂零指数}（index of nilpotency），记作$\mathrm{ind}(N)$。
+    设$N \in L(V)$。若存在正整数$m$使得$N^m = 0$，则称$N$为\textbf{幂零算子}(nilpotent operator)。使$N^m = 0$成立的最小正整数$m$称为$N$的\textbf{幂零指数}(index of nilpotency)，记作$\operatorname{ind}(N)$。
 \end{definition}
 
 我们现在指出幂零指数的上界，这使得我们不用考虑比这更高的指数。
 
 \begin{theorem}[幂零指数的上界]
-设$N \in L(V)$是幂零算子，则$N^{\dim V}=0$.
+    设$N \in L(V)$是幂零算子，则$N^{\dim V}=0$。
 \end{theorem}
 
 \begin{proof}
-    $\ker N^{\dim V}=G(0, N)=V$.
+    $\ker N^{\dim V}=G(0, N)=V$。
 \end{proof}
 \begin{theorem}[幂零算子的特征值]
-设 $T \in \mathcal{L}(V)$.
-
-\begin{enumerate}
-    \item[1.] 如果 $T$ 是幂零的，那么 $0$ 是 $T$ 的特征值，并且 $T$ 没有其他的特征值。
-    \item[2.] 若 $\mathbf{F} = \mathbb{C}$，且 $0$ 是 $T$ 的唯一特征值，那么 $T$ 是幂零的。（注意$\mathbf{F} = \mathbb{C}$这个条件是必要的）
-\end{enumerate}
+    设$T \in \mathcal{L}(V)$。
+    \begin{enumerate}
+        \item[1.] 如果$T$是幂零的，那么$0$是$T$的特征值，并且$T$没有其他的特征值。
+        \item[2.] 若$\mathbf{F} = \mathbb{C}$，且$0$是$T$的唯一特征值，那么$T$是幂零的。（注意$\mathbf{F} = \mathbb{C}$这个条件是必要的）
+    \end{enumerate}
 \end{theorem}
 
 幂零算子启发我们考虑这样一组向量：
-\[
-v,Nv,N^2v,\ldots,N^{m-1} v
-\]
+\begin{equation}
+    v,\ Nv,\ N^2v,\ \ldots,\ N^{m-1}v,
+\end{equation}
 其中$t$是使$N^t v=0$的最小整数。可以验证上面一组向量是线性无关的，于是我们考虑它们张成的空间
-\[
-C(v,N)=\mathrm{span}\{v,Nv,N^2v,\ldots,N^{t-1}v\}
-\]
+\begin{equation}
+    C(v,N)=\operatorname{span}\{v,Nv,N^2v,\ldots,N^{t-1}v\}.
+\end{equation}
 \begin{definition}[循环子空间与循环模]
-设$T \in L(V)$，$v \in V$。由$v$生成的\textbf{循环子空间}定义为
-\[
-C(v, T) = \mathrm{span}_{\mathbb{F}}\{v, Tv, T^2v, \ldots\} = \{f(T)v \mid f \in \mathbb{F}[t]\}.
-\]
-这是$V$中包含$v$的$T$-不变子空间。
+    设$T \in L(V)$，$v \in V$。由$v$生成的\textbf{循环子空间}定义为
+    \begin{equation}
+        C(v, T) = \operatorname{span}_{\mathbb{F}}\{v, Tv, T^2v, \ldots\} = \{f(T)v \mid f \in \mathbb{F}[t]\}.
+    \end{equation}
+    这是$V$中包含$v$的$T$-不变子空间。
 \end{definition}
 
 \begin{definition}[$T$-循环子空间]
-设$\lambda \in \mathbb{F}$，$v \in V$。定义$v$生成的\textbf{$T$-循环子空间}为
-\[
-C_{\lambda}(v, T) = C_0(v, T-\lambda I) = \{f(T-\lambda I)v \mid f \in \mathbb{F}[t]\}.
-\]
+    设$\lambda \in \mathbb{F}$，$v \in V$。定义$v$生成的\textbf{$T$-循环子空间}为
+    \begin{equation}
+        C_{\lambda}(v, T) = C_0(v, T-\lambda I) = \{f(T-\lambda I)v \mid f \in \mathbb{F}[t]\}.
+    \end{equation}
 \end{definition}
 这组向量称为循环基。
 
-由Cayley-Hamilton定理，循环子空间至多是$\dim V$维的。而对于幂零算子，循环子空间至多是$\dim V-1$维的。有更强的结论指出，$N^{1+\mathrm{rank}(N)}=0$，于是$N$的循环子空间至多是$\mathrm{rank}(N)$维的。
+由Cayley-Hamilton定理，循环子空间至多是$\dim V$维的。而对于幂零算子，循环子空间至多是$\dim V-1$维的。有更强的结论指出，$N^{1+\rank(N)}=0$，于是$N$的循环子空间至多是$\rank(N)$维的。
 
 \begin{definition}[Jordan块]
-形如
-\[
-J_k(\lambda) = \begin{bmatrix}
-\lambda & 1 & & \\
-& \lambda & \ddots & \\
-& & \ddots & 1 \\
-& & & \lambda
-\end{bmatrix}_{k \times k}
-\]
-的矩阵称为\textbf{Jordan块}，其中对角线上都是$\lambda$，上对角线上都是$1$，其余为$0$。
+    形如
+    \begin{equation}
+        J_k(\lambda) = \begin{bmatrix}
+            \lambda & 1       &        &         \\
+                    & \lambda & \ddots &         \\
+                    &         & \ddots & 1       \\
+                    &         &        & \lambda
+        \end{bmatrix}_{k \times k}
+    \end{equation}
+    的矩阵称为\textbf{Jordan块}，其中对角线上都是$\lambda$，上对角线上都是$1$，其余为$0$。
 \end{definition}
-注意$N$在循环基下的矩阵正是$J_t(0)$.
+注意$N$在循环基下的矩阵正是$J_t(0)$。
 \begin{definition}[Jordan标准形]
-由若干个Jordan块构成的分块对角矩阵称为\textbf{Jordan标准形}：
-\[
-J = \begin{bmatrix}
-J_{k_1}(\lambda_1) & & \\
-& J_{k_2}(\lambda_2) & \\
-& & \ddots
-\end{bmatrix}
-\]
+    由若干个Jordan块构成的分块对角矩阵称为\textbf{Jordan标准形}：
+    \begin{equation}
+        J = \begin{bmatrix}
+            J_{k_1}(\lambda_1) &                    &        \\
+                               & J_{k_2}(\lambda_2) &        \\
+                               &                    & \ddots
+        \end{bmatrix}.
+    \end{equation}
 \end{definition}
 
 \begin{theorem}[Jordan标准形定理]
-复数域上任意方阵都相似于一个Jordan标准形，且在不考虑Jordan块次序的情况下，Jordan标准形唯一。
+    复数域上任意方阵都相似于一个Jordan标准形，且在不考虑Jordan块次序的情况下，Jordan标准形唯一。
 \end{theorem}
 用代数的语言说，这就是
 
 \begin{theorem}[幂零算子的循环分解定理]
-设$N \in L(V)$是幂零算子，则$V$可以分解为若干个$N$-循环子空间的直和：
-\[
-V = \bigoplus_{i=1}^m C(v_i, N)
-\]
-其中每个$C(v_i, N) = \mathrm{span}\{v_i, Nv_i, N^2v_i, \ldots, N^{t_i-1}v_i\}$是$t_i$维循环子空间，$t_i$是使$N^{k_i}v_i = 0$的最小正整数。
+    设$N \in L(V)$是幂零算子，则$V$可以分解为若干个$N$-循环子空间的直和：
+    \begin{equation}
+        V = \bigoplus_{i=1}^m C(v_i, N),
+    \end{equation}
+    其中每个$C(v_i, N) = \operatorname{span}\{v_i, Nv_i, N^2v_i, \ldots, N^{t_i-1}v_i\}$是$t_i$维循环子空间，$t_i$是使$N^{k_i}v_i = 0$的最小正整数。
 
-这里的$m$由以下公式给出
-\[
-m=\dim\ker N
-\]
+    这里的$m$由以下公式给出：
+    \begin{equation}
+        m=\dim\ker N.
+    \end{equation}
 
-进一步，若记$d_k$为$k$维循环子空间的个数，则
-\[
-d_k = \mathrm{rank}(N^{k-1}) - 2\cdot\mathrm{rank}(N^k) + \mathrm{rank}(N^{k+1}).
-\]
-这些维数由$N$唯一确定，因此循环分解在不计次序下唯一。
+    进一步，若记$d_k$为$k$维循环子空间的个数，则
+    \begin{equation}
+        d_k = \rank(N^{k-1}) - 2\cdot\rank(N^k) + \rank(N^{k+1}).
+    \end{equation}
+    这些维数由$N$唯一确定，因此循环分解在不计次序下唯一。
 \end{theorem}
 
 \begin{proof}
-对$\dim V$用归纳法。当$\dim V = 1$时，$N = 0$，$V = C(v, 0)$对任意非零$v$成立。
+    对$\dim V$用归纳法。当$\dim V = 1$时，$N = 0$，$V = C(v, 0)$对任意非零$v$成立。
 
-设$\dim V > 1$。因$N$幂零，$N(V) \subsetneq V$。由归纳假设，$N(V)$可分解为循环子空间的直和。设
-\[
-N(V) = C(Nv_1, N) \oplus \cdots \oplus C(Nv_r, N)
-\]
-其中$v_i \in V$且$Nv_i \neq 0$。
+    设$\dim V > 1$。因$N$幂零，$N(V) \subsetneq V$。由归纳假设，$N(V)$可分解为循环子空间的直和。设
+    \begin{equation}
+        N(V) = C(Nv_1, N) \oplus \cdots \oplus C(Nv_r, N),
+    \end{equation}
+    其中$v_i \in V$且$Nv_i \neq 0$。
 
-将$\{v_1, \ldots, v_r\}$扩充为$\ker N$的基。设$W = \mathrm{span}\{v_1, \ldots, v_r\}$，取$\ker N$的子空间$U$使得$\ker N = (W \cap \ker N) \oplus U$。设$\{u_1, \ldots, u_s\}$是$U$的基，则
-$$V = C(v_1, N) \oplus \cdots \oplus C(v_r, N) \oplus C(u_1, N) \oplus \cdots \oplus C(u_s, N)$$
-即$V$分解为循环子空间的直和。
+    将$\{v_1, \ldots, v_r\}$扩充为$\ker N$的基。设$W = \operatorname{span}\{v_1, \ldots, v_r\}$，取$\ker N$的子空间$U$使得$\ker N = (W \cap \ker N) \oplus U$。设$\{u_1, \ldots, u_s\}$是$U$的基，则
+    \begin{equation}
+        V = C(v_1, N) \oplus \cdots \oplus C(v_r, N) \oplus C(u_1, N) \oplus \cdots \oplus C(u_s, N),
+    \end{equation}
+    即$V$分解为循环子空间的直和。
 
-关于$d_k$的公式，利用$\dim \ker N^k = \sum_{j \geq k} j \cdot d_j$（各$k$维循环子空间对$\ker N^k$的贡献），通过容斥原理可得。
+    关于$d_k$的公式，利用$\dim \ker N^k = \sum_{j \geq k} j \cdot d_j$（各$k$维循环子空间对$\ker N^k$的贡献），通过容斥原理可得。
 \end{proof}
 
 幂零算子的循环分解定理是Jordan标准形理论的核心。每个$k$维$N$-循环子空间对应一个$k$阶幂零Jordan块$J_k(0)$，因此幂零算子在适当基下的矩阵就是若干个幂零Jordan块组成的分块对角矩阵。
 
 \begin{theorem}[循环子空间分解]
-设$\mathbb{F} = \mathbb{C}$，$T \in L(V)$。则$V$可以分解为若干个$T$-循环子空间的直和：
-\[
-V = \bigoplus_{i=1}^m C_{\lambda_i}(v_i, T)
-\]
-其中$m$是Jordan标准形中Jordan块的总个数（即所有特征值的几何重数之和），每个$C_{\lambda_i}(v_i, T)$对应于Jordan标准形中的一个Jordan块。
+    设$\mathbb{F} = \mathbb{C}$，$T \in L(V)$。则$V$可以分解为若干个$T$-循环子空间的直和：
+    \begin{equation}
+        V = \bigoplus_{i=1}^m C_{\lambda_i}(v_i, T),
+    \end{equation}
+    其中$m$是Jordan标准形中Jordan块的总个数（即所有特征值的几何重数之和），每个$C_{\lambda_i}(v_i, T)$对应于Jordan标准形中的一个Jordan块。
 \end{theorem}
 
 \begin{proof}
-由空间分解定理，$V = \bigoplus_{i=1}^k G(\lambda_i, T)$。只需证明每个根子空间$G(\lambda_i, T)$可进一步分解为$T$-循环子空间的直和。
+    由空间分解定理，$V = \bigoplus_{i=1}^k G(\lambda_i, T)$。只需证明每个根子空间$G(\lambda_i, T)$可进一步分解为$T$-循环子空间的直和。
 
-设$N = T - \lambda_i I$，则$N$在$G(\lambda_i, T)$上是幂零的。对幂零算子，存在向量$v_1, \ldots, v_m$使得
-\[
-G(\lambda_i, T) = C(v_1, N) \oplus \cdots \oplus C(v_m, N)
-\]
-其中$C(v_j, N) = \text{span}\{v_j, Nv_j, N^2v_j, \ldots, N^{k_j-1}v_j\}$，$k_j$是使$N^{k_j}v_j = 0$的最小正整数。
+    设$N = T - \lambda_i I$，则$N$在$G(\lambda_i, T)$上是幂零的。对幂零算子，存在向量$v_1, \ldots, v_m$使得
+    \begin{equation}
+        G(\lambda_i, T) = C(v_1, N) \oplus \cdots \oplus C(v_m, N),
+    \end{equation}
+    其中$C(v_j, N) = \operatorname{span}\{v_j, Nv_j, N^2v_j, \ldots, N^{k_j-1}v_j\}$，$k_j$是使$N^{k_j}v_j = 0$的最小正整数。
 
-由于$N = T - \lambda_i I$，有$C(v_j, N) = C_{\lambda_i}(v_j, T)$。因此根子空间分解为$T$-循环子空间的直和。
+    由于$N = T - \lambda_i I$，有$C(v_j, N) = C_{\lambda_i}(v_j, T)$。因此根子空间分解为$T$-循环子空间的直和。
 \end{proof}
 
 \begin{proposition}
-设$J$是矩阵$A$的Jordan标准形，则：
-\begin{enumerate}
-    \item $J$的对角元就是$A$的特征值（计重数）
-    \item 对应于特征值$\lambda$的Jordan块的个数等于$\lambda$的几何重数
-    \item 对应于特征值$\lambda$的所有Jordan块的阶数之和等于$\lambda$的代数重数
-    \item 对应于特征值$\lambda$的$k$阶Jordan块的个数等于
-    $$\mathrm{rank}((T-\lambda I)^{k-1}) - 2\cdot\mathrm{rank}((T-\lambda I)^k) + \mathrm{rank}((T-\lambda I)^{k+1})$$
-\end{enumerate}
+    设$J$是矩阵$A$的Jordan标准形，则：
+    \begin{enumerate}
+        \item $J$的对角元就是$A$的特征值（计重数）
+        \item 对应于特征值$\lambda$的Jordan块的个数等于$\lambda$的几何重数
+        \item 对应于特征值$\lambda$的所有Jordan块的阶数之和等于$\lambda$的代数重数
+        \item 对应于特征值$\lambda$的$k$阶Jordan块的个数等于
+        \begin{equation}
+            \rank\paren{(T-\lambda I)^{k-1}} - 2\cdot\rank\paren{(T-\lambda I)^k} + \rank\paren{(T-\lambda I)^{k+1}}.
+        \end{equation}
+    \end{enumerate}
 \end{proposition}
 
 \begin{example}
-求矩阵\[
-A = \begin{bmatrix}
-3 & -1 & 0 & 0 \\
-1 & 1 & 0 & 0 \\
-3 & 0 & 5 & -3 \\
-4 & -1 & 3 & 1
-\end{bmatrix}
-\]
-的 Jordan 标准型。
+    求矩阵
+    \begin{equation}
+        A = \begin{bmatrix}
+            3 & -1 & 0 & 0 \\
+            1 & 1  & 0 & 0 \\
+            3 & 0  & 5 & -3 \\
+            4 & -1 & 3 & 1
+        \end{bmatrix}
+    \end{equation}
+    的Jordan标准型。
 
-\begin{itemize}
-    \item 先算特征值：$\det(A - \lambda I) = 0 \Rightarrow (\lambda - 2)^4 = 0$，于是特征值都是 $2$。
-    \item 计算 $\operatorname{rank}(A - 2I) = 2$，于是就是两个 Jordan 块，要么是 $1$ 阶 $+$ $3$ 阶，要么是 $2$ 阶 $+$ $2$ 阶。
-    \item 计算一阶 Jordan 块的个数：
-    \[
-    n(1) = \operatorname{rank}\left((A-2I)^0\right) + \operatorname{rank}\left((A-2I)^2\right) - 2\operatorname{rank}(A-2I) = 0,
-    \]
-    于是没有 $1$ 阶 Jordan 块，那就只有两个 $2$ 阶 Jordan 块，于是 Jordan 矩阵就是
-    \[
-    J(A) = \begin{bmatrix}
-    J_2(2) & \\
-    & J_2(2)
-    \end{bmatrix}.
-    \]
-\end{itemize}
+    \begin{itemize}
+        \item 先算特征值：$\det(A - \lambda I) = 0 \implies (\lambda - 2)^4 = 0$，于是特征值都是$2$。
+        \item 计算$\rank(A - 2I) = 2$，于是就是两个Jordan块，要么是$1$阶$+$ $3$阶，要么是$2$阶$+$ $2$阶。
+        \item 计算一阶Jordan块的个数：
+        \begin{equation}
+            n(1) = \rank\paren{(A-2I)^0} + \rank\paren{(A-2I)^2} - 2\rank(A-2I) = 0,
+        \end{equation}
+        于是没有$1$阶Jordan块，那就只有两个$2$阶Jordan块，于是Jordan矩阵就是
+        \begin{equation}
+            J(A) = \begin{bmatrix}
+                J_2(2) &        \\
+                       & J_2(2)
+            \end{bmatrix}.
+        \end{equation}
+    \end{itemize}
 \end{example}
 
-Jordan标准形是矩阵在相似变换下的最简形式。当矩阵可对角化时，Jordan标准形就是对角矩阵；当不可对角化时，Jordan标准形是"最接近对角"的上三角矩阵。
+Jordan标准形是矩阵在相似变换下的最简形式。当矩阵可对角化时，Jordan标准形就是对角矩阵；当不可对角化时，Jordan标准形是“最接近对角”的上三角矩阵。

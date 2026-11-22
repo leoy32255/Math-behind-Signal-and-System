@@ -1,178 +1,211 @@
 \section{采样与插值，狄拉克梳状分布}\label{sec:Sampling_Interpolation}
 
 \subsection{插值问题}\label{sub:interpolation}
-\textbf{插值}的雏形来自于古代天文学，最简单的插值就是通过观察星体在几个时刻的位置推测中间时刻的位置。在数学上，插值需要我们给出一个连续信号来逼近甚至还原原信号，工程上则需要我们插入若干新的样值点使得离散信号看起来更接近原信号。我们首先引入一些术语：
+\textbf{插值}的雏形来自于古代天文学，最简单的插值就是通过观察星体在几个时刻的位置推测中间时刻的位置。在数学上，插值需要我们给出一个连续信号来逼近甚至还原原信号，工程上则需要我们插入若干新的样值点使得序列看起来更接近原信号。我们首先引入一些术语：
 \begin{definition}
-设有确定信号$f(t)$，通过采样（与周期矩形脉冲序列相乘）的方式找出它在若干点处的\textbf{样值}$f(t_0),f(t_1),f(t_2),\cdots$，\textbf{采样与插值}问题即讨论在怎样的情况下可以借助这组值还原出$f(t)$。一般地，相邻采样点的间隔一定，记为$T_s$，称为\textbf{采样间隔}，将$f_s=1/T_s$称为\textbf{采样频率},将$\omega_s=2\pi f_s=2\pi/T_s$称为\textbf{采样角频率}。
+    设有确定信号$f(t)$，通过采样（与周期矩形脉冲序列相乘）的方式找出它在若干点处的\textbf{样值}$f(t_0),f(t_1),f(t_2),\cdots$，\textbf{采样与插值}问题即讨论在怎样的情况下可以借助这组值还原出$f(t)$。一般地，相邻采样点的间隔一定，记为$T_s$，称为\textbf{采样间隔}，将$f_s=1/T_s$称为\textbf{采样频率}，将$\omega_s=2\pi f_s=2\pi/T_s$称为\textbf{采样角频率}。
 \end{definition}
 
-类似于用像素表示图片，利用采样所得的离散信号$f_d[n]=f(nT_s)$表示信息，相当于用离散信号表示连续信号，能够大大降低传输和存储的成本。一个数字处理系统或数字传输系统的第一个环节就是对信号进行采样，随后进行量化编码、数字传输或处理，到信号接收方或需要使用信号时再进行信号恢复。
+类似于用像素表示图片，利用采样所得的序列$f_d[n]=f(nT_s)$表示信息，相当于用序列表示连续信号，能够大大降低传输和存储的成本。一个数字处理系统或数字传输系统的第一个环节就是对信号进行采样，随后进行量化编码、数字传输或处理，到信号接收方或需要使用信号时再进行信号恢复。
 
-历史上，最早对插值问题进行系统研究的是牛顿和拉格朗日。牛顿提出的牛顿插值公式是组合数学讨论的话题，他通过引入离散信号的差商的概念，提出了一种使用三角形差商表构造过若干指定数据点的多项式的方法；相比之下拉格朗日的拉格朗日插值法要简单得多，其想法的关键在于构造在特定数据点处非0，而在另外所有数据点处均为0的多项式：
+历史上，最早对插值问题进行系统研究的是牛顿和拉格朗日。牛顿提出的牛顿插值公式是组合数学讨论的话题，他通过引入序列的差商的概念，提出了一种使用三角形差商表构造过若干指定数据点的多项式的方法；相比之下拉格朗日的拉格朗日插值法要简单得多，其想法的关键在于构造在特定数据点处非$0$，而在另外所有数据点处均为$0$的多项式：
 \begin{definition}[拉格朗日插值法]
     对于一组互异的数据点
- \[(x_0,y_0),(x_1,y_1),\dots,(x_n,y_n)\]
- 其拉格朗日插值多项式为
-\[L(x) = \sum_{i=0}^{n} y_i \ell_i(x)\]
-其中 $\ell_i(x)$ 是拉格朗日基函数，满足$\ell_i(x_i)=1,\ell_i(x_j)=0(j\neq i)$：
-\[\ell_i(x) = \prod_{\substack{j=0 \\ j \neq i}}^{n} \frac{x - x_j}{x_i - x_j}\]
-该多项式满足 $L(x_i) = y_i,i=0,1,\dots,n$。
+    \begin{equation}
+        (x_0,y_0),(x_1,y_1),\cdots,(x_n,y_n),
+    \end{equation}
+    其拉格朗日插值多项式为
+    \begin{equation}
+        L(x) = \sum_{i=0}^{n} y_i \ell_i(x),
+    \end{equation}
+    其中$\ell_i(x)$是拉格朗日基函数，满足$\ell_i(x_i)=1,\ \ell_i(x_j)=0\ (j\neq i)$：
+    \begin{equation}
+        \ell_i(x) = \prod_{\substack{j=0 \\ j \neq i}}^{n} \frac{x - x_j}{x_i - x_j}.
+    \end{equation}
+    该多项式满足$L(x_i) = y_i,\quad i=0,1,\cdots,n$。
 \end{definition}
 这个方法后来被埃尔米特改进，不仅能保证函数值相等，还能保证若干阶导数的值相等，称为\textbf{埃尔米特插值法}。
 
 另外，还有一种插值的思路将采样时产生的误差也考虑了进来，以这种视角进行最优线性拟合，就是\textbf{最小二乘法}，在测量误差可能比较大时，这一类拟合方法的表现会更好。
 
-以上插值方式对原信号的逼近效果比较有限，一些数学家们开始转向研究如何重建整个信号。1948年，克劳德·香农发表了他的巨著《通信的数学原理》，明确提出了\textbf{香农采样定理}，并给出下一节中将介绍的还原带限信号的公式。要还原大带宽信号需要很高的采样频率，会对硬件设备提出很高的要求。我们可以通过另外的插值流程还原信号，例如对于一些信号可以利用其稀疏性和相关性，用远低于$f_N$的采样频率还原信号。
+以上插值方式对原信号的逼近效果比较有限，一些数学家们开始转向研究如何重建整个信号。1948年，克劳德·香农发表了他的巨著《通信的数学原理》，明确提出了\textbf{香农采样定理}，并给出下一节中将介绍的还原带限函数的公式。要还原大带宽信号需要很高的采样频率，会对硬件设备提出很高的要求。我们可以通过另外的插值流程还原信号，例如对于一些信号可以利用其稀疏性和相关性，用远低于$f_N$的采样频率还原信号。
 
-就信息通信而言，我们最关注的是如何\textbf{用更低的成本传递更多的信息}。可以想象，传递离散信号要比传递连续信号更为高效，而离散信号是我们用来近似描述连续信号的，其本质就是对连续信号的采样。因此，本书所要研究的内容集中在以下两个方面：\begin{itemize}
+就信息通信而言，我们最关注的是如何\textbf{用更低的成本传递更多的信息}。可以想象，传递序列要比传递连续信号更为高效，而序列是我们用来近似描述连续信号的，其本质就是对连续信号的采样。因此，本书所要研究的内容集中在以下两个方面：
+\begin{itemize}
     \item 采用什么采样方式，需要多高的采样率；
-    \item 对于采样所得的信号（尤其是离散信号），如何进行分析和处理。
+    \item 对于采样所得的信号（尤其是序列），如何进行分析和处理。
 \end{itemize}
 
-将采样所得的信号抽象成一个离散信号对于采样技术的要求是比较高的。首先，我们必须保证采样频率足够高，否则这些点无法表征原信号的特性，例如正弦信号在不当的采样下可能得到恒为0的离散信号；其次，我们要保证采样所使用的脉冲波形的周期和幅值稳定；最后，我们应该使脉冲波形尽量短，这样才能将一个脉冲波形对应到一个样值点上，而不产生太大误差。
+将采样所得的信号抽象成一个序列对于采样技术的要求是比较高的。首先，我们必须保证采样频率足够高，否则这些点无法表征原信号的特性，例如正弦函数在不当的采样下可能得到恒为$0$的序列；其次，我们要保证采样所使用的脉冲波形的周期和幅值稳定；最后，我们应该使脉冲波形尽量短，这样才能将一个脉冲波形对应到一个样值点上，而不产生太大误差。
 
 在以上所有条件都满足的情况下，我们就可以将采样信号抽象成一个$\shah$分布，下一小节就来介绍这个分布。
 
 \subsection{狄拉克梳状分布}\label{sub:dirac_comb}
-由于我们并不关注采样信号幅值的大小，又希望采样所得信号与离散信号尽可能相似，我们可以将采样信号取成若干等间距排列、强度相同的狄拉克$\delta$分布的和，即：
+由于我们并不关注采样信号幅值的大小，又希望采样所得信号与序列尽可能相似，我们可以将采样信号取成若干等间距排列、强度相同的狄拉克$\delta$分布的和，即：
 \begin{definition}[狄拉克梳状分布]\label{def:shah}
     对任意$T>0$，定义分布
-    \begin{equation*}
-        \shah_T=\sum_{k=-\infty}^{\infty}\delta_{kT}
-    \end{equation*}
-    即\[\langle \shah_T,\varphi\rangle=\left\langle \sum_{k=-\infty}^{\infty}\delta_{kT},\varphi\right\rangle=\sum_{k=-\infty}^{\infty}\varphi(kT)\]
-    符号“$\shah$”读作“shah”，在T=1时可以将角标略去，直接写作$\shah$\cite{brad_osgood_ee261}。由于其图像是等间距排列的一个个$\delta$，又称之为\textbf{狄拉克梳状分布}(dirac comb)。
+    \begin{equation}
+        \shah_T=\sum_{k=-\infty}^{\infty}\delta_{kT},
+    \end{equation}
+    即
+    \begin{equation}
+        \braket{\shah_T,\varphi}=\braket{\sum_{k=-\infty}^{\infty}\delta_{kT},\varphi}=\sum_{k=-\infty}^{\infty}\varphi(kT).
+    \end{equation}
+    符号“$\shah$”读作“shah”，在$T=1$时可以将角标略去，直接写作$\shah$\cite{brad_osgood_ee261}。由于其图像是等间距排列的一个个$\delta$，又称之为\textbf{狄拉克梳状分布}(dirac comb)。
 \end{definition}
 
-容易看出，这个分布具有三条基本性质。其一是采样性质，它直接得自$\delta_a$的采样性质：$$\shah_T f(t)=\sum_{k=-\infty}^{\infty}f(kT)\delta_{kT}$$
-可以看到，这个式子就是我们对采样信号的理想化描述，采样所得信号在每个采样点处的强度就是原信号在该点处的值，而在其他位置处幅值为0。
+容易看出，这个分布具有三条基本性质。其一是采样性质，它直接得自$\delta_a$的采样性质：
+\begin{equation}
+    \shah_T f(t)=\sum_{k=-\infty}^{\infty}f(kT)\delta_{kT}.
+\end{equation}
+可以看到，这个式子就是我们对采样信号的理想化描述，采样所得信号在每个采样点处的强度就是原信号在该点处的值，而在其他位置处幅值为$0$。
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{shah.jpeg}
     \caption{狄拉克梳状分布示意图}
 \end{figure}
-其二是$\shah$在伸缩变换下的性质：\begin{proposition}[$\shah$的伸缩]
-    \[\sigma_a\shah=\frac{1}{a}\shah_{1/a},\quad \shah_T=\frac{1}{T}\sigma_{1/T}\shah \quad \left(a\to\frac{1}{T}\right)\]
+其二是$\shah$在伸缩变换下的性质：
+\begin{proposition}[$\shah$的伸缩]
+    \begin{equation}
+        \sigma_a\shah=\frac{1}{a}\shah_{1/a},\quad \shah_T=\frac{1}{T}\sigma_{1/T}\shah\quad \paren{a\to\frac{1}{T}}.
+    \end{equation}
 \end{proposition}
 \begin{proof}
-\begin{align*}
-    \left\langle \sigma_a\shah,\varphi\right\rangle&=\left\langle \shah,\frac{1}{a}\sigma_{1/a}\varphi\right\rangle=\frac{1}{a}\sum_{k=-\infty}^{\infty}\varphi\left(x-\frac{k}{a}\right)=\frac{1}{a}\left\langle \shah_{1/a},\varphi\right\rangle
-\end{align*}
+    \begin{equation}
+        \braket{\sigma_a\shah,\varphi}=\braket{\shah,\frac{1}{a}\sigma_{1/a}\varphi}=\frac{1}{a}\sum_{k=-\infty}^{\infty}\varphi\paren{x-\frac{k}{a}}=\frac{1}{a}\braket{\shah_{1/a},\varphi}.
+    \end{equation}
 \end{proof}
 
-其三是周期化：$$\shah_T*f(t)=f_T(t)=\sum_{k=-\infty}^{\infty}f(t-kT)$$
+其三是周期化：
+\begin{equation}
+    \shah_T*f(t)=f_T(t)=\sum_{k=-\infty}^{\infty}f(t-kT).
+\end{equation}
 在\refsub{operation_of_distribution}中，我们曾建立了$\delta_a$的平移性质：$\delta_a*f=\tau_a f$，只要函数项级数$\sum_{k=-\infty}^{\infty}f(t-kT)$收敛，自然就可以把它写成卷积的形式。
 
 对于一个施瓦兹函数，以上的式子中均不会出现收敛性的问题。回顾施瓦兹函数类的定义：
-\[\mathcal{S} =\left\{\varphi\in C^{\infty}(\mathbb{R} )\left|\lim_{|x|\to\infty}|x|^m\varphi^{(n)}(x)=0,\forall m,n\in\mathbb{N} \right.\right\}\]
-对任意的t，考察级数$\sum_{k=-\infty}^{\infty}f(t-kT)$的收敛性时，只需要将n取为0，m取为不小于2的整数，则在$|k|$充分大时，级数比$C/n^2$更小，从而绝对收敛。注意这种估计方式并不依赖于自变量t的选取，因此这个函数项级数一致收敛，其和函数会保留$f(t)$的许多分析性质，例如我们可以逐项求导（从而和函数也无限阶可导）、逐项积分，还可以交换求和符号与其他极限过程的顺序（见数学分析教材，如\cite{zorich}\cite{xinjiang}）。
+\begin{equation}
+    \mathcal{S}(\mathbb{R}) =\left\{\varphi\in C^{\infty}(\mathbb{R})\;\middle|\;\lim_{|x|\to\infty}|x|^m\varphi^{(n)}(x)=0,\ \forall m,n\in\mathbb{N}\right\}.
+\end{equation}
+对任意的$t$，考察级数$\sum_{k=-\infty}^{\infty}f(t-kT)$的收敛性时，只需要将$n$取为$0$，$m$取为不小于$2$的整数，则在$|k|$充分大时，级数比$C/k^2$更小，从而绝对收敛。注意这种估计方式并不依赖于自变量$t$的选取，因此这个函数项级数一致收敛，其和函数会保留$f(t)$的许多分析性质，例如我们可以逐项求导（从而和函数也无限阶可导）、逐项积分，还可以交换求和符号与其他极限过程的顺序（见数学分析教材，如\cite{zorich}\cite{xinjiang}）。
 
 \subsection{泊松求和公式}\label{sub:poisson_summation}
 本小节旨在说明\textbf{泊松求和公式}(the Poisson summation formula)，它揭示了傅里叶级数与傅里叶变换的深刻关系。
 \begin{theorem}[泊松求和公式]
-\begin{lralign}
-    \sum_{k=-\infty}^{\infty}\varphi(k)=\sum_{k=-\infty}^{\infty}\mathcal{F} \varphi(k)
-    \switch
-    \sum_{k=-\infty}^{\infty}\varphi(k)=\sum_{k=-\infty}^{\infty}\mathcal{F} \varphi(2\pi k)
-\end{lralign}
+    \begin{lralign}
+        \sum_{k=-\infty}^{\infty}\varphi(k)=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(k).
+        \switch
+        \sum_{k=-\infty}^{\infty}\varphi(k)=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(2\pi k).
+    \end{lralign}
 \end{theorem}
 \begin{proof}
-考虑函数$f\in\mathcal{S} $，记其周期化函数为$\Phi=\shah*\varphi$，并将$\Phi$的傅里叶系数记为$\hat{\Phi}(k)$，由$\Phi$的无限阶可导性可知其傅里叶级数绝对一致收敛于它本身（这里只需要逐点收敛性，至于更强的收敛性，见\refsub{uniform_converge}），即
-\[\Phi(t)=\sum_{k=-\infty}^{\infty}\hat{\Phi}(k)\mathrm{e}^{2\pi \mathrm{i}kt}\]
-其中
-\begin{align*}
-    \hat{\Phi}(k)&=\int_{0}^{1}\Phi(t)\mathrm{e}^{-2\pi \mathrm{i}kt}\,dt\\
-    &=\int_{0}^{1}\left(\sum_{n=-\infty}^{\infty}\varphi(t-n)\right)\mathrm{e}^{-2\pi \mathrm{i}kt}\,dt\\
-    &=\sum_{n=-\infty}^{\infty}\left(\int_{0}^{1}\varphi(t-n)\mathrm{e}^{-2\pi \mathrm{i}kt}\,dt\right)\\
-    &=\sum_{n=-\infty}^{\infty}\left(\int_{n}^{n+1}\varphi(t)\mathrm{e}^{-2\pi \mathrm{i}k(t+n)}\,dt\right)&(t\to t+n)\\
-    &=\sum_{n=-\infty}^{\infty}\int_{n}^{n+1}\varphi(t) \mathrm{e}^{-2\pi \mathrm{i}kt}\,dt\\
-    &=\int_{-\infty}^{\infty}\varphi(t)\mathrm{e}^{-2\pi \mathrm{i}kt}\,dt
-\end{align*}
-即\begin{lralign}
-    \hat{\Phi}(k)=\mathcal{F} \varphi(k)
-    \switch
-    \hat{\Phi}(k)=\mathcal{F} \varphi(2\pi k)
-\end{lralign}
-证明中，第二行到第三行的积分与求和的换序用到了周期化函数作为函数项级数的一致收敛性。这个等式意味着\textbf{施瓦兹函数的傅里叶变换在整数点处的值就是其周期化函数的傅里叶系数}（以上是周期化为$T=1$的情况，周期为其他值的情况是类似的），进一步，在恒等式
-\begin{lralign}
-    \Phi(t)&=\sum_{k=-\infty}^{\infty}\hat{\Phi}(k)\mathrm{e}^{2\pi \mathrm{i}kt}=\sum_{k=-\infty}^{\infty}\mathcal{F} \varphi(k)\mathrm{e}^{2\pi \mathrm{i}kt}
-    \switch
-    \Phi(t)&=\sum_{k=-\infty}^{\infty}\hat{\Phi}(k)\mathrm{e}^{2\pi \mathrm{i}kt}=\sum_{k=-\infty}^{\infty}\mathcal{F} \varphi(2\pi k)\mathrm{e}^{2\pi \mathrm{i}kt}
-\end{lralign}
-中取$t=0$，则得到
-\begin{lralign}
-    \Phi(0)=\sum_{k=-\infty}^{\infty}\mathcal{F} \varphi(k)
-\switch
-    \Phi(0)=\sum_{k=-\infty}^{\infty}\mathcal{F} \varphi(2\pi k)
-\end{lralign}
-又由\[\Phi=\shah*\varphi,\quad \Phi(0)=\sum_{k=-\infty}^{\infty}\varphi(k)\]
-得证。
+    考虑函数$f\in\mathcal{S}(\mathbb{R})$，记其周期化函数为$\Phi=\shah*\varphi$，并将$\Phi$的傅里叶系数记为$\hat{\Phi}(k)$，由$\Phi$的无限阶可导性可知其傅里叶级数绝对一致收敛于它本身（这里只需要逐点收敛性，至于更强的收敛性，见\refsub{uniform_converge}），即
+    \begin{equation}
+        \Phi(t)=\sum_{k=-\infty}^{\infty}\hat{\Phi}(k)\e^{2\pi\im kt},
+    \end{equation}
+    其中
+    \begin{align}
+        \hat{\Phi}(k)&=\int_{0}^{1}\Phi(t)\e^{-2\pi\im kt}\,\dd t\nonumber\\
+        &=\int_{0}^{1}\paren{\sum_{n=-\infty}^{\infty}\varphi(t-n)}\e^{-2\pi\im kt}\,\dd t\nonumber\\
+        &=\sum_{n=-\infty}^{\infty}\paren{\int_{0}^{1}\varphi(t-n)\e^{-2\pi\im kt}\,\dd t}\nonumber\\
+        &=\sum_{n=-\infty}^{\infty}\paren{\int_{n}^{n+1}\varphi(t)\e^{-2\pi\im k(t+n)}\,\dd t}&(t\to t+n)\nonumber\\
+        &=\sum_{n=-\infty}^{\infty}\int_{n}^{n+1}\varphi(t) \e^{-2\pi\im kt}\,\dd t\nonumber\\
+        &=\int_{-\infty}^{\infty}\varphi(t)\e^{-2\pi\im kt}\,\dd t,
+    \end{align}
+    即
+    \begin{lralign}
+        \hat{\Phi}(k)=\mathcal{F}\varphi(k).
+        \switch
+        \hat{\Phi}(k)=\mathcal{F}\varphi(2\pi k).
+    \end{lralign}
+    证明中，第二行到第三行的积分与求和的换序用到了周期化函数作为函数项级数的一致收敛性。这个等式意味着\textbf{施瓦兹函数的傅里叶变换在整数点处的值就是其周期化函数的傅里叶系数}（以上是周期化为$T=1$的情况，周期为其他值的情况是类似的），进一步，在恒等式
+    \begin{lralign}
+        \Phi(t)=\sum_{k=-\infty}^{\infty}\hat{\Phi}(k)\e^{2\pi\im kt}=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(k)\e^{2\pi\im kt}
+        \switch
+        \Phi(t)=\sum_{k=-\infty}^{\infty}\hat{\Phi}(k)\e^{2\pi\im kt}=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(2\pi k)\e^{2\pi\im kt}
+    \end{lralign}
+    中取$t=0$，则得到
+    \begin{lralign}
+        \Phi(0)=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(k),
+        \switch
+        \Phi(0)=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(2\pi k),
+    \end{lralign}
+    又由
+    \begin{equation}
+        \Phi=\shah*\varphi,\quad \Phi(0)=\sum_{k=-\infty}^{\infty}\varphi(k)
+    \end{equation}
+    得证。
 \end{proof}
 
 %我们当然也可以对$\shah_T*\varphi$做类似的推导，但其结论远不如以上两式简洁，这实际上是整数集$\mathbb{Z}$的自对偶性的体现。
 
 \subsection{狄拉克梳状分布的傅里叶变换}\label{sub:fourier_of_dirac_comb}
 借助泊松求和公式，可以得到$\shah$分布的傅里叶变换：
-{\color{blue}\begin{align*}
-    \left\langle \mathcal{F} \shah,\varphi \right\rangle=\left\langle \shah,\mathcal{F} \varphi\right\rangle=\sum_{k=-\infty}^{\infty}\mathcal{F} \varphi(k)=\sum_{k=-\infty}^{\infty}\varphi(k)=\left\langle \shah,\varphi\right\rangle
-\end{align*}}
-{\color{red}\begin{align*}
-    \left\langle \mathcal{F} \shah_{2\pi},\varphi \right\rangle=\left\langle \shah_{2\pi},\mathcal{F} \varphi\right\rangle=\sum_{k=-\infty}^{\infty}\mathcal{F} \varphi(2\pi k)=\sum_{k=-\infty}^{\infty}\varphi(k)=\left\langle \shah,\varphi\right\rangle
-\end{align*}}
+\begin{lralign}
+    \braket{\mathcal{F}\shah,\varphi}=\braket{\shah,\mathcal{F}\varphi}=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(k)=\sum_{k=-\infty}^{\infty}\varphi(k)=\braket{\shah,\varphi}.
+    \switch
+    \braket{\mathcal{F}\shah_{2\pi},\varphi}=\braket{\shah_{2\pi},\mathcal{F}\varphi}=\sum_{k=-\infty}^{\infty}\mathcal{F}\varphi(2\pi k)=\sum_{k=-\infty}^{\infty}\varphi(k)=\braket{\shah,\varphi}.
+\end{lralign}
 
 \begin{proposition}[$\shah$的傅里叶变换]
-\begin{lralign}
-    \mathcal{F} \shah=\shah
-    \switch
-    \mathcal{F} \shah_{2\pi}=\shah
-\end{lralign}
+    \begin{lralign}
+        \mathcal{F}\shah=\shah.
+        \switch
+        \mathcal{F}\shah_{2\pi}=\shah.
+    \end{lralign}
 \end{proposition}
-$\shah$分布的傅里叶变换具有自对偶性，即{\color{blue}$\shah\overset{\mathcal{F} }{\longleftrightarrow}\shah$}。有关于采样的问题，使用频率形式的傅里叶变化要简洁得多，但我们还是同时给出角频率形式的推导以便第六章使用。
+$\shah$分布的傅里叶变换具有自对偶性，即{\color{freqcolor}$\shah\overset{\mathcal{F}}{\longleftrightarrow}\shah$}。有关于采样的问题，使用频率形式的傅里叶变换要简洁得多，但我们还是同时给出角频率形式的推导以便第六章使用。
 
 利用以上结果，我们来讨论周期化在频域上的行为。对$f*\shah_T$做频率形式的傅里叶变换，有
-{\color{blue}\begin{align*}
-    \mathcal{F} (f*\shah_T)(\xi)=\mathcal{F} f(\xi)\cdot\mathcal{F} \shah_T(\xi)=\mathcal{F} f(\xi)\cdot\frac{1}{T}\shah_{1/T}(\xi)=\frac{1}{T}\sum_{k=-\infty}^{\infty}\mathcal{F} f(k/T)\delta_{k/T}(\xi)
-\end{align*}}
+\begin{equation}
+    {\color{freqcolor}\mathcal{F}\sbr{f*\shah_T}(\xi)=\mathcal{F}f(\xi)\cdot\mathcal{F}\shah_T(\xi)=\mathcal{F}f(\xi)\cdot\frac{1}{T}\shah_{1/T}(\xi)=\frac{1}{T}\sum_{k=-\infty}^{\infty}\mathcal{F}f(k/T)\delta_{k/T}(\xi).}
+\end{equation}
 
 可以看到，\textbf{将$f$以周期$T$进行周期化，相当于在频域上以$1/T$的采样间隔进行采样}（还需要乘以常数$1/T$，但它不改变这一观点的本质）；结合傅里叶反演公式，容易推知：\textbf{在频域以周期$T$进行周期化，在时域上的表现是以$1/T$为采样间隔进行采样}。它们是整个信号与系统课程最核心的观点，我们还将在后面反复使用。
 
 根据分布的傅里叶变换的连续性（见\refsub{continuity_of_distribution}），我们还可以直接对$\shah$分布的傅里叶变换做另一种推导：
 \begin{lralign}
-     \mathcal{F} \shah&= \mathcal{F} \left(\lim_{N\to\infty}\sum_{k=-N}^{N}\delta_k\right)\\
-    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\mathcal{F} \delta_k\\
-    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\mathrm{e}^{-2\pi \mathrm{i}kx}\\
-    &=\sum_{k=-\infty}^{\infty}\mathrm{e}^{-2\pi \mathrm{i}kx}
+    \mathcal{F}\shah&=\mathcal{F}\sbr{\lim_{N\to\infty}\sum_{k=-N}^{N}\delta_k}\\
+    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\mathcal{F}\delta_k\\
+    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\e^{-2\pi\im kx}\\
+    &=\sum_{k=-\infty}^{\infty}\e^{-2\pi\im kx},
     \switch
-    \mathcal{F} \shah&= \mathcal{F} \left(\lim_{N\to\infty}\sum_{k=-N}^{N}\delta_{k}\right)\\
-    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\mathcal{F} \delta_{k}\\
-    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\mathrm{e}^{-2\pi \mathrm{i}kx}\\
-    &=\sum_{k=-\infty}^{\infty}\mathrm{e}^{-2\pi \mathrm{i}kx}
+    \mathcal{F}\shah&=\mathcal{F}\sbr{\lim_{N\to\infty}\sum_{k=-N}^{N}\delta_k}\\
+    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\mathcal{F}\delta_k\\
+    &=\lim_{N\to\infty}\sum_{k=-N}^{N}\e^{-2\pi\im kx}\\
+    &=\sum_{k=-\infty}^{\infty}\e^{-2\pi\im kx},
 \end{lralign}
 
-结合$\shah$的频率形式傅里叶变换公式可以得到$\shah$分布作为形式上的函数的另一种定义。实际上，这就是$\shah$作为一个周期分布的傅里叶级数展开（分布的周期性是通过$\tau_1 \shah=\shah$体现的）：
+结合$\shah$的频率形式傅里叶变换公式可以得到$\shah$分布作为形式上的函数的另一种定义。实际上，这就是$\shah$作为一个周期分布的傅里叶级数展开（分布的周期性是通过$\tau_1\shah=\shah$体现的）：
 \begin{definition}[$\shah$的傅里叶级数形式]
     \label{def:shah_fourier_series}
-    \[\shah(x)=\sum_{k=-\infty}^{\infty}\mathrm{e}^{-2\pi \mathrm{i}kx}\]
+    \begin{equation}
+        \shah(x)=\sum_{k=-\infty}^{\infty}\e^{-2\pi\im kx}.
+    \end{equation}
 \end{definition}
-右边正是\refsub{dirichlet_kernel}中提到的狄利克雷核在$N\to\infty$时的式子。需要注意，这个式子仅在分布的意义下成立，例如将这个分布作用在某一区间的特征函数$\chi_{[a,b]}\in\mathcal{S}$上，则可验证函数项级数$$\sum_{k=-\infty}^{\infty}\mathrm{e}^{-2\pi \mathrm{i}kx}$$在整数点处趋于正无穷，在任意不包含整数点的区间上积分值为0。然而，作为函数项级数，我们只能得到整数点处的广义极限存在，这是一个几乎处处不收敛的函数项级数，例如在$x=1/2$处，级数项为$(-1)^k$，其和函数在多数点没有定义，只能作为奇异分布来定义。
+右边正是\refsub{dirichlet_kernel}中提到的狄利克雷核在$N\to\infty$时的式子。需要注意，这个式子仅在分布的意义下成立，例如将这个分布作用在某一区间的特征函数$\chi_{[a,b]}\in\mathcal{S}(\mathbb{R})$上，则可验证函数项级数
+\begin{equation}
+    \sum_{k=-\infty}^{\infty}\e^{-2\pi\im kx}
+\end{equation}
+在整数点处趋于正无穷，在任意不包含整数点的区间上积分值为$0$。然而，作为函数项级数，我们只能得到整数点处的广义极限存在，这是一个几乎处处不收敛的函数项级数，例如在$x=1/2$处，级数项为$(-1)^k$，其和函数在多数点没有定义，只能作为奇异分布来定义。
 
-根据角频率形式下的$\shah$分布的傅里叶变换，可以想到$\shah$的伸缩的傅里叶变换仍具有
-$\shah$的形式，下面就来找出具体的公式：
+根据角频率形式下的$\shah$分布的傅里叶变换，可以想到$\shah$的伸缩的傅里叶变换仍具有$\shah$的形式，下面就来找出具体的公式：
 \begin{proposition}[$\shah_T$的傅里叶变换]
-\begin{lralign}
-    \mathcal{F} \shah_T=\frac{1}{T}\shah_{1/T}
-    \switch
-    \mathcal{F} \shah_{T}=\frac{2\pi}{T}\shah_{2\pi/T}
-\end{lralign}
+    \begin{lralign}
+        \mathcal{F}\shah_T=\frac{1}{T}\shah_{1/T}.
+        \switch
+        \mathcal{F}\shah_{T}=\frac{2\pi}{T}\shah_{2\pi/T}.
+    \end{lralign}
 \end{proposition}
 \begin{proof}
-\begin{lralign}
-    \mathcal{F} \shah_T=\mathcal{F} \left[\frac{1}{T}\sigma_{1/T}\shah\right]=\sigma_T\shah=\frac{1}{T}\shah_{1/T}
-    \switch
-    \mathcal{F} \shah_{T}=\mathcal{F} \left[\frac{2\pi}{T}\sigma_{2\pi/T}\shah\right]=\sigma_{T/2\pi}\shah=\frac{2\pi}{T}\shah_{2\pi/T}
-\end{lralign}
+    \begin{lralign}
+        \mathcal{F}\shah_T=\mathcal{F}\sbr{\frac{1}{T}\sigma_{1/T}\shah}=\sigma_T\shah=\frac{1}{T}\shah_{1/T}.
+        \switch
+        \mathcal{F}\shah_{T}=\mathcal{F}\sbr{\frac{2\pi}{T}\sigma_{2\pi/T}\shah}=\sigma_{T/2\pi}\shah=\frac{2\pi}{T}\shah_{2\pi/T}.
+    \end{lralign}
 \end{proof}
 
 可以看到，傅里叶变换前后$\delta$的位置具有倒数关系。事实上，在多维傅里叶变换的理论中，我们还将看到更为深刻的关系。直观上，我们曾提出对函数和分布的一维傅里叶变换的伸缩定理：
-\[f(at)\overset{\mathcal{F} }{\longleftrightarrow}\frac{1}{|a|}F\left(\frac{\xi}{a}\right),\quad \sigma_a T\overset{\mathcal{F} }{\longleftrightarrow}\frac{1}{|a|}\sigma_{1/a}\mathcal{F} T\]
+\begin{equation}
+    f(at)\overset{\mathcal{F}}{\longleftrightarrow}\frac{1}{|a|}F\paren{\frac{\xi}{a}},\quad \sigma_a T\overset{\mathcal{F}}{\longleftrightarrow}\frac{1}{|a|}\sigma_{1/a}\mathcal{F}T,
+\end{equation}
 它同样揭示了时域伸而频域缩，时域缩而频域伸的关系，而$\shah_T$为我们提供了一种新的视角。对多维的$\shah$分布的讨论，见\refsec{Multi_Fourier}。二维$\shah$分布在$\mathbb{R}^3$中的图像就像一个“钉床”，因此又可以将$\shah$分布称为\textbf{钉床函数}(bed of nails)。

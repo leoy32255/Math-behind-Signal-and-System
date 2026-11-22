@@ -7,15 +7,16 @@
 信号流图可以看作是系统框图的另一种表示形式。由于系统框图不能很好地展示出系统的数学模型，本书中未涉及系统框图的概念，感兴趣的读者可以参考\cite{oppenheim1997signals}\cite{signal_systems}。
 
 \begin{definition}
-信号流图是一种有向图，其节点表示系统的变量（输入、输出或中间变量），有向边表示变量之间的线性关系，边上的权值表示线性关系的系数。信号流图可以直观地反映系统的结构特性，并且可以通过图论的方法来分析系统的传递函数。
+    信号流图是一种有向图，其节点表示系统的变量（输入、输出或中间变量），有向边表示变量之间的线性关系，边上的权值表示线性关系的系数。信号流图可以直观地反映系统的结构特性，并且可以通过图论的方法来分析系统的传递函数。
 
-信号流图相关术语汇总如下：\begin{itemize}
-    \item \textbf{节点}：表示系统的输入/输出或中间变量，分为\textbf{输入节点（源点）}、\textbf{输出节点（阱点）}和\textbf{混合节点}；
-    \item \textbf{支路}：连接两个节点的有向边，表示系统，边上的权值为系统函数，又称\textbf{增益}；
-    \item \textbf{通路}：沿支路方向连接的节点序列，其中，不自交的通路称为\textbf{开通路}，从源点到阱点的开通路称为\textbf{前向通路}。将通路上各支路增益之积称为\textbf{通路增益}；
-    \item \textbf{环路/闭通路}：起点和终点相同且不自交的通路。将环路上各支路增益之积称为\textbf{环路增益}；
-    \item \textbf{不接触环路}：没有公共节点的两环路称为不接触环路；
-\end{itemize}
+    信号流图相关术语汇总如下：
+    \begin{itemize}
+        \item \textbf{节点}：表示系统的输入/输出或中间变量，分为\textbf{输入节点（源点）}、\textbf{输出节点（阱点）}和\textbf{混合节点}；
+        \item \textbf{支路}：连接两个节点的有向边，表示系统，边上的权值为系统函数，又称\textbf{增益}；
+        \item \textbf{通路}：沿支路方向连接的节点序列，其中，不自交的通路称为\textbf{开通路}，从源点到阱点的开通路称为\textbf{前向通路}。将通路上各支路增益之积称为\textbf{通路增益}；
+        \item \textbf{环路/闭通路}：起点和终点相同且不自交的通路。将环路上各支路增益之积称为\textbf{环路增益}；
+        \item \textbf{不接触环路}：没有公共节点的两环路称为不接触环路。
+    \end{itemize}
 \end{definition}
 
 信号流图与电路有一定的相似之处。两个系统“串联”时，实际上是将两个系统级联，完整系统的系统函数为两个子系统的系统函数之积，乘法交换律告诉我们\textbf{线性时不变系统总是可交换的}；两个系统“并联”时，完整系统的系统函数为两个子系统的系统函数之和（因为激励独立地经过两个系统再在输出端相加）。
@@ -74,20 +75,20 @@
 上图展示了一个最简单的闭环系统的信号流图。我们将$A(s)$称为\textbf{开环增益}，表示不考虑反馈回路时系统的增益，与之相对，将考虑反馈回路后的增益称为\textbf{闭环增益}。
 
 设左侧节点的输出信号为$E(s)$，计算该系统的闭环增益$H(s)$：
-\begin{align*}
-    Y(s)&=A(s)E(s)\\
-    E(s)&=X(s)+F(s)Y(s)\\
-    \implies Y(s)&=A(s)\left[X(s)+F(s)Y(s)\right]\\
-    \implies Y(s)&=\frac{A(s)}{1-A(s)F(s)}X(s)\\
-    \implies H(s)&=\frac{Y(s)}{X(s)}=\frac{A(s)}{1-A(s)F(s)}
-\end{align*}
+\begin{align}
+    Y(s)&=A(s)E(s),\nonumber\\
+    E(s)&=X(s)+F(s)Y(s)\nonumber\\
+    \implies Y(s)&=A(s)\sbr{X(s)+F(s)Y(s)}\nonumber\\
+    \implies Y(s)&=\frac{A(s)}{1-A(s)F(s)}X(s)\nonumber\\
+    \implies H(s)&=\frac{Y(s)}{X(s)}=\frac{A(s)}{1-A(s)F(s)}.
+\end{align}
 
 \begin{definition}[反馈深度与反馈类型]
-将$1-A(s)F(s)$称为\textbf{反馈深度}，它是引入反馈回路导致的增益下降的倍率。
+    将$1-A(s)F(s)$称为\textbf{反馈深度}，它是引入反馈回路导致的增益下降的倍率。
 
-如果反馈深度大于1，则系统的输出更加稳定，但增益下降，此时反馈为\textbf{负反馈}，特别地，如果反馈深度远大于1，称为\textbf{深度负反馈}，此时$1-A(s)F(s)\approx -A(s)F(s)$，增益近似等于$-1/F(s)$（即反馈回路系统的逆系统），与开环增益无关。
+    如果反馈深度大于$1$，则系统的输出更加稳定，但增益下降，此时反馈为\textbf{负反馈}，特别地，如果反馈深度远大于$1$，称为\textbf{深度负反馈}，此时$1-A(s)F(s)\approx -A(s)F(s)$，增益近似等于$-1/F(s)$（即反馈回路系统的逆系统），与开环增益无关。
 
-如果反馈深度小于1，则系统的输出不稳定，但增益变高，称为\textbf{正反馈}，多用于振荡器；如果反馈深度近似为0，系统将进入\textbf{自激振荡状态}，通常电路无法正常工作，需要消除这种状态。
+    如果反馈深度小于$1$，则系统的输出不稳定，但增益变高，称为\textbf{正反馈}，多用于振荡器；如果反馈深度近似为$0$，系统将进入\textbf{自激振荡状态}，通常电路无法正常工作，需要消除这种状态。
 \end{definition}
 
 \subsection{信号流图的分析}\label{sub:signal_flow_graph}
@@ -126,160 +127,216 @@
         \end{tikzpicture}
     \end{figure}
     记上、下两个混合节点对应的中间变量分别为$M_1,M_2$，则
-    \begin{align*}
-        M_1&=H_1 X_1+H_2 X_2+L_1 M_1+G_5 M_2\\
-        M_2&=G_6 M_1\\
-        Y_1&=H_3 M_1\\
-        Y_2&=H_4 M_2
-    \end{align*}
-    这是一个以$M_1,M_2,Y_1,Y_2$为未知数的线性方程组，可以解得\begin{align*}
-        M_1&=\frac{H_1 X_1+H_2 X_2}{1-L_1-G_5 G_6}\\
-        M_2&=\frac{G_6 (H_1 X_1+H_2 X_2)}{1-L_1-G_5 G_6}\\
-        Y_1&=\frac{H_3 (H_1 X_1+H_2 X_2)}{1-L_1-G_5 G_6}\\
-        Y_2&=\frac{H_4 G_6 (H_1 X_1+H_2 X_2)}{1-L_1-G_5 G_6}
-    \end{align*}
+    \begin{equation}
+        \begin{aligned}
+            M_1&=H_1 X_1+H_2 X_2+L_1 M_1+G_5 M_2,\\
+            M_2&=G_6 M_1,\\
+            Y_1&=H_3 M_1,\\
+            Y_2&=H_4 M_2.
+        \end{aligned}
+    \end{equation}
+    这是一个以$M_1,M_2,Y_1,Y_2$为未知数的线性方程组，可以解得
+    \begin{equation}
+        \begin{aligned}
+            M_1&=\frac{H_1 X_1+H_2 X_2}{1-L_1-G_5 G_6},\\
+            M_2&=\frac{G_6(H_1 X_1+H_2 X_2)}{1-L_1-G_5 G_6},\\
+            Y_1&=\frac{H_3(H_1 X_1+H_2 X_2)}{1-L_1-G_5 G_6},\\
+            Y_2&=\frac{H_4 G_6(H_1 X_1+H_2 X_2)}{1-L_1-G_5 G_6}.
+        \end{aligned}
+    \end{equation}
 \end{example}
 
-信号流图是一种有向图，$n$个节点的信号流图可以通过$n$阶的\textbf{邻接矩阵}$A$来表示，其元素$a_{ij}$表示从节点$j$到节点$\mathrm{i}$的支路增益，如果没有支路连接这两个节点，则$a_{ij}=0$。
+信号流图是一种有向图，$n$个节点的信号流图可以通过$n$阶的\textbf{邻接矩阵}$A$来表示，其元素$a_{ij}$表示从节点$j$到节点$i$的支路增益，如果没有支路连接这两个节点，则$a_{ij}=0$。
 
 \begin{example}
     上例中，节点依次为$X_1,X_2,M_1,M_2,Y_1,Y_2$，则对应的邻接矩阵为
-    \[A= \begin{bmatrix}
-        0 & 0 & 0 & 0 & 0 & 0 \\
-        0 & 0 & 0 & 0 & 0 & 0 \\
-        H_1 & H_2 & L_1 & G_5 & 0 & 0 \\
-        0 & 0 & G_6 & 0 & 0 & 0 \\
-        0 & 0 & H_3 & 0 & 0 & 0 \\
-        0 & 0 & 0 & H_4 & 0 & 0
-    \end{bmatrix}\]
-    在信号流图的语境下，源点对应的行和阱点对应的列均为0。有冗余的行和列，不是我们希望看到的。
+    \begin{equation}
+        A=\begin{bmatrix}
+            0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 \\
+            H_1 & H_2 & L_1 & G_5 & 0 & 0 \\
+            0 & 0 & G_6 & 0 & 0 & 0 \\
+            0 & 0 & H_3 & 0 & 0 & 0 \\
+            0 & 0 & 0 & H_4 & 0 & 0
+        \end{bmatrix}.
+    \end{equation}
+    在信号流图的语境下，源点对应的行和阱点对应的列均为$0$。有冗余的行和列，不是我们希望看到的。
 
     事实上，我们仅仅需要中间节点对应的邻接矩阵。由于响应$Y_1,Y_2$直接取自中间节点，只需要求解$M_1,M_2$，就可获取系统的全部信息。将信号流图表示为一个线性方程组：
-    \[\begin{bmatrix}
-        M_1 \\
-        M_2
-    \end{bmatrix}=
-    \begin{bmatrix}
-        L_1 & G_5\\
-        G_6 & 0
-    \end{bmatrix}
-    \begin{bmatrix}
-        M_1 \\
-        M_2
-    \end{bmatrix}+\begin{bmatrix}
-        H_1 X_1 + H_2 X_2 \\
-        0
-    \end{bmatrix},\quad\text{即}\mathbf{M}=A\mathbf{M}+\mathbf{X}\]
-    其中$$A=\begin{bmatrix}
-        L_1 & G_5\\
-        G_6 & 0
-    \end{bmatrix}$$
+    \begin{equation}
+        \begin{bmatrix}
+            M_1 \\
+            M_2
+        \end{bmatrix}=
+        \begin{bmatrix}
+            L_1 & G_5\\
+            G_6 & 0
+        \end{bmatrix}
+        \begin{bmatrix}
+            M_1 \\
+            M_2
+        \end{bmatrix}+\begin{bmatrix}
+            H_1 X_1 + H_2 X_2 \\
+            0
+        \end{bmatrix},\quad\text{即}\ \mathbf{M}=A\mathbf{M}+\mathbf{X},
+    \end{equation}
+    其中
+    \begin{equation}
+        A=\begin{bmatrix}
+            L_1 & G_5\\
+            G_6 & 0
+        \end{bmatrix}
+    \end{equation}
     为中间节点的邻接矩阵，
-    $$\mathbf{M}=\begin{bmatrix}
-        M_1 \\
-        M_2
-    \end{bmatrix},\quad\mathbf{X}=\begin{bmatrix}
-        H_1 X_1 + H_2 X_2 \\
-        0
-    \end{bmatrix}$$
-    整理得\[\begin{bmatrix}
-        H_1 X_1 + H_2 X_2 \\
-        0
-    \end{bmatrix}=\begin{bmatrix}
-        1 -L_1 & -G_5\\
-        -G_6 & 1
-    \end{bmatrix}\begin{bmatrix}
-        M_1 \\
-        M_2
-    \end{bmatrix},\quad \text{即}\mathbf{X}=(I-A)\mathbf{M}\]
-    只要矩阵\[S=I-A=\begin{bmatrix}
-        1 -L_1 & -G_5\\
-        -G_6 & 1
-    \end{bmatrix}\]
-    可逆，就可以求解出$M_1,M_2$，我们将这个矩阵称为\textbf{系统矩阵}(system matrix)，而将$A$称为\textbf{增益矩阵}。系统矩阵的行列式称为\textbf{特征行列式}，记为$\Delta$。在本例中，有\begin{align*}
-        \Delta&=\begin{vmatrix}
-        1 -L_1 & -G_5 \\
-        -G_6 & 1
-    \end{vmatrix}=1-L_1-G_5 G_6
-    \end{align*}
+    \begin{equation}
+        \mathbf{M}=\begin{bmatrix}
+            M_1 \\
+            M_2
+        \end{bmatrix},\quad\mathbf{X}=\begin{bmatrix}
+            H_1 X_1 + H_2 X_2 \\
+            0
+        \end{bmatrix}.
+    \end{equation}
+    整理得
+    \begin{equation}
+        \begin{bmatrix}
+            H_1 X_1 + H_2 X_2 \\
+            0
+        \end{bmatrix}=\begin{bmatrix}
+            1 -L_1 & -G_5\\
+            -G_6 & 1
+        \end{bmatrix}\begin{bmatrix}
+            M_1 \\
+            M_2
+        \end{bmatrix},\quad\text{即}\ \mathbf{X}=(I-A)\mathbf{M}.
+    \end{equation}
+    只要矩阵
+    \begin{equation}
+        S=I-A=\begin{bmatrix}
+            1 -L_1 & -G_5\\
+            -G_6 & 1
+        \end{bmatrix}
+    \end{equation}
+    可逆，就可以求解出$M_1,M_2$，我们将这个矩阵称为\textbf{系统矩阵}(system matrix)，而将$A$称为\textbf{增益矩阵}。系统矩阵的行列式称为\textbf{特征行列式}，记为$\Delta$。在本例中，有
+    \begin{equation}
+        \Delta=\begin{vmatrix}
+            1 -L_1 & -G_5 \\
+            -G_6 & 1
+        \end{vmatrix}=1-L_1-G_5 G_6.
+    \end{equation}
     要使系统稳定，必须有$\Delta=1-L_1-G_5 G_6\neq 0$，否则$M_1,M_2,Y_1,Y_2\to\infty$。
 \end{example}
 
 \subsection{梅森增益公式}\label{sub:mason_gain}
 
-本小节来考虑更一般的情况：对于有n个中间节点$M_1,M_2,\cdots,M_n$的系统，不妨设激励接入的节点为$M_1$（否则可用叠加原理单独分析各个激励），则系统对应的线性方程组为\begin{align*}
-    M_1&=a_{11} M_1 + a_{12} M_2 + \cdots + a_{1n} M_n + X\\
-    M_2&=a_{21} M_1 + a_{22} M_2 + \cdots + a_{2n} M_n\\
-    &\vdots\\
-    M_n&=a_{n1} M_1 + a_{n2} M_2 + \cdots + a_{nn} M_n
-\end{align*}
+本小节来考虑更一般的情况：对于有$n$个中间节点$M_1,M_2,\cdots,M_n$的系统，不妨设激励接入的节点为$M_1$（否则可用叠加原理单独分析各个激励），则系统对应的线性方程组为
+\begin{equation}
+    \begin{aligned}
+        M_1&=a_{11} M_1 + a_{12} M_2 + \cdots + a_{1n} M_n + X,\\
+        M_2&=a_{21} M_1 + a_{22} M_2 + \cdots + a_{2n} M_n,\\
+        &\vdotswithin{=}\\
+        M_n&=a_{n1} M_1 + a_{n2} M_2 + \cdots + a_{nn} M_n.
+    \end{aligned}
+\end{equation}
 写成矩阵形式为
-\[\mathbf{M}=A\mathbf{M}+\mathbf{X}\]
-其中$$\mathbf{M}=\begin{bmatrix}
-    M_1 \\
-    M_2 \\
-    \vdots \\
-    M_n
-\end{bmatrix},\quad\mathbf{X}=\begin{bmatrix}
-    X \\
-    0 \\
-    \vdots \\
-    0
-\end{bmatrix}$$
+\begin{equation}
+    \mathbf{M}=A\mathbf{M}+\mathbf{X},
+\end{equation}
+其中
+\begin{equation}
+    \mathbf{M}=\begin{bmatrix}
+        M_1 \\
+        M_2 \\
+        \vdots \\
+        M_n
+    \end{bmatrix},\quad\mathbf{X}=\begin{bmatrix}
+        X \\
+        0 \\
+        \vdots \\
+        0
+    \end{bmatrix}.
+\end{equation}
 在系统矩阵$S=I-A$可逆时，有
-\[\mathbf{M}=(I-A)^{-1}\mathbf{X}=S^{-1}\mathbf{X}\]
-因此中间节点$M_i$可由以下公式计算：\[M_i=\frac{S^*_{1i}}{\Delta} X\]
-其中$\Delta=\det S$为特征行列式，$S^*_{1i}$为系统矩阵$S$的去掉第1行、第i列所得的代数余子式。输出节点的响应是中间节点线性组合。以$M_n$为输出为例（否则可更换节点命名并重复此过程），可以写出\textbf{梅森增益公式}(Mason gain formula)：
+\begin{equation}
+    \mathbf{M}=(I-A)^{-1}\mathbf{X}=S^{-1}\mathbf{X}.
+\end{equation}
+因此中间节点$M_i$可由以下公式计算：
+\begin{equation}
+    M_i=\frac{S^*_{1i}}{\Delta}X,
+\end{equation}
+其中$\Delta=\det S$为特征行列式，$S^*_{1i}$为系统矩阵$S$的去掉第$1$行、第$i$列所得的代数余子式。输出节点的响应是中间节点线性组合。以$M_n$为输出为例（否则可更换节点命名并重复此过程），可以写出\textbf{梅森增益公式}(Mason gain formula)：
 \begin{theorem}[梅森增益公式]
     设系统有$n$个中间节点$M_1,M_2,\cdots,M_n$，激励$X$接入节点$M_1$，响应$Y$取自节点$M_n$，则
-    \[H=\frac{Y}{X}=(S^{-1})_{1n}=\frac{S^*_{n1}}{\Delta}\]
-    其中$(S^{-1})_{1n}$为系统矩阵$S$的逆矩阵的第1行第$n$列元素，$\Delta=\det S$为特征行列式，$S^*_{n1}$为系统矩阵$S$的去掉第$n$行、第1列所得的代数余子式。
+    \begin{equation}
+        H=\frac{Y}{X}=(S^{-1})_{1n}=\frac{S^*_{n1}}{\Delta},
+    \end{equation}
+    其中$(S^{-1})_{1n}$为系统矩阵$S$的逆矩阵的第$1$行第$n$列元素，$\Delta=\det S$为特征行列式，$S^*_{n1}$为系统矩阵$S$的去掉第$n$行、第$1$列所得的代数余子式。
 \end{theorem}
 
 根据行列式的图论展开的几何意义，梅森增益公式又可以写成如下形式：
 \begin{theorem}[梅森增益公式，图论形式]\label{thm:mason_gain}
     设系统有$n$个中间节点$M_1,M_2,\cdots,M_n$，激励$X$接入节点$M_1$，响应$Y$取自节点$M_n$，则
-    \[H=\frac{Y}{X}=\frac{\sum_{k}g_k\Delta_k}{\Delta}\]
+    \begin{equation}
+        H=\frac{Y}{X}=\frac{\sum_{k}g_k\Delta_k}{\Delta},
+    \end{equation}
     其中$g_k$为从源点到阱点的第$k$条前向通路增益，$\Delta_k$为去掉与第$k$条前向通路接触的所有节点后的特征行列式。
 
     特征行列式可由以下公式计算：
-    $$\Delta=1-\sum_a L_a+\sum_{b,c}L_b L_c-\sum_{d,e,f}L_d L_e L_f+\cdots$$
+    \begin{equation}
+        \Delta=1-\sum_a L_a+\sum_{b,c}L_b L_c-\sum_{d,e,f}L_d L_e L_f+\cdots,
+    \end{equation}
     其中$\sum_a L_a$表示所有环路增益之和，$\sum_{b,c}L_b L_c$表示所有两两不接触环路增益的乘积之和，$\sum_{d,e,f}L_d L_e L_f$表示所有三者互不接触环路增益的乘积之和，依此类推。
 \end{theorem}
 
 下面来解释为什么行列式展开具有几何意义。首先，根据行列式的公式：
-\[\det S=\sum_{\sigma\in S_n}\mathrm{sgn}(\sigma)\prod_{i=1}^{n}s_{i,\sigma(i)}\]
-其中$S_n$为所有$n$个元素的排列组成的集合，$\mathrm{sgn}(\sigma)$为排列$\sigma$的符号。对于$S=I-A$，对角元为$s_{ii}=1-a_{ii}$，非对角元为$s_{ij}=-a_{ij}$。
+\begin{equation}
+    \det S=\sum_{\sigma\in S_n}\sgn(\sigma)\prod_{i=1}^{n}s_{i,\sigma(i)},
+\end{equation}
+其中$S_n$为所有$n$个元素的排列组成的集合，$\sgn(\sigma)$为排列$\sigma$的符号。对于$S=I-A$，对角元为$s_{ii}=1-a_{ii}$，非对角元为$s_{ij}=-a_{ij}$。
 
-我们知道，每个置换都可以分解为不相交循环的乘积，例如，$$\sigma(1)=3,\quad \sigma(3)=4,\quad \sigma(4)=1,\quad \sigma(2)=5,\quad \sigma(5)=2$$
+我们知道，每个置换都可以分解为不相交循环的乘积，例如，
+\begin{equation}
+    \sigma(1)=3,\quad \sigma(3)=4,\quad \sigma(4)=1,\quad \sigma(2)=5,\quad \sigma(5)=2
+\end{equation}
 可以表示为
-$$\sigma=(1\ 3\ 4)(2\ 5)$$
+\begin{equation}
+    \sigma=(1\ 3\ 4)(2\ 5),
+\end{equation}
 对应中间节点组成的环路
-$$M_1\to M_3\to M_4\to M_1,\quad M_2\to M_5\to M_2$$
-因此，行列式的每一项$\prod_{i=1}^{n}s_{i,\sigma(i)}$都可以看作是由若干个不接触环路增益的乘积。如果环路中出现不动点$\sigma(i)=i$，则对应的$s_{ii}=1-a_{ii}$中的1，表示该节点不参与任何环路；如果考虑自环，则对应$-a_{ii}$。
+\begin{equation}
+    M_1\to M_3\to M_4\to M_1,\quad M_2\to M_5\to M_2.
+\end{equation}
+因此，行列式的每一项$\prod_{i=1}^{n}s_{i,\sigma(i)}$都可以看作是由若干个不接触环路增益的乘积。如果环路中出现不动点$\sigma(i)=i$，则对应的$s_{ii}=1-a_{ii}$中的$1$，表示该节点不参与任何环路；如果考虑自环，则对应$-a_{ii}$。
 
-其次，考虑正负号的问题。对于k-循环，它对$\mathrm{sgn}(\sigma)$的贡献为$(-1)^{k-1}$，而每个增益对应一个$-a_{ij}$，因此k-循环对行列式的贡献为$(-1)^{k-1}(-1)^k=-1$。因此，$l$个互不接触的环路增益之积的符号应为$(-1)^l$。
+其次，考虑正负号的问题。对于$k$-循环，它对$\sgn(\sigma)$的贡献为$(-1)^{k-1}$，而每个增益对应一个$-a_{ij}$，因此$k$-循环对行列式的贡献为$(-1)^{k-1}(-1)^k=-1$。因此，$l$个互不接触的环路增益之积的符号应为$(-1)^l$。
 \begin{example}
     考虑具有六个中间节点的信号流图，我们来计算$\sigma=(1)(2)(3\ 4\ 5\ 6)$对应的行列式项：
-    \[\mathrm{sgn}(\sigma)\prod_{i=1}^{6}s_{i,\sigma(i)}=s_{1,1}s_{2,2}s_{3,4}s_{4,5}s_{5,6}s_{6,3}=(1-a_{11})(1-a_{22})a_{34}a_{45}a_{56}a_{63}\]
+    \begin{equation}
+        \sgn(\sigma)\prod_{i=1}^{6}s_{i,\sigma(i)}=s_{1,1}s_{2,2}s_{3,4}s_{4,5}s_{5,6}s_{6,3}=(1-a_{11})(1-a_{22})a_{34}a_{45}a_{56}a_{63}.
+    \end{equation}
     将因式$(1-a_{11})(1-a_{22})$展开，得到
-    \[a_{34}a_{45}a_{56}a_{63}-a_{11}\cdot a_{34}a_{45}a_{56}a_{63}-a_{22}\cdot a_{34}a_{45}a_{56}a_{63}+a_{11}\cdot a_{22}\cdot a_{34}a_{45}a_{56}a_{63}\]
-    记环路$L:M_3\to M_4\to M_5\to M_6\to M_3$，这四项分别对应以下四种情况：\begin{itemize}
-        \item 不考虑节点$M_1,M_2$的自环，仅考虑环路L，符号为$-1$；
-        \item 不考虑节点$M_2$的自环，考虑节点$M_1$的自环以及环路L，符号为$+1$；
-        \item 不考虑节点$M_1$的自环，考虑节点$M_2$的自环以及环路L，符号为$+1$；
-        \item 考虑节点$M_1,M_2$的自环以及环路L，符号为$-1$。
+    \begin{equation}
+        a_{34}a_{45}a_{56}a_{63}-a_{11}\cdot a_{34}a_{45}a_{56}a_{63}-a_{22}\cdot a_{34}a_{45}a_{56}a_{63}+a_{11}\cdot a_{22}\cdot a_{34}a_{45}a_{56}a_{63}.
+    \end{equation}
+    记环路$L:M_3\to M_4\to M_5\to M_6\to M_3$，这四项分别对应以下四种情况：
+    \begin{itemize}
+        \item 不考虑节点$M_1,M_2$的自环，仅考虑环路$L$，符号为$-1$；
+        \item 不考虑节点$M_2$的自环，考虑节点$M_1$的自环以及环路$L$，符号为$+1$；
+        \item 不考虑节点$M_1$的自环，考虑节点$M_2$的自环以及环路$L$，符号为$+1$；
+        \item 考虑节点$M_1,M_2$的自环以及环路$L$，符号为$-1$。
     \end{itemize}
 \end{example}
 
 最后，对于代数余子式$S^*_{n1}=\sum_{k}g_k\Delta_k$，我们考虑将$S$按第$n$行展开：
-\[\det S=\Delta=\sum_{j=1}^{n}s_{nj}S^*_{nj}\]
+\begin{equation}
+    \det S=\Delta=\sum_{j=1}^{n}s_{nj}S^*_{nj}.
+\end{equation}
 这样，$S^*_{n1}$就对应$s_{n1}$的系数。行列式公式中某一项包含$s_{n1}$，说明置换$\sigma$中有$\sigma(1)=n$，即环路包含$M_1\to M_n$。将该环路的其余部分补全，就得到了一条从$M_1$到$M_n$的前向通路，其前向通路增益为$g_k$。去掉与该环路接触的节点后，剩下的部分正好对应$\Delta_k$。
 
-注意，如果原图中不含有$M_1\to M_n$的支路，则$s_{n1}=0$，此时我们只好假想有一条“增益为0”的支路连接$M_1$和$M_n$，才能看出代数余子式的几何意义。因此，在梅森增益公式中，我们总是需要将前向通路考虑进来，而不管是否存在$M_1\to M_n$的支路。
+注意，如果原图中不含有$M_1\to M_n$的支路，则$s_{n1}=0$，此时我们只好假想有一条“增益为$0$”的支路连接$M_1$和$M_n$，才能看出代数余子式的几何意义。因此，在梅森增益公式中，我们总是需要将前向通路考虑进来，而不管是否存在$M_1\to M_n$的支路。
 
 \begin{example}
-    考虑具有4个中间节点的信号流图：
+    考虑具有$4$个中间节点的信号流图：
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[auto, >=Stealth, node distance=2.2cm]
@@ -303,29 +360,39 @@ $$M_1\to M_3\to M_4\to M_1,\quad M_2\to M_5\to M_2$$
             \draw[->] (M2) to[out=150,in=30,looseness=1.3] node[above left=1pt and -2pt, font=\small] {$a_{21}$} (M1);
         \end{tikzpicture}
     \end{figure}
-    仍设激励接入的节点为$M_1$，输出取自节点$M_n$，则前向通路有两条：
-    \[M_1\to M_2\to M_3\to M_4,\quad M_1\to M_2\to M_4\]
+    仍设激励接入的节点为$M_1$，输出取自节点$M_4$，则前向通路有两条：
+    \begin{equation}
+        M_1\to M_2\to M_3\to M_4,\quad M_1\to M_2\to M_4.
+    \end{equation}
     我们来考察前向通路与系统矩阵的对应关系。增益矩阵为
-    \[A=\begin{bmatrix}
-        0 & a_{12} & 0 & 0 \\
-        a_{21} & 0 & a_{23} & a_{24} \\
-        0 & 0 & 0 & a_{34} \\
-        0 & 0 & 0 & 0
-    \end{bmatrix}\]
+    \begin{equation}
+        A=\begin{bmatrix}
+            0 & a_{12} & 0 & 0 \\
+            a_{21} & 0 & a_{23} & a_{24} \\
+            0 & 0 & 0 & a_{34} \\
+            0 & 0 & 0 & 0
+        \end{bmatrix}.
+    \end{equation}
     因此系统矩阵为
-    \[S=I-A=\begin{bmatrix}
-        1 & s_{12} & 0 & 0 \\
-        s_{21} & 1 & s_{23} & s_{24} \\
-        0 & 0 & 1 & s_{34} \\
-        0 & 0 & 0 & 1
-    \end{bmatrix}\]
-    
+    \begin{equation}
+        S=I-A=\begin{bmatrix}
+            1 & s_{12} & 0 & 0 \\
+            s_{21} & 1 & s_{23} & s_{24} \\
+            0 & 0 & 1 & s_{34} \\
+            0 & 0 & 0 & 1
+        \end{bmatrix}.
+    \end{equation}
+
     这个系统并没有$M_4\to M_1$的支路，但我们假想有支路$a_{41}=-s_{41}=0$，这样就产生了环路
-    $$M_1\to M_2\to M_3\to M_4\to M_1,\quad M_1\to M_2\to M_4\to M_1$$
+    \begin{equation}
+        M_1\to M_2\to M_3\to M_4\to M_1,\quad M_1\to M_2\to M_4\to M_1.
+    \end{equation}
     前向通路增益分别为$g_1=a_{12}a_{23}a_{34}$和$g_2=a_{12}a_{24}$。
 
     计算特征行列式：原图中有环路$M_1\to M_2\to M_1$，环路增益为$L_1=a_{12}a_{21}$，特征行列式为$\Delta=1-L_1=1-a_{12}a_{21}$；对于两条前向通路，去掉所涉及的节点后不再有回路，因此$\Delta_1=\Delta_2=1$。根据梅森增益公式，有
-    \[H=\frac{Y}{X}=\frac{g_1\Delta_1+g_2\Delta_2}{\Delta}=\frac{a_{12}a_{23}a_{34}+a_{12}a_{24}}{1-a_{12}a_{21}}\]
+    \begin{equation}
+        H=\frac{Y}{X}=\frac{g_1\Delta_1+g_2\Delta_2}{\Delta}=\frac{a_{12}a_{23}a_{34}+a_{12}a_{24}}{1-a_{12}a_{21}}.
+    \end{equation}
 \end{example}
 
 一般来说，我们直接用计算机分析信号流图表示的复杂系统，但在一些特定的信号流图中，使用几何意义更为方便。
@@ -361,39 +428,53 @@ $$M_1\to M_3\to M_4\to M_1,\quad M_2\to M_5\to M_2$$
             \draw[->] (m3) to[bend left=18] node[midway, below, inner sep=1pt] {$G_{32}$} (m2);
         \end{tikzpicture}
     \end{figure}
-    \ding{172}使用矩阵进行分析：系统矩阵为
-    \[\begin{bmatrix}
-        1 & -G_{21} & -G_{31} \\
-        -H_{12} & 1 & -G_{32} \\
-        -H_{13} & -H_{23} & 1
-    \end{bmatrix}\]
+    \ding{172} 使用矩阵进行分析：系统矩阵为
+    \begin{equation}
+        \begin{bmatrix}
+            1 & -G_{21} & -G_{31} \\
+            -H_{12} & 1 & -G_{32} \\
+            -H_{13} & -H_{23} & 1
+        \end{bmatrix}.
+    \end{equation}
     特征行列式为
-    $$\Delta=\begin{vmatrix}
-        1 & -G_{21} & -G_{31} \\
-        -H_{12} & 1 & -G_{32} \\
-        -H_{13} & -H_{23} & 1
-    \end{vmatrix}=1-G_{21}H_{12}-G_{31}H_{13}-G_{32}H_{23}-G_{21}G_{32}H_{13}-G_{31}H_{23}H_{12}$$
-    在$\Delta\neq 0$时，系统矩阵可逆，其逆矩阵为\begin{align*}
+    \begin{equation}
+        \Delta=\begin{vmatrix}
+            1 & -G_{21} & -G_{31} \\
+            -H_{12} & 1 & -G_{32} \\
+            -H_{13} & -H_{23} & 1
+        \end{vmatrix}=1-G_{21}H_{12}-G_{31}H_{13}-G_{32}H_{23}-G_{21}G_{32}H_{13}-G_{31}H_{23}H_{12}.
+    \end{equation}
+    在$\Delta\neq 0$时，系统矩阵可逆，其逆矩阵为
+    \begin{equation}
         S^{-1}=\frac{1}{\Delta}\begin{bmatrix}
             1-G_{32}H_{23} & G_{21}+G_{31}H_{23} & G_{31}+G_{21}G_{32} \\
             H_{12}+H_{13}G_{32} & 1-G_{31}H_{13} & G_{32}+G_{31}H_{12} \\
             H_{13}+H_{12}H_{23} & H_{23}+G_{21}H_{13} & 1-G_{21}H_{12}
-        \end{bmatrix}
-    \end{align*}
-    输出为$Y=M_3=\dfrac{1}{\Delta}(H_{13}+H_{12}H_{23})X$，因此系统增益为
-    \[H=\frac{Y}{X}=\frac{H_{13}+H_{12}H_{23}}{\Delta}=\frac{H_{13}+H_{12}H_{23}}{1-G_{21}H_{12}-G_{31}H_{13}-G_{32}H_{23}-G_{21}G_{32}H_{13}-G_{31}H_{23}H_{12}}\]
+        \end{bmatrix}.
+    \end{equation}
+    输出为$\displaystyle Y=M_3=\frac{1}{\Delta}(H_{13}+H_{12}H_{23})X$，因此系统增益为
+    \begin{equation}
+        H=\frac{Y}{X}=\frac{H_{13}+H_{12}H_{23}}{\Delta}=\frac{H_{13}+H_{12}H_{23}}{1-G_{21}H_{12}-G_{31}H_{13}-G_{32}H_{23}-G_{21}G_{32}H_{13}-G_{31}H_{23}H_{12}}.
+    \end{equation}
 
-    \ding{173}使用梅森增益公式的几何意义：图中共有五个环路，分别为\begin{align*}
-        L_1&:M_1\to M_2\to M_1,\quad \text{增益}L_1=G_{21}H_{12}\\
-        L_2&:M_1\to M_3\to M_1,\quad \text{增益}L_2=G_{31}H_{13}\\
-        L_3&:M_2\to M_3\to M_2,\quad \text{增益}L_3=G_{32}H_{23}\\
-        L_4&:M_1\to M_2\to M_3\to M_1,\quad \text{增益}L_4=G_{21}G_{32}H_{13}\\
-        L_5&:M_1\to M_3\to M_2\to M_1,\quad \text{增益}L_5=G_{31}H_{23}H_{12}
-    \end{align*}
+    \ding{173} 使用梅森增益公式的几何意义：图中共有五个环路，分别为
+    \begin{equation}
+        \begin{aligned}
+            L_1&:M_1\to M_2\to M_1,\quad \text{增益}\ L_1=G_{21}H_{12},\\
+            L_2&:M_1\to M_3\to M_1,\quad \text{增益}\ L_2=G_{31}H_{13},\\
+            L_3&:M_2\to M_3\to M_2,\quad \text{增益}\ L_3=G_{32}H_{23},\\
+            L_4&:M_1\to M_2\to M_3\to M_1,\quad \text{增益}\ L_4=G_{21}G_{32}H_{13},\\
+            L_5&:M_1\to M_3\to M_2\to M_1,\quad \text{增益}\ L_5=G_{31}H_{23}H_{12}.
+        \end{aligned}
+    \end{equation}
     这五个环路两两相交，因此特征行列式为
-    \[\Delta=1-(L_1+L_2+L_3+L_4+L_5)=1-G_{21}H_{12}-G_{31}H_{13}-G_{32}H_{23}-G_{21}G_{32}H_{13}-G_{31}H_{23}H_{12}\]
+    \begin{equation}
+        \Delta=1-(L_1+L_2+L_3+L_4+L_5)=1-G_{21}H_{12}-G_{31}H_{13}-G_{32}H_{23}-G_{21}G_{32}H_{13}-G_{31}H_{23}H_{12}.
+    \end{equation}
     前向通路共有两条，增益分别为$g_1=H_{13}$和$g_2=H_{12}H_{23}$，去掉前向通路中的节点后没有环路，因此$\Delta_1=\Delta_2=1$。根据梅森增益公式，有
-    \[H=\frac{g_1\Delta_1+g_2\Delta_2}{\Delta}=\frac{H_{13}+H_{12}H_{23}}{1-G_{21}H_{12}-G_{31}H_{13}-G_{32}H_{23}-G_{21}G_{32}H_{13}-G_{31}H_{23}H_{12}}\]
+    \begin{equation}
+        H=\frac{g_1\Delta_1+g_2\Delta_2}{\Delta}=\frac{H_{13}+H_{12}H_{23}}{1-G_{21}H_{12}-G_{31}H_{13}-G_{32}H_{23}-G_{21}G_{32}H_{13}-G_{31}H_{23}H_{12}}.
+    \end{equation}
 \end{example}
 
 \begin{definition}[转置系统]
@@ -407,7 +488,7 @@ $$M_1\to M_3\to M_4\to M_1,\quad M_2\to M_5\to M_2$$
 
 \subsection{信号流图的标准型}\label{sub:standard_form}
 
-我们同样能够根据系统函数画出信号流图，但是一个的系统函数可以对应多种信号流图，例如两个系统的级联是可交换的。下面给出一种仅仅使用乘法器和积分器（系统函数为$s^{-1}$）将有理系统函数化为信号流图的标准方法，使用这种方法画出的信号流图是唯一的，并且具有相似的结构。
+我们同样能够根据系统函数画出信号流图，但是一个系统函数可以对应多种信号流图，例如两个系统的级联是可交换的。下面给出一种仅仅使用乘法器和积分器（系统函数为$s^{-1}$）将有理系统函数化为信号流图的标准方法，使用这种方法画出的信号流图是唯一的，并且具有相似的结构。
 
 考虑如下信号流图：
 
@@ -450,9 +531,9 @@ $$M_1\to M_3\to M_4\to M_1,\quad M_2\to M_5\to M_2$$
 }
 \end{center}
 
-注意到这个信号流图的所有前向通路和环路均经过节点$M_1$，去掉节点$M_1$后不再有环路，因此不含$M_1$的子图的特征行列式$\Delta_k$均为1。利用梅森增益公式，可以计算出系统增益为
-\begin{align*}
-    H(s)&=\frac{Y(s)}{X(s)}=\frac{b_0 + b_1 s^{-1} + b_2 s^{-2} + \cdots + b_n s^{-n}}{1 + a_1 s^{-1} + a_2 s^{-2} + \cdots + a_n s^{-n}}
-\end{align*}
+注意到这个信号流图的所有前向通路和环路均经过节点$M_1$，去掉节点$M_1$后不再有环路，因此不含$M_1$的子图的特征行列式$\Delta_k$均为$1$。利用梅森增益公式，可以计算出系统增益为
+\begin{equation}
+    H(s)=\frac{Y(s)}{X(s)}=\frac{b_0 + b_1 s^{-1} + b_2 s^{-2} + \cdots + b_n s^{-n}}{1 + a_1 s^{-1} + a_2 s^{-2} + \cdots + a_n s^{-n}}.
+\end{equation}
 
-可见，对于任意有理系统函数，都可以使用上述信号流图表示。注意系数$a_k,b_k$是可以为0的，因此即便分子分母不是相同度数的多项式，也可以使用该信号流图表示。
+可见，对于任意有理系统函数，都可以使用上述信号流图表示。注意系数$a_k,b_k$是可以为$0$的，因此即便分子分母不是相同度数的多项式，也可以使用该信号流图表示。

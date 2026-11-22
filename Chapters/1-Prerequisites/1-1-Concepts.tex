@@ -27,70 +27,97 @@
 
 离散信号可以视作连续信号的定义域离散化的结果，一般来说，这样一个过程通过对连续信号进行采样来实现；而数字信号则是离散信号的幅值离散化的结果，是对离散信号进行量化的结果。量化的概念以及数字信号将在数字信号处理的课程中着重讨论。
 
-从电学的经验来看，电压、电流信号的功率总为其\textbf{幅值的平方}乘以某个常数，于是对于一般的信号我们也采取此定义:
+鉴于信号与函数、离散信号与序列在数学本质上一致，本书在数学分析与变换理论的讨论中将分别统一称为“函数”和“序列”，而在涉及系统分析与工程背景的专有术语中仍保留“信号”的称呼。
+
+从电学的经验来看，电压、电流信号的功率总为其\textbf{幅值的平方}乘以某个常数，于是对于一般的信号我们也采取此定义：
 
 \begin{definition}[能量]
     连续信号$f:\mathbb{R}\to\mathbb{C}$的\textbf{能量}(energy)定义为
-    $$E_f=\int_{-\infty}^{\infty}| f(x)| ^2\,dx$$
-    对于离散信号$x:\mathbb{Z}\to\mathbb{C}$，
-    $$E_x=\sum_{n = -\infty}^{\infty}  |x[n]| ^2$$
+    \begin{equation}
+        E_f=\int_{-\infty}^{\infty}|f(x)|^2\,\dd x,
+    \end{equation}
+    对于序列$x:\mathbb{Z}\to\mathbb{C}$，
+    \begin{equation}
+        E_x=\sum_{n = -\infty}^{\infty} |x[n]|^2.
+    \end{equation}
 \end{definition}
 
-真实的物理世界中的信号的能量总是有限的，但是，为了更好地研究它们，很多时候使用真实信号的一部分做适当延拓作为研究对象，因此我们将遇到一些不满足“平方可积”性质$\int_{-\infty}^{\infty}| f(x)| ^2\,dx<\infty$的信号。例如，幅值不为零的正弦信号在整个时间轴上的能量为无穷，但在足够长的时间内，能量与观察时长近似成正比。为了描述这类信号，需要使用平均功率。记长度为 $T$ 的对称窗口上的平均功率为
-$$
-    P_T(f)=\frac1T\int_{-T/2}^{T/2}|f(t)|^2\,dt.
-$$
+真实的物理世界中的信号的能量总是有限的，但是，为了更好地研究它们，很多时候使用真实信号的一部分做适当延拓作为研究对象，因此我们将遇到一些不满足“平方可积”性质$\int_{-\infty}^{\infty}|f(x)|^2\,\dd x<\infty$的函数。例如，幅值不为零的正弦函数在整个时间轴上的能量为无穷，但在足够长的时间内，能量与观察时长近似成正比。为了描述这类信号，需要使用平均功率。记长度为$T$的对称窗口上的平均功率为
+\begin{equation}
+    P_T(f)=\frac{1}{T}\int_{-T/2}^{T/2}|f(t)|^2\,\dd t.
+\end{equation}
 若$T\to\infty$的极限存在，则定义
-$$
+\begin{equation}
     P_f=\lim_{T\to\infty}P_T(f).
-$$
-对于离散信号也有类似的定义：
-$$P_x=\lim_{M\to\infty}\frac{1}{2M+1}\sum_{n=-M}^M |x[n]|^2.$$
+\end{equation}
+对于序列也有类似的定义：
+\begin{equation}
+    P_x=\lim_{M\to\infty}\frac{1}{2M+1}\sum_{n=-M}^M |x[n]|^2.
+\end{equation}
 \begin{definition}[能量信号与功率信号]
     能量非零有限的信号称为\textbf{能量信号}：
-    \[0<\int_{-\infty}^{\infty}|f(x)|^2\,dx<\infty\]
+    \begin{equation}
+        0<\int_{-\infty}^{\infty}|f(x)|^2\,\dd x<\infty,
+    \end{equation}
     能量无限而功率非零有限的信号称为\textbf{功率信号}：
-    \[\int_{-\infty}^{\infty}|f(x)|^2\,dx=\infty,\quad\lim_{T \to \infty}\frac{1}{T}\int_{-T/2}^{T/2}| f(x)|^2  \,dx<\infty\]
+    \begin{equation}
+        \int_{-\infty}^{\infty}|f(x)|^2\,\dd x=\infty,\quad \lim_{T \to \infty}\frac{1}{T}\int_{-T/2}^{T/2}|f(x)|^2\,\dd x<\infty.
+    \end{equation}
 \end{definition}
 
-能量无限等价于功率非零。在\refsub{Lp_space}中我们将看到，能量信号是$L^2$空间中的元素。我们还可以将这一定义推广到离散信号，其中离散的能量信号满足“平方可和”性质$\sum_{n=-\infty}^{\infty}|x[n]|^2<\infty$，对应$l^2$空间中的元素，并将能量无限而功率有限的离散信号称为功率信号。
+能量无限等价于功率非零。在\refsub{Lp_space}中我们将看到，能量信号是$L^2$空间中的元素。我们还可以将这一定义推广到序列，其中离散的能量信号满足“平方可和”性质$\sum_{n=-\infty}^{\infty}|x[n]|^2<\infty$，对应$l^2$空间中的元素，并将能量无限而功率有限的序列称为功率信号。
 
 \subsection{典型的信号}\label{sub:ordinary_signal}
 \subsubsection{连续信号}
-\begin{definition}[采样信号]\label{def:sinc}
-    \[\mathrm{Sa}(t)=\frac{\sin(t)}{t}\]
+\begin{definition}[采样函数]\label{def:sinc}
+    \begin{equation}
+        \Sa(t)=\frac{\sin(t)}{t}.
+    \end{equation}
 \end{definition}
-它在0处连续延拓为1，在$\pi$的整数倍处为0，是偶函数，在正半轴上的积分值为$\pi /2$（这个结果称为狄利克雷积分）。国外教材中采样信号一般为一个类似的信号
-\[\mathrm{sinc}(t)=\frac{\sin(\pi t)}{\pi t}=\mathrm{Sa}(\pi t)\]
-它们的参数不同但性质类似、本质相同。需要注意的是，在绘图时python和MATLAB中只有$\mathrm{sinc}$信号，而且实际上指的是$\mathrm{Sa}$信号。
-\begin{definition}[钟形信号/高斯信号]
-    \[f(t)=E\e^{-\left(t/\tau\right)^2}\]
+它在0处连续延拓为1，在$\pi$的整数倍处为0，是偶函数，在正半轴上的积分值为$\pi /2$（这个结果称为狄利克雷积分）。国外教材中采样函数一般为一个类似的函数
+\begin{equation}
+    \sinc(t)=\frac{\sin(\pi t)}{\pi t}=\Sa(\pi t).
+\end{equation}
+它们的参数不同但性质类似、本质相同。需要注意的是，在绘图时python和MATLAB中只有$\sinc$函数，而且实际上指的是$\Sa$函数。
+\begin{definition}[钟形函数/高斯函数]
+    \begin{equation}
+        f(t)=E\e^{-(t/\tau)^2},
+    \end{equation}
     $\tau$为衰减速率或时间常数，$\tau$越大，函数值衰减越慢。
 \end{definition}
 \begin{definition}[单位脉冲函数/狄拉克函数]\label{def:delta}
-    $$\delta (x)=\begin{cases}
-            0      & x\neq 0 \\
-            \infty & x=0
-        \end{cases}$$满足：\ding{172} 采样性质：$f(x)\delta (x)=f(0)\delta (x)$\\
-    \ding{173} 积分性质：$\int_{-\infty}^{\infty}\delta (x)\,dx=1$，从而$\int_{-\infty}^{\infty}f(x)\delta (x)\,dx=f(0)$。\\
-    \ding{174} $\delta(x)$ 函数是偶函数：$\delta (-x)=\delta (x)$
+    \begin{equation}
+        \delta(x)=\begin{dcases}
+            0,      & x\neq 0, \\
+            \infty, & x=0
+        \end{dcases}
+    \end{equation}
+    满足：\\
+    \ding{172} 采样性质：$f(x)\delta(x)=f(0)\delta(x)$；\\
+    \ding{173} 积分性质：$\int_{-\infty}^{\infty}\delta(x)\,\dd x=1$，从而$\int_{-\infty}^{\infty}f(x)\delta(x)\,\dd x=f(0)$；\\
+    \ding{174} $\delta(x)$函数是偶函数：$\delta(-x)=\delta(x)$。
 \end{definition}
-这个函数可视为一些性质较好的函数如高斯函数、采样函数集中到x=0附近时的极限情况，从而具备很多优美的性质，见\refsub{approach}。实际上，它应该作为一个分布（而不是函数）来理解，并且是无限阶可导的，我们将在\refsub{general_distributions}中详细讨论这一点。目前，我们仅能从形式和直观上定义这样一个函数。
+这个函数可视为一些性质较好的函数如高斯函数、采样函数集中到$x=0$附近时的极限情况，从而具备很多优美的性质，见\refsub{approach}。实际上，它应该作为一个分布（而不是函数）来理解，并且是无限阶可导的，我们将在\refsub{general_distributions}中详细讨论这一点。目前，我们仅能从形式和直观上定义这样一个函数。
 
-根据以上定义中列举的性质，可以得到$\delta$函数的伸缩变换性质：$\delta(ax)=\dfrac{1}{|a|}\delta(x)$，这是因为我们需要保证：
-\[\int_{-\infty}^{\infty}\delta(ax)\,d(ax)=a\int_{-\infty}^{\infty}\delta(y)\,dy=a\]
-我们规定，$\delta_a(x)=\delta (x-a)$，即在$x=a$处采样的狄拉克函数。
+根据以上定义中列举的性质，可以得到$\delta$函数的伸缩变换性质：$\displaystyle \delta(ax)=\frac{1}{|a|}\delta(x)$，这是因为我们需要保证：
+\begin{equation}
+    \int_{-\infty}^{\infty}\delta(ax)\,\dd(ax)=a\int_{-\infty}^{\infty}\delta(y)\,\dd y=a.
+\end{equation}
+我们规定，$\delta_a(x)=\delta(x-a)$，即在$x=a$处采样的狄拉克函数。
 
 \begin{definition}[单位阶跃函数]
-    \[u(x)=
-        \begin{cases}
-            0 & x<0 \\
-            1 & x>0
-        \end{cases}\]
+    \begin{equation}
+        u(x)=\begin{dcases}
+            0, & x<0, \\
+            1, & x>0.
+        \end{dcases}
+    \end{equation}
 \end{definition}
 
 通过对$x$的正负进行分类讨论，可以得到含单位阶跃函数的积分公式，后面会多次使用它：
-\[\int_{-\infty}^{x}u(y)f(y)\,dy=u(x)\int_{0}^{x}f(y)\,dy\]
+\begin{equation}
+    \int_{-\infty}^{x}u(y)f(y)\,\dd y=u(x)\int_{0}^{x}f(y)\,\dd y.
+\end{equation}
 
 \begin{figure}[H]
     \centering
@@ -98,73 +125,85 @@ $$P_x=\lim_{M\to\infty}\frac{1}{2M+1}\sum_{n=-M}^M |x[n]|^2.$$
     \caption{采样函数、高斯函数、狄拉克函数、单位阶跃函数}
 \end{figure}
 
-这个函数在0处的值可以任意定义，一般取0、1或1/2，不会有影响，所以一般也不会讨论。
+这个函数在0处的值可以任意定义，一般取0、1或$1/2$，不会有影响，所以一般也不会讨论。
 
 \begin{definition}
     设集合$A\subset\mathbb{R}$，其\textbf{特征函数}(indicator function)为
-    \[\chi_A(x)=\begin{cases}
-            1 & x\in A    \\
-            0 & x\notin A
-        \end{cases}\]
+    \begin{equation}
+        \chi_A(x)=\begin{dcases}
+            1, & x\in A,    \\
+            0, & x\notin A.
+        \end{dcases}
+    \end{equation}
 \end{definition}
 
-例如，一个幅值为1、存在于区间$[a,b]$上的矩形波可以表示为$\chi_{[a,b]}(x)$。在多数信号与系统的教材中，这类函数通常会使用其他的符号来定义，例如$R_T(t),G_T(t)$等，但都不如特征函数的符号意义清晰。
+例如，一个幅值为1、存在于区间$[a,b]$上的矩形波可以表示为$\chi_{[a,b]}(x)$。在多数信号与系统的教材中，这类函数通常会使用其他的符号来定义，例如$R_T(t),\ G_T(t)$等，但都不如特征函数的符号意义清晰。
 
 我们将在实变函数的理论中用到它。例如，狄利克雷函数$D(x)$可表示为$\chi_{\mathbb{Q}}(x)$。概率论中会定义连续性随机变量的特征函数(characteristic function)，指随机变量的矩母函数的傅里叶变换，本书中不会用到它，请读者注意它们的区别。
 
-单位阶跃函数的积分为单位斜变信号 (the unit ramp)，导数为狄拉克函数，从直观上这不难理解，在学习\refsub{general_distributions}之后，很容易自行验证它。
+单位阶跃函数的积分为单位斜变函数(the unit ramp)，导数为狄拉克函数，从直观上这不难理解，在学习\refsub{general_distributions}之后，很容易自行验证它。
 
 \begin{definition}[单边指数函数和双边指数函数]\label{def:exp}
-    \begin{align*}
-        f(t)=\mathrm{e}^{-at}u(t)=\begin{cases}
-                                      \mathrm{e}^{-at}, & \text{if }t>0 \\
-                                      0,                & \text{if }t<0
-                                  \end{cases}
-    \end{align*}
-    称为单边按指数函数，
-    \begin{align*}g(t)=f(t)+f(-t)=\begin{cases}
-                            \mathrm{e}^{-at}, & \text{if }t\geq 0 \\
-                            \mathrm{e}^{at},  & \text{if }t<0
-                        \end{cases}
-    \end{align*}
-    称为双边指数函数
+    \begin{equation}
+        f(t)=\e^{-at}u(t)=\begin{dcases}
+            \e^{-at}, & \text{if }t>0, \\
+            0,        & \text{if }t<0
+        \end{dcases}
+    \end{equation}
+    称为单边指数函数，
+    \begin{equation}
+        g(t)=f(t)+f(-t)=\begin{dcases}
+            \e^{-at}, & \text{if }t\geq 0, \\
+            \e^{at},  & \text{if }t<0
+        \end{dcases}
+    \end{equation}
+    称为双边指数函数。
 \end{definition}
 
-\subsubsection{离散信号}
+\subsubsection{序列}
 \begin{definition}[单位脉冲序列/克罗内克$\delta$函数]
-    \[\delta[n]=\begin{cases}
-            1, & \text{if }n=0     \\
-            0, & \text{if }n\neq 0
-        \end{cases}\]
+    \begin{equation}
+        \delta[n]=\begin{dcases}
+            1, & \text{if }n=0,     \\
+            0, & \text{if }n\neq 0.
+        \end{dcases}
+    \end{equation}
 \end{definition}
-将它进行时移，可得\[\delta_k[n]=\delta[n-k]=\begin{cases}
-        1, & \text{if }n=0     \\
-        0, & \text{if }n\neq 0
-    \end{cases}\]
-它与狄拉克$\delta$函数一样，都具有采样性质：$x[n]\delta_k[n]=x[k]\delta_k[n],\forall n$.
+将它进行时移，可得
+\begin{equation}
+    \delta_k[n]=\delta[n-k]=\begin{dcases}
+        1, & \text{if }n=0,     \\
+        0, & \text{if }n\neq 0.
+    \end{dcases}
+\end{equation}
+它与狄拉克$\delta$函数一样，都具有采样性质：$x[n]\delta_k[n]=x[k]\delta_k[n],\ \forall n$。
 \begin{definition}[单位阶跃序列]
-    \[u[n]=\begin{cases}
-            1, & \text{if }n\geq 0 \\
-            0, & \text{if }n< 0
-        \end{cases}\]
+    \begin{equation}
+        u[n]=\begin{dcases}
+            1, & \text{if }n\geq 0, \\
+            0, & \text{if }n< 0.
+        \end{dcases}
+    \end{equation}
 \end{definition}
 类似连续信号，由它可以衍生出矩形窗序列：
-\[R_N[n]=u[n]-u[n-N]=\begin{cases}
-        1, & \text{if }0\leq n\leq N-1 \\
-        0, & \mathrm{otherwise}
-    \end{cases}\]
+\begin{equation}
+    R_N[n]=u[n]-u[n-N]=\begin{dcases}
+        1, & \text{if }0\leq n\leq N-1, \\
+        0, & \otherwise.
+    \end{dcases}
+\end{equation}
 
 \begin{definition}[指数序列]
     $x[n]=a^n u[n]$称为指数序列，其中$a\in\mathbb{R}$。
 \end{definition}
 \begin{definition}[复指数序列]
-    $E_{\Omega}[n]=\mathrm{e}^{\mathrm{i}\Omega_0 n}$称为复指数序列，其中$\Omega_0$称为数字角频率。
+    $E_{\Omega}[n]=\e^{\im\Omega_0 n}$称为复指数序列，其中$\Omega_0$称为数字角频率。
 \end{definition}
 
-$E_{\Omega}[n]$这个记号仅在本书中使用，但这样做是值得的——它表征了离散信号频率成分的基本形式，我们将在离散信号的章节中多次用到它。
+$E_{\Omega}[n]$这个记号仅在本书中使用，但这样做是值得的——它表征了序列频率成分的基本形式，我们将在序列的章节中多次用到它。
 
 \begin{definition}[正弦序列]
-    $x[n]=\sin(\Omega_0n)$,其中$\Omega_0$称为数字角频率。
+    $x[n]=\sin(\Omega_0 n)$，其中$\Omega_0$称为数字角频率。
 \end{definition}
 \begin{figure}[H]
     \centering
@@ -173,25 +212,35 @@ $E_{\Omega}[n]$这个记号仅在本书中使用，但这样做是值得的—�
 \end{figure}
 
 \begin{definition}[符号序列]
-    $$x[n]=\sgn[n]=\begin{cases}
-            -1, & \text{if }n<0 \\
-            0,  & \text{if }n=0 \\
-            1,  & \text{if }n>0
-        \end{cases}$$
+    \begin{equation}
+        x[n]=\sgn[n]=\begin{dcases}
+            -1, & \text{if }n<0, \\
+            0,  & \text{if }n=0, \\
+            1,  & \text{if }n>0.
+        \end{dcases}
+    \end{equation}
 \end{definition}
 
-下面介绍离散信号的伸缩变换：
-$$x[n]\to x[\alpha n],\quad \alpha\in\mathbb{R}$$
-如果$\alpha\in\mathbb{N}_+$，则伸缩后的信号仍为离散信号，只是遗漏了原信号的一些信息；如果$\alpha=\frac{1}{N},N\in\mathbb{N}_+$，则伸缩后的信号在$N$的倍数以外的点没有定义，我们必须人为规定它们的值，这就是\textbf{插值}。
+下面介绍序列的伸缩变换：
+\begin{equation}
+    x[n]\to x[\alpha n],\quad \alpha\in\mathbb{R}.
+\end{equation}
+如果$\alpha\in\mathbb{N}_+$，则伸缩后的序列仍为序列，只是遗漏了原序列的一些信息；如果$\alpha=\frac{1}{N},\ N\in\mathbb{N}_+$，则伸缩后的序列在$N$的倍数以外的点没有定义，我们必须人为规定它们的值，这就是\textbf{插值}。
 
 最简单的处理方式是将这些点全部赋值为0。我们定义：
-\begin{definition}[离散信号的伸缩]
-    离散信号的伸缩分为两种：$$y[n]=x[Mn],M\in\mathbb{N}_+$$
-    称为\textbf{降采样/下采样}，对应\textbf{抽取}；$$y[n]=\begin{cases}
-            x\left[\dfrac{n}{N}\right], & n=Nk,N\in\mathbb{Z} \\
-            0,                          & \mathrm{otherwise}
-        \end{cases}$$
+\begin{definition}[序列的伸缩]
+    序列的伸缩分为两种：
+    \begin{equation}
+        y[n]=x[Mn],\quad M\in\mathbb{N}_+
+    \end{equation}
+    称为\textbf{降采样/下采样}，对应\textbf{抽取}；
+    \begin{equation}
+        y[n]=\begin{dcases}
+            x\sbr{\frac{n}{N}}, & n=Nk,\ N\in\mathbb{Z}, \\
+            0,                  & \otherwise
+        \end{dcases}
+    \end{equation}
     称为\textbf{升采样/上采样}，对应\textbf{插值}。
 \end{definition}
 
-如果离散信号本身是由连续信号采样得到的，例如$x[n]=f(T_s n)$，那么插值就对应于还原连续信号的过程，因此离散信号的伸缩相当于处理连续信号时增加或减少样值点。降采样、升采样的名称就来源于此。对于降采样、升采样，我们将在\refsub{interpolation}中详细讨论。
+如果序列本身是由连续信号采样得到的，例如$x[n]=f(T_s n)$，那么插值就对应于还原连续信号的过程，因此序列的伸缩相当于处理连续信号时增加或减少样值点。降采样、升采样的名称就来源于此。对于降采样、升采样，我们将在\refsub{interpolation}中详细讨论。

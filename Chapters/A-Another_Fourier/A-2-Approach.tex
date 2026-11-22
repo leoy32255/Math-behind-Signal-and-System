@@ -1,345 +1,416 @@
 \section{傅里叶反演公式}\label{sec:Approach}
 
 \subsection{\texorpdfstring{$\delta$分布的逼近}{delta分布的逼近}}\label{sub:approach}
-在\refsub{shannon}中，我们对带限函数提出了公式：如果$\mathrm{supp}(\mathcal{F} f)\subset[-\frac{T}{2},\frac{T}{2}]$，则有
-\begin{equation*}
-    f(t)=T\mathrm{sinc}(Tt)*f(t)
-\end{equation*}
+在\refsub{shannon}中，我们对带限函数提出了公式：如果$\supp(\mathcal{F} f)\subset\sbr{-\frac{T}{2},\frac{T}{2}}$，则有
+\begin{equation}
+    f(t)=T\sinc(Tt)*f(t).
+\end{equation}
 
-如果希望对更一般的函数$f(x)$，找到一个函数$g(x)$，使得$f(x)=g*f(x)$，自然会想到狄拉克$\delta$分布，然而它是一个奇异分布，我们只能从形式上定义一个$\delta$函数。事实上，$$!\exists g,\quad f*g=f,\quad\forall f$$
-但很容易构造一个函数列$g_n$，使得$f*g_n\to f$\cite{folland}。回忆我们在\refsub{intuition_of_convolution}中提到的“平均化”卷积，设$g_a(x)=\frac{1}{2a}\chi_{[-a,a]}$，则$g_a*f$是$f$在区间$[x-a,x+a]$上的平均值，即$\frac{1}{2a}f*g_a(t)=\int_{x-a}^{x+a}f(x)\,dx$，若$f\in C(\mathbb{R})$，则$g_a*f\to f,a\to 0$。
+如果希望对更一般的函数$f(x)$，找到一个函数$g(x)$，使得$f(x)=g*f(x)$，自然会想到狄拉克$\delta$分布，然而它是一个奇异分布，我们只能从形式上定义一个$\delta$函数。事实上，
+\begin{equation}
+    \nexists g,\quad f*g=f,\quad\forall f,
+\end{equation}
+但很容易构造一个函数列$g_n$，使得$f*g_n\to f$\cite{folland}。回忆我们在\refsub{intuition_of_convolution}中提到的“平均化”卷积，设$g_a(x)=\frac{1}{2a}\chi_{[-a,a]}$，则$g_a*f$是$f$在区间$[x-a,x+a]$上的平均值，即$\frac{1}{2a}f*g_a(t)=\int_{x-a}^{x+a}f(x)\,\dd x$，若$f\in C(\mathbb{R})$，则$g_a*f\to f,\ a\to 0$。
 
 一般地，我们考虑函数的缩放，设$g\in L^1(\mathbb{R})$，我们记
-\[g_\lambda(x)=\frac{1}{\lambda}g\left(\frac{x}{\lambda}\right)\]
+\begin{equation}
+    g_\lambda(x)=\frac{1}{\lambda}g\paren{\frac{x}{\lambda}}.
+\end{equation}
 这类似于时域的伸缩在傅里叶变换下的表现，它是一种“保面积”的缩放，即：
-\[\int_{-\infty}^{\infty}g_\lambda(x)\,dt=\int_{-\infty}^{\infty}g\left(\frac{y}{\lambda}\right)\,d\frac{y}{\lambda}=\int_{-\infty}^{\infty}g(y)\,dy\]
-更一般地，我们给出接下来要频繁使用的引理：\begin{lemma}
-    \[\int_{a}^{b}g_\lambda(x)\,dx=\int_{a/\lambda}^{b/\lambda}g(y)\,dy\]
+\begin{equation}
+    \int_{-\infty}^{\infty}g_\lambda(x)\,\dd x=\int_{-\infty}^{\infty}g\paren{\frac{y}{\lambda}}\,\dd\frac{y}{\lambda}=\int_{-\infty}^{\infty}g(y)\,\dd y.
+\end{equation}
+更一般地，我们给出接下来要频繁使用的引理：
+\begin{lemma}
+    \begin{equation}
+        \int_{a}^{b}g_\lambda(x)\,\dd x=\int_{a/\lambda}^{b/\lambda}g(y)\,\dd y.
+    \end{equation}
 \end{lemma}
 
 \begin{theorem}
-    设$g\in L^1(\mathbb{R}),\int_{-\infty}^{\infty}g(x)\,dx=1$，并记$\alpha=\int_{-\infty}^{0}g(x)\,dx,\beta=\int_{0}^{\infty}g(x)\,dx$。假设$f\in PC(\mathbb{R})$，则当$g(x)$时限或$f(x)$有界时，$f*g(x)$良定义，并且
-    \[\lim_{\lambda\to 0}f*g_\lambda(x)=\alpha f(x+)+\beta f(x-)\]
+    设$g\in L^1(\mathbb{R}),\ \int_{-\infty}^{\infty}g(x)\,\dd x=1$，并记$\alpha=\int_{-\infty}^{0}g(x)\,\dd x,\ \beta=\int_{0}^{\infty}g(x)\,\dd x$。假设$f\in PC(\mathbb{R})$，则当$g(x)$时限或$f(x)$有界时，$f*g(x)$良定义，并且
+    \begin{equation}
+        \lim_{\lambda\to 0}f*g_\lambda(x)=\alpha f(x+)+\beta f(x-).
+    \end{equation}
     特别地，如果$f(x)$在点$x$连续，则有$\lim_{\lambda\to 0}f*g_\lambda(x)=f(x)$；如果$f(x)$在某个闭区间$[a,b]$上连续，则以上极限是一致收敛于$f(x)$的。
 \end{theorem}
 \begin{proof}
     以下证明中，我们需要使用$\epsilon-\delta$语言，暂时不用$\delta$表示狄拉克分布。
-    \begin{align*}
-        f*g_\lambda(x)-\alpha f(x+)-\beta f(x-)=\int_{-\infty}^{0}[f(x-y)-f(x+)]g_\lambda(y)\,dy+\int_{0}^{\infty}[f(x-y)-f(x-)]g_\lambda(y)\,dy
-    \end{align*}
+    \begin{equation}
+        f*g_\lambda(x)-\alpha f(x+)-\beta f(x-)=\int_{-\infty}^{0}[f(x-y)-f(x+)]g_\lambda(y)\,\dd y+\int_{0}^{\infty}[f(x-y)-f(x-)]g_\lambda(y)\,\dd y.
+    \end{equation}
     我们希望证明在$\lambda$充分小时，以上两个积分也充分小。以$\int_{0}^{\infty}$为例，由于$f\in PC(\mathbb{R})$，存在$\delta>0$，使得当$|y|<\delta$时，$|f(x-y)-f(x-)|<\epsilon$。于是
-    \begin{align*}
-        \left|\int_{0}^{\delta}[f(x-y)-f(x-)]g_\lambda(y)\,dy\right|
-        <\epsilon\left|\int_{0}^{\delta}g_\lambda(y)\,dy\right|=\epsilon\left|\int_{0}^{\delta/\lambda}g(y)\,dy\right|\leq\epsilon\int_{0}^{\infty}|g(y)|\,dy
-    \end{align*}
-    我们用剩下的条件估计$\int_{\delta}^{\infty}[f(x-y)-f(x-)]g_\lambda(y)\,dy$。如果$g(x)$时限，设$\supp(g)\subset[-T,T]$，则当$\lambda<\delta/T$时，$$y>\delta/\lambda>T\implies g(y)=0\implies\int_{\delta}^{\infty}[f(x-y)-f(x-)]g_\lambda(y)\,dy=\int_{\delta/\lambda}^{\infty}[f(x-\lambda y)-f(x-)]g(y)\,dy=0$$
+    \begin{equation}
+        \abs{\int_{0}^{\delta}[f(x-y)-f(x-)]g_\lambda(y)\,\dd y}<\epsilon\abs{\int_{0}^{\delta}g_\lambda(y)\,\dd y}=\epsilon\abs{\int_{0}^{\delta/\lambda}g(y)\,\dd y}\leq\epsilon\int_{0}^{\infty}|g(y)|\,\dd y.
+    \end{equation}
+    我们用剩下的条件估计$\int_{\delta}^{\infty}[f(x-y)-f(x-)]g_\lambda(y)\,\dd y$。如果$g(x)$时限，设$\supp(g)\subset[-T,T]$，则当$\lambda<\delta/T$时，
+    \begin{align}
+        y>\delta/\lambda>T\implies g(y)=0&\implies\int_{\delta}^{\infty}[f(x-y)-f(x-)]g_\lambda(y)\,\dd y \nonumber \\
+        &=\int_{\delta/\lambda}^{\infty}[f(x-\lambda y)-f(x-)]g(y)\,\dd y=0.
+    \end{align}
 
     如果$f(x)$有界，设$|f(x)|<M$，则
-    \begin{align*}
-        \left|\int_{\delta}^{\infty}[f(x-y)-f(x-)]g_\lambda(y)\,dy\right| & \leq \int_{\delta}^{\infty}|f(x-y)-f(x-)||g_\lambda(y)|\,dy \\
-                                                                          & \leq 2M\int_{\delta}^{\infty}|g_\lambda(y)|\,dy             \\
-                                                                          & =2M\int_{\delta/\lambda}^{\infty}|g(y)|\,dy
-    \end{align*}
-    $\int_{-\infty}^{\infty}|g(y)|\,dy<\infty$的必要条件是$\int_{\delta/\lambda}^{\infty}|g(y)|\,dy\to 0,\delta/\lambda\to\infty$，因此上式随$\lambda\to 0$趋于0。
+    \begin{align}
+        \abs{\int_{\delta}^{\infty}[f(x-y)-f(x-)]g_\lambda(y)\,\dd y}&\leq \int_{\delta}^{\infty}|f(x-y)-f(x-)||g_\lambda(y)|\,\dd y \nonumber \\
+        &\leq 2M\int_{\delta}^{\infty}|g_\lambda(y)|\,\dd y \nonumber \\
+        &=2M\int_{\delta/\lambda}^{\infty}|g(y)|\,\dd y.
+    \end{align}
+    $\int_{-\infty}^{\infty}|g(y)|\,\dd y<\infty$的必要条件是$\int_{\delta/\lambda}^{\infty}|g(y)|\,\dd y\to 0,\ \delta/\lambda\to\infty$，因此上式随$\lambda\to 0$趋于$0$。
 
     最后，如果$f(x)$在闭区间$[a,b]$上连续，则它在该区间上一致连续，以上证明中的$\delta$与$x$无关，极限是一致收敛的。
 \end{proof}
-一种常用的函数列是高斯函数列，这里取一个积分值为1的特例：
-\[G(x)=\frac{1}{\sqrt{\pi}}\mathrm{e}^{-x^2},\quad G_\lambda(x)=\frac{1}{\lambda\sqrt{\pi}}\mathrm{e}^{-x^2/\lambda^2}\]
-尽管用很多其他函数都可以逼近$\delta$分布，但高斯函数列有一系列非常好的性质：\begin{itemize}
-    \item 高斯函数是偶函数，$\alpha=\beta=\dfrac{1}{2}$；
+一种常用的函数列是高斯函数列，这里取一个积分值为$1$的特例：
+\begin{equation}
+    G(x)=\frac{1}{\sqrt{\pi}}\e^{-x^2},\quad G_\lambda(x)=\frac{1}{\lambda\sqrt{\pi}}\e^{-x^2/\lambda^2}.
+\end{equation}
+尽管用很多其他函数都可以逼近$\delta$分布，但高斯函数列有一系列非常好的性质：
+\begin{itemize}
+    \item 高斯函数是偶函数，$\alpha=\beta=\displaystyle\frac{1}{2}$；
     \item 高斯函数是无限阶可导的。我们知道，卷积能够继承函数的可导性：$f*g'=f'*g=(f*g)'$，使用高斯函数做卷积，所得的函数光滑
-    \item 高斯函数是施瓦兹函数，即$G_\lambda\in \mathcal{S}$
+    \item 高斯函数是施瓦兹函数，即$G_\lambda\in\mathcal{S}(\mathbb{R})$
     \item 高斯函数的傅里叶变换仍是高斯函数，这使得傅里叶变换更容易计算
     \item 高斯函数$G_\lambda\in L^1(\mathbb{R})$并且是有界的，与任意$f\in PC(\mathbb{R})$卷积时，卷积积分良定义且趋向于$f$
 \end{itemize}
 
 作为以上定理的推论，可以得到多项式空间在连续函数空间中的稠密性：
 \begin{theorem}[*魏尔斯特拉斯第一逼近定理]\label{thm:weierstrass_1}
-    设$f\in C([a,b]),-\infty<a<b<\infty$，则$f$是某个多项式序列在$[a,b]$上的一致极限，即：
-    \[\forall \epsilon>0,\exists \text{多项式}P,\quad \sup_{a\leq x\leq b}|f(x)-P(x)|<\epsilon\]
+    设$f\in C([a,b]),\ -\infty<a<b<\infty$，则$f$是某个多项式序列在$[a,b]$上的一致极限，即：
+    \begin{equation}
+        \forall \epsilon>0,\ \exists \text{多项式 } P,\quad \sup_{a\leq x\leq b}|f(x)-P(x)|<\epsilon.
+    \end{equation}
 \end{theorem}
 %在处理分析问题时，类似分段光滑函数可由三角级数一致逼近，将连续函数用多项式一致逼近是一个很强大的工具。
 \begin{proof}
     将$f$做连续延拓，使得
-    $$f\in C(\mathbb{R}),\quad f(x)=0,\quad\forall x\in (-\infty,a-1]\cup[b+1,\infty)$$
-    则$\lim_{\lambda\to 0}f*G_\lambda \rightrightarrows f,\forall x\in[a,b]$，即$f*G_\lambda$在区间$[a,b]$上一致收敛到$f$。具体来说，
-    \[\forall \epsilon>0,\exists \lambda>0,\quad \sup_{a\leq x\leq b}\left|f(x)-\frac{1}{\lambda\sqrt{\pi}}\int_{a-1}^{b+1}\mathrm{e}^{-(x-y)^2/\lambda^2}f(y)\,dy\right|<\frac{\epsilon}{2}\]
-    考虑将右边的积分用多项式近似。我们知道，$\mathrm{e}^{-t^2}$可以展开为泰勒级数，并且在$\mathbb{C}$上内闭一致收敛，即
-    \[\sum_{n=0}^{N}\frac{t^n}{n!}\rightrightarrows \mathrm{e}^{-t^2},\quad N\to\infty\]
+    \begin{equation}
+        f\in C(\mathbb{R}),\quad f(x)=0,\quad\forall x\in (-\infty,a-1]\cup[b+1,\infty),
+    \end{equation}
+    则$\lim_{\lambda\to 0}f*G_\lambda \rightrightarrows f,\ \forall x\in[a,b]$，即$f*G_\lambda$在区间$[a,b]$上一致收敛到$f$。具体来说，
+    \begin{equation}
+        \forall \epsilon>0,\ \exists \lambda>0,\quad \sup_{a\leq x\leq b}\abs{f(x)-\frac{1}{\lambda\sqrt{\pi}}\int_{a-1}^{b+1}\e^{-(x-y)^2/\lambda^2}f(y)\,\dd y}<\frac{\epsilon}{2}.
+    \end{equation}
+    考虑将右边的积分用多项式近似。我们知道，$\e^{-t^2}$可以展开为泰勒级数，并且在$\mathbb{C}$上内闭一致收敛，即
+    \begin{equation}
+        \sum_{n=0}^{N}\frac{t^n}{n!}\rightrightarrows \e^{-t^2},\quad N\to\infty.
+    \end{equation}
     具体来说，取$|f(x)|$的上界$M$（紧支连续函数是一致连续的，必有上界），存在$N$，使得
-    \[\sup_{t\in[a-1,b+1]}\left|\mathrm{e}^{-t^2}-\sum_{n=0}^{N}\frac{(-1)^n t^{2n}}{n!}\right|<\frac{\epsilon\sqrt{\pi}}{2M(b-a+2)}\]
+    \begin{equation}
+        \sup_{t\in[a-1,b+1]}\abs{\e^{-t^2}-\sum_{n=0}^{N}\frac{(-1)^n t^{2n}}{n!}}<\frac{\epsilon\sqrt{\pi}}{2M(b-a+2)},
+    \end{equation}
     于是
-    \[P(x)=\frac{1}{\lambda\sqrt{\pi}}\sum_{0}^{N}\int_{a-1}^{b+1}\frac{(-1)^n (x-y)^{2n}}{\lambda^{2n}n!}f(y)\,dy,\quad \sup_{a\leq x\leq b}\left|f(x)-P(x)\right|<\epsilon\]
+    \begin{equation}
+        P(x)=\frac{1}{\lambda\sqrt{\pi}}\sum_{0}^{N}\int_{a-1}^{b+1}\frac{(-1)^n (x-y)^{2n}}{\lambda^{2n}n!}f(y)\,\dd y,\quad \sup_{a\leq x\leq b}|f(x)-P(x)|<\epsilon.
+    \end{equation}
     我们还可以求出$P$的显式表达式：
-    \[P(x)=\sum_{n=0}^{N}\sum_{k=0}^{2n}c_{kn}x^k,\quad c_{kn}=\frac{(-1)^{k-n}}{\lambda^{2n+1}n!\sqrt{\pi}}\binom{2n}{k}\int_{a-1}^{b+1}y^{2n-k}f(y)\,dy\]
+    \begin{equation}
+        P(x)=\sum_{n=0}^{N}\sum_{k=0}^{2n}c_{kn}x^k,\quad c_{kn}=\frac{(-1)^{k-n}}{\lambda^{2n+1}n!\sqrt{\pi}}\binom{2n}{k}\int_{a-1}^{b+1}y^{2n-k}f(y)\,\dd y.
+    \end{equation}
     使用其他光滑函数列逼近$\delta$分布也可以得到不同的多项式逼近，不过，绝大多数情况下我们并不需要计算出这个表达式，而是直接用多项式的一致逼近来获取函数的性质。
 \end{proof}
 
 进一步，可以得到三角多项式（\cref{def:trinomial}）空间在连续的周期函数空间中的稠密性：
 \begin{corollary}[魏尔斯特拉斯第二逼近定理]\label{cor:weierstrass_2}
     设$f\in C(\mathbb{R})$以$T$为周期，则$f$是某个同周期的三角多项式序列的一致极限，即：
-    \[\forall \epsilon>0,\exists \text{三角多项式}P,\quad \sup_{x}|f(x)-P(x)|<\epsilon\]
+    \begin{equation}
+        \forall \epsilon>0,\ \exists \text{三角多项式 } P,\quad \sup_{x}|f(x)-P(x)|<\epsilon.
+    \end{equation}
 \end{corollary}
 \begin{proof}
-    由于可以对自变量进行伸缩变换，我们不妨设$T=2\pi$，并重点考虑区间$[-\pi,\pi]$.
+    由于可以对自变量进行伸缩变换，我们不妨设$T=2\pi$，并重点考虑区间$[-\pi,\pi]$。
 
     首先，三角多项式的奇分量和偶分量是显式地分离的，这启发我们考虑将$f(t)$也分解为奇分量和偶分量：
-    $$f_\e(t)=\frac{f(t)+f(-t)}{2},\quad f_\text{o}(t)=\frac{f(t)-f(-t)}{2}$$
-    一种直接的想法是，通过变量代换$x=\cos t$和$x=\sin t$，分别将逼近$f_e(\arccos x)$和$f_\text{o}(\arcsin x)$的多项式转化为三角多项式。然而，$\sin(k x),k\in\mathbb{N}$有共同的零点和对称轴：
-    $$\sin(-k\pi)=\sin 0=\sin(k\pi)=0,\quad \sin(k(\pi-x))=\sin(kx)=\sin(k(-\pi-x))$$
+    \begin{equation}
+        f_{\mathrm{e}}(t)=\frac{f(t)+f(-t)}{2},\quad f_{\mathrm{o}}(t)=\frac{f(t)-f(-t)}{2}.
+    \end{equation}
+    一种直接的想法是，通过变量代换$x=\cos t$和$x=\sin t$，分别将逼近$f_{\mathrm{e}}(\arccos x)$和$f_{\mathrm{o}}(\arcsin x)$的多项式转化为三角多项式。然而，$\sin(k x),\ k\in\mathbb{N}$有共同的零点和对称轴：
+    \begin{equation}
+        \sin(-k\pi)=\sin 0=\sin(k\pi)=0,\quad \sin(k(\pi-x))=\sin(kx)=\sin(k(-\pi-x)),
+    \end{equation}
     对于奇分量来说，我们只能保证
-    $$f_\text{o}(-\pi)=f_\text{o}(0)=f_\text{o}(\pi)=0$$
-    而不能保证$f_\text{o}(t)$关于$t=\pm \dfrac{\pi}{2}$轴对称，因此不能单独使用正弦多项式逼近奇分量。
+    \begin{equation}
+        f_{\mathrm{o}}(-\pi)=f_{\mathrm{o}}(0)=f_{\mathrm{o}}(\pi)=0,
+    \end{equation}
+    而不能保证$f_{\mathrm{o}}(t)$关于$t=\pm\displaystyle\frac{\pi}{2}$轴对称，因此不能单独使用正弦多项式逼近奇分量。
 
     考虑以下两个偶函数：
-    $$g(t)=f(t)+f(-t),\quad h(t)=\sin(t)(f(t)-f(-t))$$
+    \begin{equation}
+        g(t)=f(t)+f(-t),\quad h(t)=\sin(t)(f(t)-f(-t)).
+    \end{equation}
     做变量代换$x=\cos t$，利用\cref{thm:weierstrass_1}，有：
-    $$\forall \epsilon>0,\exists\text{多项式}P,Q,\quad \sup_{-1\le x\le 1}|g(\arccos x)-P(x)|<\epsilon,\sup_{-1\le x\le 1}|h(\arccos x)-Q(x)|<\epsilon$$
+    \begin{equation}
+        \forall \epsilon>0,\ \exists \text{多项式 } P,Q,\quad \sup_{-1\leq x\leq 1}|g(\arccos x)-P(x)|<\epsilon,\quad \sup_{-1\leq x\leq 1}|h(\arccos x)-Q(x)|<\epsilon.
+    \end{equation}
     代回变量$t$，$P(\cos t)$和$Q(\cos t)$都是以$2\pi$为周期的偶函数，符合我们的要求。
 
-    我们希望能用三角多项式逼近$f(t)-f(-t)$，也就是说$Q(\cos t)/\sin t$仍为三角多项式，这实际上要求$Q(\cos t)$在$t=0$和$\pm \pi$处，即$x=\pm 1$处有零点。注意到$x=\pm 1$时，有：
-    $$h(\arccos x)=0,\quad |Q(x)-h(\arccos x)|=|Q(x)|<\epsilon$$
+    我们希望能用三角多项式逼近$f(t)-f(-t)$，也就是说$Q(\cos t)/\sin t$仍为三角多项式，这实际上要求$Q(\cos t)$在$t=0$和$\pm\pi$处，即$x=\pm 1$处有零点。注意到$x=\pm 1$时，有：
+    \begin{equation}
+        h(\arccos x)=0,\quad |Q(x)-h(\arccos x)|=|Q(x)|<\epsilon.
+    \end{equation}
     构造修正多项式
-    $$R(x)=Q(x)-Q(1)\frac{1+x}{2}-Q(-1)\frac{1-x}{2}$$
+    \begin{equation}
+        R(x)=Q(x)-Q(1)\frac{1+x}{2}-Q(-1)\frac{1-x}{2}.
+    \end{equation}
     这样，$R(\pm 1)=0$，且
-    \begin{align*}
-        |R(x)-Q(x)| & =\left|Q(1)\frac{1+x}{2}+Q(-1)\frac{1-x}{2}\right| \\
-                    & \le|Q(1)|\frac{|1+x|}{2}+|Q(-1)|\frac{|1-x|}{2}    \\
-                    & \le 2\epsilon,\quad \forall x\in[-1,1]
-    \end{align*}
+    \begin{align}
+        |R(x)-Q(x)|&=\abs{Q(1)\frac{1+x}{2}+Q(-1)\frac{1-x}{2}} \nonumber \\
+        &\leq |Q(1)|\frac{|1+x|}{2}+|Q(-1)|\frac{|1-x|}{2} \nonumber \\
+        &\leq 2\epsilon,\quad \forall x\in[-1,1].
+    \end{align}
     因此
-    $$\sup_{-1\le x\le 1}|R(x)-h(\arccos x)|\le\sup_{-1\le x\le 1}|R(x)-Q(x)|+\sup_{-1\le x\le 1}|Q(x)-h(\arccos x)|\le 3\epsilon$$
+    \begin{equation}
+        \sup_{-1\leq x\leq 1}|R(x)-h(\arccos x)|\leq\sup_{-1\leq x\leq 1}|R(x)-Q(x)|+\sup_{-1\leq x\leq 1}|Q(x)-h(\arccos x)|\leq 3\epsilon.
+    \end{equation}
     由于$R(x)$有零点$\pm 1$，它一定有因式$(1-x)(1+x)=1-x^2$，记$R(x)=R_0(x)(1-x^2)$，则
-    $$R(\cos t)=R_0(\cos t)(1-\cos^2 t)=R_0(\cos t)\sin^2 t$$
+    \begin{equation}
+        R(\cos t)=R_0(\cos t)(1-\cos^2 t)=R_0(\cos t)\sin^2 t.
+    \end{equation}
 
-    最后，我们通过分段估计来说明三角多项式$R_0(\cos t)\sin t$能够一致逼近$F(t)=f(t)-f(-t)$.一方面，由于$F(t)$连续且$F(0)=F(\pi)=0$（根据周期性，$F(-\pi)$处的情况与$F(\pi)$处相同），有
-    $$\forall\eta>0,\exists\delta_1>0,|t|<\delta_1\text{或}|t-\pi|<\delta_1\implies |F(t)|<\frac{\eta}{2}$$
+    最后，我们通过分段估计来说明三角多项式$R_0(\cos t)\sin t$能够一致逼近$F(t)=f(t)-f(-t)$。一方面，由于$F(t)$连续且$F(0)=F(\pi)=0$（根据周期性，$F(-\pi)$处的情况与$F(\pi)$处相同），有
+    \begin{equation}
+        \forall\eta>0,\ \exists\delta_1>0,\quad |t|<\delta_1\ \text{或}\ |t-\pi|<\delta_1\implies |F(t)|<\frac{\eta}{2}.
+    \end{equation}
     取$R_0(\cos t)$的上界$M$，根据$\sin t$的连续性，
-    $$\exists\delta_2>0,|t|<\delta_2\text{或}|t-\pi|<\delta_2\implies|\sin t|<\frac{\eta}{2M}$$
+    \begin{equation}
+        \exists\delta_2>0,\quad |t|<\delta_2\ \text{或}\ |t-\pi|<\delta_2\implies|\sin t|<\frac{\eta}{2M}.
+    \end{equation}
     令$\delta=\min\{\delta_1,\delta_2\}$，则
-    $$|t|<\delta\text{或}|t-\pi|<\delta\implies |F(t)-R_0(\cos t)\sin t|\le|F(t)|+M|\sin t|\le\eta$$
-    另一方面，当$|t|>\delta$且$|t-\pi|>\delta$时，$|sin t|>\sin\delta>0$，因此
-    $$|F(t)\sin t-R_0(\cos t)\sin^2 t|<\epsilon\implies|F(t)-R_0(\cos t)\sin t|<\frac{\epsilon}{\sin\delta}$$
-    只要选取$\epsilon<\eta\sin\delta$，就能保证$\sup_t |F(t)-R_0(\cos t)\sin t|<\eta$.
+    \begin{equation}
+        |t|<\delta\ \text{或}\ |t-\pi|<\delta\implies |F(t)-R_0(\cos t)\sin t|\leq |F(t)|+M|\sin t|\leq\eta.
+    \end{equation}
+    另一方面，当$|t|>\delta$且$|t-\pi|>\delta$时，$|\sin t|>\sin\delta>0$，因此
+    \begin{equation}
+        |F(t)\sin t-R_0(\cos t)\sin^2 t|<\epsilon\implies|F(t)-R_0(\cos t)\sin t|<\frac{\epsilon}{\sin\delta}.
+    \end{equation}
+    只要选取$\epsilon<\eta\sin\delta$，就能保证$\sup_t |F(t)-R_0(\cos t)\sin t|<\eta$。
 \end{proof}
 
 \subsection{黎曼-勒贝格引理}\label{sub:riemman_lebesgue_lemma}
 本小节来补充\refsub{introduction_of_fourier}中提到的\textbf{黎曼-勒贝格引理}的证明。
 \begin{theorem}[黎曼-勒贝格引理]\label{thm:riemann_lebesgue}
-    设$f\in L^1(\mathbb{R})$，则其傅里叶变换$\mathcal{F} f(x)\to 0,x\to\infty$。
+    设$f\in L^1(\mathbb{R})$，则其傅里叶变换$\mathcal{F} f(x)\to 0,\ x\to\infty$。
 \end{theorem}
 我们给出一个基于阶梯函数逼近的证明，尽管现在不需要掌握它，但可以从这个证明体会到分析学中逼近技术的强大威力。
 \begin{proof}
-    首先假设$f$是阶梯函数，即$f(t)=\sum_{k=1}^{n}c_k \chi_{[a_k,b_k]}(t)$，我们知道：\lr{
-    \mathcal{F} \chi_{[a,b]}(\xi)=\int_{a}^{b}\mathrm{e}^{-2\pi \mathrm{i}\xi t}\,dt=\frac{\mathrm{e}^{-2\pi \mathrm{i}\xi a}-\mathrm{e}^{-2\pi \mathrm{i}\xi b}}{2\pi \mathrm{i}\xi}
-    }{
-    \mathcal{F} \chi_{[a,b]}(\omega)=\int_{a}^{b}\mathrm{e}^{-\mathrm{i}\omega t}\,dt=\frac{\mathrm{e}^{-\mathrm{i}\omega a}-\mathrm{e}^{-\mathrm{i}\omega b}}{\mathrm{i}\omega}
-    }
-    分子是两个模值为1的复数相减，分母趋于无穷，故
-    $$\mathcal{F} \chi_{[a,b]}(x)\to 0,\quad x\to\infty$$
+    首先假设$f$是阶梯函数，即$f(t)=\sum_{k=1}^{n}c_k \chi_{[a_k,b_k]}(t)$，我们知道：
+    \begin{lralign}
+        \mathcal{F} \chi_{[a,b]}(\xi)=\int_{a}^{b}\e^{-2\pi\im\xi t}\,\dd t=\frac{\e^{-2\pi\im\xi a}-\e^{-2\pi\im\xi b}}{2\pi\im\xi}
+    \switch
+        \mathcal{F} \chi_{[a,b]}(\omega)=\int_{a}^{b}\e^{-\im\omega t}\,\dd t=\frac{\e^{-\im\omega a}-\e^{-\im\omega b}}{\im\omega}.
+    \end{lralign}
+    分子是两个模值为$1$的复数相减，分母趋于无穷，故
+    \begin{equation}
+        \mathcal{F} \chi_{[a,b]}(x)\to 0,\quad x\to\infty.
+    \end{equation}
     由线性性，得到：
-    $$\mathcal{F} f(x)=\sum_{k=1}^n c_k\mathcal{F}\chi_{[a_k,b_k]}\to 0,\quad x\to\infty$$
+    \begin{equation}
+        \mathcal{F} f(x)=\sum_{k=1}^{n}c_k\mathcal{F}\chi_{[a_k,b_k]}\to 0,\quad x\to\infty.
+    \end{equation}
 
-    设$f\in L^1(\mathbb{R})$，则根据实变函数的理论，存在阶梯函数列$f_n$，使得$\|f-f_n\|_1\to 0,n\to\infty$。我们知道，
-    \[|\mathcal{F} g(x)|\leq \int_{-\infty}^{\infty}|g(t)|\,dt=\|g\|_1<\infty,\quad g\in L^1(\mathbb{R})\]
+    设$f\in L^1(\mathbb{R})$，则根据实变函数的理论，存在阶梯函数列$f_n$，使得$\|f-f_n\|_1\to 0,\ n\to\infty$。我们知道，
+    \begin{equation}
+        |\mathcal{F} g(x)|\leq \int_{-\infty}^{\infty}|g(t)|\,\dd t=\|g\|_1<\infty,\quad g\in L^1(\mathbb{R}),
+    \end{equation}
     因此，
-    \[\sup_{x\in\mathbb{R}}|\mathcal{F} f(x)-\mathcal{F} f_n(x)|\leq \|f-f_n\|_1\to 0,\quad n\to\infty\]
-    即$\mathcal{F} f_n\rightrightarrows\mathcal{F} f,\forall x\in\mathbb{R}$，于是$\mathcal{F} f(x)\to 0,x\to\infty$，得证。
+    \begin{equation}
+        \sup_{x\in\mathbb{R}}|\mathcal{F} f(x)-\mathcal{F} f_n(x)|\leq \|f-f_n\|_1\to 0,\quad n\to\infty,
+    \end{equation}
+    即$\mathcal{F} f_n\rightrightarrows\mathcal{F} f,\ \forall x\in\mathbb{R}$，于是$\mathcal{F} f(x)\to 0,\ x\to\infty$，得证。
 \end{proof}
 
 \subsection{傅里叶反演公式}\label{sub:fourier_inversion}
 \begin{theorem}[傅里叶反演公式]
     \label{thm:fourier_inversion_1}
     设$f\in L^1(\mathbb{R})\cap PC(\mathbb{R})$，则对于任意点$x$，都有
-    \lr{
-    &\frac{f(x+)+f(x-)}{2}\\
-    =&\lim_{\lambda\to 0}\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\,d\xi
-    }{
-    &\frac{f(x+)+f(x-)}{2}\\
-    =&\lim_{\lambda\to 0}\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\mathrm{e}^{-\lambda^2\omega^2/4}\,d\omega
-    }
+    \begin{lralign}
+        \frac{f(x+)+f(x-)}{2}&=\lim_{\lambda\to 0}\int_{-\infty}^{\infty}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\e^{-\pi^2\lambda^2\xi^2}\,\dd\xi
+    \switch
+        \frac{f(x+)+f(x-)}{2}&=\lim_{\lambda\to 0}\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega x}\mathcal{F} f(\omega)\e^{-\lambda^2\omega^2/4}\,\dd\omega,
+    \end{lralign}
     如果还有$\mathcal{F} f(x)\in L^1(\mathbb{R})$，则有
-    \lr{
-    \frac{f(x+)+f(x-)}{2}=\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\,d\xi
-    }{
-    \frac{f(x+)+f(x-)}{2}=\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\,d\omega
-    }
+    \begin{lralign}
+        \frac{f(x+)+f(x-)}{2}&=\int_{-\infty}^{\infty}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\,\dd\xi
+    \switch
+        \frac{f(x+)+f(x-)}{2}&=\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega x}\mathcal{F} f(\omega)\,\dd\omega.
+    \end{lralign}
 \end{theorem}
-我们指出，$\mathcal{S} \subset L^1(\mathbb{R})\cap PC(\mathbb{R})$。
+我们指出，$\mathcal{S}(\mathbb{R})\subset L^1(\mathbb{R})\cap PC(\mathbb{R})$。
 
-要说明傅里叶逆变换的确能够还原出时域函数，一种直接的想法是积分换序，即\lr{
-&\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\,d\xi\\
-=&\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(x)\mathrm{e}^{-2\pi \mathrm{i}\xi x}\,dx\right)\mathrm{e}^{2\pi \mathrm{i}\xi x}\,d\xi
-}{
-&\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\,d\omega\\
-=&\frac{1}{2\pi}\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(x)\mathrm{e}^{-\mathrm{i}\omega x}\,dx\right)\mathrm{e}^{\mathrm{i}\omega x}\,d\omega
-}
-然而，\lr{
-\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi (x-y)}\,d\xi
-}{
-\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega (x-y)}\,d\omega
-}
-两个积分是发散的，无法进行积分换序。我们可以使用“收敛因子”来处理这个问题，从信号处理的角度，这就是\textbf{加窗}(windowing)的手法，见\refsub{window}。这里我们用高斯窗，仍记$G_\lambda(\xi)=\frac{1}{\lambda\sqrt{\pi}}\mathrm{e}^{-\xi^2/\lambda^2}$，有\lr{
-    \mathcal{F} G_\lambda(\xi)=\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}
-}{
-    \mathcal{F} G_\lambda(\omega)=\mathrm{e}^{-\lambda^2 \omega^2/4}
-}
+要说明傅里叶逆变换的确能够还原出时域函数，一种直接的想法是积分换序，即
+\begin{lralign}
+    &\int_{-\infty}^{\infty}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\,\dd\xi\\
+    &=\int_{-\infty}^{\infty}\paren{\int_{-\infty}^{\infty}f(y)\e^{-2\pi\im\xi y}\,\dd y}\e^{2\pi\im\xi x}\,\dd\xi
+\switch
+    &\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega x}\mathcal{F} f(\omega)\,\dd\omega\\
+    &=\frac{1}{2\pi}\int_{-\infty}^{\infty}\paren{\int_{-\infty}^{\infty}f(y)\e^{-\im\omega y}\,\dd y}\e^{\im\omega x}\,\dd\omega.
+\end{lralign}
+然而，
+\begin{lralign}
+    \int_{-\infty}^{\infty}\e^{2\pi\im\xi (x-y)}\,\dd\xi
+\switch
+    \int_{-\infty}^{\infty}\e^{\im\omega (x-y)}\,\dd\omega
+\end{lralign}
+两个积分是发散的，无法进行积分换序。我们可以使用“收敛因子”来处理这个问题，从信号处理的角度，这就是\textbf{加窗}(windowing)的手法，见\refsub{window}。这里我们用高斯窗，仍记$G_\lambda(\xi)=\displaystyle\frac{1}{\lambda\sqrt{\pi}}\e^{-\xi^2/\lambda^2}$，有
+\begin{lralign}
+    \mathcal{F} G_\lambda(\xi)=\e^{-\pi^2\lambda^2\xi^2}
+\switch
+    \mathcal{F} G_\lambda(\omega)=\e^{-\lambda^2\omega^2/4}.
+\end{lralign}
 下面的证明中将用到高斯函数的傅里叶逆变换，但我们可以不依赖于傅里叶反演公式而预先求出它，具体的做法可以参考\cref{exmp:gauss_fourier}中求傅里叶正变换的过程。
 \begin{proof}
     考虑
-    \lr{
-    &\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\mathrm{e}^{-\pi^2\lambda^2 \xi^2}\,d\xi\\
-    =&\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(x)\mathrm{e}^{-2\pi \mathrm{i}\xi x}\,dx\right)\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\,d\xi\\
-    =&\int_{-\infty}^{\infty}f(x)\,dx\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi (x-y)}\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\,d\xi
-    }{
-    &\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\mathrm{e}^{-\lambda^2\omega^2/4}\,d\omega\\
-    =&\frac{1}{2\pi}\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(x)\mathrm{e}^{-\mathrm{i}\omega x}\,dx\right)\mathrm{e}^{\mathrm{i}\omega x}\mathrm{e}^{-\lambda^2\omega^2/4}\,d\omega\\
-    =&\frac{1}{2\pi}\int_{-\infty}^{\infty}f(x)\,dx\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega (x-y)}\mathrm{e}^{-\lambda^2\omega^2/4}\,d\omega
-    }
+    \begin{lralign}
+        &\int_{-\infty}^{\infty}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\e^{-\pi^2\lambda^2\xi^2}\,\dd\xi\\
+        &=\int_{-\infty}^{\infty}\paren{\int_{-\infty}^{\infty}f(y)\e^{-2\pi\im\xi y}\,\dd y}\e^{2\pi\im\xi x}\e^{-\pi^2\lambda^2\xi^2}\,\dd\xi\\
+        &=\int_{-\infty}^{\infty}f(y)\,\dd y\int_{-\infty}^{\infty}\e^{2\pi\im\xi (x-y)}\e^{-\pi^2\lambda^2\xi^2}\,\dd\xi
+    \switch
+        &\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega x}\mathcal{F} f(\omega)\e^{-\lambda^2\omega^2/4}\,\dd\omega\\
+        &=\frac{1}{2\pi}\int_{-\infty}^{\infty}\paren{\int_{-\infty}^{\infty}f(y)\e^{-\im\omega y}\,\dd y}\e^{\im\omega x}\e^{-\lambda^2\omega^2/4}\,\dd\omega\\
+        &=\frac{1}{2\pi}\int_{-\infty}^{\infty}f(y)\,\dd y\int_{-\infty}^{\infty}\e^{\im\omega (x-y)}\e^{-\lambda^2\omega^2/4}\,\dd\omega.
+    \end{lralign}
 
     以上过程利用了高斯函数的速降性质，保证了积分的绝对收敛性，从而可以进行积分换序。内层的积分恰为傅里叶变换：
-    \lr{
-    &\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi (x-y)}\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\,d\xi\\
-    =&\mathcal{F}^{-1}\left[\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\right](x-y)\\
-    =&\frac{1}{\sqrt{\pi}\lambda}\mathrm{e}^{-(x-y)^2/\lambda^2}\\
-    =&G_{\lambda}(x-y)
-    }{
-    &\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega (x-y)}\mathrm{e}^{-\lambda^2\omega^2/4}\,d\omega\\
-    =&\mathcal{F}^{-1}\left[\mathrm{e}^{-\lambda^2\omega^2/4}\right](x-y)\\
-    =&\frac{1}{\sqrt{\pi}\lambda}\mathrm{e}^{-(x-y)^2/\lambda^2}\\
-    =&G_{\lambda}(x-y)
-    }
-    于是我们得到
-    \lr{
-    &\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\,d\xi\\
-    =&\int_{-\infty}^{\infty}f(y)G_{\lambda}(x-y)\,dy\\
-    =&f*G_{\lambda}(x)
-    }{
-    &\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\mathrm{e}^{-\lambda^2\omega^2/4}\,d\omega\\
-    =&\int_{-\infty}^{\infty}f(y)G_{\lambda}(x-y)\,dy\\
-    =&f*G_{\lambda}(x)
-    }
-    我们知道，$\lim_{\lambda\to 0}f*G_{\lambda}(x)=\frac{f(x+)+f(x-)}{2}$，因此
     \begin{lralign}
-        &\lim_{\lambda\to 0}\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\,d\xi\\
-        =&\frac{f(x+)+f(x-)}{2}
-        \switch
-        &\lim_{\lambda\to 0}\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\mathrm{e}^{-\lambda^2\omega^2/4}\,d\omega\\
-        =&\frac{f(x+)+f(x-)}{2}
+        &\int_{-\infty}^{\infty}\e^{2\pi\im\xi (x-y)}\e^{-\pi^2\lambda^2\xi^2}\,\dd\xi\\
+        &=\mathcal{F}^{-1}\sbr{\e^{-\pi^2\lambda^2\xi^2}}(x-y)\\
+        &=\frac{1}{\sqrt{\pi}\lambda}\e^{-(x-y)^2/\lambda^2}\\
+        &=G_{\lambda}(x-y)
+    \switch
+        &\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega (x-y)}\e^{-\lambda^2\omega^2/4}\,\dd\omega\\
+        &=\mathcal{F}^{-1}\sbr{\e^{-\lambda^2\omega^2/4}}(x-y)\\
+        &=\frac{1}{\sqrt{\pi}\lambda}\e^{-(x-y)^2/\lambda^2}\\
+        &=G_{\lambda}(x-y).
     \end{lralign}
-    现在，只需要证明$\lim_{\lambda\to 0}$与积分号可以交换顺序。我们有：\lr{
-    \left|\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\right|\leq & |\mathcal{F} f(\xi)|\in L^1(\mathbb{R})
-    }{
-    \left|\frac{1}{2\pi}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\mathrm{e}^{-\lambda^2\omega^2/4}\right|\leq & \frac{1}{2\pi}|\mathcal{F} f(\omega)|\in L^1(\mathbb{R})
-    }
+    于是我们得到
+    \begin{lralign}
+        &\int_{-\infty}^{\infty}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\e^{-\pi^2\lambda^2\xi^2}\,\dd\xi\\
+        &=\int_{-\infty}^{\infty}f(y)G_{\lambda}(x-y)\,\dd y\\
+        &=f*G_{\lambda}(x)
+    \switch
+        &\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega x}\mathcal{F} f(\omega)\e^{-\lambda^2\omega^2/4}\,\dd\omega\\
+        &=\int_{-\infty}^{\infty}f(y)G_{\lambda}(x-y)\,\dd y\\
+        &=f*G_{\lambda}(x).
+    \end{lralign}
+    我们知道，$\lim_{\lambda\to 0}f*G_{\lambda}(x)=\displaystyle\frac{f(x+)+f(x-)}{2}$，因此
+    \begin{lralign}
+        \lim_{\lambda\to 0}\int_{-\infty}^{\infty}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\e^{-\pi^2\lambda^2\xi^2}\,\dd\xi&=\frac{f(x+)+f(x-)}{2}
+    \switch
+        \lim_{\lambda\to 0}\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega x}\mathcal{F} f(\omega)\e^{-\lambda^2\omega^2/4}\,\dd\omega&=\frac{f(x+)+f(x-)}{2}.
+    \end{lralign}
+    现在，只需要证明$\lim_{\lambda\to 0}$与积分号可以交换顺序。我们有：
+    \begin{lralign}
+        \abs{\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\e^{-\pi^2\lambda^2\xi^2}}&\leq |\mathcal{F} f(\xi)|\in L^1(\mathbb{R})
+    \switch
+        \abs{\frac{1}{2\pi}\e^{\im\omega x}\mathcal{F} f(\omega)\e^{-\lambda^2\omega^2/4}}&\leq \frac{1}{2\pi}|\mathcal{F} f(\omega)|\in L^1(\mathbb{R}),
+    \end{lralign}
     因此可以使用控制收敛定理，得到
-    \lr{
-    &\frac{f(x+)+f(x-)}{2}\\
-    =&\lim_{\lambda\to 0}\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\,d\xi\\
-    =&\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\,d\xi
-    }{
-    &\frac{f(x+)+f(x-)}{2}\\
-    =&\lim_{\lambda\to 0}\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\mathrm{e}^{-\lambda^2\omega^2/4}\,d\omega\\
-    =&\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\,d\omega
-    }
+    \begin{lralign}
+        \frac{f(x+)+f(x-)}{2}&=\lim_{\lambda\to 0}\int_{-\infty}^{\infty}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\e^{-\pi^2\lambda^2\xi^2}\,\dd\xi\\
+        &=\int_{-\infty}^{\infty}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\,\dd\xi
+    \switch
+        \frac{f(x+)+f(x-)}{2}&=\lim_{\lambda\to 0}\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega x}\mathcal{F} f(\omega)\e^{-\lambda^2\omega^2/4}\,\dd\omega\\
+        &=\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega x}\mathcal{F} f(\omega)\,\dd\omega.
+    \end{lralign}
 \end{proof}
 傅里叶反演公式还有一些其他的表述。例如，如果我们将窗函数换为矩形窗，则可得到：
 \begin{theorem}[傅里叶反演公式]
     \label{thm:fourier_inversion}
     设$f\in L^1(\mathbb{R})\cap PS(\mathbb{R})$，则对于任意点$x$，都有
-    \lr{
-    &\frac{f(x+)+f(x-)}{2}\\
-    =&\lim_{R\to \infty}\int_{-R}^{R}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\,d\xi
-    }{
-    &\frac{f(x+)+f(x-)}{2}\\
-    =&\lim_{R\to \infty}\frac{1}{2\pi}\int_{-R}^{R}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\,d\omega
-    }
+    \begin{lralign}
+        \frac{f(x+)+f(x-)}{2}&=\lim_{R\to\infty}\int_{-R}^{R}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\,\dd\xi
+    \switch
+        \frac{f(x+)+f(x-)}{2}&=\lim_{R\to\infty}\frac{1}{2\pi}\int_{-R}^{R}\e^{\im\omega x}\mathcal{F} f(\omega)\,\dd\omega.
+    \end{lralign}
 \end{theorem}
 等式右侧的积分与反常积分是有区别的，无穷限的反常积分要求积分上下限以二重极限的方式趋于无穷，而这里给出的是\textbf{主值意义下的积分}，即
-\[\int_{-\infty}^{\infty}f(x)\,dx=\lim_{a\to-\infty,b\to\infty}\int_{a}^{b}f(x)\,dx\neq \lim_{R\to\infty}\int_{-R}^{R}f(x)\,dx=\mathrm{p.v.}\int_{-\infty}^{\infty}f(x)\,dx\]
+\begin{equation}
+    \int_{-\infty}^{\infty}f(x)\,\dd x=\lim_{a\to-\infty,\ b\to\infty}\int_{a}^{b}f(x)\,\dd x\neq \lim_{R\to\infty}\int_{-R}^{R}f(x)\,\dd x=\pv\int_{-\infty}^{\infty}f(x)\,\dd x.
+\end{equation}
 \begin{example}
-    设$f(x)=x$，则$\int_{-\infty}^{\infty}f(x)\,dx$发散，但$\mathrm{p.v.}\int_{-\infty}^{\infty}f(x)\,dx=0$
+    设$f(x)=x$，则$\int_{-\infty}^{\infty}f(x)\,\dd x$发散，但$\pv\int_{-\infty}^{\infty}f(x)\,\dd x=0$。
 \end{example}
 \begin{proof}
-    我们有\lr{
-    \int_{-R}^{R}\mathrm{e}^{2\pi \mathrm{i}\xi x}\,d\xi=&\frac{\mathrm{e}^{2\pi \mathrm{i} R x}-\mathrm{e}^{-2\pi \mathrm{i} R x}}{2\pi \mathrm{i} x}\\
-    =&\frac{\sin(2\pi R x)}{\pi x}
-    }{
-    \frac{1}{2\pi}\int_{-R}^{R}\mathrm{e}^{\mathrm{i}\omega x}\,d\omega=&\frac{\mathrm{e}^{\mathrm{i} R x}-\mathrm{e}^{-\mathrm{i} R x}}{2\mathrm{i} x}\\
-    =&\frac{\sin(R x)}{\pi x}
-    }
+    我们有
+    \begin{lralign}
+        \int_{-R}^{R}\e^{2\pi\im\xi x}\,\dd\xi&=\frac{\e^{2\pi\im R x}-\e^{-2\pi\im R x}}{2\pi\im x}\\
+        &=\frac{\sin(2\pi R x)}{\pi x}
+    \switch
+        \frac{1}{2\pi}\int_{-R}^{R}\e^{\im\omega x}\,\dd\omega&=\frac{\e^{\im R x}-\e^{-\im R x}}{2\im x}\\
+        &=\frac{\sin(R x)}{\pi x},
+    \end{lralign}
     以及\cref{thm:dirichlet_int}：
-    \[\int_{-\infty}^{0}\frac{\sin(ax)}{\pi x}\,dx=\int_{0}^{\infty}\frac{\sin(ax)}{\pi x}\,dx=\frac{1}{2}\]
+    \begin{equation}
+        \int_{-\infty}^{0}\frac{\sin(ax)}{\pi x}\,\dd x=\int_{0}^{\infty}\frac{\sin(ax)}{\pi x}\,\dd x=\frac{1}{2}.
+    \end{equation}
     因此
     \begin{lralign}
-        &\int_{-R}^{R}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\,d\xi\\
-        =&\int_{-\infty}^{\infty}f(y)\,dy\int_{-R}^{R}\mathrm{e}^{2\pi \mathrm{i}\xi (x-y)}\,d\xi\\
-        =&\int_{-\infty}^{\infty}f(y)\frac{\sin(2\pi R (x-y))}{\pi (x-y)}\,dy\\
-        =&f*\left(\frac{\sin(2\pi R x)}{\pi x}\right)
-        \switch
-        &\frac{1}{2\pi}\int_{-R}^{R}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\,d\omega\\
-        =&\int_{-\infty}^{\infty}f(y)\,dy\frac{1}{2\pi}\int_{-R}^{R}\mathrm{e}^{\mathrm{i}\omega (x-y)}\,d\omega\\
-        =&\int_{-\infty}^{\infty}f(y)\frac{\sin(R (x-y))}{\pi (x-y)}\,dy\\
-        =&f*\left(\frac{\sin(R x)}{\pi x}\right)
+        \int_{-R}^{R}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\,\dd\xi&=\int_{-\infty}^{\infty}f(y)\,\dd y\int_{-R}^{R}\e^{2\pi\im\xi (x-y)}\,\dd\xi\\
+        &=\int_{-\infty}^{\infty}f(y)\frac{\sin(2\pi R (x-y))}{\pi (x-y)}\,\dd y\\
+        &=f*\paren{\frac{\sin(2\pi R x)}{\pi x}}
+    \switch
+        \frac{1}{2\pi}\int_{-R}^{R}\e^{\im\omega x}\mathcal{F} f(\omega)\,\dd\omega&=\int_{-\infty}^{\infty}f(y)\,\dd y\frac{1}{2\pi}\int_{-R}^{R}\e^{\im\omega (x-y)}\,\dd\omega\\
+        &=\int_{-\infty}^{\infty}f(y)\frac{\sin(R (x-y))}{\pi (x-y)}\,\dd y\\
+        &=f*\paren{\frac{\sin(R x)}{\pi x}}.
     \end{lralign}
-    但是，由于$\mathrm{sinc}\notin L^1(\mathbb{R})$，无法保证$\lim_{R\to \infty} f(x)*\mathrm{sinc}(R x)=f(x)$，因此需要条件$f\in L^1(\mathbb{R})\cup PS(\mathbb{R})$，做更细致的估计：
-    \lr{
-    &\int_{-R}^{R}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\,d\xi-\frac{f(x+)+f(x-)}{2}\\
-    =&\int_{-\infty}^{\infty}f(y)\frac{\sin(2\pi R (x-y))}{\pi (x-y)}\,dy-\frac{f(x+)+f(x-)}{2}\\
-    =&\int_{-\infty}^{\infty}f(x-y)\frac{\sin(2\pi R y)}{\pi y}\,dy-\frac{f(x+)+f(x-)}{2}\\
-    =&\int_{-\infty}^{0}[f(x-y)-f(x+)]\frac{\sin(2\pi R y)}{\pi y}\,dy\\
-    &+\int_{0}^{\infty}[f(x-y)-f(x-)]\frac{\sin(2\pi R y)}{\pi y}\,dy
-    }{
-    &\frac{1}{2\pi}\int_{-R}^{R}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\,d\omega-\frac{f(x+)+f(x-)}{2}\\
-    =&\int_{-\infty}^{\infty}f(y)\frac{\sin(R (x-y))}{\pi (x-y)}\,dy-\frac{f(x+)+f(x-)}{2}\\
-    =&\int_{-\infty}^{\infty}f(x-y)\frac{\sin(R y)}{\pi y}\,dy-\frac{f(x+)+f(x-)}{2}\\
-    =&\int_{-\infty}^{0}[f(x-y)-f(x+)]\frac{\sin(R y)}{\pi y}\,dy\\
-    &+\int_{0}^{\infty}[f(x-y)-f(x-)]\frac{\sin(R y)}{\pi y}\,dy
-    }
-    我们需要证明当$R\to\infty$时，以上两个积分都趋于0。以$\int_{0}^{\infty}$为例，仍然考虑分段估计：$\int_{0}^{\infty}=\int_{0}^{K}+\int_{K}^{\infty}$，取$K\geq 1$，有
-    \lr{
-        &\left|\int_{K}^{\infty}\frac{\sin(2\pi Ry)}{\pi y}f(x-y)\,dy\right|\\
-        \leq & \int_{K}^{\infty}\left|\frac{\sin(2\pi Ry)}{\pi y}\right| |f(x-y)|\,dy\\
-        \leq & \int_{K}^{\infty}|f(x-y)|\,dy\\
-        &\int_{K}^{\infty}\frac{\sin(2\pi Ry)}{\pi y}f(x-)\,dy\\
-        = & f(x-)\int_{RK}^{\infty}\frac{\sin(2\pi Ry)}{\pi y}\,dy
-    }{
-        &\left|\int_{K}^{\infty}\frac{\sin(R y)}{\pi y}f(x-y)\,dy\right|\\
-        \leq & \int_{K}^{\infty}\left|\frac{\sin(R y)}{\pi y}\right| |f(x-y)|\,dy\\
-        \leq & \int_{K}^{\infty}|f(x-y)|\,dy\\
-        &\int_{K}^{\infty}\frac{\sin(R y)}{\pi y}f(x-)\,dy\\
-        = & f(x-)\int_{RK}^{\infty}\frac{\sin(R y)}{\pi y}\,dy
-    }
-    取$K$充分大，则以上两积分都是收敛的无穷限积分的尾部，从而是趋于0的。
+    但是，由于$\sinc\notin L^1(\mathbb{R})$，无法保证$\lim_{R\to\infty}f(x)*\sinc(R x)=f(x)$，因此需要条件$f\in L^1(\mathbb{R})\cap PS(\mathbb{R})$，做更细致的估计：
+    \begin{lralign}
+        &\int_{-R}^{R}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\,\dd\xi-\frac{f(x+)+f(x-)}{2}\\
+        &=\int_{-\infty}^{\infty}f(y)\frac{\sin(2\pi R (x-y))}{\pi (x-y)}\,\dd y-\frac{f(x+)+f(x-)}{2}\\
+        &=\int_{-\infty}^{\infty}f(x-y)\frac{\sin(2\pi R y)}{\pi y}\,\dd y-\frac{f(x+)+f(x-)}{2}\\
+        &=\int_{-\infty}^{0}[f(x-y)-f(x+)]\frac{\sin(2\pi R y)}{\pi y}\,\dd y\\
+        &\quad+\int_{0}^{\infty}[f(x-y)-f(x-)]\frac{\sin(2\pi R y)}{\pi y}\,\dd y
+    \switch
+        &\frac{1}{2\pi}\int_{-R}^{R}\e^{\im\omega x}\mathcal{F} f(\omega)\,\dd\omega-\frac{f(x+)+f(x-)}{2}\\
+        &=\int_{-\infty}^{\infty}f(y)\frac{\sin(R (x-y))}{\pi (x-y)}\,\dd y-\frac{f(x+)+f(x-)}{2}\\
+        &=\int_{-\infty}^{\infty}f(x-y)\frac{\sin(R y)}{\pi y}\,\dd y-\frac{f(x+)+f(x-)}{2}\\
+        &=\int_{-\infty}^{0}[f(x-y)-f(x+)]\frac{\sin(R y)}{\pi y}\,\dd y\\
+        &\quad+\int_{0}^{\infty}[f(x-y)-f(x-)]\frac{\sin(R y)}{\pi y}\,\dd y.
+    \end{lralign}
+    我们需要证明当$R\to\infty$时，以上两个积分都趋于$0$。以$\int_{0}^{\infty}$为例，仍然考虑分段估计：$\int_{0}^{\infty}=\int_{0}^{K}+\int_{K}^{\infty}$，取$K\geq 1$，有
+    \begin{lralign}
+        \abs{\int_{K}^{\infty}\frac{\sin(2\pi Ry)}{\pi y}f(x-y)\,\dd y}&\leq \int_{K}^{\infty}\abs{\frac{\sin(2\pi Ry)}{\pi y}}|f(x-y)|\,\dd y\\
+        &\leq \int_{K}^{\infty}|f(x-y)|\,\dd y
+    \switch
+        \abs{\int_{K}^{\infty}\frac{\sin(R y)}{\pi y}f(x-y)\,\dd y}&\leq \int_{K}^{\infty}\abs{\frac{\sin(R y)}{\pi y}}|f(x-y)|\,\dd y\\
+        &\leq \int_{K}^{\infty}|f(x-y)|\,\dd y,
+    \end{lralign}
+    与
+    \begin{lralign}
+        \int_{K}^{\infty}\frac{\sin(2\pi Ry)}{\pi y}f(x-)\,\dd y&=f(x-)\int_{RK}^{\infty}\frac{\sin(2\pi Ry)}{\pi y}\,\dd y
+    \switch
+        \int_{K}^{\infty}\frac{\sin(R y)}{\pi y}f(x-)\,\dd y&=f(x-)\int_{RK}^{\infty}\frac{\sin(R y)}{\pi y}\,\dd y.
+    \end{lralign}
+    取$K$充分大，则以上两积分都是收敛的无穷限积分的尾部，从而是趋于$0$的。
 
-    对于$\int_{0}^{K}$部分，定义\begin{align*}
-        g(y)=\begin{cases}
-                 \dfrac{f(x-y)-f(x-)}{\pi y}, & y\in [0,K]         \\
-                 0,                           & \mathrm{otherwise}
-             \end{cases}
-    \end{align*}
-    则\begin{lralign}
-        &\int_{0}^{K}[f(x-y)-f(x-)]\frac{\sin(2\pi R y)}{\pi y}\,dy\\
-        &=\int_{0}^{K}g(y)\frac{\mathrm{e}^{2\pi \mathrm{i} Ry}-\mathrm{e}^{-2\pi \im R y}}{2\mathrm{i}}\,dy\\
-        &=\frac{1}{2\mathrm{i}}[\mathcal{F} g(-R)-\mathcal{F} g(R)]
-        \switch
-        &\int_{0}^{K}[f(x-y)-f(x-)]\frac{\sin(R y)}{\pi y}\,dy\\
-        &=\int_{0}^{K}g(y)\frac{\mathrm{e}^{\mathrm{i} R y}-\mathrm{e}^{-\mathrm{i} R y}}{2\mathrm{i}}\,dy\\
-        &=\frac{1}{2\mathrm{i}}[\mathcal{F} g(-R)-\mathcal{F} g(R)]
+    对于$\int_{0}^{K}$部分，定义
+    \begin{equation}
+        g(y)=\begin{dcases}
+            \frac{f(x-y)-f(x-)}{\pi y}, & y\in[0,K], \\
+            0,                          & \otherwise,
+        \end{dcases}
+    \end{equation}
+    则
+    \begin{lralign}
+        &\int_{0}^{K}[f(x-y)-f(x-)]\frac{\sin(2\pi R y)}{\pi y}\,\dd y\\
+        &=\int_{0}^{K}g(y)\frac{\e^{2\pi\im Ry}-\e^{-2\pi\im R y}}{2\im}\,\dd y\\
+        &=\frac{1}{2\im}\sbr{\mathcal{F} g(-R)-\mathcal{F} g(R)}
+    \switch
+        &\int_{0}^{K}[f(x-y)-f(x-)]\frac{\sin(R y)}{\pi y}\,\dd y\\
+        &=\int_{0}^{K}g(y)\frac{\e^{\im R y}-\e^{-\im R y}}{2\im}\,\dd y\\
+        &=\frac{1}{2\im}\sbr{\mathcal{F} g(-R)-\mathcal{F} g(R)}.
     \end{lralign}
-    由于$f\in PS(\mathbb{R}),g\in PC(\mathbb{R}^*),g(0+)=f'(x-)$，有$g\in L^1(\mathbb{R})$，根据黎曼-勒贝格引理（\cref{thm:riemann_lebesgue}），$\mathcal{F} g(\pm R)\to 0,R\to\infty$，故$$\int_{0}^{K}[f(x-y)-f(x-)]\dfrac{\sin(R y)}{\pi y}\,dy\to 0,\quad R\to\infty$$
+    由于$f\in PS(\mathbb{R}),\ g\in PC(\mathbb{R}^*),\ g(0+)=f'(x-)$，有$g\in L^1(\mathbb{R})$，根据黎曼-勒贝格引理（\cref{thm:riemann_lebesgue}），$\mathcal{F} g(\pm R)\to 0,\ R\to\infty$，故
+    \begin{equation}
+        \int_{0}^{K}[f(x-y)-f(x-)]\frac{\sin(R y)}{\pi y}\,\dd y\to 0,\quad R\to\infty,
+    \end{equation}
     得证。
 \end{proof}
 
 此外，还有一种类似的的傅里叶反演公式，我们仅仅给出其表述\cite{folland}：
 \begin{claim}[傅里叶反演公式]
     设$f\in L^1(\mathbb{R})$，则
-    \lr{
-    &\frac{f(x+)+f(x-)}{2}\\
-    =&\lim_{\lambda\to 0}\int_{-\infty}^{\infty}\mathrm{e}^{2\pi \mathrm{i}\xi x}\mathcal{F} f(\xi)\mathrm{e}^{-\pi^2 \lambda^2 \xi^2}\,d\xi,\quad\mathrm{a.e.}
-    }{
-    &\frac{f(x+)+f(x-)}{2}\\
-    =&\lim_{\lambda\to 0}\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathrm{e}^{\mathrm{i}\omega x}\mathcal{F} f(\omega)\mathrm{e}^{-\lambda^2\omega^2/4}\,d\omega,\quad\mathrm{a.e.}
-    }
+    \begin{lralign}
+        \frac{f(x+)+f(x-)}{2}&=\lim_{\lambda\to 0}\int_{-\infty}^{\infty}\e^{2\pi\im\xi x}\mathcal{F} f(\xi)\e^{-\pi^2\lambda^2\xi^2}\,\dd\xi,\quad\aee
+    \switch
+        \frac{f(x+)+f(x-)}{2}&=\lim_{\lambda\to 0}\frac{1}{2\pi}\int_{-\infty}^{\infty}\e^{\im\omega x}\mathcal{F} f(\omega)\e^{-\lambda^2\omega^2/4}\,\dd\omega,\quad\aee.
+    \end{lralign}
 \end{claim}

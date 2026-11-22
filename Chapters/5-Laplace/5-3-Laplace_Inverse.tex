@@ -4,125 +4,162 @@
 
 \begin{definition}[收敛横坐标]
     \textbf{收敛横坐标}(abscissa of convergence)为使得拉普拉斯积分
-    $$\mathcal{L} f(s)=\int_{0}^{\infty}f(t)\mathrm{e}^{-st}\,dt$$
-    最大收敛域的收敛轴实部（横坐标）$\sigma_c$，使得$\mathcal{L} f(s)$恰好在$\mathrm{Re}(s)>\sigma_c$上收敛，而在$\mathrm{Re}(s)<\sigma_c$上发散，即
-    \[\sigma_c=\inf\left\{a\in\mathbb{R}\left|\int_0^\infty f(t)\mathrm{e}^{-st}\,dt\text{在}\mathrm{Re}(s)>a\text{上收敛}\right.\right\}\]
-    将$\mathrm{Re}(s)>\sigma_c$称为拉普拉斯变换的\textbf{收敛域}(Region of Convergence, ROC)，直线$\mathrm{Re}(s)=\sigma_c$称为\textbf{收敛轴}。
+    \begin{equation}
+        \mathcal{L}f(s)=\int_{0}^{\infty}f(t)\e^{-st}\,\dd t
+    \end{equation}
+    最大收敛域的收敛轴实部（横坐标）$\sigma_c$，使得$\mathcal{L}f(s)$恰好在$\Re(s)>\sigma_c$上收敛，而在$\Re(s)<\sigma_c$上发散，即
+    \begin{equation}
+        \sigma_c=\inf\braces{a\in\mathbb{R}\;\middle|\;\int_0^\infty f(t)\e^{-st}\,\dd t\text{在}\Re(s)>a\text{上收敛}}.
+    \end{equation}
+    将$\Re(s)>\sigma_c$称为拉普拉斯变换的\textbf{收敛域}(Region of Convergence, ROC)，直线$\Re(s)=\sigma_c$称为\textbf{收敛轴}。
 \end{definition}
 
 我们将在下一节给出收敛横坐标的求法与直观。
 
-单边拉普拉斯变换的收敛域为右半平面，因此总能找到一条直线$\mathrm{Re}(s)=b$位于$\mathcal{L} f(s)$的收敛域内，$\mathcal{L} f(s)$在这条直线上的限制就是傅里叶变换。令$\tilde{f}(t)=f(t)\mathrm{e}^{-\sigma t}$，从而将傅里叶反演公式推广到单边拉普拉斯反演公式：
+单边拉普拉斯变换的收敛域为右半平面，因此总能找到一条直线$\Re(s)=b$位于$\mathcal{L}f(s)$的收敛域内，$\mathcal{L}f(s)$在这条直线上的限制就是傅里叶变换。令$\tilde{f}(t)=f(t)\e^{-\sigma t}$，从而将傅里叶反演公式推广到单边拉普拉斯反演公式：
 \begin{theorem}[单边拉普拉斯反演公式]
     \label{thm:laplace_inversion}
-    设$f\in\mathcal{E}\cap PS[0,\infty) $，则
-    \[f(t)=\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b-\mathrm{i}r}^{b +\mathrm{i}r}\mathcal{L} f(s)\mathrm{e}^{st}\,ds\]
-    其中$b\in\mathbb{R}$使得直线$\mathrm{Re}(s)=b$位于$\mathcal{L} f(s)$的收敛域内。
+    设$f\in\mathcal{E}\cap PS[0,\infty)$，则
+    \begin{equation}
+        f(t)=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}\mathcal{L}f(s)\e^{st}\,\dd s,
+    \end{equation}
+    其中$b\in\mathbb{R}$使得直线$\Re(s)=b$位于$\mathcal{L}f(s)$的收敛域内。
 \end{theorem}
 \begin{proof}
-    令$\tilde{f}(t)=f(t)\mathrm{e}^{-b t}$，有：
-    \begin{align*}
-        \frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b-\mathrm{i}r}^{b +\mathrm{i}r}\mathcal{L} f(s)\mathrm{e}^{st}\,ds&=\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{-\mathrm{i}r}^{\mathrm{i}r}\mathcal{L} f(b +\mathrm{i}\omega)\mathrm{e}^{(b +\mathrm{i}\omega)t}\mathrm{i}\,d\omega\\
-        &=\frac{\mathrm{e}^{b t}}{2\pi}\lim_{r\to\infty}\int_{-r}^{r}\mathcal{F} \tilde{f}(\omega)\mathrm{e}^{\mathrm{i}\omega t}\,d\omega\\
-        &=\mathrm{e}^{b t}\tilde{f}(t)\\
-        &=f(t)
-    \end{align*}
+    令$\tilde{f}(t)=f(t)\e^{-bt}$，有：
+    \begin{align}
+        \frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}\mathcal{L}f(s)\e^{st}\,\dd s&=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{-\im r}^{\im r}\mathcal{L}f(b+\im\omega)\e^{(b+\im\omega)t}\im\,\dd\omega\nonumber\\
+        &=\frac{\e^{bt}}{2\pi}\lim_{r\to\infty}\int_{-r}^{r}\mathcal{F}\tilde{f}(\omega)\e^{\im\omega t}\,\dd\omega\nonumber\\
+        &=\e^{bt}\tilde{f}(t)\nonumber\\
+        &=f(t).
+    \end{align}
 \end{proof}
 \begin{remark}
     严格来说，我们只能得到
-    \[\frac{f(t-)+f(t+)}{2}=\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b-\mathrm{i}r}^{b +\mathrm{i}r}\mathcal{L} f(s)\mathrm{e}^{st}\,ds\]
-    不过，我们仍不关心不连续点处的值，并且常常将其定义为左右极限的算术平均值，因此后文中将直接使用上面的结论。要求分段光滑是为了保证傅里叶反演公式成立（\cref{thm:fourier_inversion}）。读者也可参考其他版本的傅里叶反演公式来替换对$f$和$\mathcal{L} f$的要求，从而得到不同版本的单边拉普拉斯反演公式。
+    \begin{equation}
+        \frac{f(t-)+f(t+)}{2}=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}\mathcal{L}f(s)\e^{st}\,\dd s,
+    \end{equation}
+    不过，我们仍不关心不连续点处的值，并且常常将其定义为左右极限的算术平均值，因此后文中将直接使用上面的结论。要求分段光滑是为了保证傅里叶反演公式成立（\cref{thm:fourier_inversion}）。读者也可参考其他版本的傅里叶反演公式来替换对$f$和$\mathcal{L}f$的要求，从而得到不同版本的单边拉普拉斯反演公式。
 \end{remark}
 \begin{remark}
-    这里的积分\[\lim_{r\to\infty}\int_{b-\mathrm{i}r}^{b +\mathrm{i}r}\mathcal{L} f(s)\mathrm{e}^{st}\,ds\]
-    应该理解为沿着复平面上的直线$\mathrm{Re}(z)=b$从$b-\mathrm{i}\infty$到$b+\mathrm{i}\infty$的复线积分，它往往是难以直接计算的。但是，由于全纯函数的路径无关性，我们也可以选择其他路径，甚至可以添加一些路径，再使用留数定理计算单边拉普拉斯逆变换，见本节后续的讨论。
+    这里的积分
+    \begin{equation}
+        \lim_{r\to\infty}\int_{b-\im r}^{b+\im r}\mathcal{L}f(s)\e^{st}\,\dd s
+    \end{equation}
+    应该理解为沿着复平面上的直线$\Re(z)=b$从$b-\im\infty$到$b+\im\infty$的复线积分，它往往是难以直接计算的。但是，由于全纯函数的路径无关性，我们也可以选择其他路径，甚至可以添加一些路径，再使用留数定理计算单边拉普拉斯逆变换，见本节后续的讨论。
 \end{remark}
 
-通过这个定理可以看出，单边拉普拉斯逆变换一定能还原出$f(t)$（在不考虑间断点函数值的意义下），因此单边拉普拉斯变换是双射，记号$f\xleftrightarrow{ \mathcal{L} } F(s)$是合理的。
+通过这个定理可以看出，单边拉普拉斯逆变换一定能还原出$f(t)$（在不考虑间断点函数值的意义下），因此单边拉普拉斯变换是双射，记号$f\xleftrightarrow{\mathcal{L}}F(s)$是合理的。
 
-但是，以上证明已经假定了$F(s)=\mathcal{L} f(s)$是某个函数$f\in\mathcal{E} $的单边拉普拉斯变换。一般地，假设有一个在右半平面$\mathrm{Re}(s)>a$上全纯的函数$F(s)$，我们需要考虑它是否是某个函数的单边拉普拉斯变换，以及$F(s)=\mathcal{L}f(s)$时，如何求出$f(t)$.为此，我们给出以下定理\cite{distribution}：
+但是，以上证明已经假定了$F(s)=\mathcal{L}f(s)$是某个函数$f\in\mathcal{E}$的单边拉普拉斯变换。一般地，假设有一个在右半平面$\Re(s)>a$上全纯的函数$F(s)$，我们需要考虑它是否是某个函数的单边拉普拉斯变换，以及$F(s)=\mathcal{L}f(s)$时，如何求出$f(t)$。为此，我们给出以下定理\cite{distribution}：
 \begin{theorem}[*单边拉普拉斯反演公式]
     \label{thm:laplace_inversion_1}
-    设$F(s)$在$\mathrm{Re}(s)>a$上全纯，且满足：
-    \[|F(s)|\leq C|s|^{-\alpha},\quad \alpha>1,\forall \mathrm{Re}(s)>a\]
+    设$F(s)$在$\Re(s)>a$上全纯，且满足：
+    \begin{equation}
+        \abs{F(s)}\leq C\abs{s}^{-\alpha},\quad \alpha>1,\ \forall\Re(s)>a,
+    \end{equation}
     则$\forall b>a$，函数
-    \[f(t)=\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b-\mathrm{i}r}^{b +\mathrm{i}r}F(s)\mathrm{e}^{st}\,ds\]
-    属于$\mathcal{E} $，且$F(s)=\mathcal{L} f(s),\forall \mathrm{Re}(s)>a$.
+    \begin{equation}
+        f(t)=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}F(s)\e^{st}\,\dd s
+    \end{equation}
+    属于$\mathcal{E}$，且$F(s)=\mathcal{L}f(s),\quad \forall\Re(s)>a$。
 \end{theorem}
 \begin{remark}
-    这里的条件$\alpha>1$保证了$F(b+\mathrm{i}\omega)\in L^1(\mathbb{R})$（作为$\omega$的函数），尽管$b=0$时，
-    $$|s|^{-\alpha}=\dfrac{1}{|b+\mathrm{i}\omega|^{\alpha}}=\frac{1}{\omega^{\alpha}}\notin L^1(\mathbb{R})$$
-    这是因为$F$是全纯函数，在$\omega=0$处不会出现奇点。换言之，我们给出了$F$“尾部”的估计。事实上，$\alpha>\dfrac{1}{2}$即可保证定理成立，但这样证明会非常复杂，可以参考\cite{folland}。
+    这里的条件$\alpha>1$保证了$F(b+\im\omega)\in L^1(\mathbb{R})$（作为$\omega$的函数），尽管$b=0$时，
+    \begin{equation}
+        \abs{s}^{-\alpha}=\frac{1}{\abs{b+\im\omega}^{\alpha}}=\frac{1}{\omega^{\alpha}}\notin L^1(\mathbb{R}),
+    \end{equation}
+    这是因为$F$是全纯函数，在$\omega=0$处不会出现奇点。换言之，我们给出了$F$“尾部”的估计。事实上，$\displaystyle\alpha>\frac{1}{2}$即可保证定理成立，但这样证明会非常复杂，可以参考\cite{folland}。
 \end{remark}
 \begin{proof}
-    首先，我们证明由积分$\dfrac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b-\mathrm{i}r}^{b +\mathrm{i}r}F(s)\mathrm{e}^{st}\,ds$定义的函数$f(t)$是良定义的。一方面，由于$|F(s)|\leq C|s|^{-\alpha}$，有
-    \[\left|\lim_{r\to\infty}\int_{b -\mathrm{i}r}^{b +\mathrm{i}r}F(s)\mathrm{e}^{st}\,ds\right|=\left|\int_{-\infty}^{\infty}F(b+\mathrm{i}\omega)\mathrm{e}^{(b+\mathrm{i}\omega)t}\mathrm{i}\,d\omega\right|\leq \mathrm{e}^{b t}\int_{-\infty}^{\infty}|F(b+\mathrm{i}\omega)|\,d\omega<\infty\]
+    首先，我们证明由积分$\displaystyle\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}F(s)\e^{st}\,\dd s$定义的函数$f(t)$是良定义的。一方面，由于$\abs{F(s)}\leq C\abs{s}^{-\alpha}$，有
+    \begin{equation}
+        \abs{\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}F(s)\e^{st}\,\dd s}=\abs{\int_{-\infty}^{\infty}F(b+\im\omega)\e^{(b+\im\omega)t}\im\,\dd\omega}\leq\e^{bt}\int_{-\infty}^{\infty}\abs{F(b+\im\omega)}\,\dd\omega<\infty.
+    \end{equation}
 
-    另一方面，我们验证$$f_b(t)=\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b-\mathrm{i}r}^{b +\mathrm{i}r}F(s)\mathrm{e}^{st}\,ds$$与$b$无关。设$b_1,b_2>a$，选择以$b_1\pm \mathrm{i}r,b_2\pm \mathrm{i}r$为顶点的矩形围道$C_r$，则由于$|F(s)|\leq C|s|^{-\alpha}$，矩形顶边、底边的积分趋于0，而$F(s)$在$\mathrm{Re}(s)>a$上全纯，由柯西积分定理知$\int_{C_r}F(s)\mathrm{e}^{st}\,ds=0$，因此$f_{b_1}(t)=f_{b_2}(t)$.
+    另一方面，我们验证
+    \begin{equation}
+        f_b(t)=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}F(s)\e^{st}\,\dd s
+    \end{equation}
+    与$b$无关。设$b_1,b_2>a$，选择以$b_1\pm\im r,\ b_2\pm\im r$为顶点的矩形围道$C_r$，则由于$\abs{F(s)}\leq C\abs{s}^{-\alpha}$，矩形顶边、底边的积分趋于$0$，而$F(s)$在$\Re(s)>a$上全纯，由柯西积分定理知$\int_{C_r}F(s)\e^{st}\,\dd s=0$，因此$f_{b_1}(t)=f_{b_2}(t)$。
 
-    注意到以上证明并不依赖于$t$的取值，极限过程$\lim_{r\to\infty}$对$t\in\mathbb{R}$是内闭一致收敛的，因此可以由被积函数$F(s)\mathrm{e}^{st}$的连续性推出$f(t)$的连续性。
+    注意到以上证明并不依赖于$t$的取值，极限过程$\lim_{r\to\infty}$对$t\in\mathbb{R}$是内闭一致收敛的，因此可以由被积函数$F(s)\e^{st}$的连续性推出$f(t)$的连续性。
 
-    接下来，我们证明$f(t)\in\mathcal{E} $.一方面，$f$是因果的：$\forall t<0$，取$b>0$，并取围道如图5.1：
-        \begin{figure}[H]
+    接下来，我们证明$f(t)\in\mathcal{E}$。一方面，$f$是因果的：$\forall t<0$，取$b>0$，并取围道如图5.1：
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{contour2}
         \caption{拉普拉斯逆变换的围道}
     \end{figure}
-    其中$\gamma_1$为$b+\mathrm{i}r$到$b -\mathrm{i}r$的直线段，$\gamma_2$为以原点为圆心，$b -\mathrm{i}r$到$b+\mathrm{i}r$的圆弧，半径$R=\sqrt{b^2+r^2}$。由柯西积分定理，有
-    \[\int_{\gamma_1+\gamma_2}F(s)\mathrm{e}^{st}\,ds=0\]
+    其中$\gamma_1$为$b+\im r$到$b-\im r$的直线段，$\gamma_2$为以原点为圆心，$b-\im r$到$b+\im r$的圆弧，半径$R=\sqrt{b^2+r^2}$。由柯西积分定理，有
+    \begin{equation}
+        \int_{\gamma_1+\gamma_2}F(s)\e^{st}\,\dd s=0.
+    \end{equation}
     对$\gamma_2$，有
-    \[\left|\int_{\gamma_2}F(s)\mathrm{e}^{st}\,ds\right|\leq \int_{\gamma_2}|F(s)||\mathrm{e}^{st}|\,|ds|\leq C\int_{\gamma_2}|s|^{-\alpha}\mathrm{e}^{b t}\,|ds|\leq C|R|^{-\alpha}\cdot \pi R\to 0,\quad r\to\infty\]
-    
-    因此$$f(t)=\dfrac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{\gamma_1}F(s)\mathrm{e}^{st}\,ds=0,\quad t<0$$
+    \begin{align}
+        \abs{\int_{\gamma_2}F(s)\e^{st}\,\dd s}&\leq \int_{\gamma_2}\abs{F(s)}\abs{\e^{st}}\,\abs{\dd s}\nonumber\\
+        &\leq C\int_{\gamma_2}\abs{s}^{-\alpha}\e^{bt}\,\abs{\dd s}\leq C\abs{R}^{-\alpha}\cdot\pi R\to 0,\quad r\to\infty,
+    \end{align}
+    因此
+    \begin{equation}
+        f(t)=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{\gamma_1}F(s)\e^{st}\,\dd s=0,\quad t<0.
+    \end{equation}
 
     另一方面，取$b>a$，有
-    \begin{align*}
-        |f(t)|=\left|\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b -ir}^{b +ir}F(s)\mathrm{e}^{st}\,ds\right|\leq \frac{\mathrm{e}^{b t}}{2\pi}\int_{-\infty}^{\infty}|F(b+\mathrm{i}\omega)|\,d\omega=k \mathrm{e}^{b t},\quad k\text{为常数}
-    \end{align*}
+    \begin{align}
+        \abs{f(t)}&=\abs{\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}F(s)\e^{st}\,\dd s}\nonumber\\
+        &\leq \frac{\e^{bt}}{2\pi}\int_{-\infty}^{\infty}\abs{F(b+\im\omega)}\,\dd\omega=k\e^{bt},\quad k\text{为常数}.
+    \end{align}
 
-    又因为我们已经证明了$f$的连续性，所以$f\in\mathcal{E} $。
+    又因为我们已经证明了$f$的连续性，所以$f\in\mathcal{E}$。
 
     最后，我们证明
-    $$F(s)=\mathcal{L} f(s),\quad \forall \mathrm{Re}(s)>a$$
-    上一步中，$\forall b>a$，我们都能找到常数$k$使得$|f(t)|\leq k \mathrm{e}^{b t}$，因此可以取$b'\in(a,b)$，使得$|f(t)\mathrm{e}^{-bt}|\leq k'\mathrm{e}^{(b'-b)t}$，从而$f(t)\mathrm{e}^{-bt}\in L^1(\mathbb{R})$。根据$f$的定义，有
-    \begin{align*}
-        f(t)\mathrm{e}^{-b t}=\frac{1}{2\pi}\lim_{r\to\infty}\int_{-r}^{r}F(b+\mathrm{i}\omega)\mathrm{e}^{\mathrm{i}\omega t}\,d\omega
-        =\mathcal{F}^{-1} [F(b+\mathrm{i}\omega)](t)
-    \end{align*}
-    我们已经证明过$f$连续和$F(b+\mathrm{i}\omega)\in L^1(\mathbb{R})$，因此可以使用傅里叶反演公式（\cref{thm:fourier_inversion_1}），得到
-    \begin{align*}
-        F(b+\mathrm{i}\omega)&=\mathcal{F} [f(t)\mathrm{e}^{-b t}](\omega)\\
-        &=\int_{-\infty}^{\infty}f(t)\mathrm{e}^{-b t}\mathrm{e}^{-\mathrm{i}\omega t}\,dt\\
-        &=\int_{0}^{\infty}f(t)\mathrm{e}^{-(b+\mathrm{i}\omega) t}\,dt\\
-        &=\mathcal{L} f(b+\mathrm{i}\omega)
-    \end{align*}
+    \begin{equation}
+        F(s)=\mathcal{L}f(s),\quad \forall\Re(s)>a.
+    \end{equation}
+    上一步中，$\forall b>a$，我们都能找到常数$k$使得$\abs{f(t)}\leq k\e^{bt}$，因此可以取$b'\in(a,b)$，使得$\abs{f(t)\e^{-bt}}\leq k'\e^{(b'-b)t}$，从而$f(t)\e^{-bt}\in L^1(\mathbb{R})$。根据$f$的定义，有
+    \begin{align}
+        f(t)\e^{-bt}&=\frac{1}{2\pi}\lim_{r\to\infty}\int_{-r}^{r}F(b+\im\omega)\e^{\im\omega t}\,\dd\omega\nonumber\\
+        &=\mathcal{F}^{-1}[F(b+\im\omega)](t).
+    \end{align}
+    我们已经证明过$f$连续和$F(b+\im\omega)\in L^1(\mathbb{R})$，因此可以使用傅里叶反演公式（\cref{thm:fourier_inversion_1}），得到
+    \begin{align}
+        F(b+\im\omega)&=\mathcal{F}[f(t)\e^{-bt}](\omega)\nonumber\\
+        &=\int_{-\infty}^{\infty}f(t)\e^{-bt}\e^{-\im\omega t}\,\dd t\nonumber\\
+        &=\int_{0}^{\infty}f(t)\e^{-(b+\im\omega)t}\,\dd t\nonumber\\
+        &=\mathcal{L}f(b+\im\omega).
+    \end{align}
 \end{proof}
 
 \subsection{真分式函数的拉普拉斯逆变换}\label{sub:frac_laplace_inverse}
 \begin{example}[真分式函数]
-    我们知道，真分式函数的拉普拉斯逆变换是指数多项式的线性组合。这里给出一个例子：设$F(s)=\dfrac{2s+5}{s^2+3s+2}$，则
-    \begin{align*}
-        F(s)&=\frac{2s+5}{(s+1)(s+2)}\\
-        &=\frac{3}{s+1}-\frac{1}{s+2}
-    \end{align*}
+    我们知道，真分式函数的拉普拉斯逆变换是指数多项式的线性组合。这里给出一个例子：设$\displaystyle F(s)=\frac{2s+5}{s^2+3s+2}$，则
+    \begin{align}
+        F(s)&=\frac{2s+5}{(s+1)(s+2)}\nonumber\\
+        &=\frac{3}{s+1}-\frac{1}{s+2},
+    \end{align}
     因此
-    \[\mathcal{L}^{-1} F(s)=(3\mathrm{e}^{-t}-\mathrm{e}^{-2t})u(t)\]
+    \begin{equation}
+        \mathcal{L}^{-1}F(s)=(3\e^{-t}-\e^{-2t})u(t).
+    \end{equation}
 \end{example}
 
 一般地，真分式函数可以通过部分分式展开法来计算拉普拉斯逆变换。根据代数基本定理，任意多项式在复数域上必有根，并且实系数多项式的非实根成共轭复数对出现，因此多项式可以分解为若干个一次因式的乘积，如果在实数范围内做因式分解，则共轭复根对应的一次因式可以合并为一个二次因式。进一步，任意真分式函数都可以表示为若干个部分分式的和\cite{zorich}\cite{xinjiang}：
 \begin{theorem}[部分分式展开定理]
-    设\begin{align*}
-    F(s)=\frac{P(s)}{Q(s)}=\frac{P(s)}{(s-r_1)^{m_1}\cdots (s-r_k)^{m_k}(s^2+a_1 s+b_1)^{n_1}\cdots (s^2+a_l s+b_l)^{n_l}}
-    \end{align*}
-其中$\deg P<\deg Q$，$r_i(i=1,2,\cdots,k)$为$Q(s)$的实根，$s^2+a_1 s+b_1,\cdots,s^2+a_l s+b_l$为$Q(s)$的不可约二次因式，$\{m_i\}_{i=1}^k,\{n_j\}_{j=1}^l$为常数，则$F(s)$可以展开为部分分式的和：
-\begin{align*}
-    F(s)=&\frac{A_{11}}{s-r_1}+\frac{A_{12}}{(s-r_1)^2}+\cdots +\frac{A_{1m_1}}{(s-r_1)^{m_1}}\\
-    &+\cdots \\
-    &+\frac{A_{k1}}{s-r_k}+\frac{A_{k2}}{(s-r_k)^2}+\cdots +\frac{A_{km_k}}{(s-r_k)^{m_k}}\\
-    &+\frac{B_{11}s+C_{11}}{s^2+a_1 s+b_1}+\frac{B_{12}s+C_{12}}{(s^2+a_1 s+b_1)^2}+\cdots +\frac{B_{1n_1}s+C_{1n_1}}{(s^2+a_1 s+b_1)^{n_1}}\\
-    &+\cdots \\
-    &+\frac{B_{l1}s+C_{l1}}{s^2+a_l s+b_l}+\frac{B_{l2}s+C_{l2}}{(s^2+a_l s+b_l)^2}+\cdots +\frac{B_{ln_l}s+C_{ln_l}}{(s^2+a_l s+b_l)^{n_l}}
-\end{align*}
+    设
+    \begin{align}
+        F(s)&=\frac{P(s)}{Q(s)}\nonumber\\
+        &=\frac{P(s)}{(s-r_1)^{m_1}\cdots (s-r_k)^{m_k}(s^2+a_1 s+b_1)^{n_1}\cdots (s^2+a_l s+b_l)^{n_l}},
+    \end{align}
+    其中$\deg P<\deg Q$，$r_i\ (i=1,2,\cdots,k)$为$Q(s)$的实根，$s^2+a_1 s+b_1,\cdots,s^2+a_l s+b_l$为$Q(s)$的不可约二次因式，$\{m_i\}_{i=1}^k,\{n_j\}_{j=1}^l$为常数，则$F(s)$可以展开为部分分式的和：
+    \begin{align}
+        F(s)&=\frac{A_{11}}{s-r_1}+\frac{A_{12}}{(s-r_1)^2}+\cdots +\frac{A_{1m_1}}{(s-r_1)^{m_1}}\nonumber\\
+        &\quad+\cdots\nonumber\\
+        &\quad+\frac{A_{k1}}{s-r_k}+\frac{A_{k2}}{(s-r_k)^2}+\cdots +\frac{A_{km_k}}{(s-r_k)^{m_k}}\nonumber\\
+        &\quad+\frac{B_{11}s+C_{11}}{s^2+a_1 s+b_1}+\frac{B_{12}s+C_{12}}{(s^2+a_1 s+b_1)^2}+\cdots +\frac{B_{1n_1}s+C_{1n_1}}{(s^2+a_1 s+b_1)^{n_1}}\nonumber\\
+        &\quad+\cdots\nonumber\\
+        &\quad+\frac{B_{l1}s+C_{l1}}{s^2+a_l s+b_l}+\frac{B_{l2}s+C_{l2}}{(s^2+a_l s+b_l)^2}+\cdots +\frac{B_{ln_l}s+C_{ln_l}}{(s^2+a_l s+b_l)^{n_l}}.
+    \end{align}
 \end{theorem}
 这个命题表明，分母多项式中，一次因式的若干次幂在分解式中对应其各幂次的线性组合，而二次因式在分解式中其分子为一次多项式。
 
@@ -132,271 +169,321 @@
 
 按照以上命题给出的展开式形式设未知数，将展开式通分，然后与原式的分子比较系数，得到一个线性方程组，解出各未知数即可。
 \begin{example}
-    设\[F(s)=\frac{2s+5}{s^2+3s+2}\]
+    设
+    \begin{equation}
+        F(s)=\frac{2s+5}{s^2+3s+2},
+    \end{equation}
     则
-    \begin{align*}
-        F(s)&=\frac{A}{s+1}+\frac{B}{s+2}\\
-        &=\frac{A(s+2)+B(s+1)}{(s+1)(s+2)}\\
-        &=\frac{(A+B)s+(2A+B)}{(s+1)(s+2)}
-    \end{align*}
+    \begin{align}
+        F(s)&=\frac{A}{s+1}+\frac{B}{s+2}\nonumber\\
+        &=\frac{A(s+2)+B(s+1)}{(s+1)(s+2)}\nonumber\\
+        &=\frac{(A+B)s+(2A+B)}{(s+1)(s+2)}.
+    \end{align}
     比较系数，有
-    \[\begin{cases}
-        A+B=2\\
-        2A+B=5
-    \end{cases}\implies \begin{cases}
-        A=3\\
-        B=-1
-    \end{cases}\]
-    因此\[F(s)=\frac{3}{s+1}-\frac{1}{s+2}\]
+    \begin{equation}
+        \begin{dcases}
+            A+B=2,\\
+            2A+B=5
+        \end{dcases}\implies\begin{dcases}
+            A=3,\\
+            B=-1,
+        \end{dcases}
+    \end{equation}
+    因此
+    \begin{equation}
+        F(s)=\frac{3}{s+1}-\frac{1}{s+2}.
+    \end{equation}
 \end{example}
 
 \noindent \textbf{法二：取极限法}（又称为赫维赛德掩盖法）
 
-按照以上命题给出的展开式形式设待求常数为未知数，\begin{itemize}
+按照以上命题给出的展开式形式设待求常数为未知数，
+\begin{itemize}
     \item 对于一次因式最高次幂$(s-r)^m$的系数，将等式两边同时乘以$(s-r)^m$，然后令$s\to r$，即可解出最高次幂的系数；
     \item 对于一次因式次高次幂的系数，将等式两边同时乘以$(s-r)^{m-1}$，然后对$s$求导，再令$s\to r$，即可解出次高次幂的系数；也可以先约去已经求出的最高次幂项，再乘以$(s-r)^{m-1}$并令$s\to r$，依此类推；
     \item 二次因式的处理类似，因为可以在复数范围内做因式分解（也可以对比正余弦函数的拉普拉斯变换，配平方得到二次不可约因式的拉普拉斯逆变换，但这样做远不如留数定理方便）。
 \end{itemize}
 
 \begin{example}\label{exmp:partial_fraction}
-    设\[F(s)=\frac{1}{(s+1)^2(s+2)(s^2+1)}\]
+    设
+    \begin{equation}
+        F(s)=\frac{1}{(s+1)^2(s+2)(s^2+1)},
+    \end{equation}
     则
-    \begin{align*}
-        F(s)&=\frac{A_1}{s+1}+\frac{A_2}{(s+1)^2}+\frac{B}{s+2}+\frac{C s+D}{s^2+1}
-    \end{align*}
+    \begin{equation}
+        F(s)=\frac{A_1}{s+1}+\frac{A_2}{(s+1)^2}+\frac{B}{s+2}+\frac{Cs+D}{s^2+1}.
+    \end{equation}
     两边同时乘以$(s+1)^2$，令$s=-1$，得到
-    \[A_2=\frac{1}{(-1+2)(-1^2+1)}=1\]
+    \begin{equation}
+        A_2=\frac{1}{(-1+2)(-1^2+1)}=1.
+    \end{equation}
     同理$B=1/3$。约去$1/(s+1)^2$项后，两边同时乘以$(s+1)$，令$s=-1$，有
-    \[A_1=\lim_{s\to -1}(s+1)\left[F(s)-\frac{1}{(s+1)^2}\right]=\lim_{s\to -1}\frac{(s+1)^2}{(s+2)(s^2+1)}=\frac{1}{2}\]
-    两边同时乘以$(s^2+1)$，令$s=\mathrm{i}$，有
-    \[C \mathrm{i}+D=\lim_{s\to i}(s-\mathrm{i})F(s)=\lim_{s\to \im}\frac{(s-\mathrm{i})}{(s+1)^2(s+2)(s^2+1)}=-\frac{\mathrm{i}}{5}\]
-    令$s=-\mathrm{i}$，有
-    \[-C \mathrm{i}+D=\lim_{s\to -i}(s+\mathrm{i})F(s)=\lim_{s\to -\im}\frac{(s+\mathrm{i})}{(s+1)^2(s+2)(s^2+1)}=\frac{\mathrm{i}}{5}\]
-    解得$C=-1/5,D=0$，因此
-    \[F(s)=\frac{1}{2(s+1)}+\frac{1}{(s+1)^2}+\frac{1}{3(s+2)}-\frac{s}{5(s^2+1)}\]
+    \begin{equation}
+        A_1=\lim_{s\to -1}(s+1)\sbr{F(s)-\frac{1}{(s+1)^2}}=\lim_{s\to -1}\frac{(s+1)^2}{(s+2)(s^2+1)}=\frac{1}{2}.
+    \end{equation}
+    两边同时乘以$(s^2+1)$，令$s=\im$，有
+    \begin{equation}
+        C\im+D=\lim_{s\to\im}(s-\im)F(s)=\lim_{s\to\im}\frac{(s-\im)}{(s+1)^2(s+2)(s^2+1)}=-\frac{\im}{5}.
+    \end{equation}
+    令$s=-\im$，有
+    \begin{equation}
+        -C\im+D=\lim_{s\to-\im}(s+\im)F(s)=\lim_{s\to-\im}\frac{(s+\im)}{(s+1)^2(s+2)(s^2+1)}=\frac{\im}{5}.
+    \end{equation}
+    解得$C=-1/5,\ D=0$，因此
+    \begin{equation}
+        F(s)=\frac{1}{2(s+1)}+\frac{1}{(s+1)^2}+\frac{1}{3(s+2)}-\frac{s}{5(s^2+1)}.
+    \end{equation}
 \end{example}
 
 进行部分分式展开后，真分式函数就化为若干个分母为一次因式、二次因式的分式函数之和，这样，容易通过指数多项式和三角函数的拉普拉斯变换公式，以及拉普拉斯变换的时移性质计算出拉普拉斯逆变换。下面给出一个例子：
 \begin{example}[部分分式展开法求拉普拉斯逆变换]
-    设\[F(s)=\frac{1}{(s+1)^2(s+2)(s^2+1)}\]
+    设
+    \begin{equation}
+        F(s)=\frac{1}{(s+1)^2(s+2)(s^2+1)}.
+    \end{equation}
     在上例中，我们已经得到：
-    \[F(s)=\frac{1}{2(s+1)}+\frac{1}{(s+1)^2}+\frac{1}{3(s+2)}-\frac{s}{5(s^2+1)}\]
+    \begin{equation}
+        F(s)=\frac{1}{2(s+1)}+\frac{1}{(s+1)^2}+\frac{1}{3(s+2)}-\frac{s}{5(s^2+1)},
+    \end{equation}
     因此
-    \[f(t)=\mathcal{L}^{-1}F(s)=\left(\frac{1}{2}\mathrm{e}^{-t}+t\e^{-t}+\frac{1}{3}\mathrm{e}^{-2t}-\frac{1}{5}\cos t\right)u(t)\]
+    \begin{equation}
+        f(t)=\mathcal{L}^{-1}F(s)=\paren{\frac{1}{2}\e^{-t}+t\e^{-t}+\frac{1}{3}\e^{-2t}-\frac{1}{5}\cos t}u(t).
+    \end{equation}
 \end{example}
 
 一般来说，我们无法通过原函数计算复线积分来求解单边拉普拉斯逆变换，而部分分式展开法的计算量比较大。下面介绍使用留数定理计算单边拉普拉斯逆变换的方法。尽管将单边拉普拉斯逆变换转化为留数的计算需要相当繁琐的准备工作，但我们将看到，这个流程是适用于所有真分式函数的，因此留数定理是求解单边拉普拉斯逆变换的有力工具。
 
-我们选择由$b\pm \mathrm{i}r,-r\pm \mathrm{i}r$组成的矩形围道$\Gamma_r$，其中$b>0$需保证$F(s)$在$\mathrm{Re}(s)>b$上全纯（因此在$r\to\infty$时\textbf{极点全部位于围道$\Gamma_r$内}），如\reffig{laplace_inv}(a)：
+我们选择由$b\pm\im r,\ -r\pm\im r$组成的矩形围道$\Gamma_r$，其中$b>0$需保证$F(s)$在$\Re(s)>b$上全纯（因此在$r\to\infty$时\textbf{极点全部位于围道$\Gamma_r$内}），如\reffig{laplace_inv}(a)：
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{contour}
     \caption{拉普拉斯逆变换的围道}\label{fig:laplace_inv}
 \end{figure}
 \begin{example}[真分式函数，留数定理方法]
-    设\[F(s)=\frac{2s+5}{s^2+3s+2}\]
-    $\Gamma_r$为\reffig{laplace_inv}(a)所示的矩形围道，$b>0$，从$b-\mathrm{i}r$到$b+\mathrm{i}r$的路径对应单边拉普拉斯逆变换。我们来论证当$r\to\infty$时，另三条路径上的积分趋于0，从而
-    \begin{align*}
-        f(t)&=\mathcal{L}^{-1} F(s)\\
-        &=\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b -\mathrm{i}r}^{b +\mathrm{i}r}F(s)\mathrm{e}^{st}\,ds\\
-        &=\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\oint_{\Gamma_r}F(s)\mathrm{e}^{st}\,ds
-    \end{align*}
+    设
+    \begin{equation}
+        F(s)=\frac{2s+5}{s^2+3s+2},
+    \end{equation}
+    $\Gamma_r$为\reffig{laplace_inv}(a)所示的矩形围道，$b>0$，从$b-\im r$到$b+\im r$的路径对应单边拉普拉斯逆变换。我们来论证当$r\to\infty$时，另三条路径上的积分趋于$0$，从而
+    \begin{align}
+        f(t)&=\mathcal{L}^{-1}F(s)\nonumber\\
+        &=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}F(s)\e^{st}\,\dd s\nonumber\\
+        &=\frac{1}{2\pi\im}\lim_{r\to\infty}\oint_{\Gamma_r}F(s)\e^{st}\,\dd s.
+    \end{align}
 
     当$t>0$时，对于矩形的上边（下边同理），有
-    \begin{align*}
-        &\left|\int_{\mathrm{top}}F(s)\mathrm{e}^{st}\,ds\right|\\
-        \leq&\int_{-r}^{b}\left|F(x+\mathrm{i}r)\mathrm{e}^{x+\mathrm{i}r}\mathrm{i}\right|\,dx\\
-        \leq& \sup_{x\leq b}\left|F(x+\mathrm{i}r)\right|\int_{-\infty}^{b}\mathrm{e}^{xt}\,dx\\
-        \leq& \frac{\mathrm{e}^{bt}}{t}\sup_{x\leq b}\left|F(x+\mathrm{i}r)\right|
-    \end{align*}
-    真分式函数必然满足$|F(x+\mathrm{i}r)|\to 0,|r|\to\infty$，因此上边的积分趋于0。对于矩形的左边，$|\mathrm{e}^{st}|=\mathrm{e}^{-rt}$，被积函数以指数函数的速度衰减至0，积分当然趋于0。
+    \begin{align}
+        \abs{\int_{\mathrm{top}}F(s)\e^{st}\,\dd s}
+        &\leq\int_{-r}^{b}\abs{F(x+\im r)\e^{x+\im r}\im}\,\dd x\nonumber\\
+        &\leq\sup_{x\leq b}\abs{F(x+\im r)}\int_{-\infty}^{b}\e^{xt}\,\dd x\nonumber\\
+        &\leq\frac{\e^{bt}}{t}\sup_{x\leq b}\abs{F(x+\im r)}.
+    \end{align}
+    真分式函数必然满足$\abs{F(x+\im r)}\to 0,\ \abs{r}\to\infty$，因此上边的积分趋于$0$。对于矩形的左边，$\abs{\e^{st}}=\e^{-rt}$，被积函数以指数函数的速度衰减至$0$，积分当然趋于$0$。
 
-    当$t<0$时，可以考虑\reffig{laplace_inv}(b)中的围道。我们说明右边三条路径的积分都将随着$r\to\infty$趋于$0$，而这个围道内是没有极点的，这样能就说明$f(t)=0,\forall t<0$.
+    当$t<0$时，可以考虑\reffig{laplace_inv}(b)中的围道。我们说明右边三条路径的积分都将随着$r\to\infty$趋于$0$，而这个围道内是没有极点的，这样能就说明$f(t)=0,\quad \forall t<0$。
 
-    对于矩形的上边（下边同理），有\begin{align*}
-        &\left|\int_{\mathrm{top}}F(s)\mathrm{e}^{st}\,ds\right|\\
-        \leq&\int_{b}^{r}\left|F(x+\mathrm{i}r)\mathrm{e}^{x+\mathrm{i}r}\mathrm{i}\right|\,dx\\
-        \leq& \sup_{x\geq b}\left|F(x+\mathrm{i}r)\right|\int_{b}^{\infty}\mathrm{e}^{xt}\,dx\\
-        \leq& -\frac{\mathrm{e}^{bt}}{t}\sup_{x\geq b}\left|F(x+\mathrm{i}r)\right|
-    \end{align*}
-    再次利用$|F(x+\mathrm{i}r)|\to 0,|r|\to\infty$即证。对于矩形的右边，$|\mathrm{e}^{st}|=\mathrm{e}^{rt}$，被积函数以指数函数的速度衰减至0，积分当然趋于0。
-    
+    对于矩形的上边（下边同理），有
+    \begin{align}
+        \abs{\int_{\mathrm{top}}F(s)\e^{st}\,\dd s}
+        &\leq\int_{b}^{r}\abs{F(x+\im r)\e^{x+\im r}\im}\,\dd x\nonumber\\
+        &\leq\sup_{x\geq b}\abs{F(x+\im r)}\int_{b}^{\infty}\e^{xt}\,\dd x\nonumber\\
+        &\leq-\frac{\e^{bt}}{t}\sup_{x\geq b}\abs{F(x+\im r)}.
+    \end{align}
+    再次利用$\abs{F(x+\im r)}\to 0,\ \abs{r}\to\infty$即证。对于矩形的右边，$\abs{\e^{st}}=\e^{rt}$，被积函数以指数函数的速度衰减至$0$，积分当然趋于$0$。
+
     综上，单边拉普拉斯逆变换的计算归结于计算复线积分
-    \[\frac{u(t)}{2\pi \mathrm{i}}\lim_{r\to\infty}\oint_{\Gamma_r}F(s)\mathrm{e}^{st}\,ds\]
+    \begin{equation}
+        \frac{u(t)}{2\pi\im}\lim_{r\to\infty}\oint_{\Gamma_r}F(s)\e^{st}\,\dd s.
+    \end{equation}
     $F(s)$有两个简单极点$-1,-2$。根据留数定理，有
-    \begin{align*}
-        f(t)&=u(t)\left(\mathrm{Res}\left[\frac{2s+5}{(s+1)(s+2)}\mathrm{e}^{st},-1\right]+\mathrm{Res}\left[\frac{2s+5}{(s+1)(s+2)}\mathrm{e}^{st},-2\right]\right)\\
-        &=u(t)\left(\lim_{s\to -1}\frac{2s+5}{(s+2)}\mathrm{e}^{st}+\lim_{s\to -2}\frac{2s+5}{(s+1)}\mathrm{e}^{st}\right)\\
-        &=u(t)(3\mathrm{e}^{-t}-\mathrm{e}^{-2t})
-    \end{align*}
+    \begin{align}
+        f(t)&=u(t)\paren{\Res\sbr{\frac{2s+5}{(s+1)(s+2)}\e^{st},-1}+\Res\sbr{\frac{2s+5}{(s+1)(s+2)}\e^{st},-2}}\nonumber\\
+        &=u(t)\paren{\lim_{s\to -1}\frac{2s+5}{(s+2)}\e^{st}+\lim_{s\to -2}\frac{2s+5}{(s+1)}\e^{st}}\nonumber\\
+        &=u(t)(3\e^{-t}-\e^{-2t}).
+    \end{align}
 \end{example}
 
 从以上的例子可以看出，对于我们最为关注的真分式函数，留数定理总是能够求解单边拉普拉斯逆变换，这样就能避开计算量很大的部分分式展开。我们将这种方法总结为以下定理：
 \begin{theorem}[真分式函数的单边拉普拉斯逆变换，留数定理方法]
-    设$F(s)$是真分式函数，极点集为$\{s_k\}_{k=1}^{N}$，则其单边拉普拉斯逆变换为$F(s)\mathrm{e}^{st}$在复平面上所有极点的留数之和：
-    \begin{align*}
-        f(t)&=\frac{u(t)}{2\pi \mathrm{i}}\lim_{r\to\infty}\oint_{\Gamma_r}F(s)\mathrm{e}^{st}\,ds\\
-        &=u(t)\sum_{k=1}^{N}\mathrm{Res}[F(s)\mathrm{e}^{st},s_k]
-    \end{align*}
-    其中$\Gamma_r$为\reffig{laplace_inv}(a)中的矩形围道，$b>0$使得直线$\mathrm{Re}(s)=b$位于$F(s)$的收敛域内。
+    设$F(s)$是真分式函数，极点集为$\{s_k\}_{k=1}^{N}$，则其单边拉普拉斯逆变换为$F(s)\e^{st}$在复平面上所有极点的留数之和：
+    \begin{align}
+        f(t)&=\frac{u(t)}{2\pi\im}\lim_{r\to\infty}\oint_{\Gamma_r}F(s)\e^{st}\,\dd s\nonumber\\
+        &=u(t)\sum_{k=1}^{N}\Res\sbr{F(s)\e^{st},s_k},
+    \end{align}
+    其中$\Gamma_r$为\reffig{laplace_inv}(a)中的矩形围道，$b>0$使得直线$\Re(s)=b$位于$F(s)$的收敛域内。
 \end{theorem}
 
 这一定理的证明方法已经在上面的例子中展示了。
 
 \begin{example}
     设
-    $$F(s) = \dfrac{1}{(s+1)^3(s+2)}$$
+    \begin{equation}
+        F(s)=\frac{1}{(s+1)^3(s+2)},
+    \end{equation}
     则
-    \[
-    f(t) = u(t)\left(\operatorname{Res}\left[F(s)\e^{st}, -1\right] + \operatorname{Res}\!\left[F(s)\e^{st}, -2\right]\right)
-    \]
+    \begin{equation}
+        f(t)=u(t)\paren{\Res\sbr{F(s)\e^{st},-1}+\Res\sbr{F(s)\e^{st},-2}}.
+    \end{equation}
 
-    极点 $s=-2$ 处的留数为：
-    \begin{align*}
-    &\operatorname{Res}\left[\frac{\e^{st}}{(s+1)^3(s+2)}, -2\right] \\
-    = &\lim_{s\to -2}\frac{\e^{st}}{(s+1)^3} \\
-    = &\frac{\e^{-2t}}{(-2+1)^3} \\
-    =& -\e^{-2t}
-    \end{align*}
+    极点$s=-2$处的留数为：
+    \begin{align}
+        \Res\sbr{\frac{\e^{st}}{(s+1)^3(s+2)},-2}
+        &=\lim_{s\to -2}\frac{\e^{st}}{(s+1)^3}\nonumber\\
+        &=\frac{\e^{-2t}}{(-2+1)^3}\nonumber\\
+        &=-\e^{-2t}.
+    \end{align}
 
-    极点 $s=-1$ 处的留数为：
-    \begin{align*}
-    &\operatorname{Res}\left[\frac{\e^{st}}{(s+1)^3(s+2)},\; -1\right]\\
-    =& \frac{1}{2} \lim_{s\to -1} \frac{d^2}{ds^2}\!\left(\frac{\e^{st}}{s+2}\right) \\
-    =& \frac{1}{2} \lim_{s\to -1} \frac{d}{ds}\!\left( \frac{t \e^{st}(s+2) - \e^{st}}{(s+2)^2} \right) \\
-    =& \frac{1}{2} \lim_{s\to -1} \frac{ \bigl(t^2 \e^{st}(s+2) - t \e^{st}\bigr)(s+2)^2 - 2(s+2)\bigl(t \e^{st}(s+2) - \e^{st}\bigr) }{(s+2)^4} \\
-    =& \frac{1}{2} \e^{-t} \bigl( t^2 - t - 2t + 2 \bigr) \\
-    =& \frac{1}{2} \e^{-t} (t^2 - 3t + 2)
-    \end{align*}
+    极点$s=-1$处的留数为：
+    \begin{align}
+        \Res\sbr{\frac{\e^{st}}{(s+1)^3(s+2)},-1}
+        &=\frac{1}{2}\lim_{s\to -1}\frac{\dd^2}{\dd s^2}\paren{\frac{\e^{st}}{s+2}}\nonumber\\
+        &=\frac{1}{2}\lim_{s\to -1}\frac{\dd}{\dd s}\paren{\frac{t\e^{st}(s+2)-\e^{st}}{(s+2)^2}}\nonumber\\
+        &=\frac{1}{2}\lim_{s\to -1}\frac{\paren{t^2\e^{st}(s+2)-t\e^{st}}(s+2)^2-2(s+2)\paren{t\e^{st}(s+2)-\e^{st}}}{(s+2)^4}\nonumber\\
+        &=\frac{1}{2}\e^{-t}(t^2-t-2t+2)\nonumber\\
+        &=\frac{1}{2}\e^{-t}(t^2-3t+2).
+    \end{align}
     因此
-    \[
-    f(t) =u(t)\left[ -\e^{-2t} + \frac{1}{2} \e^{-t}(t^2 - 3t + 2)\right]
-    \]
+    \begin{equation}
+        f(t)=u(t)\sbr{-\e^{-2t}+\frac{1}{2}\e^{-t}(t^2-3t+2)}.
+    \end{equation}
 \end{example}
 
 最后，我们再给出一个计算有无穷多极点的函数单边拉普拉斯逆变换的例子\cite{folland}。这个例子表明，留数定理是一种适用范围相当广泛的方法，对于一些相当奇怪的函数，还是可以尝试将单边拉普拉斯逆变换转化为围道$\Gamma_r$内的留数的计算（尽管此时做准备工作的成本会比真分式函数高一些）。
 
 \begin{example}*
-    设\[F(s)=\frac{1}{s^2}-\frac{\pi}{s\sinh(\pi s)}\]
-    则$F(s)$在$s=\mathrm{i}n,n\in\mathbb{Z}\backslash\{0\}$处有简单极点。下面判断$s=0$处的奇点类型。$\sinh(x)$在$x=0$处的泰勒展开式为
-    \begin{align*}
-        \sinh(x)&=\sum_{n=0}^{\infty}\frac{x^{2n+1}}{(2n+1)!}\\
-        &=x+\frac{x^3}{6}+\cdots,\quad \forall x\in\mathbb{R}
-    \end{align*}
+    设
+    \begin{equation}
+        F(s)=\frac{1}{s^2}-\frac{\pi}{s\sinh(\pi s)},
+    \end{equation}
+    则$F(s)$在$s=\im n,\ n\in\mathbb{Z}\backslash\{0\}$处有简单极点。下面判断$s=0$处的奇点类型。$\sinh(x)$在$x=0$处的泰勒展开式为
+    \begin{align}
+        \sinh(x)&=\sum_{n=0}^{\infty}\frac{x^{2n+1}}{(2n+1)!}\nonumber\\
+        &=x+\frac{x^3}{6}+\cdots,\quad \forall x\in\mathbb{R}.
+    \end{align}
     根据\refsub{unique_exetension}中的唯一延拓定理，泰勒展开式在复数域上仍成立，因此
-    \begin{align*}
-        F(s)&=\frac{\sinh(\pi s)-\pi s}{s^2 \sinh(\pi s)}\\
-        &=\frac{[(\pi s)+(\pi^3s^3/3!)+\cdots]-\pi s}{s^2 \cdot(\pi s)}\\
-        &=\frac{\pi^2}{6},\quad s\to 0
-    \end{align*}
+    \begin{align}
+        F(s)&=\frac{\sinh(\pi s)-\pi s}{s^2\sinh(\pi s)}\nonumber\\
+        &=\frac{\sbr{(\pi s)+(\pi^3 s^3/3!)+\cdots}-\pi s}{s^2\cdot(\pi s)}\nonumber\\
+        &=\frac{\pi^2}{6},\quad s\to 0.
+    \end{align}
 
-    我们使用与\reffig{laplace_inv}(a)类似的围道$\Gamma_r$（$b>0$）来计算单边拉普拉斯逆变换，但这里需要选取$r=N+0.5,N\in\mathbb{N} $以保证所有围道上被积函数的全纯性。
+    我们使用与\reffig{laplace_inv}(a)类似的围道$\Gamma_r$（$b>0$）来计算单边拉普拉斯逆变换，但这里需要选取$r=N+0.5,\ N\in\mathbb{N}$以保证所有围道上被积函数的全纯性。
 
     我们有
-    \[\sinh\pi\left[x\pm \mathrm{i}\left(N+\frac{1}{2}\right)\right]=\pm(-1)^N \mathrm{i}\cosh\pi x\]
-    \[\left|F\left(x\pm \mathrm{i}\left(N+\frac{1}{2}\right)\right)\right|\leq \frac{1}{N^2}+\frac{\pi}{N\cosh x}\]
-    因此可以用类似上例的方法论证当$N\to\infty$时，围道的其余三条边上的积分趋于0。
+    \begin{align}
+        \sinh\pi\sbr{x\pm\im\paren{N+\frac{1}{2}}}&=\pm(-1)^N\im\cosh\pi x,\\
+        \abs{F\paren{x\pm\im\paren{N+\frac{1}{2}}}}&\leq\frac{1}{N^2}+\frac{\pi}{N\cosh x},
+    \end{align}
+    因此可以用类似上例的方法论证当$N\to\infty$时，围道的其余三条边上的积分趋于$0$。
 
-    在$\mathrm{i}n(n\in\mathbb{Z}\backslash\{0\})$处，留数为
-    \begin{align*}
-        &\mathrm{Res}[F(s)\mathrm{e}^{st},\mathrm{i}n]\\
-        =&\lim_{s\to \mathrm{i}n}(s-\mathrm{i}n)F(s)\mathrm{e}^{st}\\
-        =&\lim_{s\to \mathrm{i}n}\frac{\mathrm{e}^{st}}{s}\cdot\frac{-\pi(s-\mathrm{i}n)}{\sinh(\pi s)}\\
-        =&\lim_{s\to \mathrm{i}n}\frac{\mathrm{e}^{\mathrm{i}nt}}{\mathrm{i}n}\cdot\frac{-1}{\cosh(\pi \mathrm{i}n)}\\
-        =&\frac{(-1)^{n+1}\mathrm{e}^{\mathrm{i}nt}}{\mathrm{i}n}
-    \end{align*}
-    其中$\cosh(\pi \mathrm{i}n)=\cos(n\pi)=(-1)^n$.综上，
-    \begin{align*}
-        f(t)&=\mathcal{L}^{-1} F(s)=\frac{u(t)}{2\pi \mathrm{i}}\lim_{N\to\infty}\oint_{\Gamma_{N+0.5}}F(s)\mathrm{e}^{st}\,ds
-    \end{align*}
+    在$\im n\ (n\in\mathbb{Z}\backslash\{0\})$处，留数为
+    \begin{align}
+        \Res\sbr{F(s)\e^{st},\im n}
+        &=\lim_{s\to\im n}(s-\im n)F(s)\e^{st}\nonumber\\
+        &=\lim_{s\to\im n}\frac{\e^{st}}{s}\cdot\frac{-\pi(s-\im n)}{\sinh(\pi s)}\nonumber\\
+        &=\lim_{s\to\im n}\frac{\e^{\im nt}}{\im n}\cdot\frac{-1}{\cosh(\pi\im n)}\nonumber\\
+        &=\frac{(-1)^{n+1}\e^{\im nt}}{\im n},
+    \end{align}
+    其中$\cosh(\pi\im n)=\cos(n\pi)=(-1)^n$。综上，
+    \begin{equation}
+        f(t)=\mathcal{L}^{-1}F(s)=\frac{u(t)}{2\pi\im}\lim_{N\to\infty}\oint_{\Gamma_{N+0.5}}F(s)\e^{st}\,\dd s.
+    \end{equation}
     由留数定理，
-    \begin{align*}
-        f(t)&=\frac{u(t)}{2\pi \mathrm{i}}\lim_{N\to\infty}\oint_{\Gamma_{N+0.5}}F(s)\mathrm{e}^{st}\,ds\\
-        &=u(t)\sum_{n\in\mathbb{Z}\backslash\{0\}}\mathrm{Res}[F(s)\mathrm{e}^{st},\mathrm{i}n]\\
-        &=u(t)\sum_{n\in\mathbb{Z}\backslash\{0\}}\frac{(-1)^{n+1}\mathrm{e}^{\mathrm{i}nt}}{\mathrm{i}n}\\
-        &=2u(t)\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}\sin(nt)
-    \end{align*}
-    它是锯齿波信号$g(t)=-t,t\in(-\pi,\pi)$的周期化延拓的傅里叶级数展开与$2u(t)$的乘积。
+    \begin{align}
+        f(t)&=\frac{u(t)}{2\pi\im}\lim_{N\to\infty}\oint_{\Gamma_{N+0.5}}F(s)\e^{st}\,\dd s\nonumber\\
+        &=u(t)\sum_{n\in\mathbb{Z}\backslash\{0\}}\Res\sbr{F(s)\e^{st},\im n}\nonumber\\
+        &=u(t)\sum_{n\in\mathbb{Z}\backslash\{0\}}\frac{(-1)^{n+1}\e^{\im nt}}{\im n}\nonumber\\
+        &=2u(t)\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}\sin(nt).
+    \end{align}
+    它是锯齿波信号$g(t)=-t,\ t\in(-\pi,\pi)$的周期化延拓的傅里叶级数展开与$2u(t)$的乘积。
 \end{example}
 
 \subsection{双边拉普拉斯逆变换}\label{sub:bi_laplace_inv}
 
-在\cref{def:bi_laplace}中已经看到，双边拉普拉斯变换的收敛域应为带状区域\footnote{其严格定义见\cref{def:bi_convergence_abscissa}}，因此可以使用与\cref{thm:laplace_inversion}相同的处理方法：只要直线$\mathrm{Re}(s)=b$位于$\mathcal{L} f(s)$的收敛域内，双边拉普拉斯逆变换就可化归为傅里叶逆变换：
+在\cref{def:bi_laplace}中已经看到，双边拉普拉斯变换的收敛域应为带状区域\footnote{其严格定义见\cref{def:bi_convergence_abscissa}。}，因此可以使用与\cref{thm:laplace_inversion}相同的处理方法：只要直线$\Re(s)=b$位于$\mathcal{L}f(s)$的收敛域内，双边拉普拉斯逆变换就可化归为傅里叶逆变换：
 \begin{theorem}[双边拉普拉斯逆变换]\label{thm:bi_laplace_inv}
     设$f\in PS(\mathbb{R})$，则
-    \[f(t)=\frac{1}{2\pi \mathrm{i}}\lim_{r\to\infty}\int_{b-\mathrm{i}r}^{b +\mathrm{i}r}\mathcal{L} f(s)\mathrm{e}^{st}\,ds\]
-    其中$b\in\mathbb{R}$使得直线$\mathrm{Re}(s)=b$位于$\mathcal{L} f(s)$的收敛域内。
+    \begin{equation}
+        f(t)=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}\mathcal{L}f(s)\e^{st}\,\dd s,
+    \end{equation}
+    其中$b\in\mathbb{R}$使得直线$\Re(s)=b$位于$\mathcal{L}f(s)$的收敛域内。
 \end{theorem}
 
-收敛域的两侧均可能存在$\mathcal{L} f(s)$的极点，相同的复频域函数，在不同的收敛域下，对应不同的时域函数，因此给出双边拉普拉斯变换时必须指出收敛域。
+收敛域的两侧均可能存在$\mathcal{L}f(s)$的极点，相同的复频域函数，在不同的收敛域下，对应不同的时域函数，因此给出双边拉普拉斯变换时必须指出收敛域。
 
 \begin{example}
     设
-    \[
-    F(s) = \frac{1}{(s+1)^2(s-2)},\quad \ROC:-1<\mathrm{Re}(s)<2
-    \]
+    \begin{equation}
+        F(s)=\frac{1}{(s+1)^2(s-2)},\quad \ROC:-1<\Re(s)<2,
+    \end{equation}
     则
-    \[
-    f(t) = \frac{1}{2\pi \im} \lim_{r \to \infty} \int_{b - \im r}^{b + \im r} F(s) \e^{st} ds
-    \]
-    其中 $-1 < b < 2$，不妨取 $b=0$，并记围线$\eta_r$为从 $- \im r$ 到 $+ \im r$ 的直线段。
+    \begin{equation}
+        f(t)=\frac{1}{2\pi\im}\lim_{r\to\infty}\int_{b-\im r}^{b+\im r}F(s)\e^{st}\,\dd s,
+    \end{equation}
+    其中$-1<b<2$，不妨取$b=0$，并记围线$\eta_r$为从$-\im r$到$+\im r$的直线段。
 
-    当 $t>0$ 时，取以$r$为半径的半圆形围线 $\gamma_{r1}:t\mapsto r \e^{-\im\theta}, \theta \in [0, \pi]$，则在左半平面上有：
-    $$\left|\e^{st}\right| = \e^{\mathrm{Re}(s)t} \le 1$$
+    当$t>0$时，取以$r$为半径的半圆形围线$\gamma_{r1}:t\mapsto r\e^{-\im\theta},\ \theta\in[0,\pi]$，则在左半平面上有：
+    \begin{equation}
+        \abs{\e^{st}}=\e^{\Re(s)t}\leq 1,
+    \end{equation}
     因此
-    \begin{align*}
-        \left|\int_{\gamma_r} F(s) \e^{st} ds\right| &\leq \int_{0}^{\pi} \left| F(r \e^{\im\theta}) \im r \e^{i\theta} \right|d\theta  \\
-        &\leq \sup_{0 \leq \theta \leq \pi} |F(r \e^{\im\theta})|\cdot \int_{0}^{\pi} r d\theta \\
-        &= \pi r \sup_{0 \leq \theta \leq \pi} |F(r \e^{\im\theta})|
-    \end{align*}
-    而$F(r\e^{i\theta})=O(r^{-3})$，因此
-    \[
-    \left|\int_{\gamma_{r_1}} F(s) \e^{st} ds\right| \to 0, \quad r \to \infty
-    \]
+    \begin{align}
+        \abs{\int_{\gamma_r}F(s)\e^{st}\,\dd s}&\leq\int_0^{\pi}\abs{F(r\e^{\im\theta})\im r\e^{\im\theta}}\,\dd\theta\nonumber\\
+        &\leq\sup_{0\leq\theta\leq\pi}\abs{F(r\e^{\im\theta})}\cdot\int_0^{\pi}r\,\dd\theta\nonumber\\
+        &=\pi r\sup_{0\leq\theta\leq\pi}\abs{F(r\e^{\im\theta})}.
+    \end{align}
+    而$F(r\e^{\im\theta})=O(r^{-3})$，因此
+    \begin{equation}
+        \abs{\int_{\gamma_{r_1}}F(s)\e^{st}\,\dd s}\to 0,\quad r\to\infty.
+    \end{equation}
     $\eta_r+\gamma_{r1}$绕极点$s=-1$的环绕数为$1$，由留数定理，有：
-    \begin{align*}
-        f(t)&=\frac{1}{2\pi\im}\oint_{\eta_r+\gamma_{r1}}F(s)\e^{st}\,ds\\
-        &=\operatorname{Res}\left[\frac{\e^{st}}{(s+1)^2(s-2)}, -1\right] \\
-        &= \lim_{s \to -1} \frac{d}{ds} \left( \frac{\e^{st}}{s-2} \right)\\
-        &= \lim_{s \to -1} \frac{t \e^{st}(s-2) - \e^{st}}{(s-2)^2}\\
-        &= \frac{-3t \e^{-t} - \e^{-t}}{9}\\
-        &= -\frac{3t + 1}{9}\e^{-t},\quad t>0
-    \end{align*}
+    \begin{align}
+        f(t)&=\frac{1}{2\pi\im}\oint_{\eta_r+\gamma_{r1}}F(s)\e^{st}\,\dd s\nonumber\\
+        &=\Res\sbr{\frac{\e^{st}}{(s+1)^2(s-2)},-1}\nonumber\\
+        &=\lim_{s\to -1}\frac{\dd}{\dd s}\paren{\frac{\e^{st}}{s-2}}\nonumber\\
+        &=\lim_{s\to -1}\frac{t\e^{st}(s-2)-\e^{st}}{(s-2)^2}\nonumber\\
+        &=\frac{-3t\e^{-t}-\e^{-t}}{9}\nonumber\\
+        &=-\frac{3t+1}{9}\e^{-t},\quad t>0.
+    \end{align}
 
-    当 $t<0$ 时，取以$r$为半径的半圆形围线 $\gamma_{r2}:t\mapsto r \e^{\im\theta}, \theta \in [0, \pi]$，同理可得
-    $$\left|\int_{\gamma_{r_2}} F(s) \e^{st} ds\right| \to 0, \quad r \to \infty$$
+    当$t<0$时，取以$r$为半径的半圆形围线$\gamma_{r2}:t\mapsto r\e^{\im\theta},\ \theta\in[0,\pi]$，同理可得
+    \begin{equation}
+        \abs{\int_{\gamma_{r_2}}F(s)\e^{st}\,\dd s}\to 0,\quad r\to\infty.
+    \end{equation}
     注意$\eta_r+\gamma_{r2}$绕极点$s=2$的环绕数为$-1$，由留数定理，有：
-    \begin{align*}
-        f(t)&=\frac{1}{2\pi\im}\oint_{\eta_r+\gamma_{r2}}F(s)\e^{st}\,ds\\
-        &=-\operatorname{Res}\left[\frac{\e^{st}}{(s+1)^2(s-2)}, 2\right] \\
-        &= -\lim_{s \to 2} \frac{\e^{st}}{(s+1)^2} \\
-        &= -\frac{1}{9} \e^{2t},\quad t<0
-    \end{align*}
+    \begin{align}
+        f(t)&=\frac{1}{2\pi\im}\oint_{\eta_r+\gamma_{r2}}F(s)\e^{st}\,\dd s\nonumber\\
+        &=-\Res\sbr{\frac{\e^{st}}{(s+1)^2(s-2)},2}\nonumber\\
+        &=-\lim_{s\to 2}\frac{\e^{st}}{(s+1)^2}\nonumber\\
+        &=-\frac{1}{9}\e^{2t},\quad t<0.
+    \end{align}
     综上，
-    $$f(t)=-\frac{1}{9}\e^{2t}u(-t)-\frac{3t + 1}{9}\e^{-t}u(t)$$
+    \begin{equation}
+        f(t)=-\frac{1}{9}\e^{2t}u(-t)-\frac{3t+1}{9}\e^{-t}u(t).
+    \end{equation}
 \end{example}
 
 对于真分式函数，以上补充围线的方法总是可行的，我们将这种对真分式函数做双边拉普拉斯逆变换的方法总结为以下定理：
 \begin{theorem}[真分式函数的双边拉普拉斯逆变换，留数定理方法]
-    设$F(s)$是真分式函数，位于收敛域左侧的极点集为$\{u_k\}_{k=1}^{N}$，位于收敛域右侧的极点集为$\{v_l\}_{l=1}^{M}$，则其双边拉普拉斯逆变换为$F(s)\mathrm{e}^{st}$在复平面上所有极点的留数之和：
-    \begin{align*}
-        f(t)&=u(t)\sum_{k=1}^{N}\mathrm{Res}[F(s)\mathrm{e}^{st},u_k]-u(-t)\sum_{l=1}^{M}\mathrm{Res}[F(s)\mathrm{e}^{st},v_l]
-    \end{align*}
-    其中$b\in\mathbb{R}$使得直线$\mathrm{Re}(s)=b$位于$F(s)$的收敛域内。
+    设$F(s)$是真分式函数，位于收敛域左侧的极点集为$\{u_k\}_{k=1}^{N}$，位于收敛域右侧的极点集为$\{v_l\}_{l=1}^{M}$，则其双边拉普拉斯逆变换为$F(s)\e^{st}$在复平面上所有极点的留数之和：
+    \begin{equation}
+        f(t)=u(t)\sum_{k=1}^{N}\Res\sbr{F(s)\e^{st},u_k}-u(-t)\sum_{l=1}^{M}\Res\sbr{F(s)\e^{st},v_l},
+    \end{equation}
+    其中$b\in\mathbb{R}$使得直线$\Re(s)=b$位于$F(s)$的收敛域内。
 \end{theorem}
 
 \begin{example}
-    在上例中，如果收敛域为$\ROC: \mathrm{Re}(s)>2$，则
-    \begin{align*}
-        f(t)=&u(t)\left(\Res[F(s)\mathrm{e}^{st},-1]+\Res[F(s)\mathrm{e}^{st},2]\right)\\
-        =&\left(\frac{1}{9}\e^{2t}-\frac{3t + 1}{9}\e^{-t}\right)u(t)
-    \end{align*}
-    如果收敛域为$\ROC: \mathrm{Re}(s)<-1$，则
-    \begin{align*}
-        f(t)&=-u(-t)\left(\Res[F(s)\mathrm{e}^{st},-1]+\Res[F(s)\mathrm{e}^{st},2]\right)\\
-        &=\left(\frac{3t + 1}{9}\e^{-t}-\frac{1}{9}\e^{2t}\right)u(-t)
-    \end{align*}
+    在上例中，如果收敛域为$\ROC:\Re(s)>2$，则
+    \begin{align}
+        f(t)&=u(t)\paren{\Res\sbr{F(s)\e^{st},-1}+\Res\sbr{F(s)\e^{st},2}}\nonumber\\
+        &=\paren{\frac{1}{9}\e^{2t}-\frac{3t+1}{9}\e^{-t}}u(t).
+    \end{align}
+    如果收敛域为$\ROC:\Re(s)<-1$，则
+    \begin{align}
+        f(t)&=-u(-t)\paren{\Res\sbr{F(s)\e^{st},-1}+\Res\sbr{F(s)\e^{st},2}}\nonumber\\
+        &=\paren{\frac{3t+1}{9}\e^{-t}-\frac{1}{9}\e^{2t}}u(-t).
+    \end{align}
     可见不同的收敛域对应不同的时域函数。
 \end{example}
 
-对于跳变点不位于$t=t_0$的情况，通常可以通过时移性质将其化归为在$t=0$处跳变的情况，此时$F(s)$具有指数因子$\mathrm{e}^{-st_0}$，因此辨别跳变点是容易的，我们不再单独给出例子说明这一点。
+对于跳变点不位于$t=t_0$的情况，通常可以通过时移性质将其化归为在$t=0$处跳变的情况，此时$F(s)$具有指数因子$\e^{-st_0}$，因此辨别跳变点是容易的，我们不再单独给出例子说明这一点。

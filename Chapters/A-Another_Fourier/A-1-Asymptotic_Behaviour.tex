@@ -3,25 +3,27 @@
 \subsection{狄利克雷核}\label{sub:dirichlet_kernel}
 本小节引入狄利克雷核并介绍它的一些性质，并在下一小节用它来辅助我们对傅里叶级数收敛性的讨论。直接由狄利克雷条件证明收敛性是很困难的，并且需要更加专业的分析学工具，我们将给出更强的条件下的证明，并从这个更强的条件获得一些额外的性质。
 
-研究傅里叶级数的渐进特性时，一个非常好用的工具是\textbf{狄利克雷核} (Dirichlet kernel)：
+研究傅里叶级数的渐进特性时，一个非常好用的工具是\textbf{狄利克雷核}(Dirichlet kernel)：
 \begin{definition}[狄利克雷核]
-    \[D_N(t)=\sum_{k=-N}^{N}\mathrm{e}^{\mathrm{i}k\omega t}=1+\sum_{k=1}^{N}\left(\mathrm{e}^{\mathrm{i}k\omega t}+\mathrm{e}^{-\mathrm{i}k\omega t}\right)=1+2\sum_{k=1}^{N}\cos(k\omega t)\]
-    它是依赖于所研究函数的周期T的，但简便起见，在符号$D_N(t)$中不体现这一点。
+    \begin{equation}
+        D_N(t)=\sum_{k=-N}^{N}\e^{\im k\omega t}=1+\sum_{k=1}^{N}\paren{\e^{\im k\omega t}+\e^{-\im k\omega t}}=1+2\sum_{k=1}^{N}\cos(k\omega t),
+    \end{equation}
+    它是依赖于所研究函数的周期$T$的，但简便起见，在符号$D_N(t)$中不体现这一点。
 \end{definition}
 
 我们可以用等比数列求和或积化和差裂项的方法化简$D_N(t)$：
-\begin{align*}
-    D_N(t) & =\sum_{k=-N}^{N}\mathrm{e}^{\mathrm{i}k\omega t}\\
-    &=\mathrm{e}^{-\mathrm{i}N\omega t}\frac{1-\mathrm{e}^{\mathrm{i}(2N+1)\omega t}}{1-\mathrm{e}^{\mathrm{i}\omega t}}\\
-    & =\frac{\mathrm{e}^{\mathrm{i}(N+1)\omega t}-\mathrm{e}^{-\mathrm{i}N\omega t}}{\mathrm{e}^{\mathrm{i}\omega t}-1}\\
-    D_N(t) & =1+\sum_{k=1}^{N}\left(\mathrm{e}^{\mathrm{i}k\omega t}+\mathrm{e}^{-\mathrm{i}k\omega t}\right)\\
-    &=1+2\sum_{k=1}^{N}\cos(k\omega t)\\
-    & =1+\frac{2}{\sin(\frac{\omega t}{2})}\sum_{k=1}^{N}\cos(k\omega t)\sin\left(\frac{\omega t}{2}\right)\\
-    & =1+\frac{1}{\sin(\frac{\omega t}{2})}\sum_{k=1}^{N}\left[\sin\left(\left(k+\frac{1}{2}\right)\omega t\right)-\sin\left(\left(k-\frac{1}{2}\right)\omega t\right)\right] \\
-    & =1+\frac{\sin\left((N+\frac{1}{2})\omega t\right)-\sin(\frac{\omega t}{2})}{\sin(\frac{\omega t}{2})}\\
-    & =\frac{\sin\left((N+\frac{1}{2})\omega t\right)}{\sin(\frac{\omega t}{2})}
-\end{align*}
-这两种结果是相符的，读者可自行验证，并且可以从后一结果想象出狄利克雷核的函数图像，它被$\pm 1/\sin(\frac{\omega t}{2})$包络并高速振荡。函数图像如下。
+\begin{align}
+    D_N(t)&=\sum_{k=-N}^{N}\e^{\im k\omega t} \nonumber \\
+    &=\e^{-\im N\omega t}\frac{1-\e^{\im(2N+1)\omega t}}{1-\e^{\im\omega t}} \nonumber \\
+    &=\frac{\e^{\im(N+1)\omega t}-\e^{-\im N\omega t}}{\e^{\im\omega t}-1}, \\
+    D_N(t)&=1+\sum_{k=1}^{N}\paren{\e^{\im k\omega t}+\e^{-\im k\omega t}} \nonumber \\
+    &=1+2\sum_{k=1}^{N}\cos(k\omega t) \nonumber \\
+    &=1+\frac{2}{\sin\paren{\frac{\omega t}{2}}}\sum_{k=1}^{N}\cos(k\omega t)\sin\paren{\frac{\omega t}{2}} \nonumber \\
+    &=1+\frac{1}{\sin\paren{\frac{\omega t}{2}}}\sum_{k=1}^{N}\sbr{\sin\paren{\paren{k+\frac{1}{2}}\omega t}-\sin\paren{\paren{k-\frac{1}{2}}\omega t}} \nonumber \\
+    &=1+\frac{\sin\paren{\paren{N+\frac{1}{2}}\omega t}-\sin\paren{\frac{\omega t}{2}}}{\sin\paren{\frac{\omega t}{2}}} \nonumber \\
+    &=\frac{\sin\paren{\paren{N+\frac{1}{2}}\omega t}}{\sin\paren{\frac{\omega t}{2}}}.
+\end{align}
+这两种结果是相符的，读者可自行验证，并且可以从后一结果想象出狄利克雷核的函数图像，它被$\pm 1/\sin\paren{\frac{\omega t}{2}}$包络并高速振荡。函数图像如下。
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Figure_3}
@@ -30,60 +32,68 @@
 
 傅里叶级数的部分和是狄利克雷核与被展开函数的周期函数卷积（\cref{def:period_conv}）：
 \begin{proposition}
-    \[S_N^f(t)=\frac{1}{T}\int_{T}f(\tau)D_N(t-\tau)\,d\tau=\frac{1}{T}f*D_N(t)\]
+    \begin{equation}
+        S_N^f(t)=\frac{1}{T}\int_{T}f(\tau)D_N(t-\tau)\,\dd\tau=\frac{1}{T}f*D_N(t).
+    \end{equation}
 \end{proposition}
 \begin{proof}
-    \begin{align*}
-    S_N^f(t) & =\sum_{-N}^{N}c_k \mathrm{e}^{\mathrm{i}k\omega t}\\
-             & =\sum_{-N}^{N}\left(\frac{1}{T}\int_{T}f(\tau)\mathrm{e}^{-\mathrm{i}k\omega \tau}\,d\tau\right) \mathrm{e}^{\mathrm{i}k\omega t}\\
-             & =\frac{1}{T}\int_{T}f(\tau)\sum_{k=-N}^{N}\mathrm{e}^{\mathrm{i}k\omega (t-\tau)}\,d\tau\\
-             & =\frac{1}{T}\int_{T}f(\tau)D_N(t-\tau)\,d\tau\\
-             & =\frac{1}{T}\int_{T}f(t-\tau)D_N(\tau)\,d\tau                                                & (\tau\to t-\tau)\\
-             & =\frac{1}{T}\int_{T}f(t+\tau)D_N(\tau)\,d\tau                                                & (\tau\to t+\tau)
-\end{align*}
+    \begin{align}
+        S_N^f(t)&=\sum_{-N}^{N}c_k \e^{\im k\omega t} \nonumber \\
+        &=\sum_{-N}^{N}\paren{\frac{1}{T}\int_{T}f(\tau)\e^{-\im k\omega \tau}\,\dd\tau}\e^{\im k\omega t} \nonumber \\
+        &=\frac{1}{T}\int_{T}f(\tau)\sum_{k=-N}^{N}\e^{\im k\omega (t-\tau)}\,\dd\tau \nonumber \\
+        &=\frac{1}{T}\int_{T}f(\tau)D_N(t-\tau)\,\dd\tau \nonumber \\
+        &=\frac{1}{T}\int_{T}f(t-\tau)D_N(\tau)\,\dd\tau \qquad (\tau\to t-\tau) \nonumber \\
+        &=\frac{1}{T}\int_{T}f(t+\tau)D_N(\tau)\,\dd\tau. \qquad (\tau\to t+\tau)
+    \end{align}
 \end{proof}
 
-在讨论傅里叶级数的收敛性前，先给出两个引理。第一个引理表明狄利克雷核在半周期上
-积分值为$\frac{T}{2}$，在证明傅里叶级数的逐点收敛性时将用到它。
+在讨论傅里叶级数的收敛性前，先给出两个引理。第一个引理表明狄利克雷核在半周期上积分值为$\displaystyle\frac{T}{2}$，在证明傅里叶级数的逐点收敛性时将用到它。
 \begin{lemma}
-    $$\int_{-\frac{T}{2}}^{0}D_N(t)\,dt=\int_{0}^{\frac{T}{2}}D_N(t)\,dt=\frac{T}{2}$$
+    \begin{equation}
+        \int_{-\frac{T}{2}}^{0}D_N(t)\,\dd t=\int_{0}^{\frac{T}{2}}D_N(t)\,\dd t=\frac{T}{2}.
+    \end{equation}
 \end{lemma}
 \begin{proof}
-    \begin{align*}
-    D_N(t)&=1+2\sum_{k=1}^{N}\cos(k\omega t)\\
-    \int_{0}^{\frac{T}{2}}D_N(t)\,dt & =\int_{0}^{\frac{T}{2}}\left(1+\sum_{k=1}^{N}\cos(k\omega t)\right)\,dt                              \\
-                                     & =\frac{T}{2}+\sum_{k=1}^{N}\left.\frac{\sin(k\omega t)}{k\omega}\right|_{0}^{\frac{T}{2}} \\
-                                     & =\frac{T}{2}+\frac{1}{\omega}\sum_{k=1}^{N}\frac{\sin(k\pi)}{k}=\frac{T}{2}               
-\end{align*}
-$D_N(t)$是偶函数，得证。
+    \begin{align}
+        D_N(t)&=1+2\sum_{k=1}^{N}\cos(k\omega t), \\
+        \int_{0}^{\frac{T}{2}}D_N(t)\,\dd t&=\int_{0}^{\frac{T}{2}}\paren{1+\sum_{k=1}^{N}\cos(k\omega t)}\,\dd t \nonumber \\
+        &=\frac{T}{2}+\sum_{k=1}^{N}\evalat{\frac{\sin(k\omega t)}{k\omega}}{0}{\frac{T}{2}} \nonumber \\
+        &=\frac{T}{2}+\frac{1}{\omega}\sum_{k=1}^{N}\frac{\sin(k\pi)}{k}=\frac{T}{2}.
+    \end{align}
+    $D_N(t)$是偶函数，得证。
 \end{proof}
 
 \begin{lemma}[贝塞尔不等式]\label{lemma:bessel_inequality}
-设$ f\in L^2([0,T]),c_n=\dfrac{1}{T}\int_{T}f(t)\mathrm{e}^{-\mathrm{i}k\omega t}\,dt$，则
-\begin{align*}
-    \sum_{n=-\infty}^{\infty}|c_n|^2\leq \frac{1}{T}\int_{T}|f(t)|^2\,dt=\frac{1}{T}\|f\|_2^2
-\end{align*}
+    设$f\in L^2([0,T]),\ c_n=\displaystyle\frac{1}{T}\int_{T}f(t)\e^{-\im n\omega t}\,\dd t$，则
+    \begin{equation}
+        \sum_{n=-\infty}^{\infty}|c_n|^2\leq \frac{1}{T}\int_{T}|f(t)|^2\,\dd t=\frac{1}{T}\norm{f}_2^2.
+    \end{equation}
 \end{lemma}
-它给出了傅里叶系数平方和的上界的估计。由此可以看出$c_n\to 0,n\to\infty$.
+它给出了傅里叶系数平方和的上界的估计。由此可以看出$c_n\to 0,\ n\to\infty$。
 \begin{proof}
-    \begin{align*}
-    \left|f(t)-\sum_{n=-N}^{N}c_n \mathrm{e}^{\mathrm{i}n\omega t}\right|^2 & =\left(f(t)-\sum_{n=-N}^{N}c_n \mathrm{e}^{\mathrm{i}n\omega t}\right)\overline{\left(f(t)-\sum_{n=-N}^{N}c_n \mathrm{e}^{\mathrm{i}n\omega t}\right)}\\
-    & =\left(f(t)-\sum_{n=-N}^{N}c_n \mathrm{e}^{\mathrm{i}n\omega t}\right)\left(\overline{f(t)}-\sum_{n=-N}^{N}\overline{c_n} \mathrm{e}^{-\mathrm{i}n\omega t}\right)\\
-    & =|f(t)|^2-\sum_{n=-N}^{N}\left(\overline{c_n}f(t)\mathrm{e}^{\mathrm{i}n\omega t}+c_n \overline{f(t)}\mathrm{e}^{-\mathrm{i}n\omega t}\right)+\sum_{m,n=-N}^{N}c_m \overline{c_n}\mathrm{e}^{\mathrm{i}(m-n)\omega t}
-\end{align*}
-将上式在一个周期上积分，我们知道
-\[\int_{T}f(t)\mathrm{e}^{\mathrm{i}n\omega t}\,dt=Tc_n,\quad \int_{T}\mathrm{e}^{\mathrm{i}(m-n)\omega t}\,dt=\begin{cases}
-        0 & \text{if }m\neq n \\
-        T & \text{if }m=n
-    \end{cases}\]
-故\begin{align*}
-      & \int_{T}|f(t)|^2\,dt-\sum_{n=-N}^{N}\left(\overline{c_n}\int_{T}f(t)\mathrm{e}^{\mathrm{i}n\omega t}\,dt+c_n \int_{T}\overline{f(t)}\mathrm{e}^{-\mathrm{i}n\omega t}\,dt\right)+\sum_{m,n=-N}^{N}c_m \overline{c_n}\int_{T}\mathrm{e}^{\mathrm{i}(m-n)\omega t}\,dt \\
-    = & \int_{T}|f(t)|^2\,dt-T\sum_{n=-N}^{N}(\overline{c_n} c_n+c_n \overline{c_n})+T\sum_{n=-N}^{N}\overline{c_n} c_n\\
-    = & \int_{T}|f(t)|^2\,dt-T\sum_{n=-N}^{N}|c_n|^2
-\end{align*}
-这是非负函数的积分，积分值非负，即\begin{align*}
-    \sum_{-\infty}^{\infty}|c_n|^2\leq \frac{1}{T}\int_{T}|f(t)|^2\,dt<\infty
-\end{align*}
+    \begin{align}
+        \abs{f(t)-\sum_{n=-N}^{N}c_n \e^{\im n\omega t}}^2&=\paren{f(t)-\sum_{n=-N}^{N}c_n \e^{\im n\omega t}}\overline{\paren{f(t)-\sum_{n=-N}^{N}c_n \e^{\im n\omega t}}} \nonumber \\
+        &=\paren{f(t)-\sum_{n=-N}^{N}c_n \e^{\im n\omega t}}\paren{\overline{f(t)}-\sum_{n=-N}^{N}\overline{c_n}\e^{-\im n\omega t}} \nonumber \\
+        &=|f(t)|^2-\sum_{n=-N}^{N}\paren{\overline{c_n}f(t)\e^{\im n\omega t}+c_n\overline{f(t)}\e^{-\im n\omega t}}+\sum_{m,n=-N}^{N}c_m\overline{c_n}\e^{\im(m-n)\omega t}.
+    \end{align}
+    将上式在一个周期上积分，我们知道
+    \begin{equation}
+        \int_{T}f(t)\e^{\im n\omega t}\,\dd t=Tc_n,\quad \int_{T}\e^{\im(m-n)\omega t}\,\dd t=\begin{dcases}
+            0, & \text{if } m\neq n, \\
+            T, & \text{if } m=n,
+        \end{dcases}
+    \end{equation}
+    故
+    \begin{align}
+        &\int_{T}|f(t)|^2\,\dd t-\sum_{n=-N}^{N}\paren{\overline{c_n}\int_{T}f(t)\e^{\im n\omega t}\,\dd t+c_n\int_{T}\overline{f(t)}\e^{-\im n\omega t}\,\dd t} \nonumber \\
+        &\quad+\sum_{m,n=-N}^{N}c_m\overline{c_n}\int_{T}\e^{\im(m-n)\omega t}\,\dd t \nonumber \\
+        &=\int_{T}|f(t)|^2\,\dd t-T\sum_{n=-N}^{N}(\overline{c_n} c_n+c_n\overline{c_n})+T\sum_{n=-N}^{N}\overline{c_n}c_n \nonumber \\
+        &=\int_{T}|f(t)|^2\,\dd t-T\sum_{n=-N}^{N}|c_n|^2.
+    \end{align}
+    这是非负函数的积分，积分值非负，即
+    \begin{equation}
+        \sum_{-\infty}^{\infty}|c_n|^2\leq \frac{1}{T}\int_{T}|f(t)|^2\,\dd t<\infty.
+    \end{equation}
 \end{proof}
 
 \subsection{分段光滑条件下的一致收敛性}\label{sub:uniform_converge}
@@ -92,57 +102,70 @@ $D_N(t)$是偶函数，得证。
 我们研究的多数函数是分段光滑的。分段光滑会带来一些额外的性质，例如，可以相对简单地证明逐点收敛性：
 \begin{theorem}[傅里叶级数的逐点收敛性]
     设$f\in PS(\mathbb{R})$是周期函数，其傅里叶级数的部分和为$S_N^f(t)$，则
-    \[\lim_{N\to\infty}S_N^f(t_0)=\frac{f(t_0+)+f(t_0-)}{2}\]
+    \begin{equation}
+        \lim_{N\to\infty}S_N^f(t_0)=\frac{f(t_0+)+f(t_0-)}{2}.
+    \end{equation}
 \end{theorem}
 \begin{proof}
-\begin{align*}
-    &S_N^f(t_0)-\frac{f(t_0^+)+f(t_0^-)}{2} \\
-    =&\frac{1}{T}\left(\int_{T}f(t_0-\tau)D_N(\tau)\,d\tau-\int_{0}^{\frac{T}{2}}f(t_0^+)D_N(\tau)\,d\tau-\int_{-\frac{T}{2}}^{0}f(t_0^-)D_N(\tau)\,d\tau\right)\\
-    =&\frac{1}{T}\left(\int_{0}^{\frac{T}{2}}(f(t_0-\tau)-f(t_0^+))D_N(\tau)\,d\tau+\int_{-\frac{T}{2}}^{0}(f(t_0-\tau)-f(t_0^-))D_N(\tau)\,d\tau\right)
-\end{align*}
-$$S_N^f(t_0)-\frac{f(t_0^+)+f(t_0^-)}{2}=\frac{1}{T}\int_{T}g(t)\left(\mathrm{e}^{\mathrm{i}(N+1)\omega t}-\mathrm{e}^{-\mathrm{i}N\omega t}\right)\,dt$$
-其中\begin{align*}
-g(t):=\begin{cases}
-\dfrac{f(t_0+t)-f(t_0^-)}{\mathrm{e}^{\mathrm{i}\omega t}-1} & \text{if }-\frac{T}{2}<t_0<0 \\
-\dfrac{f(t_0+t)-f(t_0^+)}{\mathrm{e}^{\mathrm{i}\omega t}-1} & \text{if }0<t_0<\frac{T}{2}
-\end{cases}
-\end{align*}                        
-由洛必达法则，$t\to 0$时，\[\lim_{t\to 0^+}g(t)=\lim_{t\to 0^+}\frac{f(t_0+t)-f(t_0^+)}{\mathrm{e}^{\mathrm{i}\omega t}-1}=\lim_{t\to 0^+}\frac{f'(t_0+t)}{\mathrm{i}\omega \mathrm{e}^{\mathrm{i}\omega t}}=\frac{f'(t_0^+)}{\mathrm{i}\omega}\]
-$t\to 0^-$时同理。故g分段连续，当然是平方可积的，由贝塞尔不等式，$g(t)$的傅里叶系数平方和收敛，通项趋于0，$S_N^f(t_0)-\left(f(t_0^+)+f(t_0^-)\right)/2=C_{-(N+1)}-C_N\to 0$，得证。
+    \begin{align}
+        S_N^f(t_0)-\frac{f(t_0^+)+f(t_0^-)}{2}&=\frac{1}{T}\left(\int_{T}f(t_0-\tau)D_N(\tau)\,\dd\tau\right. \nonumber \\
+        &\qquad-\left.\int_{0}^{\frac{T}{2}}f(t_0^+)D_N(\tau)\,\dd\tau-\int_{-\frac{T}{2}}^{0}f(t_0^-)D_N(\tau)\,\dd\tau\right) \nonumber \\
+        &=\frac{1}{T}\left(\int_{0}^{\frac{T}{2}}(f(t_0-\tau)-f(t_0^+))D_N(\tau)\,\dd\tau\right. \nonumber \\
+        &\qquad+\left.\int_{-\frac{T}{2}}^{0}(f(t_0-\tau)-f(t_0^-))D_N(\tau)\,\dd\tau\right),
+    \end{align}
+    \begin{equation}
+        S_N^f(t_0)-\frac{f(t_0^+)+f(t_0^-)}{2}=\frac{1}{T}\int_{T}g(t)\paren{\e^{\im(N+1)\omega t}-\e^{-\im N\omega t}}\,\dd t,
+    \end{equation}
+    其中
+    \begin{equation}
+        g(t):=\begin{dcases}
+            \frac{f(t_0+t)-f(t_0^-)}{\e^{\im\omega t}-1}, & \text{if } -\frac{T}{2}<t<0, \\
+            \frac{f(t_0+t)-f(t_0^+)}{\e^{\im\omega t}-1}, & \text{if } 0<t<\frac{T}{2}.
+        \end{dcases}
+    \end{equation}
+    由洛必达法则，$t\to 0$时，
+    \begin{equation}
+        \lim_{t\to 0^+}g(t)=\lim_{t\to 0^+}\frac{f(t_0+t)-f(t_0^+)}{\e^{\im\omega t}-1}=\lim_{t\to 0^+}\frac{f'(t_0+t)}{\im\omega \e^{\im\omega t}}=\frac{f'(t_0^+)}{\im\omega},
+    \end{equation}
+    $t\to 0^-$时同理。故$g$分段连续，当然是平方可积的，由贝塞尔不等式，$g(t)$的傅里叶系数平方和收敛，通项趋于$0$，$S_N^f(t_0)-(f(t_0^+)+f(t_0^-))/2=C_{-(N+1)}-C_N\to 0$，得证。
 \end{proof}
 
 在分段光滑的条件下，容易得到$f'(t)$的傅里叶系数，注意微积分基本定理可以分区间使用：
 \begin{proposition}[导函数的傅里叶系数]
     \label{prop:derivative_fourier_series}
-    设周期函数$f(t)\in PS(\mathbb{R} )$的基波角频率为$\omega$，三角形式的傅里叶系数为$\{a_n\}_{n=0}^\infty$和$\{b_n\}_{n=1}^\infty$复指数形式的傅里叶系数为$\{c_n\}_{n\in\mathbb{Z} }$，则其导函数$f'(t)$的对应的傅里叶系数为：
-    \begin{equation*}
-    a'_n=n\omega b_n,\quad b'_n=-n\omega a_n,\quad c'_n=\mathrm{i}n\omega c_n
-\end{equation*}
+    设周期函数$f(t)\in PS(\mathbb{R})$的基波角频率为$\omega$，三角形式的傅里叶系数为$\{a_n\}_{n=0}^\infty$和$\{b_n\}_{n=1}^\infty$，复指数形式的傅里叶系数为$\{c_n\}_{n\in\mathbb{Z}}$，则其导函数$f'(t)$的对应的傅里叶系数为：
+    \begin{equation}
+        a'_n=n\omega b_n,\quad b'_n=-n\omega a_n,\quad c'_n=\im n\omega c_n.
+    \end{equation}
 \end{proposition}
 \begin{proof}
     以$c_n$为例：
-\begin{align*}
-    c'_n & =\frac{1}{T}\int_{T}f'(t)\mathrm{e}^{-\mathrm{i}n\omega t}\,dt\\
-    & =\frac{1}{T}\evalat{f(t)\mathrm{e}^{-\mathrm{i}n\omega t}}{0}{T}+\mathrm{i}n\omega\int_{T}f(t)\mathrm{e}^{-\mathrm{i}n\omega t}\,dt\\
-    &=\mathrm{i}n\omega c_n
-\end{align*}
+    \begin{align}
+        c'_n&=\frac{1}{T}\int_{T}f'(t)\e^{-\im n\omega t}\,\dd t \nonumber \\
+        &=\frac{1}{T}\evalat{f(t)\e^{-\im n\omega t}}{0}{T}+\im n\omega\int_{T}f(t)\e^{-\im n\omega t}\,\dd t \nonumber \\
+        &=\im n\omega c_n.
+    \end{align}
 \end{proof}
 
-$f$的原函数$F$的傅里叶系数同理，并且只要\textbf{分段连续}（\cref{def:piecewise_continuos}）即可保证$f$可积，但是我们必须保证$F$是周期函数，这要求$f$的直流分量为0：
-\[F(t+T)-F(t)=\int_{T}f(t)dt=Tc_0=0,\quad c_0=0\]
+$f$的原函数$F$的傅里叶系数同理，并且只要\textbf{分段连续}（\cref{def:piecewise_continuos}）即可保证$f$可积，但是我们必须保证$F$是周期函数，这要求$f$的直流分量为$0$：
+\begin{equation}
+    F(t+T)-F(t)=\int_{T}f(t)\,\dd t=Tc_0=0,\quad c_0=0.
+\end{equation}
 此时，用刚刚得到的\cref{prop:derivative_fourier_series}就可直接得到$F$的傅里叶系数：
 \begin{proposition}[原函数的傅里叶系数]
     \label{prop:integral_fourier_series}
-    设周期函数$f(t)\in PS(\mathbb{R} )$的基波角频率为$\omega$，三角形式的傅里叶系数为$\{a_n\}_{n=0}^\infty$和$\{b_n\}_{n=1}^\infty$复指数形式的傅里叶系数为$\{c_n\}_{n\in\mathbb{Z} }$，且直流分量$a_0/2=c_0=0$，则其原函数$F$的对应的傅里叶系数为：
-    \begin{equation*}
-        A_n=\frac{a_n}{n\omega},\quad B_n=\frac{b_n}{n\omega},\quad C_n=\frac{c_n}{\mathrm{i}n\omega}
-    \end{equation*}
-    直流分量$A_0/2=C_0$仅依赖于不定积分的常数$C$.
+    设周期函数$f(t)\in PS(\mathbb{R})$的基波角频率为$\omega$，三角形式的傅里叶系数为$\{a_n\}_{n=0}^\infty$和$\{b_n\}_{n=1}^\infty$，复指数形式的傅里叶系数为$\{c_n\}_{n\in\mathbb{Z}}$，且直流分量$a_0/2=c_0=0$，则其原函数$F$的对应的傅里叶系数为：
+    \begin{equation}
+        A_n=\frac{a_n}{n\omega},\quad B_n=\frac{b_n}{n\omega},\quad C_n=\frac{c_n}{\im n\omega}.
+    \end{equation}
+    直流分量$A_0/2=C_0$仅依赖于不定积分的常数$C$。
 \end{proposition}
 
 分段光滑还能推出傅里叶级数的\textbf{一致收敛性}：
 \begin{theorem}\label{thm:uniform_convergency}
-$f\in PS([0,T])\implies S_N^f(t)\rightrightarrows f(t)$
+    \begin{equation}
+        f\in PS([0,T])\implies S_N^f(t)\rightrightarrows f(t).
+    \end{equation}
 \end{theorem}
 
 %\begin{theorem}[M判别法]
@@ -150,13 +173,15 @@ $f\in PS([0,T])\implies S_N^f(t)\rightrightarrows f(t)$
 %\end{theorem}
 \begin{proof}
     使用魏尔斯特拉斯M判别法，要证明一致收敛性，只需证明
-    $$\sum_{n=-\infty}^{\infty}\left|c_n \mathrm{e}^{\mathrm{i}n\omega t}\right|=\sum_{n=-\infty}^{\infty}|c_n|<\infty$$
-    记$c'_n$为$f'$的傅里叶系数，$c'_n =\mathrm{i}n\omega c_n$，
-    \begin{align*}
-        \sum_{n=-\infty}^{\infty}|c_n|=&|c_0|+\sum_{n\neq 0}\left| \frac{c'_n}{n\omega}\right|\\
-        \leq & |c_0|+\frac{1}{\omega}\left(\sum_{n\neq 0}\frac{1}{n^2}\right)^{1/2}\left(\sum_{n\neq 0}|c'_n|^2\right)^{1/2}<\infty
-\end{align*}
-最后一步使用了柯西-施瓦兹不等式。
+    \begin{equation}
+        \sum_{n=-\infty}^{\infty}|c_n \e^{\im n\omega t}|=\sum_{n=-\infty}^{\infty}|c_n|<\infty.
+    \end{equation}
+    记$c'_n$为$f'$的傅里叶系数，$c'_n=\im n\omega c_n$，
+    \begin{align}
+        \sum_{n=-\infty}^{\infty}|c_n|&=|c_0|+\sum_{n\neq 0}\abs{\frac{c'_n}{n\omega}} \nonumber \\
+        &\leq |c_0|+\frac{1}{\omega}\paren{\sum_{n\neq 0}\frac{1}{n^2}}^{1/2}\paren{\sum_{n\neq 0}|c'_n|^2}^{1/2}<\infty.
+    \end{align}
+    最后一步使用了柯西-施瓦兹不等式。
 \end{proof}
 
 请读者思考：我们探究了指数形式傅里叶级数收敛的条件，对于三角函数形式的傅里叶级数应该怎么办？
@@ -164,36 +189,49 @@ $f\in PS([0,T])\implies S_N^f(t)\rightrightarrows f(t)$
 \subsection{收敛速度的估计}\label{sub:converge_speed}
 
 \begin{theorem}\label{thm:converge_speed}
-    设$f\in C^p(\mathbb{R} )(p\geq1)$是周期函数，其傅里叶系数为$c_k$，部分和
-    \[S_N^f(t)=\sum_{k=-N}^{N}c_k \mathrm{e}^{\mathrm{i}k\omega t}\]
-    在$\mathbb{R} $上逐点收敛、内闭一致收敛，且
-    \[\max\left|f(t)-S_N^f(t)\right|<\frac{C}{N^{p-0.5}}\]
+    设$f\in C^p(\mathbb{R})\ (p\geq 1)$是周期函数，其傅里叶系数为$c_k$，部分和
+    \begin{equation}
+        S_N^f(t)=\sum_{k=-N}^{N}c_k \e^{\im k\omega t}
+    \end{equation}
+    在$\mathbb{R}$上逐点收敛、内闭一致收敛，且
+    \begin{equation}
+        \max\abs{f(t)-S_N^f(t)}<\frac{C}{N^{p-0.5}},
+    \end{equation}
     其中$C$为常数。
 \end{theorem}
 \begin{proof}
     内闭一致收敛性是\cref{thm:uniform_convergency}的推论。根据\cref{prop:derivative_fourier_series}，$f^{(p)}(t)$的复指数形式的傅里叶系数为
-    $$c^{(p)}_k=(\im k\omega)^p c_k$$
+    \begin{equation}
+        c^{(p)}_k=(\im k\omega)^p c_k,
+    \end{equation}
     因此
-    \begin{align*}
-        \max\left|f(t)-S_N^f(t)\right|&= \max\left|\sum_{k=N+1}^\infty c_k\e^{\im k\omega t}+\sum_{k=-\infty}^{-(N+1)}c_k\e^{\im k\omega t}\right|\le\sum_{|k|>N}|c_k|=\sum_{|k|>N}\frac{|c_k^{(p)}|}{(k\omega)^p}
-    \end{align*}
+    \begin{align}
+        \max\abs{f(t)-S_N^f(t)}&=\max\abs{\sum_{k=N+1}^{\infty}c_k\e^{\im k\omega t}+\sum_{k=-\infty}^{-(N+1)}c_k\e^{\im k\omega t}} \nonumber \\
+        &\leq\sum_{|k|>N}|c_k|=\sum_{|k|>N}\frac{|c_k^{(p)}|}{(k\omega)^p}.
+    \end{align}
     由柯西不等式可得：
-    \begin{align*}
-        \sum_{|k|>N}\frac{|c_k^{(p)}|}{(k\omega)^p}&\le\left(\sum_{|k|>N}\frac{1}{(k\omega)^{2p}}\right)^{1/2}\left(\sum_{|k|>N}|c^{(p)}_k|^2\right)^{1/2}\\
-        &<\frac{1}{\omega^{p}}\left(\sum_{|k|>N}\frac{1}{k^{2p}}\right)^{1/2}\left(\sum_{k\in\mathbb{Z}}|c^{(p)}_k|^2\right)^{1/2}
-    \end{align*}
-    $f\in C^p(\mathbb{R} )$表明$f^{(p)}(t)$是连续函数，因此$f^{(p)}(t)\in L^2([0,T])$，由\cref{lemma:bessel_inequality}可得：
-    $$\sum_{k\in\mathbb{Z}}\left|c^{(p)}_k\right|^2\le\frac{1}{T}\left\|f^{(p)}\right\|_2^2<\infty$$
+    \begin{align}
+        \sum_{|k|>N}\frac{|c_k^{(p)}|}{(k\omega)^p}&\leq\paren{\sum_{|k|>N}\frac{1}{(k\omega)^{2p}}}^{1/2}\paren{\sum_{|k|>N}|c^{(p)}_k|^2}^{1/2} \nonumber \\
+        &<\frac{1}{\omega^{p}}\paren{\sum_{|k|>N}\frac{1}{k^{2p}}}^{1/2}\paren{\sum_{k\in\mathbb{Z}}|c^{(p)}_k|^2}^{1/2}.
+    \end{align}
+    $f\in C^p(\mathbb{R})$表明$f^{(p)}(t)$是连续函数，因此$f^{(p)}(t)\in L^2([0,T])$，由\cref{lemma:bessel_inequality}可得：
+    \begin{equation}
+        \sum_{k\in\mathbb{Z}}\abs{c^{(p)}_k}^2\leq\frac{1}{T}\norm{f^{(p)}}_2^2<\infty,
+    \end{equation}
     因此
-    \begin{align*}
-        \sum_{|k|>N}\frac{|c_k^{(p)}|}{(k\omega)^p}&<\frac{\|f^{(p)}\|_2}{\sqrt{T}\omega^{p}}\left(\sum_{|k|>N}\frac{1}{k^{2p}}\right)^{1/2}
-    \end{align*}
+    \begin{equation}
+        \sum_{|k|>N}\frac{|c_k^{(p)}|}{(k\omega)^p}<\frac{\norm{f^{(p)}}_2}{\sqrt{T}\omega^{p}}\paren{\sum_{|k|>N}\frac{1}{k^{2p}}}^{1/2}.
+    \end{equation}
     利用
-    $$\int_{k}^{k+1}\frac{dx}{x^{2p}}<\frac{1}{k^{2p}}<\int_{k-1}^k\frac{dx}{x^{2p}}$$
+    \begin{equation}
+        \int_{k}^{k+1}\frac{\dd x}{x^{2p}}<\frac{1}{k^{2p}}<\int_{k-1}^{k}\frac{\dd x}{x^{2p}}
+    \end{equation}
     对$k$求和，得到
-    \begin{align*}
-        \sum_{k=N+1}^\infty\frac{1}{k^{2p}}&<\int_{N}^\infty\frac{dx}{x^{2p}}=\evalat{-\frac{1}{(2p-1)x^{2p-1}}}{N}{\infty}=\frac{1}{(2p-1)N^{2p-1}}
-    \end{align*}
+    \begin{equation}
+        \sum_{k=N+1}^{\infty}\frac{1}{k^{2p}}<\int_{N}^{\infty}\frac{\dd x}{x^{2p}}=\evalat{-\frac{1}{(2p-1)x^{2p-1}}}{N}{\infty}=\frac{1}{(2p-1)N^{2p-1}},
+    \end{equation}
     因此
-    $$\max\left|f(t)-S_N^f(t)\right|<\frac{2\|f^{(p)}\|_2}{\sqrt{(2p-1)T}\omega^{p}}\cdot\frac{1}{N^{p-0.5}}$$
+    \begin{equation}
+        \max\abs{f(t)-S_N^f(t)}<\frac{2\norm{f^{(p)}}_2}{\sqrt{(2p-1)T}\omega^{p}}\cdot\frac{1}{N^{p-0.5}}.
+    \end{equation}
 \end{proof}

@@ -4,115 +4,160 @@
 
 \subsection{频率响应特性的引出}\label{sub:freq_response}
 在上一节中我们得到了$r(t)=(h*e)(t)$。在$r(t),e(t),h(t)\in L^1(\mathbb{R})$的条件下，利用傅里叶变换的卷积定理，有：
-\[R(\omega)=H(\omega)E(\omega)\]
+\begin{equation}
+    R(\omega)=H(\omega)E(\omega).
+\end{equation}
 \begin{definition}[频率响应]
     将$H(\omega)$称为$r(t)$的\textbf{频率响应}，简称\textbf{频响}。
 \end{definition}
 
-将频率响应$H(\omega)$看作一个复数，即$H(\omega)=\left|H(\omega)\right|\mathrm{e}^{\mathrm{i}\varphi(\omega)}$，则$\left|H(\omega)\right|$表示系统对频率为$\omega$的信号成分的放大倍数，$\varphi(\omega)$表示该频率成分经过系统后相位的变化。我们定义:
+将频率响应$H(\omega)$看作一个复数，即$H(\omega)=\abs{H(\omega)}\e^{\im\varphi(\omega)}$，则$\abs{H(\omega)}$表示系统对频率为$\omega$的信号成分的放大倍数，$\varphi(\omega)$表示该频率成分经过系统后相位的变化。我们定义：
 \begin{definition}[幅频特性和相频特性]
-    $\left|H(\omega)\right|-\omega$称为系统的\textbf{幅频特性}，$\varphi(\omega)-\omega$称为系统的\textbf{相频特性}，这里$\varphi(\omega)$通常取主值，即$(-\pi,\pi]$内的值。
+    $\abs{H(\omega)}-\omega$称为系统的\textbf{幅频特性}，$\varphi(\omega)-\omega$称为系统的\textbf{相频特性}，这里$\varphi(\omega)$通常取主值，即$(-\pi,\pi]$内的值。
 \end{definition}
 
 以下命题得自傅里叶变换的对偶性：
 \begin{proposition}
-    单位脉冲响应为实信号的线性时不变系统的频率响应满足$H(-\omega)=\overline{H(\omega)}$，这表明幅频特性$\left|H(\omega)\right|$是偶函数，相频特性$\varphi(\omega)$是奇函数。
+    单位脉冲响应为实函数的线性时不变系统的频率响应满足$H(-\omega)=\overline{H(\omega)}$，这表明幅频特性$\abs{H(\omega)}$是偶函数，相频特性$\varphi(\omega)$是奇函数。
 \end{proposition}
 
-一个物理可实现的线性时不变系统必须是因果的，即$h(t)=0,t<0$。此外，系统的频率响应$H(\omega)$还必须满足\textbf{佩利-维纳准则}(Paley-Wiener criterion)\cite{signal_systems}：
+一个物理可实现的线性时不变系统必须是因果的，即$h(t)=0,\quad t<0$。此外，系统的频率响应$H(\omega)$还必须满足\textbf{佩利-维纳准则}(Paley-Wiener criterion)\cite{signal_systems}：
 \begin{definition}[佩利-维纳准则]\label{def:paley_winner}
     可实现的因果系统，其频率响应$H(\omega)$必然满足：
-    \[\int_{-\infty}^{\infty}\frac{\left|\ln\left|H(\omega)\right|\right|}{1+\omega^2}\,d\omega<\infty\]
+    \begin{equation}
+        \int_{-\infty}^{\infty}\frac{\abs{\ln|H(\omega)|}}{1+\omega^2}\,\dd\omega<\infty.
+    \end{equation}
 \end{definition}
 \begin{definition}[能量有限系统]
     如果系统单位脉冲响应$h(t)\in L^1(\mathbb{R})$，频率响应$H(\omega)$满足：
-    $$\int_{-\infty}^{\infty}\left|H(\omega)\right|^2\,d\omega<\infty$$
+    \begin{equation}
+        \int_{-\infty}^{\infty}\abs{H(\omega)}^2\,\dd\omega<\infty,
+    \end{equation}
     即$H(\omega)\in L^2(\mathbb{R})$，就称该系统是\textbf{能量有限}的。
 \end{definition}
-通常来说，我们希望系统是能量有限的，因为在输入冲击$\delta$时，输出为$h(t)$，根据帕塞瓦尔定理（\cref{thm:plancherel}），$h(t)$与$H(\omega)$的能量仅相差一个常系数$2\pi$，所以上述条件实际上是要求单位脉冲响应$h(t)$能量有限。
+通常来说，我们希望系统是能量有限的，因为在输入冲激$\delta$时，输出为$h(t)$，根据帕塞瓦尔定理（\cref{thm:plancherel}），$h(t)$与$H(\omega)$的能量仅相差一个常系数$2\pi$，所以上述条件实际上是要求单位脉冲响应$h(t)$能量有限。
 \begin{claim}
     对于因果系统，如果$h(t)\in L^1(\mathbb{R})$，则能量有限是满足佩利-维纳准则的充分不必要条件：
-    \[\int_{-\infty}^{\infty}\left|H(\omega)\right|^2\,d\omega<\infty\implies\int_{-\infty}^{\infty}\frac{\left|\ln\left|H(\omega)\right|\right|}{1+\omega^2}\,d\omega<\infty\]
+    \begin{equation}
+        \int_{-\infty}^{\infty}\abs{H(\omega)}^2\,\dd\omega<\infty\implies\int_{-\infty}^{\infty}\frac{\abs{\ln|H(\omega)|}}{1+\omega^2}\,\dd\omega<\infty.
+    \end{equation}
 \end{claim}
 
-佩利-维纳准则表明系统的对数幅度响应$\left|\ln\left|H(\omega)\right|\right|$不能“陡峭截止”：
+佩利-维纳准则表明系统的对数幅度响应$\abs{\ln|H(\omega)|}$不能“陡峭截止”：
 \begin{example}
     高斯滤波器的单位冲激响应和频率响应特性分别为
-    $$h(t)=\mathrm{e}^{-t^2},\quad H(\omega)=\sqrt{\pi}\mathrm{e}^{-\omega^2/4}$$
+    \begin{equation}
+        h(t)=\e^{-t^2},\quad H(\omega)=\sqrt{\pi}\e^{-\omega^2/4}.
+    \end{equation}
     利用反常积分的比较判别法的极限形式，
-    \[\frac{|\ln\left|H(\omega)\right||}{1+\omega^2}=\frac{\left|\ln \sqrt{\pi}-\frac{\omega^2}{4}\right|}{1+\omega^2}\sim \frac{\omega^2/4}{\omega^2}=\frac{1}{4},\quad |\omega|\to\infty\]
+    \begin{equation}
+        \frac{\abs{\ln|H(\omega)|}}{1+\omega^2}=\frac{\abs{\ln \sqrt{\pi}-\frac{\omega^2}{4}}}{1+\omega^2}\sim \frac{\omega^2/4}{\omega^2}=\frac{1}{4},\quad |\omega|\to\infty,
+    \end{equation}
     于是
-    \[\int_{-\infty}^{\infty}\frac{\left|\ln\left|H(\omega)\right|\right|}{1+\omega^2}\,d\omega=\infty\]
+    \begin{equation}
+        \int_{-\infty}^{\infty}\frac{\abs{\ln|H(\omega)|}}{1+\omega^2}\,\dd\omega=\infty.
+    \end{equation}
     高斯滤波器不满足佩利-维纳准则，且不是因果系统，因此不是可实现的。
 \end{example}
 
-佩利-维纳准则表明$\left|H(\omega)\right|$是能量有限的，并且衰减速度不能过快，特别地，$\left|H(\omega)\right|$不能紧支，于是下一小节中提到的理想滤波器（\cref{def:ideal_filter}）都是不可能实现的。要求能量有限，是因为有限能量输入对应有限能量输出。激励$e(t)=\delta(t)$时，输入能量是有限的，$h(t)$的能量也是有限的，根据帕塞瓦尔定理，$H(\omega)$的能量也是有限的；另一方面，$H\in L^2(\mathbb{R})$是得到佩里维纳准则的第二条所必需的。
+佩利-维纳准则表明$\abs{H(\omega)}$是能量有限的，并且衰减速度不能过快，特别地，$\abs{H(\omega)}$不能紧支，于是下一小节中提到的理想滤波器（\cref{def:ideal_filter}）都是不可能实现的。要求能量有限，是因为有限能量输入对应有限能量输出。激励$e(t)=\delta(t)$时，输入能量是有限的，$h(t)$的能量也是有限的，根据帕塞瓦尔定理，$H(\omega)$的能量也是有限的；另一方面，$H\in L^2(\mathbb{R})$是得到佩利-维纳准则的第二条所必需的。
 
 佩利-维纳准则是因果性能量有限系统的必要特性，它没有对系统引入额外的要求。但是，得到这一条件需要比较复杂的数学知识，本书不作讨论。
 
 在分析电路时曾见过频率响应的另一种引入方式\cite{electronic_circuits}：
 \begin{definition}[频率响应]
-    $$H(\omega)=Y(\omega)/X(\omega)$$
+    \begin{equation}
+        H(\omega)=Y(\omega)/X(\omega),
+    \end{equation}
     其中$X(\omega)$是输入端口信号的频域形式（也就是激励），$Y(\omega)$是输出端口信号的频域形式（也就是响应）。
 \end{definition}
-它与我们用傅里叶变换的理论给出的定义没有区别，但是展示了另一种求频率响应的视角。在学习电路分析时，我们知道线性的电感、电容在相量法下可以与线性电阻等同处理，统一地用\textbf{阻抗}来描述其电压电流关系。感值为L的电感，阻抗为$\mathrm{i}\omega L$，容值为C的电容，阻抗为$1/(\mathrm{i}\omega C)$，而阻值为R的电阻，阻抗就是R，这种分析方法实际上正是基于傅里叶变换的。
+它与我们用傅里叶变换的理论给出的定义没有区别，但是展示了另一种求频率响应的视角。在学习电路分析时，我们知道线性的电感、电容在相量法下可以与线性电阻等同处理，统一地用\textbf{阻抗}来描述其电压电流关系。感值为$L$的电感，阻抗为$\im\omega L$，容值为$C$的电容，阻抗为$1/(\im\omega C)$，而阻值为$R$的电阻，阻抗就是$R$，这种分析方法实际上正是基于傅里叶变换的。
 \begin{example}
     描述电容的方程为：
-\[\mathrm{i}(t)=C\frac{d}{dt}v(t)\]
-对其做傅里叶变换，得到
-\[I(\omega)=\mathrm{i}\omega C V(\omega)\]
-因此电容的阻抗为
-\[Z_C(\omega)=\frac{V(\omega)}{I(\omega)}=\frac{1}{\mathrm{i}\omega C}\]
-同理可得电感的阻抗为$Z_L(\omega)=\mathrm{i}\omega L$。
+    \begin{equation}
+        \mathrm{i}(t)=C\frac{\dd}{\dd t}v(t).
+    \end{equation}
+    对其做傅里叶变换，得到
+    \begin{equation}
+        I(\omega)=\im\omega C V(\omega),
+    \end{equation}
+    因此电容的阻抗为
+    \begin{equation}
+        Z_C(\omega)=\frac{V(\omega)}{I(\omega)}=\frac{1}{\im\omega C}.
+    \end{equation}
+    同理可得电感的阻抗为$Z_L(\omega)=\im\omega L$。
 \end{example}
 \begin{example}
-描述电感的方程为：
-\[v(t)=L\frac{d}{dt}\mathrm{i}(t)\]
-对其做傅里叶变换，得到
-\[V(\omega)=\mathrm{i}\omega L I(\omega)\]
-因此电感的阻抗为
-\[Z_L(\omega)=\frac{V(\omega)}{I(\omega)}=\mathrm{i}\omega L\]
+    描述电感的方程为：
+    \begin{equation}
+        v(t)=L\frac{\dd}{\dd t}\mathrm{i}(t).
+    \end{equation}
+    对其做傅里叶变换，得到
+    \begin{equation}
+        V(\omega)=\im\omega L I(\omega),
+    \end{equation}
+    因此电感的阻抗为
+    \begin{equation}
+        Z_L(\omega)=\frac{V(\omega)}{I(\omega)}=\im\omega L.
+    \end{equation}
 \end{example}
-\begin{example}
+\begin{example}\label{exmp:rc_phasor}
     考虑二端口网络：
-\begin{center}\begin{circuitikz}[american] % 美式电路风格
-    % 输入端口
-    \draw (0,2) to [short, o-] (1,2) % 输入接线端到电阻
-          to [R, l=$R$] (4,2);       % 电阻R
-    
-    % 电容C与接地
-    \draw (4,2) to [C, l_=$C$] (4,0) % 电容C（下标注）
-          to [short] (4,-0.5);   % 接地符号延伸
-    \draw (4,0) node[ground]{};      % 接地符号
-    
-    % 输出端口（从电阻与电容连接点引出）
-    \draw (4,2) to [short, -o] (6,2);
-    
-    % 标注输入输出电压
-    \draw (0,2) node[left]{$V_{\text{in}}(\omega)$};  % 输入电压
-    \draw (6,2) node[right]{$V_{\text{out}}(\omega)$}; % 输出电压
-\end{circuitikz}\end{center}
-我们直接使用相量法得到其输入输出方程的频域形式，与电阻分压同理：
-\[V_{out}(\omega)=\frac{1/(\mathrm{i}\omega C)}{R+1/(\mathrm{i}\omega C)}V_{in}(\omega)\]
-因此频率响应为
-\[
-    H(\omega)=\frac{V_{out}(\omega)}{V_{in}(\omega)}=\frac{1}{1+\mathrm{i}\omega RC}
-\]
+    \begin{center}\begin{circuitikz}[american] % 美式电路风格
+        % 输入端口
+        \draw (0,2) to [short, o-] (1,2) % 输入接线端到电阻
+              to [R, l=$R$] (4,2);       % 电阻R
+        
+        % 电容C与接地
+        \draw (4,2) to [C, l_=$C$] (4,0) % 电容C（下标注）
+              to [short] (4,-0.5);   % 接地符号延伸
+        \draw (4,0) node[ground]{};      % 接地符号
+        
+        % 输出端口（从电阻与电容连接点引出）
+        \draw (4,2) to [short, -o] (6,2);
+        
+        % 标注输入输出电压
+        \draw (0,2) node[left]{$V_{\text{in}}(\omega)$};  % 输入电压
+        \draw (6,2) node[right]{$V_{\text{out}}(\omega)$}; % 输出电压
+    \end{circuitikz}\end{center}
+    我们直接使用相量法得到其输入输出方程的频域形式，与电阻分压同理：
+    \begin{equation}
+        V_{\text{out}}(\omega)=\frac{1/(\im\omega C)}{R+1/(\im\omega C)}V_{\text{in}}(\omega),
+    \end{equation}
+    因此频率响应为
+    \begin{equation}
+        H(\omega)=\frac{V_{\text{out}}(\omega)}{V_{\text{in}}(\omega)}=\frac{1}{1+\im\omega RC}.
+    \end{equation}
 \end{example}
 可见相量法可以省去列写微分方程和求傅里叶变换的过程，直接得到频率响应，这也是前文中强调定义式$H(\omega)=Y(\omega)/X(\omega)$的原因。
 
 值得一提的是，限制$h(t)\in L^1(\mathbb{R})$有时是不必要的。根据分布与函数的卷积定理（\cref{thm:distribution_func_conv}），在
-$$e(t)\in\mathcal{S},h(t)\in\mathcal{T},\text{或}e(t)\in\mathcal{T},h(t)\in\mathcal{S}$$
-的情况下，同样有$Y(\omega)=H(\omega)X(\omega)$，例如，$h(t)=\delta+\delta_{1}\in\mathcal{T}$就是一个将信号与它时延$1s$所得信号相加的系统。
+\begin{equation}
+    e(t)\in\mathcal{S}(\mathbb{R}),\ h(t)\in\mathcal{T}(\mathbb{R}),\quad\text{或}\quad e(t)\in\mathcal{T}(\mathbb{R}),\ h(t)\in\mathcal{S}(\mathbb{R})
+\end{equation}
+的情况下，同样有$Y(\omega)=H(\omega)X(\omega)$，例如，$h(t)=\delta+\delta_{1}\in\mathcal{T}(\mathbb{R})$就是一个将信号与它时延$1\,\mathrm{s}$所得信号相加的系统。
 
 \subsection{滤波器}\label{sub:filter}
-我们曾在\refsub{convolution}中提到，滤波就是把信号中的某些成分剔除或大幅减少，相当于在频域乘以一个函数，在时域上的表现则是与这个函数的傅里叶逆变换进行卷积。从频率响应的视角来看，滤波器就是一个系统，理想滤波器的幅频特性在某些频率处接近于0，而在另一些频率处接近于1。
+我们曾在\refsub{convolution}中提到，滤波就是把信号中的某些成分剔除或大幅减少，相当于在频域乘以一个函数，在时域上的表现则是与这个函数的傅里叶逆变换进行卷积。从频率响应的视角来看，滤波器就是一个系统，理想滤波器的幅频特性在某些频率处接近于$0$，而在另一些频率处接近于$1$。
 
 \begin{definition}[滤波器的分类]
     \label{def:ideal_filter}
-    \textbf{低通滤波器}是指幅频特性$\left|H(\omega)\right|$近似等于$$\chi_{[-\omega_c,\omega_c]}$$的滤波器，$\omega_c$为截止频率；\textbf{高通滤波器}则相反，幅频特性近似$$1-\chi_{[-\omega_c,\omega_c]}$$
-    \textbf{带通滤波器}的幅频特性近似等于$$\chi_{[\omega_L,\omega_H]}+\chi_{[-\omega_H,-\omega_L]}$$
-    其中$\omega_L,\omega_H$分别称为下截频和上截频；\textbf{带阻滤波器}则相反，幅频特性近似为$$1-\left(\chi_{[\omega_L,\omega_H]}+\chi_{[-\omega_H,-\omega_L]}\right)$$
+    \textbf{低通滤波器}是指幅频特性$\abs{H(\omega)}$近似等于
+    \begin{equation}
+        \chi_{[-\omega_c,\omega_c]}
+    \end{equation}
+    的滤波器，$\omega_c$为截止频率；\textbf{高通滤波器}则相反，幅频特性近似
+    \begin{equation}
+        1-\chi_{[-\omega_c,\omega_c]},
+    \end{equation}
+    \textbf{带通滤波器}的幅频特性近似等于
+    \begin{equation}
+        \chi_{[\omega_L,\omega_H]}+\chi_{[-\omega_H,-\omega_L]},
+    \end{equation}
+    其中$\omega_L,\omega_H$分别称为下截频和上截频；\textbf{带阻滤波器}则相反，幅频特性近似为
+    \begin{equation}
+        1-\paren{\chi_{[\omega_L,\omega_H]}+\chi_{[-\omega_H,-\omega_L]}}.
+    \end{equation}
 \end{definition}
 \begin{figure}[H]
     \centering
@@ -124,97 +169,117 @@ $$e(t)\in\mathcal{S},h(t)\in\mathcal{T},\text{或}e(t)\in\mathcal{T},h(t)\in\mat
 
 一般而言，理想滤波器的单位脉冲响应是实函数，这样激励是实信号时，响应也是实信号。这也是为什么以上滤波器的幅频特性都是偶函数。
 \begin{example}
-将激励信号$V_{in}(t)=\cos(\omega_0 t)$施加于例10中的RC电路，求输出信号$V_{out}(t)$\\
-解：激励信号的傅里叶变换为
-    \[V_{in}(\omega)=\pi(\delta_{\omega_0}+\delta_{-\omega_0})\]
-因此输出信号的傅里叶变换为
-\begin{align*}
-    V_{out}(\omega)&=H(\omega)V_{in}(\omega)\\
-    &=\frac{\pi}{1+\mathrm{i}\omega RC}(\delta_{\omega_0}+\delta_{-\omega_0})\\
-    &=\frac{\pi}{1+\mathrm{i}\omega_0 RC}\delta_{\omega_0}+\frac{\pi}{1+\mathrm{i}(-\omega_0) RC}\delta_{-\omega_0}
-\end{align*}
-反变换得到输出信号为
-\begin{align*}
-    r(t)&=\frac{1}{2\pi}\int_{-\infty}^{\infty}V_{out}(\omega)\mathrm{e}^{\mathrm{i}\omega t}\,d\omega\\
-    &=\frac{1}{2\pi}\int_{-\infty}^{\infty}\left(\frac{\pi}{1+\mathrm{i}\omega_0 RC}\delta_{\omega_0}+\frac{\pi}{1-\mathrm{i}\omega_0 RC}\delta_{-\omega_0}\right)\mathrm{e}^{\mathrm{i}\omega t}\,d\omega\\
-    &=\frac{1}{2}\left(\frac{1}{1+\mathrm{i}\omega_0 RC}\mathrm{e}^{\mathrm{i}\omega_0 t}+\frac{1}{1-\mathrm{i}\omega_0 RC}\mathrm{e}^{-\mathrm{i}\omega_0 t}\right)\\
-    &=\text{Re}\left[\frac{1}{1+\mathrm{i}\omega_0 RC}\mathrm{e}^{\mathrm{i}\omega_0 t}\right]\\
-    &=\frac{1}{\sqrt{1+(\omega_0 RC)^2}}\cos(\omega_0 t-\arctan(\omega_0 RC))
-\end{align*}
+    将激励信号$V_{\text{in}}(t)=\cos(\omega_0 t)$施加于\cref{exmp:rc_phasor}中的RC电路，求输出信号$V_{\text{out}}(t)$。
 
-考虑$\omega_0$处$H(\omega)$的幅度和相位：
-\begin{align*}
-    &|H(\omega_0)|=\frac{1}{\sqrt{1+(\omega_0 RC)^2}}\\
-    &\varphi(\omega_0)=-\arctan(\omega_0 RC)\\
-    &r(t)=\left|H(\omega_0)\right|\cos\left(\omega_0 t+\varphi(\omega_0)\right)
-\end{align*}
-可以看到，$|H(\omega_0)|$为输出信号幅值的放大倍数，$\varphi(\omega_0)$为相位延迟，输出信号$V_{out}(t)$只用到了频域中的两个点$\pm\omega_0$，且由于系统函数偶对称，输出信号只显含$H(\omega_0)$的幅值的相位。这是因为$\cos(\omega_0 t)$在频域中只含有两个对称的频率成分。
+    解：激励信号的傅里叶变换为
+    \begin{equation}
+        V_{\text{in}}(\omega)=\pi\paren{\delta_{\omega_0}+\delta_{-\omega_0}},
+    \end{equation}
+    因此输出信号的傅里叶变换为
+    \begin{align}
+        V_{\text{out}}(\omega)&=H(\omega)V_{\text{in}}(\omega)\nonumber\\
+        &=\frac{\pi}{1+\im\omega RC}\paren{\delta_{\omega_0}+\delta_{-\omega_0}}\nonumber\\
+        &=\frac{\pi}{1+\im\omega_0 RC}\delta_{\omega_0}+\frac{\pi}{1+\im(-\omega_0) RC}\delta_{-\omega_0}.
+    \end{align}
+    反变换得到输出信号为
+    \begin{align}
+        r(t)&=\frac{1}{2\pi}\int_{-\infty}^{\infty}V_{\text{out}}(\omega)\e^{\im\omega t}\,\dd\omega\nonumber\\
+        &=\frac{1}{2\pi}\int_{-\infty}^{\infty}\paren{\frac{\pi}{1+\im\omega_0 RC}\delta_{\omega_0}+\frac{\pi}{1-\im\omega_0 RC}\delta_{-\omega_0}}\e^{\im\omega t}\,\dd\omega\nonumber\\
+        &=\frac{1}{2}\paren{\frac{1}{1+\im\omega_0 RC}\e^{\im\omega_0 t}+\frac{1}{1-\im\omega_0 RC}\e^{-\im\omega_0 t}}\nonumber\\
+        &=\Re\sbr{\frac{1}{1+\im\omega_0 RC}\e^{\im\omega_0 t}}\nonumber\\
+        &=\frac{1}{\sqrt{1+(\omega_0 RC)^2}}\cos\paren{\omega_0 t-\arctan(\omega_0 RC)}.
+    \end{align}
+
+    考虑$\omega_0$处$H(\omega)$的幅度和相位：
+    \begin{align}
+        \abs{H(\omega_0)}&=\frac{1}{\sqrt{1+(\omega_0 RC)^2}},\\
+        \varphi(\omega_0)&=-\arctan(\omega_0 RC),\\
+        r(t)&=\abs{H(\omega_0)}\cos\paren{\omega_0 t+\varphi(\omega_0)}.
+    \end{align}
+    可以看到，$\abs{H(\omega_0)}$为输出信号幅值的放大倍数，$\varphi(\omega_0)$为相位延迟，输出信号$V_{\text{out}}(t)$只用到了频域中的两个点$\pm\omega_0$，且由于系统函数偶对称，输出信号只显含$H(\omega_0)$的幅值和相位。这是因为$\cos(\omega_0 t)$在频域中只含有两个对称的频率成分。
 \end{example}
 
-将以上过程进一步抽象:
-\begin{align*}
-    \mathcal{F}\left[H[\mathrm{e}^{\mathrm{i}\omega_0 t}]\right]&=\mathcal{F} \left[h(t)*\mathrm{e}^{\mathrm{i}\omega_0 t}\right]\\
-    &=H(\omega)\mathcal{F} \left[\mathrm{e}^{\mathrm{i}\omega_0 t}\right]\\
-    &=2\pi H(\omega)\delta_{\omega_0}\\
-    &=2\pi H(\omega_0)\delta_{\omega_0}
-\end{align*}
-因此\[r(t)=H\left[\mathrm{e}^{\mathrm{i}\omega_0 t}\right]=H(\omega_0)\mathrm{e}^{\mathrm{i}\omega_0 t}=H(\omega_0)e(t)\]
-可见，将线性时不变系统视作一个线性算子，其特征向量为形如$\mathrm{e}^{\mathrm{i}\omega t}$的函数，由此定义：
+将以上过程进一步抽象：
+\begin{align}
+    \mathcal{F}\sbr{H[\e^{\im\omega_0 t}]}&=\mathcal{F}\sbr{h(t)*\e^{\im\omega_0 t}}\nonumber\\
+    &=H(\omega)\mathcal{F}\sbr{\e^{\im\omega_0 t}}\nonumber\\
+    &=2\pi H(\omega)\delta_{\omega_0}\nonumber\\
+    &=2\pi H(\omega_0)\delta_{\omega_0},
+\end{align}
+因此
+\begin{equation}
+    r(t)=H\sbr{\e^{\im\omega_0 t}}=H(\omega_0)\e^{\im\omega_0 t}=H(\omega_0)e(t).
+\end{equation}
+可见，将线性时不变系统视作一个线性算子，其特征向量为形如$\e^{\im\omega t}$的函数，由此定义：
 \begin{definition}[特征函数]\label{def:eigenfunction}
-    给定$\omega_0$，将函数$\mathrm{e}^{\mathrm{i}\omega_0 t}$称为系统H的\textbf{特征函数}(eigenfunction)，\textbf{特征值}(eigenvalue)为$H(\omega_0)$。
+    给定$\omega_0$，将函数$\e^{\im\omega_0 t}$称为系统$H$的\textbf{特征函数}(eigenfunction)，\textbf{特征值}(eigenvalue)为$H(\omega_0)$。
 \end{definition}
 
 \subsection{失真与时延}\label{sub:distortion}
 
 在信号传输的过程中，有时希望信号经过一个系统，只有幅值发生变化，而波形不改变，例如小信号放大电路。我们定义：
 \begin{definition}[失真]
-波形改变的现象称为\textbf{失真}(distortion)。根据输出信号是否产生新的频率分量，将失真分为\textbf{线性失真}(linear distortion)和\textbf{非线性失真}(nonlinear distortion)；线性失真中，根据引起失真的方式，又分为\textbf{幅度失真}(amplitude distortion)和\textbf{相位失真}(phase distortion)。幅度失真是指系统的幅频特性不是常数，即不同频率成分的放大倍数不同；相位失真是指系统的相频特性不是线性的，即不同频率成分的相位延迟不同。
+    波形改变的现象称为\textbf{失真}(distortion)。根据输出信号是否产生新的频率分量，将失真分为\textbf{线性失真}(linear distortion)和\textbf{非线性失真}(nonlinear distortion)；线性失真中，根据引起失真的方式，又分为\textbf{幅度失真}(amplitude distortion)和\textbf{相位失真}(phase distortion)。幅度失真是指系统的幅频特性不是常数，即不同频率成分的放大倍数不同；相位失真是指系统的相频特性不是线性的，即不同频率成分的相位延迟不同。
 \end{definition}
 \begin{definition}[无失真传输系统]
-如果一个系统对任意激励信号都不会产生失真，则称之为\textbf{无失真传输系统}(ideal transfer system)
+    如果一个系统对任意激励信号都不会产生失真，则称之为\textbf{无失真传输系统}(ideal transfer system)。
 \end{definition}
 
-对于一个理想的\textbf{无失真传输系统}，它只能对输入信号进行幅值的统一改变或相位的统一延迟，即\[r(t)=Ke(t-t_0)\]其中K为常数，$t_0$为常数延迟。由傅里叶变换的时移性质可知，无失真传输系统的系统函数为
-\[H(\omega) = Ke^{-\mathrm{i}\omega t_0}\]
-可以看到，$\left|H(\omega)\right|=K,t_0=-\varphi(\omega)/\omega$，其幅频特性是常数，图像为一水平线；相频特性是线性函数，图像为过原点的直线，斜率$-t_0$对应系统造成的延时。
+对于一个理想的\textbf{无失真传输系统}，它只能对输入信号进行幅值的统一改变或相位的统一延迟，即
+\begin{equation}
+    r(t)=Ke(t-t_0),
+\end{equation}
+其中$K$为常数，$t_0$为常数延迟。由傅里叶变换的时移性质可知，无失真传输系统的系统函数为
+\begin{equation}
+    H(\omega)=K\e^{-\im\omega t_0}.
+\end{equation}
+可以看到，$\abs{H(\omega)}=K$，$t_0=-\varphi(\omega)/\omega$，其幅频特性是常数，图像为一水平线；相频特性是线性函数，图像为过原点的直线，斜率$-t_0$对应系统造成的延时。
 
-由于物理限制，我们不可能实现一个无失真传输系统，但只要所讨论的信号的频谱基本都集中在特定的频段当中，就可以近似认为在这个频段上满足$\left|H(\omega)\right|=K,\varphi(\omega)=-\omega t_0$的系统是无失真传输系统。
+由于物理限制，我们不可能实现一个无失真传输系统，但只要所讨论的信号的频谱基本都集中在特定的频段当中，就可以近似认为在这个频段上满足$\abs{H(\omega)}=K$、$\varphi(\omega)=-\omega t_0$的系统是无失真传输系统。
 
-对于一般的线性时不变系统，可以将时延$t_0=-\varphi(\omega)/\omega$由常数推广为$\omega$的函数$\tau_p(\omega)$。此外，$\varphi(\omega)/\omega$是$\varphi(\omega)-\omega$图像的割线斜率，而$d\varphi(\omega)/d\omega$是该图像在$\omega$处的切线斜率，仿照电路分析中对于动态电阻和静态电阻的处理，我们定义相时延和群时延\cite{signal_systems}：
+对于一般的线性时不变系统，可以将时延$t_0=-\varphi(\omega)/\omega$由常数推广为$\omega$的函数$\tau_p(\omega)$。此外，$\varphi(\omega)/\omega$是$\varphi(\omega)-\omega$图像的割线斜率，而$\dd\varphi(\omega)/\dd\omega$是该图像在$\omega$处的切线斜率，仿照电路分析中对于动态电阻和静态电阻的处理，我们定义相时延和群时延\cite{signal_systems}：
 \begin{definition}[相时延和群时延]
     \label{def:delay}
-    \[\tau_p(\omega)=-\frac{\varphi(\omega)}{\omega}\]
+    \begin{equation}
+        \tau_p(\omega)=-\frac{\varphi(\omega)}{\omega}
+    \end{equation}
     描述了系统对不同频率成分造成时延的情况，称之为\textbf{相时延}(phase delay)；将
-    \[\tau_g(\omega)=-\frac{d\varphi(\omega)}{d\omega}\]
+    \begin{equation}
+        \tau_g(\omega)=-\frac{\dd\varphi(\omega)}{\dd\omega}
+    \end{equation}
     称为\textbf{群时延}(group delay)或\textbf{包络延时}(envelope delay)。
 \end{definition}
 
-对于无失真传输系统，$\tau_p(\omega)=\tau_g(\omega)=t_0$。根据电路分析的经验，看到$\tau_p(\omega)=-\varphi(\omega)/\omega$而定义$\tau_g(\omega)=-d\varphi(\omega)/d\omega$是自然的，在处理非线性电阻的伏安特性曲线时也曾类似地定义动态电阻和静态电阻，但其物理意义并不十分明显，我们通过两个例子来理解它们的意义。
+对于无失真传输系统，$\tau_p(\omega)=\tau_g(\omega)=t_0$。根据电路分析的经验，看到$\tau_p(\omega)=-\varphi(\omega)/\omega$而定义$\tau_g(\omega)=-\dd\varphi(\omega)/\dd\omega$是自然的，在处理非线性电阻的伏安特性曲线时也曾类似地定义动态电阻和静态电阻，但其物理意义并不十分明显，我们通过两个例子来理解它们的意义。
 
 \begin{example}[相时延]\label{exmp:phase_delay}
-设输入信号为单频复指数信号$\mathrm{e}^{\mathrm{i}\omega_0 t}$，求频率响应为$H(\omega)$
-的线性时不变系统的输出信号$r(t)$。\\
-解：我们已经在前面得到：\[r(t)=H\left[\mathrm{e}^{\mathrm{i}\omega_0 t}\right]=H(\omega_0)\mathrm{e}^{\mathrm{i}\omega_0 t}=\left|H(\omega_0)\right|\mathrm{e}^{\mathrm{i}(\omega_0 t+\varphi(\omega_0))}\]
-可以看到，输出信号仍然是单频复指数信号，其幅值被放大了$|H(\omega_0)|$倍，相位
-延迟了$\varphi(\omega_0)$，折合到时间上，就得到相时延：
-$$r(t)=\left|H(\omega_0)\right|\mathrm{e}^{\mathrm{i}\omega_0 (t+\varphi(\omega_0)/\omega_0)},\quad \tau_p(\omega_0)=-\frac{\varphi(\omega_0)}{\omega_0}$$
+    设输入信号为单频复指数函数$\e^{\im\omega_0 t}$，求频率响应为$H(\omega)$的线性时不变系统的输出信号$r(t)$。
+
+    解：我们已经在前面得到：
+    \begin{equation}
+        r(t)=H\sbr{\e^{\im\omega_0 t}}=H(\omega_0)\e^{\im\omega_0 t}=\abs{H(\omega_0)}\e^{\im(\omega_0 t+\varphi(\omega_0))}.
+    \end{equation}
+    可以看到，输出信号仍然是单频复指数函数，其幅值被放大了$\abs{H(\omega_0)}$倍，相位延迟了$\varphi(\omega_0)$，折合到时间上，就得到相时延：
+    \begin{equation}
+        r(t)=\abs{H(\omega_0)}\e^{\im\omega_0\paren{t+\varphi(\omega_0)/\omega_0}},\quad \tau_p(\omega_0)=-\frac{\varphi(\omega_0)}{\omega_0}.
+    \end{equation}
 \end{example}
 
 可以想象，能够分解成不同频率成分的信号，其各频率成分一般会产生不同的相时延，从而使得输出信号的波形发生变化，这就是相频特性不是线性函数导致的相位失真。
 
 然而，如果将辐角取为$(-\pi,\pi]$内的主值，$\varphi(\omega)$可能是不连续的，而不做此限制则可能导致相时延的多值性。处理这个问题的标准方法是对相频特性进行\textbf{解卷绕}(unwrap)，使得$\varphi(\omega)$成为一个连续函数，这样就可以得到一个唯一的相时延函数$\tau_p(\omega)$。下面介绍解卷绕的流程。
 
-对于$z=x+\mathrm{i}y\neq 0$，辐角主值的计算方式为：
-\begin{align*}
-    \mathrm{Arg}(z)=&\begin{cases}
-        \arctan\left(\frac{y}{x}\right),&x>0\\
-        \arctan\left(\frac{y}{x}\right)+\pi,&x<0,y\geq 0\\
-        \arctan\left(\frac{y}{x}\right)-\pi,&x<0,y<0\\
-        \frac{\pi}{2},&x=0,y>0\\
-        -\frac{\pi}{2},&x=0,y<0
-    \end{cases}
-\end{align*}
-其中，$x=0,y\neq 0$时的情况可以视为$\arctan(y/x)$的极限值，$\mathrm{Arg}$是连续的，但当$z$靠近$x$轴负半轴时，$\mathrm{Arg}(z)$的值趋于$\pi$或$-\pi$，产生幅度为$\pm 2\pi$的跳变。
+对于$z=x+\im y\neq 0$，辐角主值的计算方式为：
+\begin{equation}
+    \Arg(z)=\begin{dcases}
+        \arctan\paren{\frac{y}{x}},&x>0,\\
+        \arctan\paren{\frac{y}{x}}+\pi,&x<0,\ y\geq 0,\\
+        \arctan\paren{\frac{y}{x}}-\pi,&x<0,\ y<0,\\
+        \frac{\pi}{2},&x=0,\ y>0,\\
+        -\frac{\pi}{2},&x=0,\ y<0,
+    \end{dcases}
+\end{equation}
+其中，$x=0,\ y\neq 0$时的情况可以视为$\arctan(y/x)$的极限值，$\Arg$是连续的，但当$z$靠近$x$轴负半轴时，$\Arg(z)$的值趋于$\pi$或$-\pi$，产生幅度为$\pm 2\pi$的跳变。
 
 \begin{figure}[H]
     \centering
@@ -225,77 +290,95 @@ $$r(t)=\left|H(\omega_0)\right|\mathrm{e}^{\mathrm{i}\omega_0 (t+\varphi(\omega_
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.48\textwidth}
-        解卷绕的思路是，从$\omega=0$开始，逐步增加$\omega$，每当$\varphi(\omega)$发生跳变时，就将后续的$\varphi(\omega)$的值加上或减去$2\pi$，使得$\varphi(\omega)$保持连续。换言之，我们将$\mathrm{Arg}$的值域扩展到$(-\infty, \infty)$，使得辐角在左图所示的光滑的曲线上连续变化。这样得到的相频特性，我们记为
-        \[\varphi_{\text{unwrapped}}(\omega)\]
-        在$\mathrm{Arg}(H(\omega))$发生跳变时，我们实际上应该将相时延和群时延分别定义为：
-        \[\tau_p(\omega)=-\frac{\varphi_{\text{unwrapped}}(\omega)}{\omega}\]
-        \[\tau_g(\omega)=-\frac{d\varphi_{\text{unwrapped}}(\omega)}{d\omega}\]
+        解卷绕的思路是，从$\omega=0$开始，逐步增加$\omega$，每当$\varphi(\omega)$发生跳变时，就将后续的$\varphi(\omega)$的值加上或减去$2\pi$，使得$\varphi(\omega)$保持连续。换言之，我们将$\Arg$的值域扩展到$(-\infty, \infty)$，使得辐角在左图所示的光滑的曲线上连续变化。这样得到的相频特性，我们记为
+        \begin{equation}
+            \varphi_{\text{unwrapped}}(\omega).
+        \end{equation}
+        在$\Arg(H(\omega))$发生跳变时，我们实际上应该将相时延和群时延分别定义为：
+        \begin{align}
+            \tau_p(\omega)&=-\frac{\varphi_{\text{unwrapped}}(\omega)}{\omega},\\
+            \tau_g(\omega)&=-\frac{\dd\varphi_{\text{unwrapped}}(\omega)}{\dd\omega}.
+        \end{align}
     \end{minipage}
 \end{figure}
 
 在讨论群时延时我们将使用以下引理以简化讨论：
 
 \begin{lemma}\label{lemma:cos_filter}
-    设系统的单位脉冲响应$h(t)$是实信号，则当单频余弦函数$e(t)=\cos(\omega_0 t+\theta)$通过系统时，响应为
-    $$r(t)=|H(\omega_0)|\cos(\omega_0 t+\theta+\varphi(\omega_0))$$
+    设系统的单位脉冲响应$h(t)$是实函数，则当单频余弦函数$e(t)=\cos(\omega_0 t+\theta)$通过系统时，响应为
+    \begin{equation}
+        r(t)=\abs{H(\omega_0)}\cos(\omega_0 t+\theta+\varphi(\omega_0)).
+    \end{equation}
 \end{lemma}
 \begin{proof}
     由欧拉公式，
-    $$e(t)=\cos(\omega_0 t+\theta)=\frac{\e^{\im(\omega_0 t+\theta)}+\e^{-\im(\omega_0 t+\theta)}}{2}$$
+    \begin{equation}
+        e(t)=\cos(\omega_0 t+\theta)=\frac{\e^{\im(\omega_0 t+\theta)}+\e^{-\im(\omega_0 t+\theta)}}{2},
+    \end{equation}
     因此其傅里叶变换为
-    $$E(\omega)=\frac{\e^{\im\theta}\delta_{\omega_0}+\e^{-\im\theta}\delta_{-\omega_0}}{2}$$
-    单位脉冲响应$h(t)$是实信号时，频率响应具有共轭对称性：
-    $$H(-\omega)=\overline{H(\omega)},\quad \text{即}|H(-\omega)|=\left|H(\omega)\right|,\varphi(-\omega)=-\varphi(\omega)$$
+    \begin{equation}
+        E(\omega)=\frac{\e^{\im\theta}\delta_{\omega_0}+\e^{-\im\theta}\delta_{-\omega_0}}{2}.
+    \end{equation}
+    单位脉冲响应$h(t)$是实函数时，频率响应具有共轭对称性：
+    \begin{equation}
+        H(-\omega)=\overline{H(\omega)},\quad \text{即}\ \abs{H(-\omega)}=\abs{H(\omega)},\quad \varphi(-\omega)=-\varphi(\omega),
+    \end{equation}
     因此
-    \begin{align*}
-        R(\omega)&=H(\omega)E(\omega)\\
-        &=\frac{H(\omega_0)\e^{\im\theta}\delta_{\omega_0}+H(-\omega_0)\e^{-\im\theta}\delta_{-\omega_0}}{2}\\
-        &=|H(\omega_0)|\frac{\e^{\im(\theta+\varphi(\omega_0))}\delta_{\omega_0}+\e^{-\im(\theta+\varphi(\omega_0))}\delta_{-\omega_0}}{2}
-    \end{align*}
+    \begin{align}
+        R(\omega)&=H(\omega)E(\omega)\nonumber\\
+        &=\frac{H(\omega_0)\e^{\im\theta}\delta_{\omega_0}+H(-\omega_0)\e^{-\im\theta}\delta_{-\omega_0}}{2}\nonumber\\
+        &=\abs{H(\omega_0)}\frac{\e^{\im(\theta+\varphi(\omega_0))}\delta_{\omega_0}+\e^{-\im(\theta+\varphi(\omega_0))}\delta_{-\omega_0}}{2}.
+    \end{align}
     做傅里叶逆变换，得
-    $$r(t)=|H(\omega_0)|\frac{\e^{\im(\omega_0 t+\theta+\varphi(\omega_0))}+\e^{-\im(\omega_0 t+\theta+\varphi(\omega_0))}}{2}=|H(\omega_0)|\cos(\omega_0 t+\theta+\varphi(\omega_0))$$
+    \begin{equation}
+        r(t)=\abs{H(\omega_0)}\frac{\e^{\im(\omega_0 t+\theta+\varphi(\omega_0))}+\e^{-\im(\omega_0 t+\theta+\varphi(\omega_0))}}{2}=\abs{H(\omega_0)}\cos(\omega_0 t+\theta+\varphi(\omega_0)).
+    \end{equation}
 \end{proof}
 
 \begin{example}[群时延]
     \label{exmp:group_delay}
     设输入信号为调幅信号（关于调幅信号，见\refsub{modulation}）：
-    \[e(t)=\cos(\omega_m t)\cos(\omega_c t)\]
-    其中$\omega_c$为载波角频率，$\omega_m$为被调制信号的角频率，且$\omega_c\gg \omega_m$.系统H的单位脉冲响应$h(t)$为实信号，频率响应为$H(\omega)$。求$e(t)$进入系统所得的输出信号$r(t)$。\\
-    解：
-    可以看到该信号是一个被低频信号$\pm\cos(\omega_m t)$包络的高频载波信号$\cos(\omega_c t)$:
+    \begin{equation}
+        e(t)=\cos(\omega_m t)\cos(\omega_c t),
+    \end{equation}
+    其中$\omega_c$为载波角频率，$\omega_m$为被调制信号的角频率，且$\omega_c\gg \omega_m$。系统$H$的单位脉冲响应$h(t)$为实函数，频率响应为$H(\omega)$。求$e(t)$进入系统所得的输出信号$r(t)$。
+
+    解：可以看到该信号是一个被低频信号$\pm\cos(\omega_m t)$包络的高频载波信号$\cos(\omega_c t)$：
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{AM.jpeg}
         \caption{调幅信号示意图}
     \end{figure}
     将输入信号用积化和差公式展开：
-    \begin{align*}
-        e(t)&=\frac{1}{2}[\cos((\omega_c+\omega_m)t)+\cos((\omega_c-\omega_m)t)]
-    \end{align*}
+    \begin{equation}
+        e(t)=\frac{1}{2}\sbr{\cos((\omega_c+\omega_m)t)+\cos((\omega_c-\omega_m)t)}.
+    \end{equation}
     利用\cref{lemma:cos_filter}，有：
-    \begin{align*}
-        r(t)=&\frac{1}{2}|H(\omega_c+\omega_m)|\cos((\omega_c+\omega_m)t+\varphi(\omega_c+\omega_m))\\
-        &+\frac{1}{2}\left|H(\omega_c-\omega_m)\right|\cos\left((\omega_c-\omega_m)t+\varphi(\omega_c-\omega_m)\right)
-    \end{align*}
-    由于$\omega_c\gg \omega_m$，可以将$\left|H(\omega)\right|$近似为$|H(\omega_c)|$，将$\varphi(\omega)$在$\omega_c$处做泰勒展开：
-    \begin{align*}
-        \varphi(\omega_c+ \omega)\approx \varphi(\omega_c)+\left.\frac{d\varphi(\omega)}{d\omega}\right|_{\omega=\omega_c}\omega
-    \end{align*}
+    \begin{align}
+        r(t)&=\frac{1}{2}\abs{H(\omega_c+\omega_m)}\cos\paren{(\omega_c+\omega_m)t+\varphi(\omega_c+\omega_m)}\nonumber\\
+        &\quad+\frac{1}{2}\abs{H(\omega_c-\omega_m)}\cos\paren{(\omega_c-\omega_m)t+\varphi(\omega_c-\omega_m)}.
+    \end{align}
+    由于$\omega_c\gg \omega_m$，可以将$\abs{H(\omega)}$近似为$\abs{H(\omega_c)}$，将$\varphi(\omega)$在$\omega_c$处做泰勒展开：
+    \begin{equation}
+        \varphi(\omega_c+\omega)\approx \varphi(\omega_c)+\left.\frac{\dd\varphi(\omega)}{\dd\omega}\right|_{\omega=\omega_c}\omega.
+    \end{equation}
     将其带入$r(t)$中，得到
-    \begin{align*}
-        r(t)\approx&\frac{1}{2}|H(\omega_c)|\left[\cos\left((\omega_c+\omega_m)t+\varphi(\omega_c)+\left.\frac{d\varphi(\omega)}{d\omega}\right|_{\omega=\omega_c}\omega_m\right)\right.\\
-        &\qquad\qquad\left.+\cos\left((\omega_c-\omega_m)t+\varphi(\omega_c)-\left.\frac{d\varphi(\omega)}{d\omega}\right|_{\omega=\omega_c}\omega_m\right)\right]\\
-        =&|H(\omega_c)|\cos(\omega_c t+\varphi(\omega_c))\cos\left(\omega_m\left[t+\left.\frac{d\varphi(\omega)}{d\omega}\right|_{\omega=\omega_c}\right]\right)
-    \end{align*}
-    相比输入信号$e(t)=\cos(\omega_m t)\cos(\omega_c t)$，输出信号的幅度大约变为$|H(\omega_c)|$倍，载波信号的相位延迟了$\varphi(\omega_c)$，调制信号的相位延迟了$\omega_m\left.\dfrac{d\varphi(\omega)}{d\omega}\right|_{\omega=\omega_c}$，折合到时间上，就是群时延
-    $$\tau_g(\omega_c)=-\left.\dfrac{d\varphi(\omega)}{d\omega}\right|_{\omega=\omega_c}$$
+    \begin{align}
+        r(t)&\approx\frac{1}{2}\abs{H(\omega_c)}\left[\cos\paren{(\omega_c+\omega_m)t+\varphi(\omega_c)+\left.\frac{\dd\varphi(\omega)}{\dd\omega}\right|_{\omega=\omega_c}\omega_m}\right.\nonumber\\
+        &\qquad\qquad\left.{}+\cos\paren{(\omega_c-\omega_m)t+\varphi(\omega_c)-\left.\frac{\dd\varphi(\omega)}{\dd\omega}\right|_{\omega=\omega_c}\omega_m}\right]\nonumber\\
+        &=\abs{H(\omega_c)}\cos(\omega_c t+\varphi(\omega_c))\cos\paren{\omega_m\sbr{t+\left.\frac{\dd\varphi(\omega)}{\dd\omega}\right|_{\omega=\omega_c}}}.
+    \end{align}
+    相比输入信号$e(t)=\cos(\omega_m t)\cos(\omega_c t)$，输出信号的幅度大约变为$\abs{H(\omega_c)}$倍，载波信号的相位延迟了$\varphi(\omega_c)$，调制信号的相位延迟了$\displaystyle \omega_m\left.\frac{\dd\varphi(\omega)}{\dd\omega}\right|_{\omega=\omega_c}$，折合到时间上，就是群时延
+    \begin{equation}
+        \tau_g(\omega_c)=-\left.\frac{\dd\varphi(\omega)}{\dd\omega}\right|_{\omega=\omega_c}.
+    \end{equation}
     因此，群时延描述了系统对调制信号的包络造成的延时。从信号的图像上来看，高频的载波信号的延时是不会造成很明显的变化的，而低频的调制信号的时延则会明显地反映在图像上，就像一个“信号群”在传播过程中整体产生了一段时延，群时延的名称就由此而来。
 \end{example}
 
 \begin{definition}[线性相位系统]
     如果系统对各个频率成分有相同时延，即相时延$\tau_p(\omega)$是常数，则称之为\textbf{线性相位系统}(linear phase system)；
 
-    如果系统对各个中心频率的信号群有相同时延，即群时延$\tau_p(\omega)$是常数，则称之为\textbf{准线性相位系统}(quasilinear phase system).
+    如果系统对各个中心频率的信号群有相同时延，即群时延$\tau_g(\omega)$是常数，则称之为\textbf{准线性相位系统}(quasilinear phase system)。
 
     线性相位性质蕴含准线性相位性质。
 \end{definition}
@@ -315,46 +398,66 @@ $$r(t)=\left|H(\omega_0)\right|\mathrm{e}^{\mathrm{i}\omega_0 (t+\varphi(\omega_
 典型的色散现象如一束白光通过三棱镜时，不同频率的光波由于波速不同而发生空间分离，形成彩虹色带。在无线电通信中，电离层对不同频率的电磁波有不同的折射率，导致信号传播速度不同，从而引起信号失真。
 
 为了讨论方便，我们假设波动是一维的，$x$处的质点在时刻$t$的位置为$y(x,t)$，$y(x,t)$满足的动力学方程称为\textbf{波动方程}，具有如下统一形式：
-\[\frac{\partial^2 y}{\partial x^2}=\frac{1}{u^2}\frac{\partial^2 y}{\partial t^2}\]
-其中常数$u$具有波速的物理意义。波动方程的解具有形式$y(x,t)=f(x-ut)+g(x+ut)$，其中$f$和$g$分别表示向x轴正方向和负方向传播的波的波形，数学上，它们可以是任意的无限阶可导函数。
+\begin{equation}
+    \frac{\partial^2 y}{\partial x^2}=\frac{1}{u^2}\frac{\partial^2 y}{\partial t^2},
+\end{equation}
+其中常数$u$具有波速的物理意义。波动方程的解具有形式$y(x,t)=f(x-ut)+g(x+ut)$，其中$f$和$g$分别表示向$x$轴正方向和负方向传播的波的波形，数学上，它们可以是任意的无限阶可导函数。
 
 特别地，对于简谐波，有
-\[y(x,t)=A\cos\omega\left(t-\frac{x}{u}\right)=A\cos\left(\frac{2\pi t}{T}-\frac{2\pi x}{\lambda}\right)\]
+\begin{equation}
+    y(x,t)=A\cos\omega\paren{t-\frac{x}{u}}=A\cos\paren{\frac{2\pi t}{T}-\frac{2\pi x}{\lambda}}.
+\end{equation}
 引入\textbf{波数}$k=\frac{2\pi}{\lambda}$，则简谐波可以表示为
-\[y(x,t)=A\cos(\omega t - k x)\]
+\begin{equation}
+    y(x,t)=A\cos(\omega t - k x).
+\end{equation}
 
 这里波数并不是指波的数目，而是一个将空间距离折算为相位延迟的比例系数，也可以将它理解为波的空间角频率：对简谐波$y(x,t)=A\cos(\omega t-kx)$的空间变量做傅里叶变换，将得到空间角频率仅有$\pm k$的成分，对三维空间中的平面波也有类似的结论，见\refsub{multi_schwartz}。我们将宗量$\omega t-kx$称为波的\textbf{相位}(phase)，考察相位的传播速度，即令$\omega t-kx=\text{const}$（例如，振幅最大值处恒有$\omega t-kx=0$），得到
-\begin{align*}
-    \frac{dx}{dt}=\frac{\omega}{k}=u\tag{$*$}
-\end{align*}
+\begin{equation}\label{eq:phase_velocity}
+    \frac{\dd x}{\dd t}=\frac{\omega}{k}=u.
+\end{equation}
 这个速度称为\textbf{相速度}(phase velocity)，记为$v_p$，它描述了波的相位传播的速度，可以看到相速度正是波速$u$。
 
 借助傅里叶级数或傅里叶变换的理论，可以认为任意的波形都是若干不同频率的简谐波的叠加。
 
 下面，我们将长度为$L$的均匀介质看作一个系统，设波$y(x,t)$沿$x$轴正向传播，将$x=0$处的波形作为输入信号$e(t)=y(0,t)$，$x=L$处的波形作为输出信号$r(t)=y(L,t)$。对于无色散介质，当输入为角频率为$\omega$的正弦波$\cos(\omega t)$时，有
-\[r(t)=y(L,t)=e\left(t - \frac{L}{u}\right)=\cos\left(\omega \left(t-\frac{L}{u}\right)\right)\]
+\begin{equation}
+    r(t)=y(L,t)=e\paren{t - \frac{L}{u}}=\cos\paren{\omega\paren{t-\frac{L}{u}}},
+\end{equation}
 因此可以对给定的$\omega$求出频率响应为
-\[H(\omega)=\mathrm{e}^{-\mathrm{i}\omega \frac{L}{u}}=\mathrm{e}^{-\mathrm{i}kL},\quad k=\frac{\omega}{u}\]
-我们用到了波速$u$的定义式($*$)。可以看出，$k$实际上是关于$\omega$的函数$k(\omega)=\omega/u$，但在研究单频正弦波时看不出这一点。
+\begin{equation}
+    H(\omega)=\e^{-\im\omega \frac{L}{u}}=\e^{-\im kL},\quad k=\frac{\omega}{u}.
+\end{equation}
+我们用到了波速$u$的定义\refeqn{phase_velocity}。可以看出，$k$实际上是关于$\omega$的函数$k(\omega)=\omega/u$，但在研究单频正弦波时看不出这一点。
 \begin{definition}[色散关系]
     介质中波数$k$与角频率$\omega$之间的函数关系$k(\omega)$称为\textbf{色散关系}(dispersion relation)。
 \end{definition}
 
 一般地，设初始波形为$f(x)$，波速为$u$，可以确定$x=0$处的激励信号$e(t)=f(-ut)$。它的不同频率成分通过均匀色散介质构成的系统时，只产生相位失真，因此频率响应可以表示为
-\[H(\omega)=\mathrm{e}^{-\mathrm{i}k(\omega)L}\]
+\begin{equation}
+    H(\omega)=\e^{-\im k(\omega)L}.
+\end{equation}
 这样就得到一般情况下的波速的定义，从而得到相速度的定义，还可以仿照动态电阻和群时延，定义\textbf{群速度}(group velocity)：
 \begin{definition}[相速度和群速度]
-    \quad\\
-    相速度为\[v_p(\omega)=\frac{\omega}{k(\omega)}\]
-    群速度为\[v_g(\omega)=\frac{d\omega}{dk}=\frac{1}{k'(\omega)}\]
+    相速度为
+    \begin{equation}
+        v_p(\omega)=\frac{\omega}{k(\omega)},
+    \end{equation}
+    群速度为
+    \begin{equation}
+        v_g(\omega)=\frac{\dd\omega}{\dd k}=\frac{1}{k'(\omega)}.
+    \end{equation}
     $v_p>v_g$时称为\textbf{正常色散}(normal dispersion)，前面介绍的波形展宽现象就是正常色散下的情况，而$v_p<v_g$时称为\textbf{反常色散}(anomalous dispersion)。
 \end{definition}
 另一方面，介质作为一个系统，其相时延和群时延分别为
-\begin{align*}
-    \tau_p(\omega)&=-\frac{\varphi(\omega)}{\omega}=\frac{k(\omega)L}{\omega}=\frac{L}{v_p(\omega)}\\
-    \tau_g(\omega)&=-\frac{d\varphi(\omega)}{d\omega}=\frac{dk(\omega)}{d\omega}L=\frac{L}{v_g(\omega)}
-\end{align*}
-即\[\tau_p(\omega)v_p(\omega)=\tau_g(\omega)v_g(\omega)=L\]
+\begin{align}
+    \tau_p(\omega)&=-\frac{\varphi(\omega)}{\omega}=\frac{k(\omega)L}{\omega}=\frac{L}{v_p(\omega)},\\
+    \tau_g(\omega)&=-\frac{\dd\varphi(\omega)}{\dd\omega}=\frac{\dd k(\omega)}{\dd\omega}L=\frac{L}{v_g(\omega)},
+\end{align}
+即
+\begin{equation}
+    \tau_p(\omega)v_p(\omega)=\tau_g(\omega)v_g(\omega)=L.
+\end{equation}
 
 \begin{definition}
     波包即脉冲波形，\textbf{波包中心}是指脉冲波形中振幅最大的位置。经验上，用波包中心移动的速度来表征波包的移动速度，并称之为\textbf{波包速度}，这也是能量和信息在介质中传播的速度。
@@ -363,88 +466,128 @@ $$r(t)=\left|H(\omega_0)\right|\mathrm{e}^{\mathrm{i}\omega_0 (t+\varphi(\omega_
     对窄带光脉冲，其波包速度等于群速度。
 \end{proposition}
 \begin{proof}
-设窄带光脉冲的中心频率为$\omega_0$，即其振幅谱$\hat{A}(\omega)$集中在$\omega_0$附近，做傅里叶反变换，得到的时域信号为$x=0$处经过的波形$A(t)$。对各频率成分引入相位因子$\mathrm{e}^{-ik(\omega)x}$来表征波的传输，得到$x$处的波形为
-\[\psi(x,t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{A}(\omega)\mathrm{e}^{\mathrm{i}(\omega t-k(\omega)x)}\,d\omega\]
-对$k(\omega)$在$\omega_0$处做泰勒展开：
-\[k(\omega)\approx k(\omega_0)+k'(\omega_0)(\omega-\omega_0)\]
-将其代入$\psi(x,t)$中，得到
-\begin{align*}
-    \psi(x,t)&=\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{A}(\omega)\mathrm{e}^{\mathrm{i}(\omega t-k(\omega_0)x-k'(\omega_0)(\omega-\omega_0)x)}\,d\omega\\
-    &=\frac{1}{2\pi}\mathrm{e}^{\mathrm{i}(\omega_0 t-k(\omega_0)x)}\int_{-\infty}^{\infty}\hat{A}(\omega)\mathrm{e}^{\mathrm{i}(\omega - \omega_0)(t - k'(\omega_0)x)}\,d\omega\\
-    &=\frac{1}{2\pi}\mathrm{e}^{\mathrm{i}(\omega_0 t-k(\omega_0)x)}\int_{-\infty}^{\infty}\hat{A}(\omega+\omega_0)\mathrm{e}^{\mathrm{i}\omega(t - k'(\omega_0)x)}\,d\omega&(\omega\to\omega-\omega_0)\\
-    &=\mathrm{e}^{\mathrm{i}(\omega_0 t-k(\omega_0)x)}\mathcal{F}^{-1}[\hat{A}(\omega+\omega_0)]\left(t - k'(\omega_0)x\right)\\
-    &=\mathrm{e}^{\mathrm{i}(\omega_0 t-k(\omega_0)x)}A\left(t - k'(\omega_0)x\right)\mathrm{e}^{-\mathrm{i}\omega_0 (t- k'(\omega_0)x)}\\
-    &=A\left(t - k'(\omega_0)x\right)\mathrm{e}^{\mathrm{i}(\omega_0 k'(\omega_0)-k(\omega_0))x}
-\end{align*}
-可以看到，波形的包络$A\left(t - k'(\omega_0)x\right)$以速度$v_g(\omega_0)=\dfrac{1}{k'(\omega_0)}$传播，因此波包速度等于群速度。
+    设窄带光脉冲的中心频率为$\omega_0$，即其振幅谱$\hat{A}(\omega)$集中在$\omega_0$附近，做傅里叶反变换，得到的时域信号为$x=0$处经过的波形$A(t)$。对各频率成分引入相位因子$\e^{-\im k(\omega)x}$来表征波的传输，得到$x$处的波形为
+    \begin{equation}
+        \psi(x,t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{A}(\omega)\e^{\im(\omega t-k(\omega)x)}\,\dd\omega.
+    \end{equation}
+    对$k(\omega)$在$\omega_0$处做泰勒展开：
+    \begin{equation}
+        k(\omega)\approx k(\omega_0)+k'(\omega_0)(\omega-\omega_0).
+    \end{equation}
+    将其代入$\psi(x,t)$中，得到
+    \begin{align}
+        \psi(x,t)&=\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{A}(\omega)\e^{\im(\omega t-k(\omega_0)x-k'(\omega_0)(\omega-\omega_0)x)}\,\dd\omega\nonumber\\
+        &=\frac{1}{2\pi}\e^{\im(\omega_0 t-k(\omega_0)x)}\int_{-\infty}^{\infty}\hat{A}(\omega)\e^{\im(\omega - \omega_0)(t - k'(\omega_0)x)}\,\dd\omega\nonumber\\
+        &=\frac{1}{2\pi}\e^{\im(\omega_0 t-k(\omega_0)x)}\int_{-\infty}^{\infty}\hat{A}(\omega+\omega_0)\e^{\im\omega(t - k'(\omega_0)x)}\,\dd\omega&(\omega\to\omega-\omega_0)\nonumber\\
+        &=\e^{\im(\omega_0 t-k(\omega_0)x)}\mathcal{F}^{-1}\sbr{\hat{A}(\omega+\omega_0)}\paren{t - k'(\omega_0)x}\nonumber\\
+        &=\e^{\im(\omega_0 t-k(\omega_0)x)}A\paren{t - k'(\omega_0)x}\e^{-\im\omega_0 (t- k'(\omega_0)x)}\nonumber\\
+        &=A\paren{t - k'(\omega_0)x}\e^{\im(\omega_0 k'(\omega_0)-k(\omega_0))x}.
+    \end{align}
+    可以看到，波形的包络$A\paren{t - k'(\omega_0)x}$以速度$\displaystyle v_g(\omega_0)=\frac{1}{k'(\omega_0)}$传播，因此波包速度等于群速度。
 \end{proof}
 
 \subsection{调制、解调与复用传输}\label{sub:modulation}
 
 现代的通信方式有两种\cite{electronic_circuits}，\textbf{有线通信}(wired communication)和\textbf{无线通信}(wireless communication)。无线通信指用电磁波作为载体的\textbf{射频通信}(radio frequency communication)，有线通信则是通过导线传输电信号，例如电话线、光纤等。尽管无线通信的信息传输效率比有线通信低一些，但无线通信配置灵活、建设速度快、通信可靠、维护方便且易于跨越复杂地形，应用广泛。
 
-电磁波是通过天线发射和接收的。在电路分析的课程中，我们学过：当实际电路的几何尺寸远小于使用时最高工作频率所对应的波长时，可以忽略电磁场相互作用，由此抽象出的理想化原件模型被称为\textbf{集总参数元件}(lumped element)；当实际电路的几何尺寸与使用时最高工作频率所对应的波长相当时，必须考虑电磁场相互作用，由此抽象出的理想化元件模型被称为\textbf{分布参数元件}(distributed element)。无线通信中的天线就是一个典型的分布参数元件，它将受金属束缚的电磁场（电压、电流）转化为辐射的电磁场，这个转化过程要求天线的尺寸必须与波长相当。以四分之一波长导体线为例，要发射1kHz的电磁波，则需要75km长的天线，这是难以实现的，因此无线通信通常使用MHz甚至GHz频率的电磁波作为载体。
+电磁波是通过天线发射和接收的。在电路分析的课程中，我们学过：当实际电路的几何尺寸远小于使用时最高工作频率所对应的波长时，可以忽略电磁场相互作用，由此抽象出的理想化元件模型被称为\textbf{集总参数元件}(lumped element)；当实际电路的几何尺寸与使用时最高工作频率所对应的波长相当时，必须考虑电磁场相互作用，由此抽象出的理想化元件模型被称为\textbf{分布参数元件}(distributed element)。无线通信中的天线就是一个典型的分布参数元件，它将受金属束缚的电磁场（电压、电流）转化为辐射的电磁场，这个转化过程要求天线的尺寸必须与波长相当。以四分之一波长导体线为例，要发射1kHz的电磁波，则需要75km长的天线，这是难以实现的，因此无线通信通常使用MHz甚至GHz频率的电磁波作为载体。
 
 将低频基带信号装载到高频信号上的过程，称为\textbf{调制}(modulation)，此时高频信号被称为\textbf{载波}(carrier)，例如用正弦信号作为载波，可以将基带信号装载到载波的幅度、频率、相位上，对应的调制方式称为\textbf{调幅}(AM, amplitude modulation)、\textbf{调频}(FM, frequency modulation)和\textbf{调相}(PM, phase modulation)。相应地，在信号接收端，从高频的已调信号还原出低频的基带信号的过程，称为\textbf{解调}(demodulation)。
 \begin{definition}[调频、调幅、调相]
-    设基带信号为$m(t)$，载波信号为\[c(t)=A_c \cos(\omega_c t+\varphi_c)\]
+    设基带信号为$m(t)$，载波信号为
+    \begin{equation}
+        c(t)=A_c \cos(\omega_c t+\varphi_c),
+    \end{equation}
     其中$A_c,\omega_c,\varphi_c$分别为载波的幅值、角频率和初相位，则：
     \begin{itemize}
-        \item 调幅信号为\[v_{\text{AM}}(t)=[1+k_{\text{AM}} m(t)]A_c \cos(\omega_c t+\varphi_c)\]其中$k_{\text{AM}}$为调幅灵敏度；
-        \item 调频信号为\[v_{\text{FM}}(t)=A_c \cos\left(\omega_c t+k_{\text{FM}}\int_{0}^{t}m(\tau)\,d\tau+\varphi_c\right)\]其中$k_{\text{FM}}$为调频灵敏度；
-        \item 调相信号为\[v_{\text{PM}}(t)=A_c \cos\left(\omega_c t+k_{\text{PM}} m(t)+\varphi_c\right)\]其中$k_{\text{PM}}$为调相灵敏度。
+        \item 调幅信号为
+        \begin{equation}
+            v_{\text{AM}}(t)=\sbr{1+k_{\text{AM}} m(t)}A_c \cos(\omega_c t+\varphi_c),
+        \end{equation}
+        其中$k_{\text{AM}}$为调幅灵敏度；
+        \item 调频信号为
+        \begin{equation}
+            v_{\text{FM}}(t)=A_c \cos\paren{\omega_c t+k_{\text{FM}}\int_{0}^{t}m(\tau)\,\dd\tau+\varphi_c},
+        \end{equation}
+        其中$k_{\text{FM}}$为调频灵敏度；
+        \item 调相信号为
+        \begin{equation}
+            v_{\text{PM}}(t)=A_c \cos\paren{\omega_c t+k_{\text{PM}} m(t)+\varphi_c},
+        \end{equation}
+        其中$k_{\text{PM}}$为调相灵敏度。
     \end{itemize}
 \end{definition}
 %也可以在载波的幅度和相位上同时调制，例如\textbf{正交振幅调制}(QAM, quadrature amplitude modulation)。
 
-下面来解释为什么这三种调制方式的数学表示形式如上。\\
-1.\textbf{幅度调制}：已调信号的幅度为\[1+k_{\text{AM}}m(t)\]
-我们曾在\cref{exmp:group_delay}中使用这种调制方式来解释群时延的概念，事实上，当时所使用的是\textbf{双边带调幅}(\text{DSB})，一般而言不能略去1倍的载波信号这一项，即
-\[v_{\text{AM}}(t)\neq k_{\text{AM}} m(t)A_c \cos(\omega_c t+\varphi_c)=v_{\text{DSB}}(t)\]
-这是因为调幅信号通常通过包络检测器直接恢复，虽然有部分功率用于传输载波，但这简化了解调过程。此外，一般被调信号$m(t)$会预先经过衰减器以确保$|k_{\text{AM}}m(t)|\leq 1$，这样，$1+km(t)\geq 0$，包络不出现反转，即不会出现过度调制问题，包络检测器才能正常解调。\\
-2.\textbf{频率调制}：$v_{\text{FM}}(t)$的傅里叶变换较为复杂，但其直观易于理解，这种调制方式下的\textbf{瞬时角频率}为：\begin{align*}
-    \frac{d}{dt}\left(\omega_c t+k_{\text{FM}}\int_{0}^{t}m(\tau)\,d\tau+\varphi_c\right)=\omega_c+k_{\text{FM}}m(t)
-\end{align*}
-3.\textbf{相位调制}：\textbf{瞬时相位}为\[\omega_c t+k_{\text{PM}} m(t)+\varphi_c\]
+下面来解释为什么这三种调制方式的数学表示形式如上。
+
+1.\textbf{幅度调制}：已调信号的幅度为
+\begin{equation}
+    1+k_{\text{AM}}m(t).
+\end{equation}
+我们曾在\cref{exmp:group_delay}中使用这种调制方式来解释群时延的概念，事实上，当时所使用的是\textbf{双边带调幅}(DSB)，一般而言不能略去$1$倍的载波信号这一项，即
+\begin{equation}
+    v_{\text{AM}}(t)\neq k_{\text{AM}} m(t)A_c \cos(\omega_c t+\varphi_c)=v_{\text{DSB}}(t).
+\end{equation}
+这是因为调幅信号通常通过包络检测器直接恢复，虽然有部分功率用于传输载波，但这简化了解调过程。此外，一般被调信号$m(t)$会预先经过衰减器以确保$\abs{k_{\text{AM}}m(t)}\leq 1$，这样，$1+k_{\text{AM}}m(t)\geq 0$，包络不出现反转，即不会出现过度调制问题，包络检测器才能正常解调。
+
+2.\textbf{频率调制}：$v_{\text{FM}}(t)$的傅里叶变换较为复杂，但其直观易于理解，这种调制方式下的\textbf{瞬时角频率}为：
+\begin{equation}
+    \frac{\dd}{\dd t}\paren{\omega_c t+k_{\text{FM}}\int_{0}^{t}m(\tau)\,\dd\tau+\varphi_c}=\omega_c+k_{\text{FM}}m(t).
+\end{equation}
+
+3.\textbf{相位调制}：\textbf{瞬时相位}为
+\begin{equation}
+    \omega_c t+k_{\text{PM}} m(t)+\varphi_c.
+\end{equation}
 
 我们以双边带调制为例给出一个简单的调制解调过程：
 \begin{example}
-设基带信号为$m(t)=\cos(\omega_m t)$，载波信号为$c(t)=\cos(\omega_c t)$，其中$\omega_c\gg \omega_m$。设计一个简单的解调器以还原出$m(t)$。\\
-解：双边带调幅信号为\[v_{\text{DSB}}(t)=m(t)c(t)=\cos(\omega_m t)\cos(\omega_c t)\]
-我们已经在上一节对它做过频域分析，得到其频谱为
-\[V_{\text{DSB}}(\omega)=\frac{\pi}{2}\left[\delta_{\omega_c+\omega_m}+\delta_{-(\omega_c+\omega_m)}+\delta_{\omega_c-\omega_m}+\delta_{-(\omega_c-\omega_m)}\right]\]
-假设传输过程没有发生失真，接收端得到的信号仍为$v_{\text{DSB}}(t)$。为了还原出$m(t)$，我们可以将$v_{\text{DSB}}(t)$与载波$c(t)$相乘，得到
-\begin{align*}
-    y(t)&=v_{\text{DSB}}(t)c(t)\\
-    &=\cos(\omega_m t)\cos^2(\omega_c t)\\
-    &=\frac{1}{2}\cos(\omega_m t)(1+\cos(2\omega_c t))\\
-    &=\frac{1}{2}\cos(\omega_m t)+\frac{1}{2}\cos(\omega_m t)\cos(2\omega_c t)
-\end{align*}
-其傅里叶变换为
-\begin{align*}
-    Y(\omega)&=\frac{\pi}{2}[\delta_{\omega_m}+\delta_{-\omega_m}]\\
-    &+\frac{\pi}{4}[\delta_{2\omega_c+\omega_m}+\delta_{-(2\omega_c+\omega_m)}+\delta_{2\omega_c-\omega_m}+\delta_{-(2\omega_c-\omega_m)}]
-\end{align*}
-只要再通过一个截止频率在$(\omega_m,\ 2\omega_c-\omega_m)$之间的低通滤波器，就可以滤除高频成分，得到$\dfrac{1}{2}\cos(\omega_m t)$，从而还原出基带信号$m(t)$。
-\end{example}
-时域上，这个过程相当于\begin{align*}
-    y(t)&=v_{\text{DSB}}(t)c(t)\\
-    &=m(t)c^2(t)\\
-    &=m(t)\frac{1+\cos(2\omega_c t)}{2}\\
-    &=\frac{m(t)}{2}+\frac{m(t)}{2}\cos(2\omega_c t)
-\end{align*}
-而$\frac{m(t)}{2}\cos(2\omega_c t)$被低通滤波器滤除。
+    设基带信号为$m(t)=\cos(\omega_m t)$，载波信号为$c(t)=\cos(\omega_c t)$，其中$\omega_c\gg \omega_m$。设计一个简单的解调器以还原出$m(t)$。
 
-我们将只含有低频成分（相对于载波频率而言）的模拟信号称为\textbf{模拟基带信号}，这种信号都可以采用上述方法进行传输，这是由于三角函数具有\textbf{频谱搬移}(spectrum shifting)的性质：\begin{align*}
-    \mathcal{F} \left[\cos(\omega_c t)\right]&=\pi\left[\delta_{\omega_c}+\delta_{-\omega_c}\right]\\
-    \mathcal{F}\left[x(t)\cos(\omega_c t)\right]&=\frac{1}{2\pi}X(\omega)*\mathcal{F}\left[\cos(\omega_c t)\right]\\
-    &=\frac{1}{2}\left[X(\omega-\omega_c)+X(\omega+\omega_c)\right]
-\end{align*}
+    解：双边带调幅信号为
+    \begin{equation}
+        v_{\text{DSB}}(t)=m(t)c(t)=\cos(\omega_m t)\cos(\omega_c t).
+    \end{equation}
+    我们已经在上一节对它做过频域分析，得到其频谱为
+    \begin{equation}
+        V_{\text{DSB}}(\omega)=\frac{\pi}{2}\sbr{\delta_{\omega_c+\omega_m}+\delta_{-(\omega_c+\omega_m)}+\delta_{\omega_c-\omega_m}+\delta_{-(\omega_c-\omega_m)}}.
+    \end{equation}
+    假设传输过程没有发生失真，接收端得到的信号仍为$v_{\text{DSB}}(t)$。为了还原出$m(t)$，我们可以将$v_{\text{DSB}}(t)$与载波$c(t)$相乘，得到
+    \begin{align}
+        y(t)&=v_{\text{DSB}}(t)c(t)\nonumber\\
+        &=\cos(\omega_m t)\cos^2(\omega_c t)\nonumber\\
+        &=\frac{1}{2}\cos(\omega_m t)\paren{1+\cos(2\omega_c t)}\nonumber\\
+        &=\frac{1}{2}\cos(\omega_m t)+\frac{1}{2}\cos(\omega_m t)\cos(2\omega_c t).
+    \end{align}
+    其傅里叶变换为
+    \begin{align}
+        Y(\omega)&=\frac{\pi}{2}\sbr{\delta_{\omega_m}+\delta_{-\omega_m}}\nonumber\\
+        &\quad+\frac{\pi}{4}\sbr{\delta_{2\omega_c+\omega_m}+\delta_{-(2\omega_c+\omega_m)}+\delta_{2\omega_c-\omega_m}+\delta_{-(2\omega_c-\omega_m)}}.
+    \end{align}
+    只要再通过一个截止频率在$(\omega_m,\ 2\omega_c-\omega_m)$之间的低通滤波器，就可以滤除高频成分，得到$\displaystyle \frac{1}{2}\cos(\omega_m t)$，从而还原出基带信号$m(t)$。
+\end{example}
+时域上，这个过程相当于
+\begin{align}
+    y(t)&=v_{\text{DSB}}(t)c(t)\nonumber\\
+    &=m(t)c^2(t)\nonumber\\
+    &=m(t)\frac{1+\cos(2\omega_c t)}{2}\nonumber\\
+    &=\frac{m(t)}{2}+\frac{m(t)}{2}\cos(2\omega_c t),
+\end{align}
+而$\displaystyle \frac{m(t)}{2}\cos(2\omega_c t)$被低通滤波器滤除。
+
+我们将只含有低频成分（相对于载波频率而言）的模拟信号称为\textbf{模拟基带信号}，这种信号都可以采用上述方法进行传输，这是由于三角函数具有\textbf{频谱搬移}(spectrum shifting)的性质：
+\begin{align}
+    \mathcal{F}\sbr{\cos(\omega_c t)}&=\pi\sbr{\delta_{\omega_c}+\delta_{-\omega_c}},\\
+    \mathcal{F}\sbr{x(t)\cos(\omega_c t)}&=\frac{1}{2\pi}X(\omega)*\mathcal{F}\sbr{\cos(\omega_c t)}\nonumber\\
+    &=\frac{1}{2}\sbr{X(\omega-\omega_c)+X(\omega+\omega_c)}.
+\end{align}
 经过两次与载波相乘，信号的一半频谱回到原来的位置，另一半频谱被搬移到$2\omega_c$处，可见只要信号的带宽小于$\omega_c$，就可以通过选择合适的低通滤波器还原出基带信号。
 
 利用这种频谱搬移特性，还可以实现信号的\textbf{频分复用}(FDM, frequency division multiplexing)：将多个基带信号分别调制到不同的载波频率上进行传输，在接收端先使用不同的带通滤波器分别解调，再与载波信号相乘，最后通过低通滤波器，即可还原出各个基带信号。
 
-可以看到，复用传输能够有效提高信道的利用率。下面列举一些常用的复用传输方式：\begin{itemize}
+可以看到，复用传输能够有效提高信道的利用率。下面列举一些常用的复用传输方式：
+\begin{itemize}
     \item \textbf{时分复用}(TDM, time division multiplexing)：将多个基带信号在时间上交替传输，在接收端根据时间顺序还原出各个基带信号。这种方式适用于数字信号传输；
     \item \textbf{码分复用}(CDM, code division multiplexing)：为每个基带信号分配一个独特的编码序列，所有信号同时传输，在接收端通过相关解码技术还原出各个基带信号。这种方式常用于无线通信系统，如CDMA技术；
     \item \textbf{波分复用}(WDM, wavelength division multiplexing)：主要用于光纤通信中，通过不同波长的光信号同时传输多个基带信号，在接收端通过光学滤波器分离出各个波长的信号进行解调，实质上还是频分复用，只是频率较高；

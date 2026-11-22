@@ -4,8 +4,10 @@
 
 \begin{definition}[希尔伯特变换]
     函数$f:\mathbb{R}\to\mathbb{C}$的\textbf{希尔伯特变换}(Hilbert transform)定义为
-    \[\mathcal{H} f(x)=\frac{1}{\pi}\text{p.v.}\int_{-\infty}^{\infty}\frac{f(y)}{x-y}\,dy=\left(f*\pv\frac{1}{\pi x}\right)(x)\]
-    称$f$与$\mathcal{H} f$为\textbf{希尔伯特变换对}，记为$f\overset{\mathcal{H} }{\longleftrightarrow} \mathcal{H} f$.
+    \begin{equation}
+        \mathcal{H}f(x)=\frac{1}{\pi}\pv\int_{-\infty}^{\infty}\frac{f(y)}{x-y}\,\dd y=\paren{f*\pv\frac{1}{\pi x}}(x),
+    \end{equation}
+    称$f$与$\mathcal{H}f$为\textbf{希尔伯特变换对}，记为$f\overset{\mathcal{H}}{\longleftrightarrow}\mathcal{H}f$。
 \end{definition}
 
 希尔伯特变换既可以看作积分变换，又可以看作滤波器，因为它是函数与分布$\pv 1/\pi t$的卷积（多数文献中略去了$\pv$的符号，但定义是一致的）。希尔伯特变换在信号处理领域有着重要的应用，例如构造解析信号，将在本小节最后介绍。
@@ -14,138 +16,155 @@
     一些文献中\cite{brad_osgood_ee261}，希尔伯特变换为$-\pv 1/\pi t$与$f(t)$的卷积，我们很快将看到这就是本书中的希尔伯特逆变换，它们没有本质区别；一些文献中\cite{signal_systems}，直接将希尔伯特变换记为$\hat{f}$，这样做有一定的好处，例如书写简便，但它与傅里叶变换的记号冲突，因此本书中不采用这种记号。
 \end{remark}
 \begin{remark}
-    我们没有对$f$所属的函数空间做出限制。实际上，希尔伯特变换可以定义在多种函数空间上，经典的希尔伯特变换建立在$L^1(\mathbb{R})$上，并且要求函数$f$是赫德尔连续的（我们没有介绍这个概念），希尔伯特变换还可以定义在$L^p(\mathbb{R}),1<p<\infty$上，或者更广义的分布空间上。专著\cite{hilbert_transform}详细讨论了$f$的范围。
+    我们没有对$f$所属的函数空间做出限制。实际上，希尔伯特变换可以定义在多种函数空间上，经典的希尔伯特变换建立在$L^1(\mathbb{R})$上，并且要求函数$f$是赫德尔连续的（我们没有介绍这个概念），希尔伯特变换还可以定义在$L^p(\mathbb{R})\ (1<p<\infty)$上，或者更广义的分布空间上。专著\cite{hilbert_transform}详细讨论了$f$的范围。
 \end{remark}
 
-$\pv\dfrac{1}{x}$作为缓增的正则分布，我们在\refsub{normal_distribution}中推导过其傅里叶变换：
+$\displaystyle\pv\frac{1}{x}$作为缓增的正则分布，我们在\refsub{normal_distribution}中推导过其傅里叶变换：
 \begin{lralign}
-    \mathcal{F} \left[\pv\frac{1}{\pi x}\right](\xi)= -\mathrm{i}\,\text{sgn}(\xi)
+    \mathcal{F}\sbr{\pv\frac{1}{\pi x}}(\xi)=-\im\,\sgn(\xi).
     \switch
-    \mathcal{F} \left[\pv\frac{1}{\pi x}\right](\omega)= -\mathrm{i}\,\text{sgn}(\omega)
+    \mathcal{F}\sbr{\pv\frac{1}{\pi x}}(\omega)=-\im\,\sgn(\omega).
 \end{lralign}
 
 借助这个结论，我们可以通过傅里叶变换来研究希尔伯特变换的性质。由分布与函数的卷积定理（\cref{thm:distribution_func_conv}），可以得到：
-    \[\mathcal{F} [\mathcal{H} f](\xi)=-\mathrm{i}\,\text{sgn}(\xi)\mathcal{F} f(\xi)\]
-可以看到，希尔伯特变换在频域上对应乘以$-\mathrm{i}\,\text{sgn}(\xi)$，这表明希尔伯特变换是一个全通滤波器，它将正频率成分的相位延迟$\pi/2$，将负频率成分的相位超前$\pi/2$，而不改变任意频率成分的幅度。
+\begin{equation}
+    \mathcal{F}\sbr{\mathcal{H}f}(\xi)=-\im\,\sgn(\xi)\mathcal{F}f(\xi).
+\end{equation}
+可以看到，希尔伯特变换在频域上对应乘以$-\im\,\sgn(\xi)$，这表明希尔伯特变换是一个全通滤波器，它将正频率成分的相位延迟$\pi/2$，将负频率成分的相位超前$\pi/2$，而不改变任意频率成分的幅度。
 
-如果连续取两次希尔伯特变换，在频域上就对应乘以$(-\mathrm{i}\,\text{sgn}(\xi))^2=-1$，也就是：
-\[\mathcal{H} \mathcal{H} f=-f\]
+如果连续取两次希尔伯特变换，在频域上就对应乘以$(-\im\,\sgn(\xi))^2=-1$，也就是：
+\begin{equation}
+    \mathcal{H}\mathcal{H}f=-f,
+\end{equation}
 因此，希尔伯特变换的逆变换为：
 \begin{definition}[希尔伯特逆变换]
     函数$f:\mathbb{R}\to\mathbb{C}$的\textbf{希尔伯特逆变换}定义为
-    \[\mathcal{H} ^{-1} f(x)=-\mathcal{H} f(x)=-\frac{1}{\pi}\text{p.v.}\int_{-\infty}^{\infty}\frac{f(y)}{x-y}\,dy=-\left(f*\pv\frac{1}{\pi x}\right)(x)\]
+    \begin{equation}
+        \mathcal{H}^{-1}f(x)=-\mathcal{H}f(x)=-\frac{1}{\pi}\pv\int_{-\infty}^{\infty}\frac{f(y)}{x-y}\,\dd y=-\paren{f*\pv\frac{1}{\pi x}}(x).
+    \end{equation}
 \end{definition}
-至此可以看出，希尔伯特变换对是一一的，因此记号$f\overset{\mathcal{H} }{\longleftrightarrow} \mathcal{H} f$是合理的。
+至此可以看出，希尔伯特变换对是一一的，因此记号$f\overset{\mathcal{H}}{\longleftrightarrow}\mathcal{H}f$是合理的。
 
 下面给出一些希尔伯特变换的计算例子，展示如何使用傅里叶变换来计算希尔伯特变换，以及如何直接使用定义来计算希尔伯特变换。
 
 \begin{example}[三角函数的希尔伯特变换]
     三角函数的希尔伯特变换可以通过它们的傅里叶变换来求解。考虑$\cos(2\pi f_0 x)=\cos(\omega_0 x)$，我们知道：
     \begin{lralign}
-        \mathcal{F} [\cos(2\pi f_0 t)](\xi)&=\frac{1}{2}(\delta_{f_0}+\delta_{-f_0})
+        \mathcal{F}\sbr{\cos(2\pi f_0 t)}(\xi)&=\frac{1}{2}(\delta_{f_0}+\delta_{-f_0}),
         \switch
-        \mathcal{F} [\cos(\omega_0 t)](\xi)&=\pi(\delta_{\omega_0}+\delta_{-\omega_0})
+        \mathcal{F}\sbr{\cos(\omega_0 t)}(\xi)&=\pi(\delta_{\omega_0}+\delta_{-\omega_0}),
     \end{lralign}
     因此余弦函数的希尔伯特变换的傅里叶变换为（假设$2\pi f_0=\omega_0>0$）：
     \begin{lralign}
-        &\mathcal{F} [\mathcal{H} \cos(2\pi f_0 t)](\xi)\\
-        =&-\mathrm{i}\,\text{sgn}(\xi)\cdot \frac{1}{2}(\delta_{f_0}+\delta_{-f_0})\\
-        =&-\frac{\mathrm{i}}{2}(\delta_{f_0}-\delta_{-f_0})
+        &\phantom{=}\mathcal{F}\sbr{\mathcal{H}\cos(2\pi f_0 t)}(\xi)\\
+        &=-\im\,\sgn(\xi)\cdot\frac{1}{2}(\delta_{f_0}+\delta_{-f_0})\\
+        &=-\frac{\im}{2}(\delta_{f_0}-\delta_{-f_0}),
         \switch
-        &\mathcal{F} [\mathcal{H} \cos(\omega_0 t)](\xi)\\
-        =&-\mathrm{i}\,\text{sgn}(\xi)\cdot \pi(\delta_{\omega_0}+\delta_{-\omega_0})\\
-        =&-\mathrm{i}\pi(\delta_{\omega_0}-\delta_{-\omega_0})
+        &\phantom{=}\mathcal{F}\sbr{\mathcal{H}\cos(\omega_0 t)}(\omega)\\
+        &=-\im\,\sgn(\omega)\cdot\pi(\delta_{\omega_0}+\delta_{-\omega_0})\\
+        &=-\im\pi(\delta_{\omega_0}-\delta_{-\omega_0}),
     \end{lralign}
     这正是$\sin(2\pi f_0 t)=\sin(\omega_0 t)$的傅里叶变换，因此我们得到：
-    \[\mathcal{H} \cos(\omega_0 t)=\sin(\omega_0 t)\]
+    \begin{equation}
+        \mathcal{H}\cos(\omega_0 t)=\sin(\omega_0 t),
+    \end{equation}
     同理可得：
-    \[\mathcal{H} \sin(\omega_0 t)=-\cos(\omega_0 t)\]
+    \begin{equation}
+        \mathcal{H}\sin(\omega_0 t)=-\cos(\omega_0 t).
+    \end{equation}
 \end{example}
 
 \begin{example}[直接计算希尔伯特变换]
-    对于多数函数而言，计算希尔伯特变换时，直接使用定义进行计算比较困难。这里给出一个简单的函数，它能够使用定义计算希尔伯特变换。考虑脉冲宽度为$T$的矩形函数$f(x)=\chi[-T/2,T/2](x)$，则有：
-    \begin{align*}
-        \mathcal{H} f(x)&=\frac{1}{\pi}\text{p.v.}\int_{-T/2}^{T/2}\frac{1}{x-y}\,dy\\
-        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(\int_{-T/2}^{x-\epsilon}\frac{1}{x-y}\,dy+\int_{x+\epsilon}^{T/2}\frac{1}{x-y}\,dy\right)\\
-        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(\ln|x-y|\Big|_{y=-T/2}^{y=x-\epsilon}+\ln|x-y|\Big|_{y=x+\epsilon}^{y=T/2}\right)\\
-        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(\ln \epsilon -\ln|x+T/2|+\ln|T/2 -x|-\ln \epsilon \right)\\
-        &=\frac{1}{\pi}\ln\left|\frac{T/2 -x}{x+T/2}\right|
-    \end{align*}
+    对于多数函数而言，计算希尔伯特变换时，直接使用定义进行计算比较困难。这里给出一个简单的函数，它能够使用定义计算希尔伯特变换。考虑脉冲宽度为$T$的矩形函数$f(x)=\chi_{[-T/2,T/2]}(x)$，则有：
+    \begin{align}
+        \mathcal{H}f(x)&=\frac{1}{\pi}\pv\int_{-T/2}^{T/2}\frac{1}{x-y}\,\dd y\nonumber\\
+        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\paren{\int_{-T/2}^{x-\epsilon}\frac{1}{x-y}\,\dd y+\int_{x+\epsilon}^{T/2}\frac{1}{x-y}\,\dd y}\nonumber\\
+        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\paren{\ln|x-y|\Big|_{y=-T/2}^{y=x-\epsilon}+\ln|x-y|\Big|_{y=x+\epsilon}^{y=T/2}}\nonumber\\
+        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\paren{\ln\epsilon-\ln|x+T/2|+\ln|T/2-x|-\ln\epsilon}\nonumber\\
+        &=\frac{1}{\pi}\ln\abs{\frac{T/2-x}{x+T/2}}.
+    \end{align}
 \end{example}
 
 \begin{example}[三角函数的希尔伯特变换，直接计算]
     利用狄利克雷积分（\cref{thm:dirichlet_int}）：
-    \[\int_{-\infty}^{\infty}\frac{\sin ax}{x}\,dx=\pi,\quad a>0\]
+    \begin{equation}
+        \int_{-\infty}^{\infty}\frac{\sin ax}{x}\,\dd x=\pi,\quad a>0
+    \end{equation}
     也可以直接计算三角函数的希尔伯特变换，这里以正弦函数为例：
-    \begin{align*}
-        \mathcal{H} \sin(\omega_0 t)&=\frac{1}{\pi}\text{p.v.}\int_{-\infty}^{\infty}\frac{\sin(\omega_0 y)}{t-y}\,dy\\
-        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(\int_{-\infty}^{t-\epsilon}\frac{\sin(\omega_0 y)}{t-y}\,dy+\int_{t+\epsilon}^{\infty}\frac{\sin(\omega_0 y)}{t-y}\,dy\right)\\
-        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(\int_{\epsilon}^{\infty}\frac{\sin(\omega_0 (t-u))}{u}\,du+\int_{-\infty}^{-\epsilon}\frac{\sin(\omega_0 (t-u))}{u}\,du\right)& (u=t-y)\\
-        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(\int_{\epsilon}^{\infty}\frac{\sin(\omega_0 t)\cos(\omega_0 u)-\cos(\omega_0 t)\sin(\omega_0 u)}{u}\,du\right.\\
-        &\qquad \left.+\int_{-\infty}^{-\epsilon}\frac{\sin(\omega_0 t)\cos(\omega_0 u)-\cos(\omega_0 t)\sin(\omega_0 u)}{u}\,du\right)\\
-        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(\sin(\omega_0 t)\int_{\epsilon}^{\infty}\frac{\cos(\omega_0 u)}{u}\,du+\sin(\omega_0 t)\int_{-\infty}^{-\epsilon}\frac{\cos(\omega_0 u)}{u}\,du\right.\\
-        &\qquad \left.-\cos(\omega_0 t)\int_{\epsilon}^{\infty}\frac{\sin(\omega_0 u)}{u}\,du-\cos(\omega_0 t)\int_{-\infty}^{-\epsilon}\frac{\sin(\omega_0 u)}{u}\,du\right)\\
-        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(-\cos(\omega_0 t)\int_{\epsilon}^{\infty}\frac{\sin(\omega_0 u)}{u}\,du+\cos(\omega_0 t)\int_{\epsilon}^{\infty}\frac{\sin(\omega_0 u)}{u}\,du\right)\\
-        &=-\cos(\omega_0 t)
-    \end{align*}
+    \begin{align}
+        \mathcal{H}\sin(\omega_0 t)&=\frac{1}{\pi}\pv\int_{-\infty}^{\infty}\frac{\sin(\omega_0 y)}{t-y}\,\dd y\nonumber\\
+        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\paren{\int_{-\infty}^{t-\epsilon}\frac{\sin(\omega_0 y)}{t-y}\,\dd y+\int_{t+\epsilon}^{\infty}\frac{\sin(\omega_0 y)}{t-y}\,\dd y}\nonumber\\
+        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\paren{\int_{\epsilon}^{\infty}\frac{\sin(\omega_0(t-u))}{u}\,\dd u+\int_{-\infty}^{-\epsilon}\frac{\sin(\omega_0(t-u))}{u}\,\dd u}&(u=t-y)\nonumber\\
+        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(\int_{\epsilon}^{\infty}\frac{\sin(\omega_0 t)\cos(\omega_0 u)-\cos(\omega_0 t)\sin(\omega_0 u)}{u}\,\dd u\right.\nonumber\\
+        &\qquad\left.{}+\int_{-\infty}^{-\epsilon}\frac{\sin(\omega_0 t)\cos(\omega_0 u)-\cos(\omega_0 t)\sin(\omega_0 u)}{u}\,\dd u\right)\nonumber\\
+        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\left(\sin(\omega_0 t)\int_{\epsilon}^{\infty}\frac{\cos(\omega_0 u)}{u}\,\dd u+\sin(\omega_0 t)\int_{-\infty}^{-\epsilon}\frac{\cos(\omega_0 u)}{u}\,\dd u\right.\nonumber\\
+        &\qquad\left.{}-\cos(\omega_0 t)\int_{\epsilon}^{\infty}\frac{\sin(\omega_0 u)}{u}\,\dd u-\cos(\omega_0 t)\int_{-\infty}^{-\epsilon}\frac{\sin(\omega_0 u)}{u}\,\dd u\right)\nonumber\\
+        &=\frac{1}{\pi}\lim_{\epsilon\to 0^+}\paren{-\cos(\omega_0 t)\int_{\epsilon}^{\infty}\frac{\sin(\omega_0 u)}{u}\,\dd u+\cos(\omega_0 t)\int_{\epsilon}^{\infty}\frac{\sin(\omega_0 u)}{u}\,\dd u}\nonumber\\
+        &=-\cos(\omega_0 t).
+    \end{align}
     倒数第三行到倒数第二行运用了函数的奇偶性。
 \end{example}
 
 \subsection{希尔伯特变换的性质}\label{sub:prop_of_hilbert}
 
-简洁起见，本小节主要使用频率形式的傅里叶变换。如果$f\in L^2(\mathbb{R})$，即$f(t)$是一个能量有限信号，则$\mathcal{H} f\in L^2(\mathbb{R})$，并且$\|\mathcal{H} f\|_2=\|f\|_2$，进一步，$L^2(\mathbb{R})$上的\textbf{希尔伯特变换是保内积的}：
+简洁起见，本小节主要使用频率形式的傅里叶变换。如果$f\in L^2(\mathbb{R})$，即$f(t)$是一个能量有限信号，则$\mathcal{H}f\in L^2(\mathbb{R})$，并且$\norm{\mathcal{H}f}_2=\norm{f}_2$，进一步，$L^2(\mathbb{R})$上的\textbf{希尔伯特变换是保内积的}：
 \begin{theorem}
     设$f,g\in L^2(\mathbb{R})$，则有
-    \[(\mathcal{H} f,\mathcal{H} g)=(f,g)\]
-    特别地，$\|\mathcal{H} f\|_2=\|f\|_2$，这称之为希尔伯特变换的\textbf{等能量性}。
+    \begin{equation}
+        (\mathcal{H}f,\mathcal{H}g)=(f,g),
+    \end{equation}
+    特别地，$\norm{\mathcal{H}f}_2=\norm{f}_2$，这称之为希尔伯特变换的\textbf{等能量性}。
 \end{theorem}
 \begin{proof}
     由希尔伯特变换的傅里叶变换表达式，有
-    \begin{align*}
-        (\mathcal{H} f,\mathcal{H} g)&=\int_{-\infty}^{\infty}\mathcal{H} f(t)\overline{\mathcal{H} g(t)}\,dt\\
-        &=\int_{-\infty}^{\infty}\mathcal{F} [\mathcal{H} f](\xi)\overline{\mathcal{F} [\mathcal{H} g](\xi)}\,d\xi\\
-        &=\int_{-\infty}^{\infty}(-\mathrm{i}\,\text{sgn}(\xi)\mathcal{F} f(\xi))\overline{-\mathrm{i}\,\text{sgn}(\xi)\mathcal{F} g(\xi)}\,d\xi\\
-        &=\int_{-\infty}^{\infty}\mathcal{F} f(\xi)\overline{\mathcal{F} g(\xi)}\,d\xi\\
-        &=(f,g)
-    \end{align*}
+    \begin{align}
+        (\mathcal{H}f,\mathcal{H}g)&=\int_{-\infty}^{\infty}\mathcal{H}f(t)\overline{\mathcal{H}g(t)}\,\dd t\nonumber\\
+        &=\int_{-\infty}^{\infty}\mathcal{F}\sbr{\mathcal{H}f}(\xi)\overline{\mathcal{F}\sbr{\mathcal{H}g}(\xi)}\,\dd\xi\nonumber\\
+        &=\int_{-\infty}^{\infty}\paren{-\im\,\sgn(\xi)\mathcal{F}f(\xi)}\overline{-\im\,\sgn(\xi)\mathcal{F}g(\xi)}\,\dd\xi\nonumber\\
+        &=\int_{-\infty}^{\infty}\mathcal{F}f(\xi)\overline{\mathcal{F}g(\xi)}\,\dd\xi\nonumber\\
+        &=(f,g).
+    \end{align}
 \end{proof}
 
 希尔伯特变换还具有\textbf{正交性}：
 \begin{theorem}
     设实函数$f\in L^2(\mathbb{R})$，则有
-    \[(f,\mathcal{H} f)=0\]
+    \begin{equation}
+        (f,\mathcal{H}f)=0.
+    \end{equation}
 \end{theorem}
-由于这个原因，有时将$\mathcal{H} f$称为$f$的\textbf{正交伴随}(orthogonal complement)。
+由于这个原因，有时将$\mathcal{H}f$称为$f$的\textbf{正交伴随}(orthogonal complement)。
 \begin{proof}
     由希尔伯特变换的傅里叶变换表达式，有
-    \begin{align*}
-        (f,\mathcal{H} f)&=\int_{-\infty}^{\infty}f(t)\overline{\mathcal{H} f(t)}\,dt\\
-        &=\int_{-\infty}^{\infty}\mathcal{F} f(\xi)\overline{\mathcal{F} [\mathcal{H} f](\xi)}\,d\xi\\
-        &=\int_{-\infty}^{\infty}\mathcal{F} f(\xi)\overline{-\mathrm{i}\,\text{sgn}(\xi)\mathcal{F} f(\xi)}\,d\xi\\
-        &=\mathrm{i}\int_{-\infty}^{\infty}\text{sgn}(\xi)|\mathcal{F} f(\xi)|^2\,d\xi\\
-        &=0
-    \end{align*}
-    最后一个等号是因为实函数的傅里叶变换具有共轭对称性，$|\mathcal{F} f(\xi)|$是偶函数，因此$\text{sgn}(\xi)|\mathcal{F} f(\xi)|^2$是奇函数。
+    \begin{align}
+        (f,\mathcal{H}f)&=\int_{-\infty}^{\infty}f(t)\overline{\mathcal{H}f(t)}\,\dd t\nonumber\\
+        &=\int_{-\infty}^{\infty}\mathcal{F}f(\xi)\overline{\mathcal{F}\sbr{\mathcal{H}f}(\xi)}\,\dd\xi\nonumber\\
+        &=\int_{-\infty}^{\infty}\mathcal{F}f(\xi)\overline{-\im\,\sgn(\xi)\mathcal{F}f(\xi)}\,\dd\xi\nonumber\\
+        &=\im\int_{-\infty}^{\infty}\sgn(\xi)\abs{\mathcal{F}f(\xi)}^2\,\dd\xi\nonumber\\
+        &=0.
+    \end{align}
+    最后一个等号是因为实函数的傅里叶变换具有共轭对称性，$\abs{\mathcal{F}f(\xi)}$是偶函数，因此$\sgn(\xi)\abs{\mathcal{F}f(\xi)}^2$是奇函数。
 \end{proof}
 
 此外，希尔伯特变换具有奇偶对称性：
 \begin{theorem}
     $f$与$\mathcal{H}f$的奇偶性相反，即：
     \begin{itemize}
-        \item 如果$f$是偶函数，则$\mathcal{H} f$是奇函数；
-        \item 如果$f$是奇函数，则$\mathcal{H} f$是偶函数。
+        \item 如果$f$是偶函数，则$\mathcal{H}f$是奇函数；
+        \item 如果$f$是奇函数，则$\mathcal{H}f$是偶函数。
     \end{itemize}
 \end{theorem}
 \begin{proof}
-    根据傅里叶变换的对称性，如果$f$是偶函数，则$\mathcal{F} f$也是偶函数，于是\begin{align*}
-        \mathcal{F} [\mathcal{H} f](\xi)&=-\mathrm{i}\,\text{sgn}(\xi)\mathcal{F} f(\xi)\\
-        \mathcal{F}[\mathcal{H} f](-\xi)&=-\mathrm{i}\,\text{sgn}(-\xi)\mathcal{F} f(-\xi)\\
-        &=\mathrm{i}\,\text{sgn}(\xi)\mathcal{F} f(\xi)\\
-        &=-\mathcal{F} [\mathcal{H} f](\xi)
-    \end{align*}
-    即$\mathcal{F} [\mathcal{H} f](\xi)$是奇函数，因此$\mathcal{H} f$是奇函数。
-    
-    类似地，如果$f$是奇函数，则$\mathcal{F} f$也是奇函数，$\mathcal{F} [\mathcal{H} f](\xi)=-\mathrm{i}\,\text{sgn}(\xi)\mathcal{F} f(\xi)$是偶函数，因此$\mathcal{H} f$是偶函数。直接使用希尔伯特变换的定义也可验证这一性质。
+    根据傅里叶变换的对称性，如果$f$是偶函数，则$\mathcal{F}f$也是偶函数，于是
+    \begin{align}
+        \mathcal{F}\sbr{\mathcal{H}f}(\xi)&=-\im\,\sgn(\xi)\mathcal{F}f(\xi),\\
+        \mathcal{F}\sbr{\mathcal{H}f}(-\xi)&=-\im\,\sgn(-\xi)\mathcal{F}f(-\xi)\nonumber\\
+        &=\im\,\sgn(\xi)\mathcal{F}f(\xi)\nonumber\\
+        &=-\mathcal{F}\sbr{\mathcal{H}f}(\xi),
+    \end{align}
+    即$\mathcal{F}\sbr{\mathcal{H}f}(\xi)$是奇函数，因此$\mathcal{H}f$是奇函数。
+
+    类似地，如果$f$是奇函数，则$\mathcal{F}f$也是奇函数，$\mathcal{F}\sbr{\mathcal{H}f}(\xi)=-\im\,\sgn(\xi)\mathcal{F}f(\xi)$是偶函数，因此$\mathcal{H}f$是偶函数。直接使用希尔伯特变换的定义也可验证这一性质。
 \end{proof}
 
 \subsection{解析信号}\label{sub:analytic_signal}
@@ -153,35 +172,43 @@ $\pv\dfrac{1}{x}$作为缓增的正则分布，我们在\refsub{normal_distribut
 希尔伯特变换可以用来构造解析信号。解析信号在通信领域有着重要的应用，例如调制解调、单边带调制等。
 \begin{definition}[解析信号]
     函数$f\in L^1(\mathbb{R})$称为\textbf{解析信号}(analytic signal)，如果它仅含正频率成分，即
-    \[\text{supp}(\mathcal{F} f)\subseteq[0,\infty)\]
+    \begin{equation}
+        \supp(\mathcal{F}f)\subseteq[0,\infty).
+    \end{equation}
 \end{definition}
 
-实信号的傅里叶变换满足共轭对称性：$\mathcal{F} f^-=\overline{\mathcal{F} f}$，即幅度谱为偶函数而相位谱为奇函数，因此实信号不可能是解析信号。但如果考虑$2u\cdot\mathcal{F} f$，其中$u$为单位阶跃函数，则该信号仅含正频率成分（我们马上将看到为什么是两倍的$u\mathcal{F} f$）。
+实函数的傅里叶变换满足共轭对称性：$\mathcal{F}f^-=\overline{\mathcal{F}f}$，即幅度谱为偶函数而相位谱为奇函数，因此实函数不可能是解析信号。但如果考虑$2u\cdot\mathcal{F}f$，其中$u$为单位阶跃函数，则该信号仅含正频率成分（我们马上将看到为什么是两倍的$u\mathcal{F}f$）。
 
-对$2u\cdot\mathcal{F} f$做傅里叶逆变换，并即相应的时域函数为$\mathcal{Z}_f(t)$，则有：
-\begin{align*}
-    \mathcal{Z}_f(t)&=\mathcal{F} ^{-1}[2u(\xi)\cdot\mathcal{F} f(\xi)](t)\\
-    &=\mathcal{F} ^{-1}[(1+\text{sgn}(\xi))\mathcal{F} f(\xi)](t)\\
-    &=\mathcal{F} \mathcal{F} ^{-1}f(t)+\mathcal{F} ^{-1}[\text{sgn}(\xi)\mathcal{F} f(\xi)](t)\\
-    &=f(t)+\mathrm{i}\mathcal{H} f(t)
-\end{align*}
+对$2u\cdot\mathcal{F}f$做傅里叶逆变换，并记相应的时域函数为$\mathcal{Z}_f(t)$，则有：
+\begin{align}
+    \mathcal{Z}_f(t)&=\mathcal{F}^{-1}\sbr{2u(\xi)\cdot\mathcal{F}f(\xi)}(t)\nonumber\\
+    &=\mathcal{F}^{-1}\sbr{(1+\sgn(\xi))\mathcal{F}f(\xi)}(t)\nonumber\\
+    &=\mathcal{F}\mathcal{F}^{-1}f(t)+\mathcal{F}^{-1}\sbr{\sgn(\xi)\mathcal{F}f(\xi)}(t)\nonumber\\
+    &=f(t)+\im\mathcal{H}f(t).
+\end{align}
 
-显然，实信号的希尔伯特变换仍是实信号。因此可以说，\textbf{在实信号的虚部中加入它的希尔伯特变换，就得到了一个解析信号}，原有的实信号$f(t)$是其实部。当然，以上解析信号的构造过程对于复值函数同样有效，只是复值函数无法通过对解析信号取实部来恢复。
+显然，实函数的希尔伯特变换仍是实函数。因此可以说，\textbf{在实函数的虚部中加入它的希尔伯特变换，就得到了一个解析信号}，原有的实函数$f(t)$是其实部。当然，以上解析信号的构造过程对于复值函数同样有效，只是复值函数无法通过对解析信号取实部来恢复。
 
 \begin{definition}
     设$f\in L^1(\mathbb{R})$，定义
-    $$\mathcal{Z}_f(t)=f(t)+\mathrm{i}\mathcal{H} f(t)$$
+    \begin{equation}
+        \mathcal{Z}_f(t)=f(t)+\im\mathcal{H}f(t)
+    \end{equation}
     称之为\textbf{与}$f$\textbf{相关的解析信号}。
-    频域上，$\mathcal{Z} _f$是由$f$截去复频率成分，而正频率成分加倍得到的。
+    频域上，$\mathcal{Z}_f$是由$f$截去负频率成分，而正频率成分加倍得到的。
 \end{definition}
 
 与解析信号相关的解析信号并不是它本身，而是它的两倍，这一点从频域上是容易看出来的。
 
 对于一个解析信号$g(t)$，它的实部为：
-$$\text{Re}(g(t))=\frac{g(t)+\overline{g(t)}}{2}$$
+\begin{equation}
+    \Re(g(t))=\frac{g(t)+\overline{g(t)}}{2}.
+\end{equation}
 实部的傅里叶变换为：
-$$\mathcal{F}[\text{Re}(g(t))]=\frac{\mathcal{F}g(\xi)+\mathcal{F}\overline{g}(\xi)}{2}=\frac{\mathcal{F}g(\xi)+\mathcal{F}g(-\xi)}{2}$$
-可见取解析信号的实部相当于在频域上做偶延拓再将幅值减半，这正是由实信号构造与之相关的解析信号的逆过程。因此，\textbf{一个信号是解析信号，当且仅当它的虚部是实部的希尔伯特变换}。
+\begin{equation}
+    \mathcal{F}\sbr{\Re(g(t))}=\frac{\mathcal{F}g(\xi)+\mathcal{F}\overline{g}(\xi)}{2}=\frac{\mathcal{F}g(\xi)+\mathcal{F}g(-\xi)}{2}.
+\end{equation}
+可见取解析信号的实部相当于在频域上做偶延拓再将幅值减半，这正是由实函数构造与之相关的解析信号的逆过程。因此，\textbf{一个信号是解析信号，当且仅当它的虚部是实部的希尔伯特变换}。
 
 以上构造表明：若某线性时不变系统的响应恰好是激励的希尔伯特变换，就可借此构造与激励相关的解析信号。然而，希尔伯特变换的单位冲激响应为$1/\pi t$，其本身非因果，因此对应系统不可实现。
 
@@ -189,24 +216,24 @@ $$\mathcal{F}[\text{Re}(g(t))]=\frac{\mathcal{F}g(\xi)+\mathcal{F}\overline{g}(\
 
 解析信号在频域中仅含正频率成分，可视为“频域因果”信号；相应地，其时域实部与虚部构成希尔伯特变换对。由此可类比猜想：若线性时不变系统在时域因果，则其频率响应的实部与虚部也应满足同样的希尔伯特变换关系。下面给出证明。
 
-设$h(t)$是因果线性时不变系统的单位冲激响应，频率响应为$H(\omega)$.由$h(t)=u(t)h(t)$，可得：
-\begin{align*}
-    H(\omega)&=\mathcal{F} [h(t)u(t)](\omega)\\
-    &=\frac{1}{2\pi}H(\omega)*\left(\pi\delta(\omega)+\pv\frac{1}{\mathrm{i}\omega}\right)\\
-    &=\frac{1}{2}H(\omega)+\pv\frac{1}{2\pi \mathrm{i}\omega}*H(\omega)
-\end{align*}
+设$h(t)$是因果线性时不变系统的单位冲激响应，频率响应为$H(\omega)$。由$h(t)=u(t)h(t)$，可得：
+\begin{align}
+    H(\omega)&=\mathcal{F}\sbr{h(t)u(t)}(\omega)\nonumber\\
+    &=\frac{1}{2\pi}H(\omega)*\paren{\pi\delta(\omega)+\pv\frac{1}{\im\omega}}\nonumber\\
+    &=\frac{1}{2}H(\omega)+\pv\frac{1}{2\pi\im\omega}*H(\omega).
+\end{align}
 
 考察上式的实部和虚部，记$H(\omega)=R(\omega)+\im I(\omega)$，则有：
-\begin{align*}
-    R(\omega)&=\frac{1}{2}R(\omega)-\pv\frac{1}{2\pi \omega}*I(\omega)\\
-    I(\omega)&=\frac{1}{2}I(\omega)+\pv\frac{1}{2\pi \omega}*R(\omega)
-\end{align*}
+\begin{align}
+    R(\omega)&=\frac{1}{2}R(\omega)-\pv\frac{1}{2\pi\omega}*I(\omega),\\
+    I(\omega)&=\frac{1}{2}I(\omega)+\pv\frac{1}{2\pi\omega}*R(\omega).
+\end{align}
 整理以上两式即得：
 \begin{theorem}[希尔伯特变换关系]
     设$h(t)$为因果线性时不变系统的单位冲激响应，$H(\omega)=R(\omega)+\im I(\omega)$为系统的频率响应，则$R(\omega)$与$I(\omega)$构成希尔伯特变换对，即：
-    \begin{align*}
-    &R(\omega)=-\pv\frac{1}{\pi \omega}*I(\omega)=\mathcal{H} ^{-1}I(\omega)\\
-    &I(\omega)=\pv\frac{1}{\pi \omega}*R(\omega)=\mathcal{H} R(\omega)
-\end{align*}
-将这种关系称为\textbf{希尔伯特变换关系}(Hilbert transform relation)。
+    \begin{align}
+        R(\omega)&=-\pv\frac{1}{\pi\omega}*I(\omega)=\mathcal{H}^{-1}I(\omega),\\
+        I(\omega)&=\pv\frac{1}{\pi\omega}*R(\omega)=\mathcal{H}R(\omega).
+    \end{align}
+    将这种关系称为\textbf{希尔伯特变换关系}(Hilbert transform relation)。
 \end{theorem}

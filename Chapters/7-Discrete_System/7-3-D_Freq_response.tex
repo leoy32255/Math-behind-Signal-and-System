@@ -6,58 +6,76 @@
 
 \begin{definition}[相时延与群时延]
     对于一个因果、稳定的线性时不变系统，设其相频特性为$\varphi(\Omega)$，则系统的\textbf{相时延}定义为
-    $$\tau_p(\Omega)=-\frac{\varphi(\Omega)}{\Omega}$$
+    \begin{equation}
+        \tau_p(\Omega)=-\frac{\varphi(\Omega)}{\Omega},
+    \end{equation}
     系统的\textbf{群时延}或\textbf{包络时延}定义为
-    $$\tau_g(\Omega)=-\frac{d\varphi(\Omega)}{d\Omega}$$
+    \begin{equation}
+        \tau_g(\Omega)=-\frac{\dd\varphi(\Omega)}{\dd\Omega}.
+    \end{equation}
     由于数字角频率$\Omega\in(-\pi,\pi]$，相时延和群时延都是周期为$2\pi$的周期函数。
 \end{definition}
 
-有了对连续系统的相时延与群时延的处理经验，就可以猜想离散系统的相时延与群时延的具有类似的物理意义，即相时延$\tau_p(\Omega)$表示系统对频率为$\Omega$的频率成分的延时，群时延$\tau_g(\Omega)$表示系统对频率为$\Omega$的包络信号的延时。我们仍通过两个例子来说明这一点。
+有了对连续系统的相时延与群时延的处理经验，就可以猜想离散系统的相时延与群时延具有类似的物理意义，即相时延$\tau_p(\Omega)$表示系统对频率为$\Omega$的频率成分的延时，群时延$\tau_g(\Omega)$表示系统对频率为$\Omega$的包络信号的延时。我们仍通过两个例子来说明这一点。
 
 \begin{example}[相时延]
-    设输入信号为单频复指数序列$e[n]=\e^{\im\Omega_0 n}(-\pi<\Omega_0\le\pi)$，求频率响应为$H(\e^{\im\Omega})$，的线性时不变系统的输出序列$r[n]$.
+    设输入信号为单频复指数序列$e[n]=\e^{\im\Omega_0 n}\ (-\pi<\Omega_0\leq\pi)$，求频率响应为$H(\e^{\im\Omega})$的线性时不变系统的输出序列$r[n]$。
 
     解：利用\cref{exmp:exp_DTFT}的结果，$e[n]$的DTFT为$E(\e^{\im\Omega})=\delta_{\Omega_0}$，因此输出序列的DTFT为
-    $$R(\e^{\im\Omega})=H(\e^{\im\Omega})E(\e^{\im\Omega})=H(\e^{\im\Omega_0})\delta_{\Omega_0}$$
+    \begin{equation}
+        R(\e^{\im\Omega})=H(\e^{\im\Omega})E(\e^{\im\Omega})=H(\e^{\im\Omega_0})\delta_{\Omega_0},
+    \end{equation}
     因此
-    $$r[n]=H(\e^{\im\Omega_0})\e^{\im\Omega_0 n}=\left|H(\e^{\im\Omega_0})\right|\e^{\im(\Omega_0 n+\varphi(\Omega_0))}$$
-    可见输出序列仍为单频复指数序列，其幅值被放大了$\left|H(\e^{\im\Omega_0})\right|$倍，相位延迟了$\varphi(\Omega_0)$，折合到时间变量$n$上，就得到相时延：
-    $$r[n]=\left|H(\e^{\im\Omega_0})\right|\e^{\im\Omega_0 (n+\varphi(\Omega_0)/\Omega_0)},\quad \tau_p(\Omega_0)=-\frac{\varphi(\Omega_0)}{\Omega_0}$$
+    \begin{equation}
+        r[n]=H(\e^{\im\Omega_0})\e^{\im\Omega_0 n}=\abs{H(\e^{\im\Omega_0})}\e^{\im(\Omega_0 n+\varphi(\Omega_0))}.
+    \end{equation}
+    可见输出序列仍为单频复指数序列，其幅值被放大了$\abs{H(\e^{\im\Omega_0})}$倍，相位延迟了$\varphi(\Omega_0)$，折合到时间变量$n$上，就得到相时延：
+    \begin{equation}
+        r[n]=\abs{H(\e^{\im\Omega_0})}\e^{\im\Omega_0 (n+\varphi(\Omega_0)/\Omega_0)},\quad \tau_p(\Omega_0)=-\frac{\varphi(\Omega_0)}{\Omega_0}.
+    \end{equation}
 \end{example}
 
-特别地，如果系统的相频特性$\varphi(\Omega)$是$\Omega$的线性函数，即$\varphi(\Omega)=-k\Omega$，则系统的相时延为常数$k$，即系统对所有频率的离散信号的相时延都是$k$，因此称其为\textbf{线性相位系统}。
+特别地，如果系统的相频特性$\varphi(\Omega)$是$\Omega$的线性函数，即$\varphi(\Omega)=-k\Omega$，则系统的相时延为常数$k$，即系统对所有频率的序列的相时延都是$k$，因此称其为\textbf{线性相位系统}。
 
-类似\cref{def:eigenfunction}，$\e^{\im\Omega_0 n}(-\pi<\Omega_0\le\pi)$为离散系统$H$的\textbf{特征函数}。
+类似\cref{def:eigenfunction}，$\e^{\im\Omega_0 n}\ (-\pi<\Omega_0\leq\pi)$为离散系统$H$的\textbf{特征函数}。
 
 \begin{example}[群时延]
     设输入序列为调幅序列
-    $$e[n]=\cos(\Omega_m)\cos(\Omega_c)$$
-    其中$\Omega_m$为载波数字角频率，$\Omega_m$为调制序列数字角频率，且$0<\Omega_m\ll\Omega_c\le\pi$，单位脉冲响应$h[n]$为实序列，频率响应为$H(\e^{\im\Omega})$，求响应序列$r[n]$.
+    \begin{equation}
+        e[n]=\cos(\Omega_m n)\cos(\Omega_c n),
+    \end{equation}
+    其中$\Omega_c$为载波数字角频率，$\Omega_m$为调制序列数字角频率，且$0<\Omega_m\ll\Omega_c\leq\pi$，单位脉冲响应$h[n]$为实序列，频率响应为$H(\e^{\im\Omega})$，求响应序列$r[n]$。
 
     解：将输入序列用积化和差公式展开：
-    $$e[n]=\frac{1}{2}[\cos((\Omega_c+\Omega_m)n)+\cos((\Omega_c-\Omega_m)n)]$$
+    \begin{equation}
+        e[n]=\frac{1}{2}\sbr{\cos((\Omega_c+\Omega_m)n)+\cos((\Omega_c-\Omega_m)n)}.
+    \end{equation}
     利用\cref{lemma:digital_cos_filter}，有：
-    \begin{align*}
-        r[n]=&\frac{1}{2}\left|H(\e^{\im(\Omega_c+\Omega_m)})\right|\cos((\Omega_c+\Omega_m)n+\varphi(\Omega_c+\Omega_m))\\
-        &\quad+\frac{1}{2}\left|H(\e^{\im(\Omega_c-\Omega_m)})\right|\cos((\Omega_c-\Omega_m)n+\varphi(\Omega_c-\Omega_m))
-    \end{align*}
-    由于$\Omega_c\gg\Omega_m$，可以将$\left|H(\e^{\im(\Omega_c+\Omega_m)})\right|$近似为$\left|H(\e^{\im\Omega_c})\right|$，将$\varphi(\Omega)$在$\Omega_c$处做泰勒展开：
-    $$\varphi(\Omega_c+\Omega)\approx\varphi(\Omega_c)+\evalat{\frac{d\varphi(\Omega)}{d\Omega}}{\Omega=\Omega_c}{}\Omega$$
+    \begin{align}
+        r[n]&=\frac{1}{2}\abs{H(\e^{\im(\Omega_c+\Omega_m)})}\cos((\Omega_c+\Omega_m)n+\varphi(\Omega_c+\Omega_m)) \nonumber \\
+        &\quad+\frac{1}{2}\abs{H(\e^{\im(\Omega_c-\Omega_m)})}\cos((\Omega_c-\Omega_m)n+\varphi(\Omega_c-\Omega_m)).
+    \end{align}
+    由于$\Omega_c\gg\Omega_m$，可以将$\abs{H(\e^{\im(\Omega_c+\Omega_m)})}$近似为$\abs{H(\e^{\im\Omega_c})}$，将$\varphi(\Omega)$在$\Omega_c$处做泰勒展开：
+    \begin{equation}
+        \varphi(\Omega_c+\Omega)\approx\varphi(\Omega_c)+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega,
+    \end{equation}
     代入得
-    \begin{align*}
-        r[n]=&\frac{1}{2}\left|H(\e^{\im\Omega_c})\right|\left[\cos\left((\Omega_c+\Omega_m)n+\varphi(\Omega_c)+\evalat{\frac{d\varphi(\Omega)}{d\Omega}}{\Omega=\Omega_c}{}\Omega_m\right)\right.\\
-        &\qquad\qquad+\cos\left((\Omega_c-\Omega_m)n+\varphi(\Omega_c)-\evalat{\frac{d\varphi(\Omega)}{d\Omega}}{\Omega=\Omega_c}{}\Omega_m\right)\\
-        &=\left|H(\e^{\im\Omega_c})\right|\cos(\Omega_c n+\varphi(\Omega_c))\cos\left(\Omega_m\left[n+\evalat{\frac{d\varphi(\Omega)}{d\Omega}}{\Omega=\Omega_c}{}\right]\right)
-    \end{align*}
-    相比输入序列$e[n]=\cos(\Omega_m)\cos(\Omega_c)$，输出序列的幅度大约变为$\left|H(\e^{\im\Omega_c})\right|$倍，载波序列的相位延迟了$\varphi(\Omega_c)$，调制序列的相位延迟了$\evalat{\dfrac{d\varphi(\Omega)}{d\Omega}}{\Omega=\Omega_c}{}$，将离散信号视为连续信号理想采样的结果，就可以把调制信号的相位偏移折算为连续信号的包络波形的时间延迟，从而得到系统对频率为$\Omega_c$的离散信号的群时延
-    $$\tau_g(\Omega_c)=-\frac{d\varphi(\Omega_c)}{d\Omega_c}$$
+    \begin{align}
+        r[n]&=\frac{1}{2}\abs{H(\e^{\im\Omega_c})}\left[\cos\paren{(\Omega_c+\Omega_m)n+\varphi(\Omega_c)+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}\right. \nonumber \\
+        &\qquad+\left.\cos\paren{(\Omega_c-\Omega_m)n+\varphi(\Omega_c)-\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}\right] \nonumber \\
+        &=\abs{H(\e^{\im\Omega_c})}\cos(\Omega_c n+\varphi(\Omega_c))\cos\paren{\Omega_m\sbr{n+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}}}.
+    \end{align}
+    相比输入序列$e[n]=\cos(\Omega_m n)\cos(\Omega_c n)$，输出序列的幅度大约变为$\abs{H(\e^{\im\Omega_c})}$倍，载波序列的相位延迟了$\varphi(\Omega_c)$，调制序列的相位延迟了$\evalat{\displaystyle\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}$，将序列视为连续信号理想采样的结果，就可以把调制信号的相位偏移折算为连续信号的包络波形的时间延迟，从而得到系统对频率为$\Omega_c$的序列的群时延
+    \begin{equation}
+        \tau_g(\Omega_c)=-\frac{\dd\varphi(\Omega_c)}{\dd\Omega_c}.
+    \end{equation}
     可见，类似于连续系统，群时延描述了低频包络序列的时延，因此又称为包络时延。
 \end{example}
 
 \begin{definition}[离散线性相位系统]
     如果系统对各个频率成分有相同时延，即相时延$\tau_p(\Omega)$是常数，则称之为\textbf{线性相位系统}(linear phase system)；
 
-    如果系统如果系统对各个中心频率的信号群有相同时延，即群时延$\tau_p(\Omega)$是常数，则称之为\textbf{准线性相位系统}(quasilinear phase system).
+    如果系统对各个中心频率的信号群有相同时延，即群时延$\tau_g(\Omega)$是常数，则称之为\textbf{准线性相位系统}(quasilinear phase system)。
 
     线性相位性质蕴含准线性相位性质。
 \end{definition}
@@ -67,106 +85,130 @@
 借助z变换，可以得到相时延与群时延的另一种物理意义。上一小节中，我们讨论的都是稳态信号，即信号从$n=-\infty$持续到$\infty$，这是不可实现的。本小节中，我们考虑信号从某一时刻开始加到系统上（不妨设信号是因果的），进而考虑系统的时延。
 
 \begin{example}
-    对于一个因果且稳定的线性时不变系统，设其系统函数为$H(z)$，激励为在$n=0$时刻施加于系统的单频离散信号
-    $$e[n]=\mathrm{e}^{\mathrm{i}\Omega n}u[n]$$
+    对于一个因果且稳定的线性时不变系统，设其系统函数为$H(z)$，激励为在$n=0$时刻施加于系统的单频序列
+    \begin{equation}
+        e[n]=\e^{\im\Omega n}u[n].
+    \end{equation}
     激励信号的z变换为：
-    $$E(z)=\sum_{n=0}^{\infty}\mathrm{e}^{\mathrm{i}\Omega n}z^{-n}=\frac{1}{1-\mathrm{e}^{\mathrm{i}\Omega}z^{-1}},\quad |z|>1$$
+    \begin{equation}
+        E(z)=\sum_{n=0}^{\infty}\e^{\im\Omega n}z^{-n}=\frac{1}{1-\e^{\im\Omega}z^{-1}},\quad |z|>1,
+    \end{equation}
     因此响应的z变换为
-    $$R(z)=H(z)E(z)=\frac{H(z)}{1-\mathrm{e}^{\mathrm{i}\Omega}z^{-1}}$$
-    为了求出$R(z)$的逆z变换，我们考虑使用留数定理的方法。由于系统函数$H(z)$的收敛域包含$|z|\geq 1$，只要选取一个半径$R>1$的圆$C_R:t\mapsto R\mathrm{e}^{\mathrm{i}t},t\in[0,2\pi)$作为围道，就能够保证$R(z)$在$C_R$上解析，从而留数定理的方法适用。
+    \begin{equation}
+        R(z)=H(z)E(z)=\frac{H(z)}{1-\e^{\im\Omega}z^{-1}}.
+    \end{equation}
+    为了求出$R(z)$的逆z变换，我们考虑使用留数定理的方法。由于系统函数$H(z)$的收敛域包含$|z|\geq 1$，只要选取一个半径$R>1$的圆$C_R:t\mapsto R\e^{\im t},\ t\in[0,2\pi)$作为围道，就能够保证$R(z)$在$C_R$上解析，从而留数定理的方法适用。
 
-    设$H(z)$没有本性奇点，记它的极点集合为$\{p_k\}$，它们都在围道$C_R$的内部。由逆z变换的留数定理公式，有：\begin{align*}
-        r[n]&=\frac{1}{2\pi\mathrm{i}}\oint_{C_R}R(z)z^{n-1}\,dz\\
-        &=\sum_{k}\text{Res}(R(z)z^{n-1},p_k)+\text{Res}(R(z)z^{n-1},\mathrm{e}^{\mathrm{i}\Omega})\\
-        &=\sum_{k}\text{Res}(H(z)z^{n-1},p_k)+\text{Res}\left(\frac{H(z)z^{n-1}}{1-\mathrm{e}^{\mathrm{i}\Omega}z^{-1}},\mathrm{e}^{\mathrm{i}\Omega}\right)
-    \end{align*}
+    设$H(z)$没有本性奇点，记它的极点集合为$\{p_k\}$，它们都在围道$C_R$的内部。由逆z变换的留数定理公式，有：
+    \begin{align}
+        r[n]&=\frac{1}{2\pi\im}\oint_{C_R}R(z)z^{n-1}\,\dd z \nonumber \\
+        &=\sum_{k}\Res\paren{R(z)z^{n-1},p_k}+\Res\paren{R(z)z^{n-1},\e^{\im\Omega}} \nonumber \\
+        &=\sum_{k}\Res\paren{H(z)z^{n-1},p_k}+\Res\paren{\frac{H(z)z^{n-1}}{1-\e^{\im\Omega}z^{-1}},\e^{\im\Omega}},
+    \end{align}
 
-    其中\begin{align*}
-        \text{Res}\left(\frac{H(z)z^{n-1}}{1-\mathrm{e}^{\mathrm{i}\Omega}z^{-1}},\mathrm{e}^{\mathrm{i}\Omega}\right)&=\lim_{z\to \mathrm{e}^{\mathrm{i}\Omega}}(z-\mathrm{e}^{\mathrm{i}\Omega})\frac{H(z)z^{n-1}}{1-\mathrm{e}^{\mathrm{i}\Omega}z^{-1}}\\
-        &=\lim_{z\to \mathrm{e}^{\mathrm{i}\Omega}}H(z)z^n\\
-        &=H(\mathrm{e}^{\mathrm{i}\Omega})\mathrm{e}^{\mathrm{i}\Omega n}
-    \end{align*}
+    其中
+    \begin{align}
+        \Res\paren{\frac{H(z)z^{n-1}}{1-\e^{\im\Omega}z^{-1}},\e^{\im\Omega}}&=\lim_{z\to \e^{\im\Omega}}(z-\e^{\im\Omega})\frac{H(z)z^{n-1}}{1-\e^{\im\Omega}z^{-1}} \nonumber \\
+        &=\lim_{z\to \e^{\im\Omega}}H(z)z^n \nonumber \\
+        &=H(\e^{\im\Omega})\e^{\im\Omega n}.
+    \end{align}
 
-    对于其余极点，可以选取一个充分靠近单位圆的围道$C_r:t\mapsto r\mathrm{e}^{\mathrm{i}t},t\in[0,2\pi)$，其中$r=1-\epsilon$，$\epsilon$充分小使得$H(z)$的极点均包含在其中，于是\begin{align*}
-        \left|\sum_{k}\text{Res}(H(z)z^{n-1},p_k)\right|&=\left|\frac{1}{2\pi\mathrm{i}}\oint_{C_r}H(z)z^{n-1}\,dz\right|\\
-        &\leq \frac{1}{2\pi}\int_{0}^{2\pi}|H(r\mathrm{e}^{\mathrm{i}t})|r^{n-1}\,dt\\
-        &\leq \max_{t\in[0,2\pi)}|H(r\mathrm{e}^{\mathrm{i}t})|r^{n-1}
-    \end{align*}
+    对于其余极点，可以选取一个充分靠近单位圆的围道$C_r:t\mapsto r\e^{\im t},\ t\in[0,2\pi)$，其中$r=1-\epsilon$，$\epsilon$充分小使得$H(z)$的极点均包含在其中，于是
+    \begin{align}
+        \abs{\sum_{k}\Res\paren{H(z)z^{n-1},p_k}}&=\abs{\frac{1}{2\pi\im}\oint_{C_r}H(z)z^{n-1}\,\dd z} \nonumber \\
+        &\leq \frac{1}{2\pi}\int_{0}^{2\pi}|H(r\e^{\im t})|r^{n-1}\,\dd t \nonumber \\
+        &\leq \max_{t\in[0,2\pi)}|H(r\e^{\im t})|r^{n-1}.
+    \end{align}
     令$n\to\infty$，由于$r<1$，上式以指数函数的速度趋于$0$。也就是说，响应中包含两部分，一部分是快速衰减的暂态项，另一部分是稳态项。在$n$充分大时，近似有
-    $$r[n]\approx H(\mathrm{e}^{\mathrm{i}\Omega})\mathrm{e}^{\mathrm{i}\Omega n}=|H(\mathrm{e}^{\mathrm{i}\Omega})|\mathrm{e}^{\mathrm{i}(\Omega n+\varphi(\Omega))}$$
+    \begin{equation}
+        r[n]\approx H(\e^{\im\Omega})\e^{\im\Omega n}=|H(\e^{\im\Omega})|\e^{\im(\Omega n+\varphi(\Omega))}.
+    \end{equation}
 
-    响应相对激励，幅度大约变为$|H(\mathrm{e}^{\mathrm{i}\Omega})|$倍，相位延迟为$\varphi(\Omega)$。虽然离散系统中的相时延未必为整数，但若\textbf{将离散信号视为连续信号理想采样的结果}，就可以把该相位偏移折算为这个连续信号的时间延迟，从而得到系统对频率为$\Omega$的离散信号的相时延
-    $$\tau_p(\Omega)=-\frac{\varphi(\Omega)}{\Omega}$$
+    响应相对激励，幅度大约变为$|H(\e^{\im\Omega})|$倍，相位延迟为$\varphi(\Omega)$。虽然离散系统中的相时延未必为整数，但若\textbf{将序列视为连续信号理想采样的结果}，就可以把该相位偏移折算为这个连续信号的时间延迟，从而得到系统对频率为$\Omega$的序列的相时延
+    \begin{equation}
+        \tau_p(\Omega)=-\frac{\varphi(\Omega)}{\Omega}.
+    \end{equation}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{phase_delay_demo}
         \caption{离散系统的相时延示意图}
     \end{figure}
-    上图展示了单频的离散正弦信号经过系统后的表现。可以看到，稳态响应本身并不是激励信号延时所得的，但作为连续正弦信号的采样结果，它们的包络呈现出相时延$\tau_p(\Omega)$的效果。
+    上图展示了单频的正弦序列经过系统后的表现。可以看到，稳态响应本身并不是激励信号延时所得的，但作为连续正弦函数的采样结果，它们的包络呈现出相时延$\tau_p(\Omega)$的效果。
 \end{example}
 
 \begin{example}
     对于一个因果且稳定的线性时不变系统，设其系统函数为$H(z)$，激励为离散调幅信号
-    $$e[n]=\cos(\Omega_m n)\cos(\Omega_c n)u[n]$$
+    \begin{equation}
+        e[n]=\cos(\Omega_m n)\cos(\Omega_c n)u[n],
+    \end{equation}
     其中$\Omega_m$为调制频率，$\Omega_c$为载波频率，且满足$0<\Omega_m\ll\Omega_c<\pi$。利用积化和差公式以及单边余弦序列的z变换公式，可以求得激励信号的z变换为
-    \begin{align*}
-        E(z)&=\mathcal{Z}\left\{\frac{1}{2}\left(\cos(\Omega_c+\Omega_m)n+\cos(\Omega_c-\Omega_m)n\right)u[n]\right\}\\
-        &=\frac{1}{4}\left[\frac{z}{z-\mathrm{e}^{\mathrm{i}(\Omega_c+\Omega_m)}}+\frac{z}{z-\mathrm{e}^{-\mathrm{i}(\Omega_c+\Omega_m)}}+\frac{z}{z-\mathrm{e}^{\mathrm{i}(\Omega_c-\Omega_m)}}+\frac{z}{z-\mathrm{e}^{-\mathrm{i}(\Omega_c-\Omega_m)}}\right],\quad |z|>1
-    \end{align*}
+    \begin{align}
+        E(z)&=\mathcal{Z}\braces{\frac{1}{2}\paren{\cos(\Omega_c+\Omega_m)n+\cos(\Omega_c-\Omega_m)n}u[n]} \nonumber \\
+        &=\frac{1}{4}\left[\frac{z}{z-\e^{\im(\Omega_c+\Omega_m)}}+\frac{z}{z-\e^{-\im(\Omega_c+\Omega_m)}}\right. \nonumber \\
+        &\qquad+\left.\frac{z}{z-\e^{\im(\Omega_c-\Omega_m)}}+\frac{z}{z-\e^{-\im(\Omega_c-\Omega_m)}}\right],\quad |z|>1,
+    \end{align}
     因此响应的z变换为
-    \begin{align*}
-        R(z)&=H(z)E(z)\\
-        &=\frac{1}{4}\left[\frac{zH(z)}{z-\mathrm{e}^{\mathrm{i}(\Omega_c+\Omega_m)}}+\frac{zH(z)}{z-\mathrm{e}^{-\mathrm{i}(\Omega_c+\Omega_m)}}+\frac{zH(z)}{z-\mathrm{e}^{\mathrm{i}(\Omega_c-\Omega_m)}}+\frac{zH(z)}{z-\mathrm{e}^{-\mathrm{i}(\Omega_c-\Omega_m)}}\right]
-    \end{align*}
+    \begin{align}
+        R(z)&=H(z)E(z) \nonumber \\
+        &=\frac{1}{4}\left[\frac{zH(z)}{z-\e^{\im(\Omega_c+\Omega_m)}}+\frac{zH(z)}{z-\e^{-\im(\Omega_c+\Omega_m)}}\right. \nonumber \\
+        &\qquad+\left.\frac{zH(z)}{z-\e^{\im(\Omega_c-\Omega_m)}}+\frac{zH(z)}{z-\e^{-\im(\Omega_c-\Omega_m)}}\right].
+    \end{align}
 
     根据前一例子中的结果，在$n$充分大时，稳态响应近似为
-    \begin{align*}
-        r[n]&=\frac{1}{4}\left[H(\mathrm{e}^{\mathrm{i}(\Omega_c+\Omega_m)})\mathrm{e}^{\mathrm{i}(\Omega_c+\Omega_m)n}+H(\mathrm{e}^{-\mathrm{i}(\Omega_c+\Omega_m)})\mathrm{e}^{-\mathrm{i}(\Omega_c+\Omega_m)n}\right.\\
-        &\qquad +\left.H(\mathrm{e}^{\mathrm{i}(\Omega_c-\Omega_m)})\mathrm{e}^{\mathrm{i}(\Omega_c-\Omega_m)n}+H(\mathrm{e}^{-\mathrm{i}(\Omega_c-\Omega_m)})\mathrm{e}^{-\mathrm{i}(\Omega_c-\Omega_m)n}\right]\\
-        &=|H(\mathrm{e}^{\mathrm{i}(\Omega_c+\Omega_m)})|\cos((\Omega_c+\Omega_m)n+\varphi(\Omega_c+\Omega_m))\\
-        &\qquad +|H(\mathrm{e}^{\mathrm{i}(\Omega_c-\Omega_m)})|\cos((\Omega_c-\Omega_m)n+\varphi(\Omega_c-\Omega_m))
-    \end{align*}
-    由于$\Omega_m\ll\Omega_c$，可以将幅频特性近似为$|H(\mathrm{e}^{\mathrm{i}\Omega_c})|$，对相频特性进行泰勒展开：
-    \begin{align*}
-        \varphi(\Omega_c\pm\Omega_m)\approx \varphi(\Omega_c)\pm \left.\frac{d\varphi(\Omega)}{d\Omega}\right|_{\Omega=\Omega_c}\Omega_m
-    \end{align*}
+    \begin{align}
+        r[n]&=\frac{1}{4}\left[H(\e^{\im(\Omega_c+\Omega_m)})\e^{\im(\Omega_c+\Omega_m)n}+H(\e^{-\im(\Omega_c+\Omega_m)})\e^{-\im(\Omega_c+\Omega_m)n}\right. \nonumber \\
+        &\qquad+\left.H(\e^{\im(\Omega_c-\Omega_m)})\e^{\im(\Omega_c-\Omega_m)n}+H(\e^{-\im(\Omega_c-\Omega_m)})\e^{-\im(\Omega_c-\Omega_m)n}\right] \nonumber \\
+        &=|H(\e^{\im(\Omega_c+\Omega_m)})|\cos((\Omega_c+\Omega_m)n+\varphi(\Omega_c+\Omega_m)) \nonumber \\
+        &\qquad+|H(\e^{\im(\Omega_c-\Omega_m)})|\cos((\Omega_c-\Omega_m)n+\varphi(\Omega_c-\Omega_m)).
+    \end{align}
+    由于$\Omega_m\ll\Omega_c$，可以将幅频特性近似为$|H(\e^{\im\Omega_c})|$，对相频特性进行泰勒展开：
+    \begin{equation}
+        \varphi(\Omega_c\pm\Omega_m)\approx \varphi(\Omega_c)\pm \evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m.
+    \end{equation}
     代入$r[n]$的表达式中，得到
-    \begin{align*}
-        r[n]&\approx \frac{1}{2}|H(\mathrm{e}^{\mathrm{i}\Omega_c})|\left[\cos\left((\Omega_c+\Omega_m)n+\varphi(\Omega_c)+\left.\frac{d\varphi(\Omega)}{d\Omega}\right|_{\Omega=\Omega_c}\Omega_m\right)\right.\\
-        &\qquad\left.+\cos\left((\Omega_c-\Omega_m)n+\varphi(\Omega_c)-\left.\frac{d\varphi(\Omega)}{d\Omega}\right|_{\Omega=\Omega_c}\Omega_m\right)\right]\\
-        &=|H(\mathrm{e}^{\mathrm{i}\Omega_c})|\cos\left(\Omega_c n+\varphi(\Omega_c)\right)\cos\left(\Omega_m n+\left.\frac{d\varphi(\Omega)}{d\Omega}\right|_{\Omega=\Omega_c}\Omega_m\right)
-    \end{align*}
-    同样地，将稳态响应的相位偏移折算为系统对中心频率为$\Omega_c$的离散序列的群时延：
-    $$\tau_g(\Omega_c)=-\left.\frac{d\varphi(\Omega)}{d\Omega}\right|_{\Omega=\Omega_c}$$
+    \begin{align}
+        r[n]&\approx \frac{1}{2}|H(\e^{\im\Omega_c})|\left[\cos\paren{(\Omega_c+\Omega_m)n+\varphi(\Omega_c)+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}\right. \nonumber \\
+        &\qquad\left.+\cos\paren{(\Omega_c-\Omega_m)n+\varphi(\Omega_c)-\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}\right] \nonumber \\
+        &=|H(\e^{\im\Omega_c})|\cos(\Omega_c n+\varphi(\Omega_c))\cos\paren{\Omega_m n+\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}\Omega_m}.
+    \end{align}
+    同样地，将稳态响应的相位偏移折算为系统对中心频率为$\Omega_c$的序列的群时延：
+    \begin{equation}
+        \tau_g(\Omega_c)=-\evalat{\frac{\dd\varphi(\Omega)}{\dd\Omega}}{\Omega=\Omega_c}{}.
+    \end{equation}
 \end{example}
 
 \subsection{*最小相位系统}\label{sub:minimum_phase}
 
 如果我们希望系统具有最小的时延特性，就需要考虑将系统设计为一个\textbf{最小相位系统}，它在具有相同幅频特性的系统中，具有最小的群时延。
 \begin{definition}[离散最小相位系统]
-    设因果且稳定的离散线性时不变系统给的系统函数为$H(z)$，记$H(z)$的零点集为$\{z_k\}$，如果$\forall k,|z_k|<1$，则称该系统为\textbf{离散最小相位系统}。
-\end{definition} 
+    设因果且稳定的离散线性时不变系统的系统函数为$H(z)$，记$H(z)$的零点集为$\{z_k\}$，如果$\forall k,\ |z_k|<1$，则称该系统为\textbf{离散最小相位系统}。
+\end{definition}
 
-对于离散系统，\textbf{单位圆对应连续系统的虚轴；单位圆外侧对应虚轴右侧}。二者都可视为稳定性和最小相位性的分界线，因果信号在变换域中的收敛域均位于分界线的一侧。对于连续系统，在$s$平面沿虚轴自$s=0$走到无穷远点时，频率由低到高，稳定系统的极点位于走向左侧，最小相位系统的极点和零点均位于左侧；对于离散系统，在$z$平面沿单位圆从$z=1$逆时针走到$z=-1$时，结论同样成立\footnote{以上全部描述本质上都是复平面的共形变换$s=\frac{1-z^{-1}}{1+z^{-1}}$的性质}。
+对于离散系统，\textbf{单位圆对应连续系统的虚轴；单位圆外侧对应虚轴右侧}。二者都可视为稳定性和最小相位性的分界线，因果信号在变换域中的收敛域均位于分界线的一侧。对于连续系统，在$s$平面沿虚轴自$s=0$走到无穷远点时，频率由低到高，稳定系统的极点位于走向左侧，最小相位系统的极点和零点均位于左侧；对于离散系统，在$z$平面沿单位圆从$z=1$逆时针走到$z=-1$时，结论同样成立\footnote{以上全部描述本质上都是复平面的共形变换$s=\frac{1-z^{-1}}{1+z^{-1}}$的性质。}。
 
 为了说明这种系统具有最小相位性，我们仿照\refsub{min_phase}，借助全通系统，给出系统函数为有理函数，且不考虑单位圆上有零点时的证明。
 
 \begin{lemma}[离散全通系统]
     对于一个因果且稳定的离散线性时不变系统，如果它的系统函数$H(z)$可以表示为以下形式：
-    $$H(z)=\prod_{k=1}^{M}\frac{1-\overline{z_k}z}{z-z_k}$$
+    \begin{equation}
+        H(z)=\prod_{k=1}^{M}\frac{1-\overline{z_k}z}{z-z_k},
+    \end{equation}
     其中$|z_k|<1$，则该系统是全通系统。
 \end{lemma}
 \begin{proof}
-    $H(z)$的零点、极点分别为$\left\{\overline{1/z_k}\right\}$和$\{z_k\}$，由于$|z_k|<1$，$\overline{1/z_k}$位于单位圆外，而$z_k$位于单位圆内，因此系统是稳定的。
+    $H(z)$的零点、极点分别为$\braces{\overline{1/z_k}}$和$\{z_k\}$，由于$|z_k|<1$，$\overline{1/z_k}$位于单位圆外，而$z_k$位于单位圆内，因此系统是稳定的。
 
     我们来验证，以上乘积式中的每一项都是全通系统，从而它们的级联也是全通系统。记
-    $$H_k(z)=\frac{1-\overline{z_k}z}{z-z_k}$$
-    则$H_k(z)$的幅频特性为\begin{align*}
-        |H_k(\mathrm{e}^{\mathrm{i}\Omega})|&=\left|\frac{1-\overline{z_k}\mathrm{e}^{\mathrm{i}\Omega}}{\mathrm{e}^{\mathrm{i}\Omega}-z_k}\right|\\
-        &=\left|\frac{1-z_k \mathrm{e}^{-\mathrm{i}\Omega}}{\mathrm{e}^{\mathrm{i}\Omega}-z_k}\right|&(|z|=|\overline{z}|)\\
-        &=\left|\mathrm{e}^{\mathrm{i}\Omega}\cdot\frac{1-z_k \mathrm{e}^{-\mathrm{i}\Omega}}{\mathrm{e}^{\mathrm{i}\Omega}-z_k}\right|&(|\mathrm{e}^{\mathrm{i}\Omega}|=1)\\
-        &=1
-    \end{align*}
+    \begin{equation}
+        H_k(z)=\frac{1-\overline{z_k}z}{z-z_k},
+    \end{equation}
+    则$H_k(z)$的幅频特性为
+    \begin{align}
+        |H_k(\e^{\im\Omega})|&=\abs{\frac{1-\overline{z_k}\e^{\im\Omega}}{\e^{\im\Omega}-z_k}} \nonumber \\
+        &=\abs{\frac{1-z_k \e^{-\im\Omega}}{\e^{\im\Omega}-z_k}} \qquad (|z|=|\overline{z}|) \nonumber \\
+        &=\abs{\e^{\im\Omega}\cdot\frac{1-z_k \e^{-\im\Omega}}{\e^{\im\Omega}-z_k}} \qquad (|\e^{\im\Omega}|=1) \nonumber \\
+        &=1.
+    \end{align}
 \end{proof}
 
 连续全通系统的零点、极点关于虚轴对称，而离散全通系统的零点、极点关于单位圆共轭对称。
@@ -176,38 +218,43 @@
 \end{proposition}
 \begin{proof}
     仅仅考虑零点不在单位圆上的有理系统函数。设系统函数为
-    $$H(z)=\frac{K(z)\prod_{k=1}^{M}(z-z_k)}{\prod_{l=1}^{N}(z-p_l)}$$
-    其中$K(z)$为模小于1的零点对应因式的乘积，$z_k$为模大于1的零点，$p_l$为模小于1的极点。
+    \begin{equation}
+        H(z)=\frac{K(z)\prod_{k=1}^{M}(z-z_k)}{\prod_{l=1}^{N}(z-p_l)},
+    \end{equation}
+    其中$K(z)$为模小于$1$的零点对应因式的乘积，$z_k$为模大于$1$的零点，$p_l$为模小于$1$的极点。
 
     构造以下全通系统：
-    \begin{align*}
-        A(z)=\prod_{k=1}^{M}\frac{1-\overline{z_k} z}{z-z_k}
-    \end{align*}
-    则$A(z)$的零点为$\{1/\overline{z_k}\}$，模小于1，极点为$\{z_k\}$，模大于1。将$H(z)$与$A(z)$级联，得到系统函数为
-    \begin{align*}
-    \tilde{H}(z)=H(z)A(z)=K(z)\frac{\prod_{k=1}^{M}(1-\overline{z_k} z)}{\prod_{l=1}^{N}(z-p_l)}
-    \end{align*}
+    \begin{equation}
+        A(z)=\prod_{k=1}^{M}\frac{1-\overline{z_k} z}{z-z_k},
+    \end{equation}
+    则$A(z)$的零点为$\{1/\overline{z_k}\}$，模小于$1$，极点为$\{z_k\}$，模大于$1$。将$H(z)$与$A(z)$级联，得到系统函数为
+    \begin{equation}
+        \tilde{H}(z)=H(z)A(z)=K(z)\frac{\prod_{k=1}^{M}(1-\overline{z_k} z)}{\prod_{l=1}^{N}(z-p_l)}.
+    \end{equation}
 
-    因此，级联系统是最小相位系统。为了验证级联系统具有最小相位性，我们来计算全通系统造成的相时延和群时延。设$z_k=r_k \mathrm{e}^{\mathrm{i}\theta_k}(r_k>1)$，全通系统的相频特性为：
-    \begin{align*}
-        \varphi_A(\Omega)=\arg A(\mathrm{e}^{\mathrm{i}\Omega})=\sum_{k=1}^{M}\left[\arg(1-\overline{z_k}\mathrm{e}^{\mathrm{i}\Omega})-\arg(\mathrm{e}^{\mathrm{i}\Omega}-z_k)\right]
-    \end{align*}
+    因此，级联系统是最小相位系统。为了验证级联系统具有最小相位性，我们来计算全通系统造成的相时延和群时延。设$z_k=r_k \e^{\im\theta_k}\ (r_k>1)$，全通系统的相频特性为：
+    \begin{equation}
+        \varphi_A(\Omega)=\arg A(\e^{\im\Omega})=\sum_{k=1}^{M}\sbr{\arg(1-\overline{z_k}\e^{\im\Omega})-\arg(\e^{\im\Omega}-z_k)}.
+    \end{equation}
     利用恒等式
-    $$1-\overline{z_k} \mathrm{e}^{\mathrm{i}\Omega}=\mathrm{e}^{\mathrm{i}\Omega}(\mathrm{e}^{-\mathrm{i}\Omega}-\overline{z_k})=\mathrm{e}^{\mathrm{i}\Omega}\cdot\overline{\mathrm{e}^{\mathrm{i}\Omega}-z_k}$$
+    \begin{equation}
+        1-\overline{z_k} \e^{\im\Omega}=\e^{\im\Omega}(\e^{-\im\Omega}-\overline{z_k})=\e^{\im\Omega}\cdot\overline{\e^{\im\Omega}-z_k},
+    \end{equation}
     可以得到
-    \begin{align*}
-        \arg(1-\overline{z_k}\mathrm{e}^{\mathrm{i}\Omega})=\arg(\mathrm{e}^{\mathrm{i}\Omega})+\arg(\overline{\mathrm{e}^{\mathrm{i}\Omega}-z_k})=\Omega-\arg(\mathrm{e}^{\mathrm{i}\Omega}-z_k)
-    \end{align*}
-    因此\begin{align*}
-        \varphi_A(\Omega)=\sum_{k=1}^{M}\left[\Omega-2\arg(\mathrm{e}^{\mathrm{i}\Omega}-z_k)\right]=M\Omega-2\sum_{k=1}^{M}\arg(\mathrm{e}^{\mathrm{i}\Omega}-z_k)
-    \end{align*}
+    \begin{equation}
+        \arg(1-\overline{z_k}\e^{\im\Omega})=\arg(\e^{\im\Omega})+\arg(\overline{\e^{\im\Omega}-z_k})=\Omega-\arg(\e^{\im\Omega}-z_k),
+    \end{equation}
+    因此
+    \begin{equation}
+        \varphi_A(\Omega)=\sum_{k=1}^{M}\sbr{\Omega-2\arg(\e^{\im\Omega}-z_k)}=M\Omega-2\sum_{k=1}^{M}\arg(\e^{\im\Omega}-z_k).
+    \end{equation}
     我们无法判断上式的符号，因此相时延$\tau_{p,A}(\Omega)=-\varphi_A(\Omega)/\Omega$的符号是不确定的。下面计算群时延：
-    \begin{align*}
-        \tau_{g,A}(\Omega)=-\frac{d\varphi_A(\Omega)}{d\Omega}&=-M+2\sum_{k=1}^{M}\frac{d\arg(\mathrm{e}^{\mathrm{i}\Omega}-z_k)}{d\Omega}\\
-        &=-M+2\sum_{k=1}^{M}\frac{1-r_k\cos(\Omega-\theta_k)}{1-2r_k\cos(\Omega-\theta_k)+r_k^2}\\
-        &=-\sum_{k=1}^{M}\left(1-\frac{2-2r_k\cos(\Omega-\theta_k)}{1-2r_k\cos(\Omega-\theta_k)+r_k^2}\right)\\
-        &=-\sum_{k=1}^{M}\frac{r_k^2-1}{1-2r_k\cos(\Omega-\theta_k)+r_k^2}
-    \end{align*}
+    \begin{align}
+        \tau_{g,A}(\Omega)=-\frac{\dd\varphi_A(\Omega)}{\dd\Omega}&=-M+2\sum_{k=1}^{M}\frac{\dd\arg(\e^{\im\Omega}-z_k)}{\dd\Omega} \nonumber \\
+        &=-M+2\sum_{k=1}^{M}\frac{1-r_k\cos(\Omega-\theta_k)}{1-2r_k\cos(\Omega-\theta_k)+r_k^2} \nonumber \\
+        &=-\sum_{k=1}^{M}\paren{1-\frac{2-2r_k\cos(\Omega-\theta_k)}{1-2r_k\cos(\Omega-\theta_k)+r_k^2}} \nonumber \\
+        &=-\sum_{k=1}^{M}\frac{r_k^2-1}{1-2r_k\cos(\Omega-\theta_k)+r_k^2}.
+    \end{align}
     由于$r_k>1$，$\tau_{g,A}(\Omega)<0$，因此全通系统的群时延为负值。级联系统的群时延为$\tau_g(\Omega)+\tau_{g,A}(\Omega)$，因此级联系统的群时延小于原系统的群时延。
 \end{proof}
 

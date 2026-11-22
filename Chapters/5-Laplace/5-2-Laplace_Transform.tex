@@ -1,299 +1,384 @@
 \section{拉普拉斯变换}\label{sec:Laplace_Transform}
 
-十八世纪，欧拉在研究微分方程时，首先使用了积分变换的方法，将微分方程转化为代数方程来求解，随后，拉格朗日和拉普拉斯也使用了类似的方法。其中，拉普拉斯所使用的积分变换为$y_s=\int \mathrm{e}^{-sx}\phi(x)\,dx$，与现代的拉普拉斯变换最为相似，但当时并未以拉普拉斯变换命名。十九世纪，Petzval在其著作中首次系统地考察了这一方法，但他的学生Spitzer强烈主张将这一变换命名为拉普拉斯变换，这影响到几位很有影响力的数学家：Boole，Poincaré和Doetsch，他们在著作中均将这种方法称为“拉普拉斯变换”，使得这个名称被逐渐巩固。
+十八世纪，欧拉在研究微分方程时，首先使用了积分变换的方法，将微分方程转化为代数方程来求解，随后，拉格朗日和拉普拉斯也使用了类似的方法。其中，拉普拉斯所使用的积分变换为$y_s=\int \e^{-sx}\phi(x)\,\dd x$，与现代的拉普拉斯变换最为相似，但当时并未以拉普拉斯变换命名。十九世纪，Petzval在其著作中首次系统地考察了这一方法，但他的学生Spitzer强烈主张将这一变换命名为拉普拉斯变换，这影响到几位很有影响力的数学家：Boole，Poincaré和Doetsch，他们在著作中均将这种方法称为“拉普拉斯变换”，使得这个名称被逐渐巩固。
 
 %二十世纪初，Heaviside在研究电磁学时提出了一种符号运算的方法，将微分方程中的微分算子$\dfrac{d}{dt}$替换为符号$p$（或$D$），从而将微分方程转化为代数方程来求解。这种方法直观、快捷但缺乏严格的数学基础，随着数学家对拉普拉斯变换的研究不断深入，到1950年，拉普拉斯变换已完全取代Heaviside演算。
 
 鉴于拉普拉斯变换的应用场景中使用角频率明显多于使用频率，我们在本书中采用角频率$\omega$作为拉普拉斯变换的变量；另外，本章默认$u(0)=1$。
 
 \subsection{拉普拉斯变换的引出}\label{sub:introduction_of_laplace}
-在\refsub{introduction_of_fourier}中，我们介绍了傅里叶变换：\begin{align*}
-    \mathcal{F} f(\omega)=\int_{-\infty}^{\infty}f(t)\mathrm{e}^{-\mathrm{i}\omega t}\,dt
-\end{align*}
+在\refsub{introduction_of_fourier}中，我们介绍了傅里叶变换：
+\begin{equation}
+    \mathcal{F}f(\omega)=\int_{-\infty}^{\infty}f(t)\e^{-\im\omega t}\,\dd t.
+\end{equation}
 
-在不考虑收敛性的问题时，可以将$\omega$推广为复数$s=\sigma+\mathrm{i}\omega$，根据含参变量积分的求导法则，这样的积分变换可以对$s$求导，从而是全纯函数。这个积分变换就是\textbf{双边拉普拉斯变换}：
+在不考虑收敛性的问题时，可以将$\omega$推广为复数$s=\sigma+\im\omega$，根据含参变量积分的求导法则，这样的积分变换可以对$s$求导，从而是全纯函数。这个积分变换就是\textbf{双边拉普拉斯变换}：
 \begin{definition}[双边拉普拉斯变换]
     \label{def:bi_laplace}
-    设函数$f$局部可积，$\exists a,b\in\mathbb{R},a<b$（我们允许$a=-\infty$和$b=\infty$），使得$f(t)\mathrm{e}^{-at}$和$f(t)\mathrm{e}^{-bt}$均在$\mathbb{R}$上可积，$f$的双边拉普拉斯变换定义为
-    \[\mathcal{L}f(s)=\int_{-\infty}^{\infty}f(t)\mathrm{e}^{-st}\,dt,\quad s=\sigma+\mathrm{i}\omega,a\le \sigma\le b\]
-    如果$f(t)$是时域信号，$\mathcal{L} f(s)$称为\textbf{复频域信号}。
+    设函数$f$局部可积，$\exists a,b\in\mathbb{R},\ a<b$（我们允许$a=-\infty$和$b=\infty$），使得$f(t)\e^{-at}$和$f(t)\e^{-bt}$均在$\mathbb{R}$上可积，$f$的双边拉普拉斯变换定义为
+    \begin{equation}
+        \mathcal{L}f(s)=\int_{-\infty}^{\infty}f(t)\e^{-st}\,\dd t,\quad s=\sigma+\im\omega,\quad a\le\sigma\le b.
+    \end{equation}
+    如果$f(t)$是时域信号，$\mathcal{L}f(s)$称为\textbf{复频域信号}。
 
-    我们仍记$\mathcal{L} f(s)$为$F(s)$或$\hat{f}(s)$（在涉及傅里叶变换时，我们会避免使用它们或加以说明），并记$f\overset{\mathcal{L} }{\longleftrightarrow} F(s)$.
+    我们仍记$\mathcal{L}f(s)$为$F(s)$或$\hat{f}(s)$（在涉及傅里叶变换时，我们会避免使用它们或加以说明），并记$f\overset{\mathcal{L}}{\longleftrightarrow}F(s)$。
 \end{definition}
-“局部可积”即$f$在任意有限区间上可积，这个条件是为了保证在添加适当的收敛因子$\mathrm{e}^{-st}$后，拉普拉斯积分收敛，从而拉普拉斯变换有定义。
+“局部可积”即$f$在任意有限区间上可积，这个条件是为了保证在添加适当的收敛因子$\e^{-st}$后，拉普拉斯积分收敛，从而拉普拉斯变换有定义。
 
-在$\sigma>0$时，这个收敛因子会使得$t\to -\infty$时$\left|\mathrm{e}^{-st}\right|=\mathrm{e}^{-\sigma t}$快速增长，从而对被变换的函数$f$提出很高的要求。事实上，多数情况下$f$支于$[a,\infty),a\in\mathbb{R}$为常数，问题化归为因果信号（\cref{def:casual_signal}）的拉普拉斯变换，即\textbf{单边拉普拉斯变换}\cite{folland}：
+在$\sigma>0$时，这个收敛因子会使得$t\to-\infty$时$\abs{\e^{-st}}=\e^{-\sigma t}$快速增长，从而对被变换的函数$f$提出很高的要求。事实上，多数情况下$f$支于$[a,\infty),\ a\in\mathbb{R}$为常数，问题化归为因果信号（\cref{def:casual_signal}）的拉普拉斯变换，即\textbf{单边拉普拉斯变换}\cite{folland}：
 \begin{definition}[单边拉普拉斯变换]
     \label{def:single_laplace}
-    记\[\mathcal{E}=\left\{f:[0,\infty)\to\mathbb{C}\left|f\in PC[0,\infty),\exists C>0,a\in\mathbb{R},|f(t)|<C\e^{at},\forall t\geq 0\right.\right\}\]
+    记
+    \begin{equation}
+        \mathcal{E}=\braces{f:[0,\infty)\to\mathbb{C}\;\middle|\;f\in PC[0,\infty),\ \exists C>0,\ a\in\mathbb{R},\ \abs{f(t)}<C\e^{at},\ \forall t\geq 0},
+    \end{equation}
     其中$PC[0,\infty)$表示$[0,\infty)$上的分段连续函数。
     对$f\in\mathcal{E}$，其单边拉普拉斯变换定义为
-    \[\mathcal{L} f(s)=\int_{0}^{\infty}f(t)\mathrm{e}^{-st}\,dt,\quad s=\sigma+\mathrm{i}\omega,\sigma>a\]
+    \begin{equation}
+        \mathcal{L}f(s)=\int_{0}^{\infty}f(t)\e^{-st}\,\dd t,\quad s=\sigma+\im\omega,\quad \sigma>a.
+    \end{equation}
 \end{definition}
-在$\mathcal{E} $的定义中我们对$f$的定义域做了要求，但实际上只要$f$是因果信号，就可以认为$f\in\mathcal{E}$，因此后文中不会特意区分$f$的定义域。
+在$\mathcal{E}$的定义中我们对$f$的定义域做了要求，但实际上只要$f$是因果信号，就可以认为$f\in\mathcal{E}$，因此后文中不会特意区分$f$的定义域。
 
 下面几节中，我们将介绍单边拉普拉斯变换的性质，它们大多容易推广到双边拉普拉斯变换的情形。如无特殊说明，本节后文中所说的拉普拉斯变换均指单边拉普拉斯变换。
 
-在$\mathcal{E} $上定义拉普拉斯变换，是因为对于$f\in\mathcal{E} $，当$\sigma>a$时，给出拉普拉斯变换的积分是绝对收敛的：
-\begin{align*}
-    \int_0^{\infty}|f(t)\mathrm{e}^{-st}|\,dt\leq \int_0^{\infty}C\e^{at}\mathrm{e}^{-\sigma t}\,dt=\frac{C}{\sigma-a}<\infty
-\end{align*}
-因此在导数存在的情况下可以交换积分与求导的次序，从而$\mathcal{L} f(s)$是$\sigma>a$上的全纯函数：
-\begin{align*}
-    \frac{d}{ds}\mathcal{L} f(s)&=\frac{d}{ds}\int_0^{\infty}f(t)\mathrm{e}^{-st}\,dt\\
-    &=\int_0^{\infty}f(t)\frac{\partial}{\partial s}(\mathrm{e}^{-st})\,dt\\
-    &=-\int_0^{\infty}tf(t)\mathrm{e}^{-st}\,dt\\
-    &=-\mathcal{L} [tf(t)](s)
-\end{align*}
+在$\mathcal{E}$上定义拉普拉斯变换，是因为对于$f\in\mathcal{E}$，当$\sigma>a$时，给出拉普拉斯变换的积分是绝对收敛的：
+\begin{equation}
+    \int_0^{\infty}\abs{f(t)\e^{-st}}\,\dd t\leq \int_0^{\infty}C\e^{at}\e^{-\sigma t}\,\dd t=\frac{C}{\sigma-a}<\infty.
+\end{equation}
+因此在导数存在的情况下可以交换积分与求导的次序，从而$\mathcal{L}f(s)$是$\sigma>a$上的全纯函数：
+\begin{align}
+    \frac{\dd}{\dd s}\mathcal{L}f(s)&=\frac{\dd}{\dd s}\int_0^{\infty}f(t)\e^{-st}\,\dd t\nonumber\\
+    &=\int_0^{\infty}f(t)\frac{\partial}{\partial s}(\e^{-st})\,\dd t\nonumber\\
+    &=-\int_0^{\infty}tf(t)\e^{-st}\,\dd t\nonumber\\
+    &=-\mathcal{L}[tf(t)](s).
+\end{align}
 这正是拉普拉斯变换的复频域微分性质。
 
-根据全纯函数的唯一延拓性，如果$\mathcal{L} f(s)$可以延拓至$\sigma\leq a$的一些区域，则延拓是唯一的，尽管这时积分不一定存在，我们也认为延拓所得的定义域更大的函数是$f$的拉普拉斯变换。
+根据全纯函数的唯一延拓性，如果$\mathcal{L}f(s)$可以延拓至$\sigma\leq a$的一些区域，则延拓是唯一的，尽管这时积分不一定存在，我们也认为延拓所得的定义域更大的函数是$f$的拉普拉斯变换。
 \begin{example}[多项式的拉普拉斯变换]
-    设$f(t)=t^\nu(\nu\geq 0)$，则$f\in\mathcal{E} $，且
-    \begin{align*}
-        \mathcal{L} f(s)&=\int_0^{\infty}t^\nu \mathrm{e}^{-st}\,dt\\
-        &=\frac{1}{s^{\nu+1}}\int_0^{\infty}x^\nu \mathrm{e}^{-x}\,dx&(x=st)\\
-        &=\frac{\Gamma(\nu+1)}{s^{\nu+1}},\quad \sigma>0
-    \end{align*}
-尽管积分只在$\sigma>0$时收敛，但$\mathcal{L} f(s)$可以延拓为$\mathbb{C}\backslash\{0\}$上的全纯函数。
-\begin{remark}
-    其实，这个公式对实部大于$-1$的$\nu$都成立。尽管$-1<\mathrm{Re}(\nu)<0$时，$f(t)=t^\nu$\\
-    在$t=0$处无界，但由于
-\[\left|\int_{0}^{1}t^{\nu}\mathrm{e}^{-st}\,dt\right|\leq \int_0^1 t^\nu\,dt=\frac{1}{\nu+1},\quad \sigma>0\]
-\[\left|\int_{1}^{\infty}t^{\nu}\mathrm{e}^{-st}\,dt\right|\leq \int_1^\infty \mathrm{e}^{-\sigma t}\,dt=\frac{\mathrm{e}^{-\sigma}}{\sigma},\quad \sigma>0\]
-其拉普拉斯变换是存在的。因此，我们可以认为$t^\nu\in\mathcal{E},\mathrm{Re}(\nu)>-1$.
-\end{remark}
+    设$f(t)=t^\nu\ (\nu\geq 0)$，则$f\in\mathcal{E}$，且
+    \begin{align}
+        \mathcal{L}f(s)&=\int_0^{\infty}t^\nu \e^{-st}\,\dd t\nonumber\\
+        &=\frac{1}{s^{\nu+1}}\int_0^{\infty}x^\nu \e^{-x}\,\dd x&(x=st)\nonumber\\
+        &=\frac{\Gamma(\nu+1)}{s^{\nu+1}},\quad \sigma>0.
+    \end{align}
+    尽管积分只在$\sigma>0$时收敛，但$\mathcal{L}f(s)$可以延拓为$\mathbb{C}\backslash\{0\}$上的全纯函数。
+    \begin{remark}
+        其实，这个公式对实部大于$-1$的$\nu$都成立。尽管$-1<\Re(\nu)<0$时，$f(t)=t^\nu$在$t=0$处无界，但由于
+        \begin{align}
+            \abs{\int_{0}^{1}t^{\nu}\e^{-st}\,\dd t}&\leq \int_0^1 t^\nu\,\dd t=\frac{1}{\nu+1},\quad \sigma>0,\\
+            \abs{\int_{1}^{\infty}t^{\nu}\e^{-st}\,\dd t}&\leq \int_1^\infty \e^{-\sigma t}\,\dd t=\frac{\e^{-\sigma}}{\sigma},\quad \sigma>0,
+        \end{align}
+        其拉普拉斯变换是存在的。因此，我们可以认为$t^\nu\in\mathcal{E},\ \Re(\nu)>-1$。
+    \end{remark}
 \end{example}
 
-在$\mathcal{E} $中，卷积总是良定义的：
-\begin{proposition}[$\mathcal{E} $中的卷积]
-    设$f,g\in\mathcal{E} $，则它们的卷积为
-    \[(f*g)(t)=\begin{cases}
-    \displaystyle 0                   ,& \text{if } t<0 \\
-    \displaystyle\int_0^t f(x)g(t-x)\,dx ,& \text{if } t\geq 0
-    \end{cases}\]
+在$\mathcal{E}$中，卷积总是良定义的：
+\begin{proposition}[$\mathcal{E}$中的卷积]
+    设$f,g\in\mathcal{E}$，则它们的卷积为
+    \begin{equation}
+        (f*g)(t)=\begin{dcases}
+            0, & \text{if}\ t<0,\\
+            \int_0^t f(x)g(t-x)\,\dd x, & \text{if}\ t\geq 0.
+        \end{dcases}
+    \end{equation}
 \end{proposition}
-这是因为$x\geq 0,t-x\geq 0$时，$f(x),g(t-x)$才不恒为0，这相当于积分区间为$[0,t]$。
+这是因为$x\geq 0,\ t-x\geq 0$时，$f(x),g(t-x)$才不恒为$0$，这相当于积分区间为$[0,t]$。
 
 \subsection{单边拉普拉斯变换的运算性质}\label{sub:laplace_operation}
 
 \begin{proposition}[拉普拉斯变换的性质]
-    设$f,g\in\mathcal{E} $，$a,b\in\mathbb{C}$，则：\begin{itemize}
-        \item 线性：在$f,g$的公共收敛域内，有\[\mathcal{L} [af(t)+bg(t)](s)=a\mathcal{L} f(s)+b\mathcal{L} g(s)\]
-        \item 时移：\[\mathcal{L} [f(t-t_0)u(t)](s)=\mathrm{e}^{-s t_0}\mathcal{L} f(s)\]
-        \item 频移：\[\mathcal{L} [\mathrm{e}^{a t}f(t)](s)=\mathcal{L} f(s-a)\]
-        \item 伸缩：设$a>0$，则\[\mathcal{L} [f(at)](s)=\frac{1}{a}\mathcal{L} f\left(\frac{s}{a}\right)\]
-        \item 时域微分：设$f\in C^1[0,\infty),f'\in\mathcal{E} $，则\[\mathcal{L} [f'(t)](s)=s\mathcal{L} f(s)-f(0)\]
-        $f'(t)$在0处的定义为$f$在0处的右导数：$$f'(0):=\lim_{h\to 0+}\dfrac{f(h)-f(0)}{h}$$
-        注意我们必须要求$f$是连续的，否则微积分基本定理需要分段使用，会使公式更加复杂。得到时域微分性质至少应该要求$f$是连续且分段光滑的。
-        \item 复频域微分：\[\mathcal{L} [t f(t)](s)=-\frac{d}{ds}\mathcal{L} f(s)\]
-        \item 时域积分：\[\mathcal{L} \left[\int_0^t f(x)\,dx\right](s)=\frac{1}{s}\mathcal{L} f(s)\]
-        \item 复频域积分：设$\dfrac{f(t)}{t}\in\mathcal{E} $，则\[\mathcal{L} \left[\frac{f(t)}{t}\right](s)=\int_s^{\infty}\mathcal{L}f(x)\,dx\]
-        此处积分路径为复平面上满足$\mathrm{Im}(s)=\omega$有界的任意从$s$到无穷远处的路径
+    设$f,g\in\mathcal{E}$，$a,b\in\mathbb{C}$，则：
+    \begin{itemize}
+        \item 线性：在$f,g$的公共收敛域内，有
+        \begin{equation}
+            \mathcal{L}[af(t)+bg(t)](s)=a\mathcal{L}f(s)+b\mathcal{L}g(s);
+        \end{equation}
+        \item 时移：
+        \begin{equation}
+            \mathcal{L}[f(t-t_0)u(t)](s)=\e^{-st_0}\mathcal{L}f(s);
+        \end{equation}
+        \item 频移：
+        \begin{equation}
+            \mathcal{L}[\e^{at}f(t)](s)=\mathcal{L}f(s-a);
+        \end{equation}
+        \item 伸缩：设$a>0$，则
+        \begin{equation}
+            \mathcal{L}[f(at)](s)=\frac{1}{a}\mathcal{L}f\paren{\frac{s}{a}};
+        \end{equation}
+        \item 时域微分：设$f\in C^1[0,\infty),\ f'\in\mathcal{E}$，则
+        \begin{equation}
+            \mathcal{L}[f'(t)](s)=s\mathcal{L}f(s)-f(0),
+        \end{equation}
+        $f'(t)$在$0$处的定义为$f$在$0$处的右导数：
+        \begin{equation}
+            f'(0):=\lim_{h\to 0+}\frac{f(h)-f(0)}{h}.
+        \end{equation}
+        注意我们必须要求$f$是连续的，否则微积分基本定理需要分段使用，会使公式更加复杂。得到时域微分性质至少应该要求$f$是连续且分段光滑的；
+        \item 复频域微分：
+        \begin{equation}
+            \mathcal{L}[tf(t)](s)=-\frac{\dd}{\dd s}\mathcal{L}f(s);
+        \end{equation}
+        \item 时域积分：
+        \begin{equation}
+            \mathcal{L}\sbr{\int_0^t f(x)\,\dd x}(s)=\frac{1}{s}\mathcal{L}f(s);
+        \end{equation}
+        \item 复频域积分：设$\displaystyle\frac{f(t)}{t}\in\mathcal{E}$，则
+        \begin{equation}
+            \mathcal{L}\sbr{\frac{f(t)}{t}}(s)=\int_s^{\infty}\mathcal{L}f(x)\,\dd x,
+        \end{equation}
+        此处积分路径为复平面上满足$\Im(s)=\omega$有界的任意从$s$到无穷远处的路径。
     \end{itemize}
 \end{proposition}
 \begin{remark}
-    很明显，时域微分性质和复频域微分性质都可以对更高阶的导数进行推广，其中，时域微分性质推广为\begin{align*}
-\mathcal{L} [f^{(n)}(t)](s)&=s^n\mathcal{L} f(s)-\sum_{k=0}^{n-1}s^{n-1-k}f^{(k)}(0)\\
-&=s^n\mathcal{L} f(s)-s^{n-1}f(0)-s^{n-2}f'(0)-\cdots -f^{(n-1)}(0)
-\end{align*}
+    很明显，时域微分性质和复频域微分性质都可以对更高阶的导数进行推广，其中，时域微分性质推广为
+    \begin{align}
+        \mathcal{L}\sbr{f^{(n)}(t)}(s)&=s^n\mathcal{L}f(s)-\sum_{k=0}^{n-1}s^{n-1-k}f^{(k)}(0)\nonumber\\
+        &=s^n\mathcal{L}f(s)-s^{n-1}f(0)-s^{n-2}f'(0)-\cdots-f^{(n-1)}(0).
+    \end{align}
 \end{remark}
 \begin{proof}
-    1.线性性：直接得自积分的线性性。\\
-    2.时移：\begin{align*}
-        \mathcal{L} [f(t-t_0)u(t)](s)&=\int_0^{\infty}f(t-t_0)\mathrm{e}^{-st}\,dt\\
-        &=\int_{t_0}^{\infty}f(t-t_0)\mathrm{e}^{-st}\,dt\\
-        &=\mathrm{e}^{-s t_0}\int_0^{\infty}f(x)\mathrm{e}^{-s x}\,dx&( x=t-t_0)\\
-        &=\mathrm{e}^{-s t_0}\mathcal{L} f(s)
-    \end{align*}
-    3.频移：\begin{align*}
-        \mathcal{L} [\mathrm{e}^{a t}f(t)](s)=\int_0^{\infty}\mathrm{e}^{a t}f(t)\mathrm{e}^{-st}\,dt=\int_0^{\infty}f(t)\mathrm{e}^{-(s-a)t}\,dt=\mathcal{L} f(s-a)
-    \end{align*}
-    4.伸缩：\begin{align*}
-        \mathcal{L} [f(at)](s)&=\int_0^{\infty}f(at)\mathrm{e}^{-st}\,dt\\
-        &=\int_0^{\infty}f(x)\mathrm{e}^{-sx/a}\,\frac{dx}{a}&(x=at)\\
-        &=\frac{1}{a}\mathcal{L} f\left(\frac{s}{a}\right)
-    \end{align*}
-    5.时域微分：\begin{align*}
-        \mathcal{L} [f'(t)](s)&=\int_0^{\infty}f'(t)\mathrm{e}^{-st}\,dt\\
-        &=\evalat{\left(f(t)\mathrm{e}^{-st}\right)}{0}{\infty}+\int_0^{\infty}sf(t)\mathrm{e}^{-st}\,dt\\
-        &=s\mathcal{L} f(s)-f(0)
-    \end{align*}
-    6.复频域微分：已经在上一小节证明过。\\
-    7.时域积分：利用时域微分性质，有
-    \begin{align*}
-        \mathcal{L} \left[\int_0^t f(x)\,dx\right](s)=\frac{1}{s}\mathcal{L} \left[\frac{d}{dt}\left(\int_0^t f(x)\,dx\right)\right](s)=\frac{1}{s}\mathcal{L} f(s)
-    \end{align*}
-    8.复频域积分：利用复频域的微分性质，有
-    \begin{align*}
-        \frac{d}{ds}\mathcal{L} \left[\frac{f(t)}{t}\right](s)&=-\mathcal{L} f(s)\\
-        \mathcal{L} \left[\frac{f(t)}{t}\right](s)&=\int_s^{\infty}\mathcal{L}f(x)\,dx
-    \end{align*}
+    1.\ 线性性：直接得自积分的线性性。
+
+    2.\ 时移：
+    \begin{align}
+        \mathcal{L}[f(t-t_0)u(t)](s)&=\int_0^{\infty}f(t-t_0)\e^{-st}\,\dd t\nonumber\\
+        &=\int_{t_0}^{\infty}f(t-t_0)\e^{-st}\,\dd t\nonumber\\
+        &=\e^{-st_0}\int_0^{\infty}f(x)\e^{-sx}\,\dd x&(x=t-t_0)\nonumber\\
+        &=\e^{-st_0}\mathcal{L}f(s).
+    \end{align}
+
+    3.\ 频移：
+    \begin{equation}
+        \mathcal{L}[\e^{at}f(t)](s)=\int_0^{\infty}\e^{at}f(t)\e^{-st}\,\dd t=\int_0^{\infty}f(t)\e^{-(s-a)t}\,\dd t=\mathcal{L}f(s-a).
+    \end{equation}
+
+    4.\ 伸缩：
+    \begin{align}
+        \mathcal{L}[f(at)](s)&=\int_0^{\infty}f(at)\e^{-st}\,\dd t\nonumber\\
+        &=\int_0^{\infty}f(x)\e^{-sx/a}\,\frac{\dd x}{a}&(x=at)\nonumber\\
+        &=\frac{1}{a}\mathcal{L}f\paren{\frac{s}{a}}.
+    \end{align}
+
+    5.\ 时域微分：
+    \begin{align}
+        \mathcal{L}[f'(t)](s)&=\int_0^{\infty}f'(t)\e^{-st}\,\dd t\nonumber\\
+        &=\evalat{\paren{f(t)\e^{-st}}}{0}{\infty}+\int_0^{\infty}sf(t)\e^{-st}\,\dd t\nonumber\\
+        &=s\mathcal{L}f(s)-f(0).
+    \end{align}
+
+    6.\ 复频域微分：已经在上一小节证明过。
+
+    7.\ 时域积分：利用时域微分性质，有
+    \begin{equation}
+        \mathcal{L}\sbr{\int_0^t f(x)\,\dd x}(s)=\frac{1}{s}\mathcal{L}\sbr{\frac{\dd}{\dd t}\paren{\int_0^t f(x)\,\dd x}}(s)=\frac{1}{s}\mathcal{L}f(s).
+    \end{equation}
+
+    8.\ 复频域积分：利用复频域的微分性质，有
+    \begin{align}
+        \frac{\dd}{\dd s}\mathcal{L}\sbr{\frac{f(t)}{t}}(s)&=-\mathcal{L}f(s),\\
+        \mathcal{L}\sbr{\frac{f(t)}{t}}(s)&=\int_s^{\infty}\mathcal{L}f(x)\,\dd x.
+    \end{align}
 \end{proof}
 
 \begin{theorem}[卷积定理]
-    设$f,g\in\mathcal{E} $，则
-    \[\mathcal{L} [(f*g)(t)](s)=\mathcal{L} f(s)\cdot \mathcal{L} g(s)\]
+    设$f,g\in\mathcal{E}$，则
+    \begin{equation}
+        \mathcal{L}[(f*g)(t)](s)=\mathcal{L}f(s)\cdot\mathcal{L}g(s).
+    \end{equation}
 \end{theorem}
 \begin{proof}
-与前面傅里叶变换的卷积定理证明类似：
-    \begin{align*}
-        \mathcal{L} [(f*g)(t)](s)&=\int_0^{\infty}(f*g)(t)\mathrm{e}^{-st}\,dt\\
-        &=\int_0^{\infty}\left(\int_0^t f(x)g(t-x)\,dx\right)\mathrm{e}^{-st}\,dt\\
-        &=\int_0^{\infty}\int_0^{\infty}f(x)g(t-x)u(t-x)\mathrm{e}^{-st}\,dx\,dt\\
-        &=\int_0^{\infty}f(x)\left(\int_x^{\infty}g(t-x)\mathrm{e}^{-st}\,dt\right)\,dx\\
-        &=\int_0^{\infty}f(x)\mathrm{e}^{-sx}\left(\int_0^{\infty}g(y)\mathrm{e}^{-sy}\,dy\right)\,dx&(y=t-x)\\
-        &=\mathcal{L} f(s)\cdot \mathcal{L} g(s)
-    \end{align*}
+    与前面傅里叶变换的卷积定理证明类似：
+    \begin{align}
+        \mathcal{L}[(f*g)(t)](s)&=\int_0^{\infty}(f*g)(t)\e^{-st}\,\dd t\nonumber\\
+        &=\int_0^{\infty}\paren{\int_0^t f(x)g(t-x)\,\dd x}\e^{-st}\,\dd t\nonumber\\
+        &=\int_0^{\infty}\int_0^{\infty}f(x)g(t-x)u(t-x)\e^{-st}\,\dd x\,\dd t\nonumber\\
+        &=\int_0^{\infty}f(x)\paren{\int_x^{\infty}g(t-x)\e^{-st}\,\dd t}\,\dd x\nonumber\\
+        &=\int_0^{\infty}f(x)\e^{-sx}\paren{\int_0^{\infty}g(y)\e^{-sy}\,\dd y}\,\dd x&(y=t-x)\nonumber\\
+        &=\mathcal{L}f(s)\cdot\mathcal{L}g(s).
+    \end{align}
 \end{proof}
 
-以上所有性质的证明都与傅里叶变换类似，实际上我们不需要做这种重复性的证明工作。给定$s=\sigma+\mathrm{i}\omega$，令$\tilde{f}(t)=f(t)\mathrm{e}^{-\sigma t}$，则$\mathcal{L} f(s)=\mathcal{F} \tilde{f}(\omega)$，只要$\tilde{f}\in L^1(\mathbb{R} )$，就可以将傅里叶变换的性质直接应用到拉普拉斯变换上。由于我们在$\mathcal{E} $中要求了$f(t)$的分段连续性，在收敛域$\sigma>a$内，$\tilde{f}(t)$总是属于$L^1(\mathbb{R})$的。下面给出一个例子：
+以上所有性质的证明都与傅里叶变换类似，实际上我们不需要做这种重复性的证明工作。给定$s=\sigma+\im\omega$，令$\tilde{f}(t)=f(t)\e^{-\sigma t}$，则$\mathcal{L}f(s)=\mathcal{F}\tilde{f}(\omega)$，只要$\tilde{f}\in L^1(\mathbb{R})$，就可以将傅里叶变换的性质直接应用到拉普拉斯变换上。由于我们在$\mathcal{E}$中要求了$f(t)$的分段连续性，在收敛域$\sigma>a$内，$\tilde{f}(t)$总是属于$L^1(\mathbb{R})$的。下面给出一个例子：
 \begin{example}[时移性质]
-    设$f\in\mathcal{E} ,t_0>0$，令$\tilde{f}(t)=f(t)\mathrm{e}^{-\sigma t}$，则
-    \begin{align*}
-        \mathcal{L}[f(t-t_0)u(t-t_0)](s)&=\mathcal{F} \left[\tilde{f}(t-t_0)u(t-t_0)\right](\omega)\\
-        &=\mathrm{e}^{-\mathrm{i}\omega t_0}\mathcal{F} \tilde{f}(\omega)\\
-        &=\mathrm{e}^{-s t_0}\mathcal{L} f(s)
-    \end{align*}
+    设$f\in\mathcal{E},\ t_0>0$，令$\tilde{f}(t)=f(t)\e^{-\sigma t}$，则
+    \begin{align}
+        \mathcal{L}[f(t-t_0)u(t-t_0)](s)&=\mathcal{F}\sbr{\tilde{f}(t-t_0)u(t-t_0)}(\omega)\nonumber\\
+        &=\e^{-\im\omega t_0}\mathcal{F}\tilde{f}(\omega)\nonumber\\
+        &=\e^{-st_0}\mathcal{L}f(s).
+    \end{align}
 \end{example}
 \begin{example}[卷积定理]
-设$f,g\in\mathcal{E} $，令$\tilde{f}(t)=f(t)\mathrm{e}^{-\sigma t}, \tilde{g}(t)=g(t)\mathrm{e}^{-\sigma t}$，注意到\begin{align*}
-    (\tilde{f}*\tilde{g})(t)&=\int_{-\infty}^{\infty}\tilde{f}(x)\tilde{g}(t-x)\,dx\\
-    &=\int_0^{t}f(x)\mathrm{e}^{-\sigma x}g(t-x)\mathrm{e}^{-\sigma (t-x)}\,dx\\
-    &=\mathrm{e}^{-\sigma t}\int_0^{t}f(x)g(t-x)\,dx\\
-    &=\mathrm{e}^{-\sigma t}(f*g)(t)
-\end{align*}
-因此有
-    \begin{align*}
-        \mathcal{L} \left[f*g\right](s)=\mathcal{F} \left[f*g(t)\mathrm{e}^{-\sigma t}\right](\omega)=\mathcal{F} \left[\tilde{f}*\tilde{g}\right](\omega)=\mathcal{F} \tilde{f}(\omega)\cdot \mathcal{F} \tilde{g}(\omega)=\mathcal{L} f(s)\cdot \mathcal{L} g(s)
-    \end{align*}
+    设$f,g\in\mathcal{E}$，令$\tilde{f}(t)=f(t)\e^{-\sigma t},\ \tilde{g}(t)=g(t)\e^{-\sigma t}$，注意到
+    \begin{align}
+        (\tilde{f}*\tilde{g})(t)&=\int_{-\infty}^{\infty}\tilde{f}(x)\tilde{g}(t-x)\,\dd x\nonumber\\
+        &=\int_0^{t}f(x)\e^{-\sigma x}g(t-x)\e^{-\sigma(t-x)}\,\dd x\nonumber\\
+        &=\e^{-\sigma t}\int_0^{t}f(x)g(t-x)\,\dd x\nonumber\\
+        &=\e^{-\sigma t}(f*g)(t),
+    \end{align}
+    因此有
+    \begin{equation}
+        \mathcal{L}[f*g](s)=\mathcal{F}\sbr{f*g(t)\e^{-\sigma t}}(\omega)=\mathcal{F}[\tilde{f}*\tilde{g}](\omega)=\mathcal{F}\tilde{f}(\omega)\cdot\mathcal{F}\tilde{g}(\omega)=\mathcal{L}f(s)\cdot\mathcal{L}g(s).
+    \end{equation}
 \end{example}
 其余的证明，请读者自行完成。
 
 \subsection{常用函数的单边拉普拉斯变换}\label{sub:ordinary_laplace}
 
 \begin{example}[指数多项式]
-    设$f(t)=t^\nu \mathrm{e}^{a t}u(t),\mathrm{Re}(\nu)>-1$，利用拉普拉斯变换的频移性质，有
-    \begin{align*}
-        \mathcal{L} f(s)&=\mathcal{L}\left[t^\nu \mathrm{e}^{a t}u(t)\right](s)\\
-        &=\mathcal{L} \left[t^\nu u(t)\right](s-a)\\
-        &=\frac{\Gamma(\nu+1)}{(s-a)^{\nu+1}},\quad\sigma>a
-    \end{align*}
-    根据有理函数的理论，任意真分式函数都可以表示为若干个此类函数的线性组合，因此可以说$f$是指数多项式等价于$\mathcal{L} f$是真分式函数
+    设$f(t)=t^\nu \e^{at}u(t),\ \Re(\nu)>-1$，利用拉普拉斯变换的频移性质，有
+    \begin{align}
+        \mathcal{L}f(s)&=\mathcal{L}\sbr{t^\nu \e^{at}u(t)}(s)\nonumber\\
+        &=\mathcal{L}\sbr{t^\nu u(t)}(s-a)\nonumber\\
+        &=\frac{\Gamma(\nu+1)}{(s-a)^{\nu+1}},\quad \sigma>a.
+    \end{align}
+    根据有理函数的理论，任意真分式函数都可以表示为若干个此类函数的线性组合，因此可以说$f$是指数多项式等价于$\mathcal{L}f$是真分式函数。
 \end{example}
 
 \begin{example}[正弦、余弦函数]
     方法一：利用欧拉公式化归为指数函数：
-    \begin{align*}
-        \mathcal{L}[\cos(\omega_0 t)](s)&=\mathcal{L}[\cos(\omega_0 t)u(t)](s)\\
-        &=\frac{1}{2}\mathcal{L} [\mathrm{e}^{\mathrm{i}\omega_0 t}u(t)](s)+\frac{1}{2}\mathcal{L} [\mathrm{e}^{-\mathrm{i}\omega_0 t}u(t)](s)\\
-        &=\frac{1}{2}\left(\frac{1}{s-\mathrm{i}\omega_0}+\frac{1}{s+\mathrm{i}\omega_0}\right)\\
-        &=\frac{s}{s^2+\omega_0^2},\quad \sigma>0
-    \end{align*}
-    \begin{align*}
-        \mathcal{L}[\sin(\omega_0 t)](s)&=\mathcal{L} [\sin(\omega_0 t)u(t)](s)\\
-        &=\frac{1}{2\mathrm{i}}\mathcal{L} [\mathrm{e}^{\mathrm{i}\omega_0 t}u(t)](s)-\frac{1}{2\mathrm{i}}\mathcal{L} [\mathrm{e}^{-\mathrm{i}\omega_0 t}u(t)](s)\\
-        &=\frac{1}{2\mathrm{i}}\left(\frac{1}{s-\mathrm{i}\omega_0}-\frac{1}{s+\mathrm{i}\omega_0}\right)\\
-        &=\frac{\omega_0}{s^2+\omega_0^2},\quad \sigma>0
-    \end{align*}
+    \begin{align}
+        \mathcal{L}[\cos(\omega_0 t)](s)&=\mathcal{L}[\cos(\omega_0 t)u(t)](s)\nonumber\\
+        &=\frac{1}{2}\mathcal{L}[\e^{\im\omega_0 t}u(t)](s)+\frac{1}{2}\mathcal{L}[\e^{-\im\omega_0 t}u(t)](s)\nonumber\\
+        &=\frac{1}{2}\paren{\frac{1}{s-\im\omega_0}+\frac{1}{s+\im\omega_0}}\nonumber\\
+        &=\frac{s}{s^2+\omega_0^2},\quad \sigma>0,
+    \end{align}
+    \begin{align}
+        \mathcal{L}[\sin(\omega_0 t)](s)&=\mathcal{L}[\sin(\omega_0 t)u(t)](s)\nonumber\\
+        &=\frac{1}{2\im}\mathcal{L}[\e^{\im\omega_0 t}u(t)](s)-\frac{1}{2\im}\mathcal{L}[\e^{-\im\omega_0 t}u(t)](s)\nonumber\\
+        &=\frac{1}{2\im}\paren{\frac{1}{s-\im\omega_0}-\frac{1}{s+\im\omega_0}}\nonumber\\
+        &=\frac{\omega_0}{s^2+\omega_0^2},\quad \sigma>0.
+    \end{align}
     方法二：利用微分性质：
-    \begin{align*}
-        -a^2\mathcal{L}[\cos(\omega_0 t)](s)&=\mathcal{L} [\cos''(\omega_0 t)](s)\\
-        &=s^2\mathcal{L} [\cos(\omega_0 t)](s)-s\cos(0)-\cos'(0)\\
-        &=s^2\mathcal{L} [\cos(\omega_0 t)](s)-s
-    \end{align*}
+    \begin{align}
+        -\omega_0^2\mathcal{L}[\cos(\omega_0 t)](s)&=\mathcal{L}[\cos''(\omega_0 t)](s)\nonumber\\
+        &=s^2\mathcal{L}[\cos(\omega_0 t)](s)-s\cos(0)-\cos'(0)\nonumber\\
+        &=s^2\mathcal{L}[\cos(\omega_0 t)](s)-s,
+    \end{align}
     而$\cos(\omega_0 t)$具有常数级的增长速度（在\refsub{converge_abscissa}中，我们将定量描述“增长速度”这一概念），因此
-    \[\mathcal{L} [\cos(\omega_0 t)](s)=\frac{s}{s^2+\omega_0^2},\quad \sigma>0\]
-    同理，有\[\mathcal{L} [\sin(\omega_0 t)](s)=\frac{\omega_0}{s^2+\omega_0^2},\quad \sigma>0\]
+    \begin{equation}
+        \mathcal{L}[\cos(\omega_0 t)](s)=\frac{s}{s^2+\omega_0^2},\quad \sigma>0.
+    \end{equation}
+    同理，有
+    \begin{equation}
+        \mathcal{L}[\sin(\omega_0 t)](s)=\frac{\omega_0}{s^2+\omega_0^2},\quad \sigma>0.
+    \end{equation}
 \end{example}
 
 \begin{example}[双曲函数]
     因为
-    \[\sinh(\omega_0 t)=\frac{\mathrm{e}^{\omega_0 t}-\mathrm{e}^{-\omega_0 t}}{2},\quad \cosh(\omega_0 t)=\frac{\mathrm{e}^{\omega_0 t}+\mathrm{e}^{-\omega_0 t}}{2}\]
+    \begin{equation}
+        \sinh(\omega_0 t)=\frac{\e^{\omega_0 t}-\e^{-\omega_0 t}}{2},\quad \cosh(\omega_0 t)=\frac{\e^{\omega_0 t}+\e^{-\omega_0 t}}{2},
+    \end{equation}
     所以
-    \begin{align*}
-        \mathcal{L} \left[\sinh(\omega_0 t)\right](s)&=\frac{1}{2}\mathcal{L} \left[\mathrm{e}^{\omega_0 t}\right](s)-\frac{1}{2}\mathcal{L} \left[\mathrm{e}^{-\omega_0 t}\right](s)\\
-        &=\frac{1}{2}\left(\frac{1}{s-\omega_0}-\frac{1}{s+\omega_0}\right)\\
-        &=\frac{\omega_0}{s^2-\omega_0^2},\quad \sigma>|\omega_0|
-    \end{align*}
-    \begin{align*}
-        \mathcal{L} \left[\cosh(\omega_0 t)\right](s)&=\frac{1}{2}\mathcal{L} \left[\mathrm{e}^{\omega_0 t}\right](s)+\frac{1}{2}\mathcal{L} \left[\mathrm{e}^{-\omega_0 t}\right](s)\\
-        &=\frac{1}{2}\left(\frac{1}{s-\omega_0}+\frac{1}{s+\omega_0}\right)\\
-        &=\frac{s}{s^2-\omega_0^2},\quad \sigma>|\omega_0|
-    \end{align*}
+    \begin{align}
+        \mathcal{L}[\sinh(\omega_0 t)](s)&=\frac{1}{2}\mathcal{L}[\e^{\omega_0 t}](s)-\frac{1}{2}\mathcal{L}[\e^{-\omega_0 t}](s)\nonumber\\
+        &=\frac{1}{2}\paren{\frac{1}{s-\omega_0}-\frac{1}{s+\omega_0}}\nonumber\\
+        &=\frac{\omega_0}{s^2-\omega_0^2},\quad \sigma>\abs{\omega_0},
+    \end{align}
+    \begin{align}
+        \mathcal{L}[\cosh(\omega_0 t)](s)&=\frac{1}{2}\mathcal{L}[\e^{\omega_0 t}](s)+\frac{1}{2}\mathcal{L}[\e^{-\omega_0 t}](s)\nonumber\\
+        &=\frac{1}{2}\paren{\frac{1}{s-\omega_0}+\frac{1}{s+\omega_0}}\nonumber\\
+        &=\frac{s}{s^2-\omega_0^2},\quad \sigma>\abs{\omega_0}.
+    \end{align}
 \end{example}
 
 \begin{example}[采样函数]
-    首先，因为$\dfrac{\sin(\omega_0 t)}{t}$有界，所以$\dfrac{\sin(\omega_0 t)}{t}\in\mathcal{E}$。
+    首先，因为$\displaystyle\frac{\sin(\omega_0 t)}{t}$有界，所以$\displaystyle\frac{\sin(\omega_0 t)}{t}\in\mathcal{E}$。
 
     结合正弦函数的拉普拉斯变换和拉普拉斯变换的复频域积分性质，有
-    \begin{align*}
-        \mathcal{L} \left[\frac{\sin(\omega_0 t)}{t}\right](s)&=\int_s^{\infty}\mathcal{L}[\sin(\omega_0 t)](x)\,dx\\
-        &=\int_s^{\infty}\frac{\omega_0}{x^2+\omega_0^2}\,dx\\
-        &=\evalat{\arctan\frac{x}{\omega_0}}{s}{\infty}\\
-        &=\frac{\pi}{2}-\arctan\frac{s}{\omega_0}\\
-        &=\arctan\left(\frac{\omega_0}{s}\right),\quad \sigma>0
-    \end{align*}
+    \begin{align}
+        \mathcal{L}\sbr{\frac{\sin(\omega_0 t)}{t}}(s)&=\int_s^{\infty}\mathcal{L}[\sin(\omega_0 t)](x)\,\dd x\nonumber\\
+        &=\int_s^{\infty}\frac{\omega_0}{x^2+\omega_0^2}\,\dd x\nonumber\\
+        &=\evalat{\arctan\frac{x}{\omega_0}}{s}{\infty}\nonumber\\
+        &=\frac{\pi}{2}-\arctan\frac{s}{\omega_0}\nonumber\\
+        &=\arctan\paren{\frac{\omega_0}{s}},\quad \sigma>0.
+    \end{align}
 \end{example}
 
 \begin{example}[正弦积分函数]
-    Si函数定义见\refsub{int_sin}.
-    $$\frac{\sin(\omega_0 t)}{t}\leq C\e^{a t},a>0\implies \mathrm{Si}(\omega_0 t)\leq \frac{C}{\omega_0 a}\mathrm{e}^{a t}\implies \mathrm{Si}(\omega_0 t)\in\mathcal{E}$$
+    $\mathrm{Si}$函数定义见\refsub{int_sin}。
+    \begin{equation}
+        \frac{\sin(\omega_0 t)}{t}\leq C\e^{at},\quad a>0\implies\mathrm{Si}(\omega_0 t)\leq\frac{C}{\omega_0 a}\e^{at}\implies\mathrm{Si}(\omega_0 t)\in\mathcal{E}.
+    \end{equation}
     利用正弦函数的拉普拉斯变换和拉普拉斯变换的时域积分性质，有
-    \begin{align*}
-        \mathcal{L} [\mathrm{Si}(\omega_0 t)](s)&=\mathcal{L} \left[\int_0^{\omega_0 t} \frac{\sin(x)}{x}\,dx\right](s)\\
-        &=\mathcal{L} \left[\int_0^{t} \frac{\sin(\omega_0 x)}{x}\,dx\right](s)\\
-        &=\frac{1}{s}\mathcal{L} \left[\frac{\sin(\omega_0 t)}{t}\right](s)\\
-        &=\frac{1}{s}\arctan\left(\frac{\omega_0}{s}\right),\quad \sigma>0
-    \end{align*}    
+    \begin{align}
+        \mathcal{L}[\mathrm{Si}(\omega_0 t)](s)&=\mathcal{L}\sbr{\int_0^{\omega_0 t}\frac{\sin(x)}{x}\,\dd x}(s)\nonumber\\
+        &=\mathcal{L}\sbr{\int_0^{t}\frac{\sin(\omega_0 x)}{x}\,\dd x}(s)\nonumber\\
+        &=\frac{1}{s}\mathcal{L}\sbr{\frac{\sin(\omega_0 t)}{t}}(s)\nonumber\\
+        &=\frac{1}{s}\arctan\paren{\frac{\omega_0}{s}},\quad \sigma>0.
+    \end{align}
 \end{example}
 
 \subsection{*单边拉普拉斯变换的级数求法}\label{sub:laplace_by_series}
-我们知道，多项式的拉普拉斯变换都可以通过$$\mathcal{L} [t^n](s)=\dfrac{\Gamma(n+1)}{s^{n+1}}$$来计算，那么对于一些可以展开为幂级数的函数，不难想到逐项求拉普拉斯变换，下面讨论这种操作的适用范围。在此之前，我们先介绍一个引理：
+我们知道，多项式的拉普拉斯变换都可以通过
+\begin{equation}
+    \mathcal{L}[t^n](s)=\frac{\Gamma(n+1)}{s^{n+1}}
+\end{equation}
+来计算，那么对于一些可以展开为幂级数的函数，不难想到逐项求拉普拉斯变换，下面讨论这种操作的适用范围。在此之前，我们先介绍一个引理：
 \begin{lemma}
-    设$f\in\mathcal{E} ,|f(t)|\leq C\e^{at}$，则\begin{enumerate}
-        \item $\forall x>a,\mathcal{L} f(x+\mathrm{i}y)\to 0,|y|\to\infty$
-        \item $\forall y,\mathcal{L} f(x+\mathrm{i}y)\to 0,x\to\infty$
+    设$f\in\mathcal{E},\ \abs{f(t)}\leq C\e^{at}$，则
+    \begin{enumerate}
+        \item $\forall x>a,\ \mathcal{L}f(x+\im y)\to 0,\quad \abs{y}\to\infty$；
+        \item $\forall y,\ \mathcal{L}f(x+\im y)\to 0,\quad x\to\infty$。
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    1.令$g(t)=f(t)\mathrm{e}^{-x t}$，则$|g(t)|\leq C\e^{-(x-a)t}$，因此$g\in L^1(\mathbb{R} )$，根据Riemann-Lebesgue引理，有
-    \[\mathcal{L} f(x+\mathrm{i}y)=\mathcal{F} g(y)\to 0,\quad |y|\to\infty\]
-    2.利用海涅归并原理，任取实部趋于无穷的序列$\{z_n\}_{n=1}^\infty$，满足$\mathcal{L} f(z_n)$存在（这要求$\mathrm{Re}(z)>a$），我们要证明序列$\mathcal{L} f(z_n)\to 0$.
-    $$\int_{0}^{\infty}\left|f(t)\mathrm{e}^{-z_n t}\right|\,dt\leq \int_0^{\infty}C\e^{at}\mathrm{e}^{-\mathrm{Re}(z_n) t}\,dt=C\int_0^{\infty}\mathrm{e}^{-(\mathrm{Re}(z_n)-a)t}\,dt=\frac{C}{\mathrm{Re}(z_n)-a}<\infty$$
-    由控制收敛定理（\cref{thm:DCT}），取$\left|f(t)\mathrm{e}^{-z_1 t}\right|$作为控制函数，得到
-    \begin{align*}
-        \lim_{n\to\infty}\mathcal{L} f(z_n)=\lim_{n\to\infty}\int_0^{\infty}f(t)\mathrm{e}^{-z_n t}\,dt=\int_0^{\infty}\lim_{n\to\infty}f(t)\mathrm{e}^{-z_n t}\,dt=0
-    \end{align*}
+    1.\ 令$g(t)=f(t)\e^{-xt}$，则$\abs{g(t)}\leq C\e^{-(x-a)t}$，因此$g\in L^1(\mathbb{R})$，根据Riemann-Lebesgue引理，有
+    \begin{equation}
+        \mathcal{L}f(x+\im y)=\mathcal{F}g(y)\to 0,\quad \abs{y}\to\infty.
+    \end{equation}
+
+    2.\ 利用海涅归并原理，任取实部趋于无穷的序列$\{z_n\}_{n=1}^\infty$，满足$\mathcal{L}f(z_n)$存在（这要求$\Re(z)>a$），我们要证明序列$\mathcal{L}f(z_n)\to 0$。
+    \begin{equation}
+        \int_{0}^{\infty}\abs{f(t)\e^{-z_n t}}\,\dd t\leq \int_0^{\infty}C\e^{at}\e^{-\Re(z_n)t}\,\dd t=C\int_0^{\infty}\e^{-(\Re(z_n)-a)t}\,\dd t=\frac{C}{\Re(z_n)-a}<\infty.
+    \end{equation}
+    由控制收敛定理（\cref{thm:DCT}），取$\abs{f(t)\e^{-z_1 t}}$作为控制函数，得到
+    \begin{equation}
+        \lim_{n\to\infty}\mathcal{L}f(z_n)=\lim_{n\to\infty}\int_0^{\infty}f(t)\e^{-z_n t}\,\dd t=\int_0^{\infty}\lim_{n\to\infty}f(t)\e^{-z_n t}\,\dd t=0.
+    \end{equation}
 \end{proof}
 
 \begin{theorem}[拉普拉斯变换的级数求法]
-    设$f\in\mathcal{E} $，且在$[0,\infty)$上有幂级数展开
-    \[f(t)=\sum_{n=0}^{\infty}a_n t^n\]
+    设$f\in\mathcal{E}$，且在$[0,\infty)$上有幂级数展开
+    \begin{equation}
+        f(t)=\sum_{n=0}^{\infty}a_n t^n,
+    \end{equation}
     如果存在$\omega_0>0$，使得级数
-    \[\sum_{n=0}^{\infty}|a_n|\frac{\Gamma(n+1)}{\omega_0^{n}}\]
+    \begin{equation}
+        \sum_{n=0}^{\infty}\abs{a_n}\frac{\Gamma(n+1)}{\omega_0^{n}}
+    \end{equation}
     收敛，则在$\sigma>\omega_0$时，级数
-    \[\sum_{n=0}^{\infty}a_n \frac{\Gamma(n+1)}{s^{n+1}}\]
-    收敛且等于$\mathcal{L} f(s)$，即$f$的拉普拉斯变换可以通过对其幂级数求拉普拉斯变换得到。
+    \begin{equation}
+        \sum_{n=0}^{\infty}a_n\frac{\Gamma(n+1)}{s^{n+1}}
+    \end{equation}
+    收敛且等于$\mathcal{L}f(s)$，即$f$的拉普拉斯变换可以通过对其幂级数求拉普拉斯变换得到。
 \end{theorem}
 \begin{proof}
-    由条件知级数$\sum_{n=0}^{\infty}a_n \dfrac{\Gamma(n+1)}{s^{n+1}}$在$\sigma>\omega_0$时绝对收敛、内闭一致收敛，因此只需证明其和函数等于$\mathcal{L} f(s)$。拉普拉斯变换是一种积分变换，我们需要将求和与积分交换，可以考虑使用控制收敛定理。由于
-    \begin{align*}
-        &|a_n \Gamma(n+1)\omega_0^{-n}|\to 0, n\to\infty\\
-        \implies &|a_n|\leq C\frac{\omega_0^{n}}{\Gamma(n+1)}\\
-        \implies &|f(t)|\leq \sum_{n=0}^{\infty}|a_n|t^n\leq C\sum_{n=0}^{\infty}\frac{(\omega_0 t)^{n}}{\Gamma(n+1)}=C\e^{\omega_0 t}\\
-        \implies &\forall s,\mathrm{Re}(s)=\omega_0+\phi>\omega_0,|f(t)\mathrm{e}^{-s t}|\leq C\e^{-\phi t}
-    \end{align*}
+    由条件知级数$\displaystyle\sum_{n=0}^{\infty}a_n\frac{\Gamma(n+1)}{s^{n+1}}$在$\sigma>\omega_0$时绝对收敛、内闭一致收敛，因此只需证明其和函数等于$\mathcal{L}f(s)$。拉普拉斯变换是一种积分变换，我们需要将求和与积分交换，可以考虑使用控制收敛定理。由于
+    \begin{align}
+        &\abs{a_n\Gamma(n+1)\omega_0^{-n}}\to 0,\quad n\to\infty\nonumber\\
+        &\implies \abs{a_n}\leq C\frac{\omega_0^{n}}{\Gamma(n+1)}\nonumber\\
+        &\implies \abs{f(t)}\leq \sum_{n=0}^{\infty}\abs{a_n}t^n\leq C\sum_{n=0}^{\infty}\frac{(\omega_0 t)^{n}}{\Gamma(n+1)}=C\e^{\omega_0 t}\nonumber\\
+        &\implies \forall s,\ \Re(s)=\omega_0+\phi>\omega_0,\quad \abs{f(t)\e^{-st}}\leq C\e^{-\phi t},
+    \end{align}
     控制收敛定理的条件成立，换序即证。
 \end{proof}
 
 一般地，对于幂次不是整数的情况，可以推广以上结论：
 \begin{corollary}*
-   设$f\in\mathcal{E} $，且在$[0,\infty)$上有广义幂级数展开
-   \[f(t)=\sum_{n=0}^{\infty}a_n t^{n+\alpha}\]
-   其中$0\leq\alpha<1$为常数，如果存在$\omega_0>0$，使得级数
-   \[\sum_{n=0}^{\infty}|a_n|\frac{\Gamma(n+\alpha+1)}{\omega_0^{n}}\]
-   收敛，则在$\sigma>\omega_0$时，级数
-   \[\sum_{n=0}^{\infty}a_n \frac{\Gamma(n+\alpha+1)}{s^{n+\alpha+1}}\]
-   收敛且等于$\mathcal{L} f(s)$，即$f$的拉普拉斯变换可以通过对其广义幂级数求拉普拉斯变换得到。
+    设$f\in\mathcal{E}$，且在$[0,\infty)$上有广义幂级数展开
+    \begin{equation}
+        f(t)=\sum_{n=0}^{\infty}a_n t^{n+\alpha},
+    \end{equation}
+    其中$0\leq\alpha<1$为常数，如果存在$\omega_0>0$，使得级数
+    \begin{equation}
+        \sum_{n=0}^{\infty}\abs{a_n}\frac{\Gamma(n+\alpha+1)}{\omega_0^{n}}
+    \end{equation}
+    收敛，则在$\sigma>\omega_0$时，级数
+    \begin{equation}
+        \sum_{n=0}^{\infty}a_n\frac{\Gamma(n+\alpha+1)}{s^{n+\alpha+1}}
+    \end{equation}
+    收敛且等于$\mathcal{L}f(s)$，即$f$的拉普拉斯变换可以通过对其广义幂级数求拉普拉斯变换得到。
 \end{corollary}

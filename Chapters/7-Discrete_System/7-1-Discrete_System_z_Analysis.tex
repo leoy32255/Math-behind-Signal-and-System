@@ -1,27 +1,39 @@
-\section{离散系统与z域分析}\label{sec:Discrete_System_z_Analysis}
+\section{离散系统与$z$域分析}\label{sec:Discrete_System_z_Analysis}
 
 %本节中，我们将介绍离散系统的基本特性，并介绍由z变换引出的离散系统的系统函数，以及由系统函数引出的离散系统的频率响应和相位响应等概念。
 
 \subsection{离散系统概述}\label{sub:discrete_system_overview}
 
-离散系统是指激励与响应均为离散信号的系统。本小节中，我们先列举一些离散系统的基本特性，然后讨论离散系统的级联。
+离散系统是指激励与响应均为序列的系统。本小节中，我们先列举一些离散系统的基本特性，然后讨论离散系统的级联。
 
 \begin{definition}\label{def:discrete_system}
     设离散系统的激励为$e[n]$，响应为$r[n]=H(e[n])$，则该系统具有以下基本特性：
     \begin{itemize}
         \item \textbf{线性性}：满足叠加定理，即对于任意激励$e_1[n],e_2[n]$及任意常数$a,b\in\mathbb{C}$，有
-        \[H(ae_1[n]+be_2[n])=aH(e_1[n])+bH(e_2[n])\]
+        \begin{equation}
+            H(ae_1[n]+be_2[n])=aH(e_1[n])+bH(e_2[n])
+        \end{equation}
         \item \textbf{时不变性}：系统的作用不依赖于时间，即对于任意激励$e[n]$及任意整数$k\in\mathbb{Z}$，有
-        \[H(\tau_k e[n])=\tau_k H(e[n])\]
+        \begin{equation}
+            H(\tau_k e[n])=\tau_k H(e[n]),
+        \end{equation}
         其中$\tau_k$表示时间平移算子，即
-        $$\tau_k e[n]=e[n-k]$$
+        \begin{equation}
+            \tau_k e[n]=e[n-k]
+        \end{equation}
         \item \textbf{因果性}：系统的响应不早于激励，即
-        \[\forall e[n],e[n]=0,n<n_0\implies r[n]=0,n<n_0\]
+        \begin{equation}
+            \forall e[n],\quad e[n]=0,\ n<n_0\implies r[n]=0,\ n<n_0
+        \end{equation}
         \item \textbf{稳定性}：激励信号有界时，响应也是有界的，即
-        \[\forall e[n]\in l^{\infty}(\mathbb{Z}),\quad r[n]\in l^{\infty}(\mathbb{Z})\]
+        \begin{equation}
+            \forall e[n]\in l^{\infty}(\mathbb{Z}),\quad r[n]\in l^{\infty}(\mathbb{Z})
+        \end{equation}
         \item \textbf{可逆性}：如果$H$是双射，则称系统可逆，此时存在一个系统$H^{-1}$使得对于任意激励$e[n]$，有
-        \[H^{-1}r[n]=e[n]\]
-        \item \textbf{马尔可夫性}：只要知道了$n=n_0$时刻的系统状态，未来的响应$r[n](n>n_0)$就与过去的激励$e[n](n<n_0)$无关
+        \begin{equation}
+            H^{-1}r[n]=e[n]
+        \end{equation}
+        \item \textbf{马尔可夫性}：只要知道了$n=n_0$时刻的系统状态，未来的响应$r[n]\ (n>n_0)$就与过去的激励$e[n]\ (n<n_0)$无关。
         \item \textbf{即时性}与\textbf{记忆性}：如果该系统在任意时刻$n$的状态完全且唯一地取决于该时刻的系统状态与激励，而不显式地依赖于任何过去时刻$n'<n$的系统状态或历史激励，则称该系统为即时的；否则称该系统为有记忆的。
     \end{itemize}
 \end{definition}
@@ -30,23 +42,29 @@
 
 \begin{definition}[离散线性系统的核函数]
     离散线性系统$H$的\textbf{核函数}定义为
-    $$k[m,n]=H_m(\delta[m-n])$$
-    其中$H_m$表示$\delta[m-n]$作为$m$的函数输入系统，输出为$m,n$的双变量函数
+    \begin{equation}
+        k[m,n]=H_m(\delta[m-n]),
+    \end{equation}
+    其中$H_m$表示$\delta[m-n]$作为$m$的函数输入系统，输出为$m,n$的双变量函数。
 \end{definition}
 
 \begin{theorem}[叠加定理]
-    \[r[m]=\sum_{n=-\infty}^{\infty}k[m,n]e[n]\]
+    \begin{equation}
+        r[m]=\sum_{n=-\infty}^{\infty}k[m,n]e[n],
+    \end{equation}
     其中$k[m,n]$为系统的核函数。
 \end{theorem}
 \begin{proof}
-    激励信号可以视为它与单位脉冲信号的卷积：
-    \[e[m]=(e*\delta)[m]=\sum_{n=-\infty}^{\infty}e[n]\delta[m-n]\]
+    激励信号可以视为它与单位脉冲序列的卷积：
+    \begin{equation}
+        e[m]=(e*\delta)[m]=\sum_{n=-\infty}^{\infty}e[n]\delta[m-n].
+    \end{equation}
     根据系统的线性性，有
-    \begin{align*}
-        r[m]&=H(e[m])\\
-        &=H_m\left(\sum_{n=-\infty}^{\infty}e[n]\delta[m-n]\right)\\
-        &=\sum_{n=-\infty}^{\infty}e[n]H_m(\delta[m-n])
-    \end{align*}
+    \begin{align}
+        r[m]&=H(e[m]) \nonumber \\
+        &=H_m\paren{\sum_{n=-\infty}^{\infty}e[n]\delta[m-n]} \nonumber \\
+        &=\sum_{n=-\infty}^{\infty}e[n]H_m(\delta[m-n]).
+    \end{align}
     令$k[m,n]=H_m(\delta[m-n])$即得。
 \end{proof}
 
@@ -55,51 +73,55 @@
     一个离散系统是线性系统当且仅当响应是激励的加权求和。
 \end{proposition}
 
-类似连续系统，只要系统有线性性，就可以将系统原有能量引起的\textbf{零输入响应}$r_{zi}[n]$与单纯由激励引起的\textbf{零状态响应}$r_{zs}[n]$分开考虑。进一步，如果系统还具有时不变性，则可定义：
+类似连续系统，只要系统有线性性，就可以将系统原有能量引起的\textbf{零输入响应}$r_{\zi}[n]$与单纯由激励引起的\textbf{零状态响应}$r_{\zs}[n]$分开考虑。进一步，如果系统还具有时不变性，则可定义：
 \begin{definition}[单位脉冲响应与单位阶跃响应]
     当$e[n]=\delta[n]$时，系统的响应称为\textbf{单位脉冲响应}，记为$h[n]$；当$e[n]=u[n]$时，系统的响应称为\textbf{单位阶跃响应}，记为$g[n]$。
 \end{definition}
 
 这样，核函数可以用单位脉冲响应来表示，线性时不变系统的响应可以用卷积和来表示：
-\[k[m,n]=H_m[\delta[m-n]]=H(\tau_n \delta[m])=\tau_n H(\delta[m])=h[m-n]\]
-\[r[n]=\sum_{m=-\infty}^{\infty}h[n-m]e[m]=(h*e)[n]\]
+\begin{align}
+    k[m,n]&=H_m[\delta[m-n]]=H(\tau_n \delta[m])=\tau_n H(\delta[m])=h[m-n], \\
+    r[n]&=\sum_{m=-\infty}^{\infty}h[n-m]e[m]=(h*e)[n].
+\end{align}
 
 可见对于离散系统，“线性时不变系统”与“卷积和系统”仍然是等价的概念。
 
 \subsection{离散系统的系统函数}\label{sub:discrete_system_function}
 
 在上一小节中，我们得到$r[n]=(h*e)[n]$，对等式两边做z变换，得到
-\[R(z)=H(z)E(z)\]
-其中$H(z)=\mathcal{Z} h[n]$记为离散系统的系统函数，它也是响应与激励的z变换之比：
+\begin{equation}
+    R(z)=H(z)E(z),
+\end{equation}
+其中$H(z)=\mathcal{Z}\{h[n]\}$记为离散系统的系统函数，它也是响应与激励的z变换之比：
 \begin{definition}[离散系统的系统函数]
     设离散系统的激励为$e[n]$，响应为$r[n]$，它们的z变换分别为$E(z),R(z)$，则系统函数定义为
-    \[H(z)=\frac{R(z)}{E(z)}\]
+    \begin{equation}
+        H(z)=\frac{R(z)}{E(z)}.
+    \end{equation}
 \end{definition}
 
 离散系统与连续系统的系统函数分析方法是类似的：一般来说，我们考虑的离散系统的系统函数为有理函数，可以绘制系统函数的零极点图，并通过它来分析系统的滤波特性、稳定性、因果性等时域特性；此外，\textbf{系统流图与梅森增益公式对于离散系统仍然适用}，系统的串联（级联）、并联与反馈的定义与连续系统完全一致，信号流图的标准型也仍然适用于离散系统，因此\refsec{Signal_Flow_Graph}中的内容不再单独讨论。
 
-与连续系统不同的是，连续系统的分析通常使用双边拉普拉斯变换，其收敛域是带状区域$\sigma_{c}<\mathrm{Re}(s)<\Sigma_{c}$；而离散系统的分析通常使用双边z变换，其收敛域是环状区域$r<|z|<R$。%这使得离散系统的稳定性的z域判则不同于连续系统。
+与连续系统不同的是，连续系统的分析通常使用双边拉普拉斯变换，其收敛域是带状区域$\sigma_c<\Re(s)<\Sigma_c$；而离散系统的分析通常使用双边z变换，其收敛域是环状区域$r<|z|<R$。%这使得离散系统的稳定性的z域判则不同于连续系统。
 
 下面探讨离散系统的系统函数与因果性、稳定性之间的关系。
 
 \subsubsection{因果性}
 
 \begin{proposition}[因果性的时域判则]
-    一个离散系统是因果系统当且仅当其单位脉冲响应为因果信号，即$h[n]=0,n<0$。
+    一个离散系统是因果系统当且仅当其单位脉冲响应为因果信号，即$h[n]=0,\ n<0$。
 \end{proposition}
 \begin{proof}
-    类比连续系统，容易理解因果性与上述条件的等价性，首先来验证卷积和也具有类似于卷积的“支集相加”性质：设离散信号$x[n],y[n]$分别在区间$[n_1,n_2]$与$[m_1,m_2]$内非零，而在其他位置均为0，则
-    \begin{align*}
-        (x*y)[n]=\sum_{k=-\infty}^{\infty}x[k]y[n-k]
-    \end{align*}
-    \begin{align*}
-        (x*y)[n]\neq 0\iff k\in[n_1,n_2],n-k\in[m_1,m_2]\iff n\in[n_1+m_1,n_2+m_2]
-    \end{align*}
-    
-    对于离散系统，如果它是因果的，那么对于任意激励信号$e[n]$，响应$r[n]$都满足$r[n]=0,n<0$，因此单位脉冲响应也满足$h[n]=0,n<0$；反之，如果单位脉冲响应满足$h[n]=0,n<0$，则对于任意激励信号$e[n]$，响应$r[n]=(h*e)[n]$在$n<0$时为0，因此系统是因果的。
+    类比连续系统，容易理解因果性与上述条件的等价性，首先来验证卷积和也具有类似于卷积的“支集相加”性质：设序列$x[n],y[n]$分别在区间$[n_1,n_2]$与$[m_1,m_2]$内非零，而在其他位置均为$0$，则
+    \begin{align}
+        (x*y)[n]&=\sum_{k=-\infty}^{\infty}x[k]y[n-k], \\
+        (x*y)[n]\neq 0&\iff k\in[n_1,n_2],\ n-k\in[m_1,m_2]\iff n\in[n_1+m_1,n_2+m_2].
+    \end{align}
+
+    对于离散系统，如果它是因果的，那么对于任意激励信号$e[n]$，响应$r[n]$都满足$r[n]=0,\ n<0$，因此单位脉冲响应也满足$h[n]=0,\ n<0$；反之，如果单位脉冲响应满足$h[n]=0,\ n<0$，则对于任意激励信号$e[n]$，响应$r[n]=(h*e)[n]$在$n<0$时为$0$，因此系统是因果的。
 \end{proof}
 
-\begin{proposition}[因果性的z域判则]\label{prop:causal_z}
+\begin{proposition}[因果性的$z$域判则]\label{prop:causal_z}
     一个离散系统是因果系统当且仅当其系统函数的收敛域包含$\infty$。
 \end{proposition}
 
@@ -112,30 +134,32 @@
 \end{proposition}
 \begin{proof}
     一方面，对于有界激励$e\in l^{\infty}(\mathbb{Z})$，如果单位脉冲响应满足$h[n]\in l^1(\mathbb{Z})$，则
-    \begin{align*}
-        |r[n]|&=|(h*e)[n]|\\
-        &=\left|\sum_{m=-\infty}^{\infty}h[n-m]e[m]\right|\\
-        &\leq \sum_{m=-\infty}^{\infty}|h[n-m]||e[m]|\\
-        &\leq \|e\|_{\infty}\sum_{m=-\infty}^{\infty}|h[n-m]|\\
-        &=\|e\|_{\infty}\|h\|_1<\infty
-    \end{align*}
+    \begin{align}
+        |r[n]|&=|(h*e)[n]| \nonumber \\
+        &=\abs{\sum_{m=-\infty}^{\infty}h[n-m]e[m]} \nonumber \\
+        &\leq \sum_{m=-\infty}^{\infty}|h[n-m]||e[m]| \nonumber \\
+        &\leq \norm{e}_{\infty}\sum_{m=-\infty}^{\infty}|h[n-m]| \nonumber \\
+        &=\norm{e}_{\infty}\norm{h}_1<\infty,
+    \end{align}
     即$r\in l^{\infty}(\mathbb{Z})$，系统是稳定的。
-    
-    另一方面，设$h$不是绝对可和的，取有界激励信号$e[n]=\text{sgn}(h[-n])$，则
-    \begin{align*}
-        |r[0]|&=|(h*e)[0]|\\
-        &=\left|\sum_{m=-\infty}^{\infty}h[m]e[-m]\right|\\
-        &=\sum_{m=-\infty}^{\infty}|h[m]|\\
-        &=\|h\|_1=\infty
-    \end{align*}
+
+    另一方面，设$h$不是绝对可和的，取有界激励信号$e[n]=\sgn(h[-n])$，则
+    \begin{align}
+        |r[0]|&=|(h*e)[0]| \nonumber \\
+        &=\abs{\sum_{m=-\infty}^{\infty}h[m]e[-m]} \nonumber \\
+        &=\sum_{m=-\infty}^{\infty}|h[m]| \nonumber \\
+        &=\norm{h}_1=\infty.
+    \end{align}
     $e\in l^{\infty}(\mathbb{Z})$，但$r\notin l^{\infty}(\mathbb{Z})$，系统不稳定。
 \end{proof}
 
 对稳定性的时域判据做z变换，立即得到：
 
-\begin{proposition}[稳定性的z域判则]\label{prop:stability_z}
+\begin{proposition}[稳定性的$z$域判则]\label{prop:stability_z}
     一个离散系统是稳定系统当且仅当其系统函数的收敛域包含单位圆。
 \end{proposition}
 
 综上，对于离散线性时不变系统，因果且稳定就等价于其系统函数的收敛域包含以下区域：
-\[\left\{\left.z\in\hat{\mathbb{C}}\right||z|\geq 1\right\}\]
+\begin{equation}
+    \braces{z\in\hat{\mathbb{C}}\;\middle|\;|z|\geq 1}.
+\end{equation}

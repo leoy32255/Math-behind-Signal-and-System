@@ -3,219 +3,279 @@
 \subsection{施瓦兹函数在傅里叶变换下的封闭性}\label{sub:fourier_close}
 在\refsub{schwartz}中，我们介绍了施瓦兹函数类及其对偶空间分布，并直接假定了施瓦兹函数类在傅里叶变换下的封闭性。这一小节将填补这个逻辑漏洞，并介绍施瓦兹函数类的一些其他好处。由于不涉及具体的计算，简洁起见，我们将在本节使用角频率$\omega$。
 
-首先，可以根据施瓦兹函数类的定义\[\mathcal{S} =\left\{\varphi\in C^{\infty}(\mathbb{R} )\left|\lim_{|x|\to\infty}|x|^m\varphi^{(n)}(x)=0,\forall m,n\in\mathbb{N} \right.\right\}\]给出它们在$|x|\to\infty$时的估计，从而施瓦兹函数$\varphi$必满足$\int_{-\infty}^{\infty}|\varphi^{(n)}(x)|\,dx<\infty,n\in\mathbb{N}$，即施瓦兹函数类是$L^1(\mathbb{R} )$的子集，于是\begin{align*}
-    \int_{-\infty}^{\infty}\varphi(t)\mathrm{e}^{-\mathrm{i}\omega t}\,dt & \leq \int_{-\infty}^{\infty}|\varphi(t)||\mathrm{e}^{-\mathrm{i}\omega t}|\,dt \\
-                                                                          & =\int_{-\infty}^{\infty}|\varphi(t)|\,dt<\infty
-\end{align*}
+首先，可以根据施瓦兹函数类的定义
+\begin{equation}
+    \mathcal{S}(\mathbb{R})=\braces{\varphi\in C^{\infty}(\mathbb{R})\;\middle|\;\lim_{|x|\to\infty}|x|^m\varphi^{(n)}(x)=0,\ \forall m,n\in\mathbb{N}}
+\end{equation}
+给出它们在$|x|\to\infty$时的估计，从而施瓦兹函数$\varphi$必满足$\int_{-\infty}^{\infty}|\varphi^{(n)}(x)|\,\dd x<\infty,\ n\in\mathbb{N}$，即施瓦兹函数类是$L^1(\mathbb{R})$的子集，于是
+\begin{align}
+    \int_{-\infty}^{\infty}\varphi(t)\e^{-\im\omega t}\,\dd t&\leq \int_{-\infty}^{\infty}|\varphi(t)||\e^{-\im\omega t}|\,\dd t \nonumber \\
+    &=\int_{-\infty}^{\infty}|\varphi(t)|\,\dd t<\infty,
+\end{align}
 即施瓦兹函数的傅里叶变换是良定义的，傅里叶逆变换同理。
 
-显然，施瓦兹函数在求导运算下是封闭的，即$\varphi\in\mathcal{S}\implies \varphi'\in\mathcal{S}$，并且乘以$x$的运算也是封闭的，即$\varphi\in\mathcal{S}\implies x\varphi\in\mathcal{S}$。利用这两个性质，可以证明施瓦兹函数类在傅里叶变换下的封闭性：
+显然，施瓦兹函数在求导运算下是封闭的，即$\varphi\in\mathcal{S}(\mathbb{R})\implies \varphi'\in\mathcal{S}(\mathbb{R})$，并且乘以$x$的运算也是封闭的，即$\varphi\in\mathcal{S}(\mathbb{R})\implies x\varphi\in\mathcal{S}(\mathbb{R})$。利用这两个性质，可以证明施瓦兹函数类在傅里叶变换下的封闭性：
 \begin{theorem}[施瓦兹函数类在傅里叶变换下的封闭性]
     \label{thm:schwartz_close}
-    设$\varphi\in\mathcal{S}$，则$\mathcal{F} \varphi,\mathcal{F} ^{-1} \varphi\in\mathcal{S}$。
+    设$\varphi\in\mathcal{S}(\mathbb{R})$，则$\mathcal{F} \varphi,\mathcal{F}^{-1}\varphi\in\mathcal{S}(\mathbb{R})$。
 \end{theorem}
 \begin{proof}
-    只需证明$\lim_{|\omega|\to\infty}|\omega|^m \mathcal{F} \varphi^{(n)}(\omega)=0,\forall m,n\in\mathbb{N}$。由傅里叶变换的微分性质（\cref{thm:FT_derivative}），
-    \begin{align*}
-        \mathcal{F} [\varphi'](\omega)      & =\mathrm{i}\omega \mathcal{F} \varphi(\omega)     \\
-        \mathcal{F} [\varphi^{(n)}](\omega) & =(\mathrm{i}\omega)^n \mathcal{F} \varphi(\omega)
-    \end{align*}
-    根据黎曼-勒贝格引理（见\refsub{riemman_lebesgue_lemma}），\[\varphi^{(n)}\in L^1(\mathbb{R})\implies\lim_{|\omega|\to\infty}\mathcal{F}\left[ \varphi^{(n)}(\omega)\right]=0\]
-    即\[\lim_{|\omega|\to\infty}(\mathrm{i}\omega)^n \mathcal{F} \varphi(\omega)\to 0\]
-    故$\mathcal{F} \varphi(\omega)\in\mathcal{S} $，同理可证明$\mathcal{F}^{-1} \varphi(\omega)\in\mathcal{S} $。
+    只需证明$\lim_{|\omega|\to\infty}|\omega|^m\mathcal{F}\varphi^{(n)}(\omega)=0,\ \forall m,n\in\mathbb{N}$。由傅里叶变换的微分性质（\cref{thm:FT_derivative}），
+    \begin{align}
+        \mathcal{F}\sbr{\varphi'}(\omega)&=\im\omega \mathcal{F}\varphi(\omega), \\
+        \mathcal{F}\sbr{\varphi^{(n)}}(\omega)&=(\im\omega)^n \mathcal{F}\varphi(\omega).
+    \end{align}
+    根据黎曼-勒贝格引理（见\refsub{riemman_lebesgue_lemma}），
+    \begin{equation}
+        \varphi^{(n)}\in L^1(\mathbb{R})\implies\lim_{|\omega|\to\infty}\mathcal{F}\sbr{\varphi^{(n)}(\omega)}=0,
+    \end{equation}
+    即
+    \begin{equation}
+        \lim_{|\omega|\to\infty}(\im\omega)^n \mathcal{F}\varphi(\omega)\to 0,
+    \end{equation}
+    故$\mathcal{F}\varphi(\omega)\in\mathcal{S}(\mathbb{R})$，同理可证明$\mathcal{F}^{-1}\varphi(\omega)\in\mathcal{S}(\mathbb{R})$。
 \end{proof}
 
 \subsection{时限与带限的关系}\label{sub:time_freq_limit}
-我们来验证，紧支函数的傅里叶变换不再是紧支函数，从而一开始介绍的$\mathcal{C} $在傅里叶变换下不封闭。事实上，非零函数不可能既时限，又带限，即：
+我们来验证，紧支函数的傅里叶变换不再是紧支函数，从而一开始介绍的$\mathcal{C}(\mathbb{R})$在傅里叶变换下不封闭。事实上，非零函数不可能既时限，又带限，即：
 \begin{theorem}
     \label{thm:time_freq_limit}
-    设$f\in L^1(\mathbb{R}),f\neq 0$，如果$f$在时域上紧支，则其傅里叶变换$\mathcal{F} f(\omega)$不可能在频域上紧支，反之亦然。
+    设$f\in L^1(\mathbb{R}),\ f\neq 0$，如果$f$在时域上紧支，则其傅里叶变换$\mathcal{F} f(\omega)$不可能在频域上紧支，反之亦然。
 \end{theorem}
 
 \begin{proof}
-    我们假设$\supp(f)\in[-T/2,T/2],\supp(\mathcal{F}f)\in[-\Omega/2,\Omega/2]$，证明$f=0$。
+    我们假设$\supp(f)\subset[-T/2,T/2],\ \supp(\mathcal{F}f)\subset[-\Omega/2,\Omega/2]$，证明$f=0$。
 
     \textbf{法一}：
-    \begin{align*}
-        f(t) & =\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathcal{F} f(\omega)\mathrm{e}^{\mathrm{i}\omega t}\,d\omega     \\
-             & =\frac{1}{2\pi}\int_{-\Omega/2}^{\Omega/2}\mathcal{F} f(\omega)\mathrm{e}^{\mathrm{i}\omega t}\,d\omega
-    \end{align*}
-    由于$\supp(f)\in[-T/2,T/2]$，所以$f(t)$在$|t|>T/2$时恒为0，故\[\int_{-\Omega/2}^{\Omega/2}\mathcal{F} f(\omega)\mathrm{e}^{\mathrm{i}\omega t}\,d\omega=0,\quad \forall |t|>T/2\]
-    对以上恒等式两边同时求n阶导数，得到\[\int_{-\Omega/2}^{\Omega/2}(\mathrm{i}\omega)^n \mathcal{F} f(\omega)\mathrm{e}^{\mathrm{i}\omega t}\,d\omega=0,\quad \forall |t|>T/2\]
-    取定$t_0>T/2$，有\begin{align*}
-        f(t)= & \frac{1}{2\pi}\int_{-\Omega/2}^{\Omega/2}\mathcal{F} f(\omega)\mathrm{e}^{\mathrm{i}\omega t_0}\mathrm{e}^{\mathrm{i}\omega (t-t_0)}\,d\omega
-    \end{align*}
-    将$\mathrm{e}^{\mathrm{i}\omega (t-t_0)}$展开成幂级数：\begin{align*}
-        \mathrm{e}^{\mathrm{i}\omega (t-t_0)}= & \sum_{n=0}^{\infty}\frac{(\mathrm{i}\omega (t-t_0))^n}{n!}
-    \end{align*}
-    则该幂级数在$\mathbb{R}$上收敛且内闭一致收敛，特别地，在有限区间$[-\Omega/2,\Omega/2]$上一致收敛，因此可以将求和与积分换序，得到\begin{align*}
-        f(t)= & \frac{1}{2\pi}\int_{-\Omega/2}^{\Omega/2}\mathcal{F} f(\omega)\mathrm{e}^{\mathrm{i}\omega t_0}\sum_{n=0}^{\infty}\frac{(\mathrm{i}\omega (t-t_0))^n}{n!}\,d\omega       \\
-        =     & \frac{1}{2\pi}\sum_{n=0}^{\infty}\frac{((t-t_0))^n}{n!}\int_{-\Omega/2}^{\Omega/2}(\mathrm{i}\omega)^n \mathcal{F} f(\omega)\mathrm{e}^{\mathrm{i}\omega t_0}\,d\omega=0
-    \end{align*}
+    \begin{align}
+        f(t)&=\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathcal{F} f(\omega)\e^{\im\omega t}\,\dd\omega \nonumber \\
+        &=\frac{1}{2\pi}\int_{-\Omega/2}^{\Omega/2}\mathcal{F} f(\omega)\e^{\im\omega t}\,\dd\omega.
+    \end{align}
+    由于$\supp(f)\subset[-T/2,T/2]$，所以$f(t)$在$|t|>T/2$时恒为$0$，故
+    \begin{equation}
+        \int_{-\Omega/2}^{\Omega/2}\mathcal{F} f(\omega)\e^{\im\omega t}\,\dd\omega=0,\quad \forall |t|>T/2.
+    \end{equation}
+    对以上恒等式两边同时求$n$阶导数，得到
+    \begin{equation}
+        \int_{-\Omega/2}^{\Omega/2}(\im\omega)^n \mathcal{F} f(\omega)\e^{\im\omega t}\,\dd\omega=0,\quad \forall |t|>T/2.
+    \end{equation}
+    取定$t_0>T/2$，有
+    \begin{equation}
+        f(t)=\frac{1}{2\pi}\int_{-\Omega/2}^{\Omega/2}\mathcal{F} f(\omega)\e^{\im\omega t_0}\e^{\im\omega (t-t_0)}\,\dd\omega.
+    \end{equation}
+    将$\e^{\im\omega (t-t_0)}$展开成幂级数：
+    \begin{equation}
+        \e^{\im\omega (t-t_0)}=\sum_{n=0}^{\infty}\frac{(\im\omega (t-t_0))^n}{n!},
+    \end{equation}
+    则该幂级数在$\mathbb{R}$上收敛且内闭一致收敛，特别地，在有限区间$[-\Omega/2,\Omega/2]$上一致收敛，因此可以将求和与积分换序，得到
+    \begin{align}
+        f(t)&=\frac{1}{2\pi}\int_{-\Omega/2}^{\Omega/2}\mathcal{F} f(\omega)\e^{\im\omega t_0}\sum_{n=0}^{\infty}\frac{(\im\omega (t-t_0))^n}{n!}\,\dd\omega \nonumber \\
+        &=\frac{1}{2\pi}\sum_{n=0}^{\infty}\frac{(t-t_0)^n}{n!}\int_{-\Omega/2}^{\Omega/2}(\im\omega)^n \mathcal{F} f(\omega)\e^{\im\omega t_0}\,\dd\omega=0.
+    \end{align}
     这表明只有恒零函数才能做到时域、频域均紧支。
 
-    \textbf{法二}：利用解析延拓的唯一性。设$\supp(f)\in[-T/2,T/2]$，则\begin{align*}
-        \mathcal{F} f(\omega) & =\int_{-\infty}^{\infty}f(t)\mathrm{e}^{-\mathrm{i}\omega t}\,dt \\
-                              & =\int_{-T/2}^{T/2}f(t)\mathrm{e}^{-\mathrm{i}\omega t}\,dt
-    \end{align*}
+    \textbf{法二}：利用解析延拓的唯一性。设$\supp(f)\subset[-T/2,T/2]$，则
+    \begin{align}
+        \mathcal{F} f(\omega)&=\int_{-\infty}^{\infty}f(t)\e^{-\im\omega t}\,\dd t \nonumber \\
+        &=\int_{-T/2}^{T/2}f(t)\e^{-\im\omega t}\,\dd t.
+    \end{align}
     这是一个可导的实变函数，可以将其定义域向复平面$\mathbb{C}$做全纯延拓，这就是双边拉普拉斯变换（\cref{def:bi_laplace}）：
-    \begin{align*}
-        F(s)=\int_{-\infty}^{\infty}f(t)\mathrm{e}^{-st}\,dt=\int_{-T/2}^{T/2}f(t)\mathrm{e}^{-st}\,dt,\quad F(\mathrm{i}\omega)=\mathcal{F} f(\omega)
-    \end{align*}
-    它同样具备全纯性。由于积分区间有限，$f\in\mathcal{C} $光滑，以上积分总是存在的，并且可以对$s$求导，从而也是全纯的：\[F'(s)=-\int_{-T/2}^{T/2}tf(t)\mathrm{e}^{-st}\,dt\]
-    即$F(s)$是整函数。但是，$F(s)=0,\forall s=\mathrm{i}\omega,|\omega|> \Omega/2$，由唯一延拓定理（\cref{cor:unique_continuation}），$F(s)=0,\forall s\in\mathbb{C}$，因此$f(t)=0$。
+    \begin{equation}
+        F(s)=\int_{-\infty}^{\infty}f(t)\e^{-st}\,\dd t=\int_{-T/2}^{T/2}f(t)\e^{-st}\,\dd t,\quad F(\im\omega)=\mathcal{F} f(\omega).
+    \end{equation}
+    它同样具备全纯性。由于积分区间有限，$f\in\mathcal{C}(\mathbb{R})$光滑，以上积分总是存在的，并且可以对$s$求导，从而也是全纯的：
+    \begin{equation}
+        F'(s)=-\int_{-T/2}^{T/2}tf(t)\e^{-st}\,\dd t,
+    \end{equation}
+    即$F(s)$是整函数。但是，$F(s)=0,\ \forall s=\im\omega,\ |\omega|>\Omega/2$，由唯一延拓定理（\cref{cor:unique_continuation}），$F(s)=0,\ \forall s\in\mathbb{C}$，因此$f(t)=0$。
 \end{proof}
 
 %时域频域“带宽”积，海森堡不确定性原理
 必须指出，实际应用中我们总是考虑时域、频域都近似紧支的函数，指出时限、带限不共存，只是理论需要。事实上，时域上的“宽度”与频域上的“宽度”之积存在一个下界，这一点从\cref{thm:FT_stretch}就能看出：
-\lr{
-    \mathcal{F} [f(at)](\xi)=\frac{1}{|a|}\mathcal{F} f\left(\frac{\xi}{a}\right)
-}{
-    \mathcal{F} [f(at)](\omega)=\frac{1}{|a|}\mathcal{F} f\left(\frac{\omega}{a}\right)
-}
-随着$a$的增大，时域函数$f(at)$变得越来越集中，而频域函数$\mathcal{F} f\left(\frac{x}{a}\right)$则变得越来越分散，反之亦然。
+\begin{lralign}
+    \mathcal{F}\sbr{f(at)}(\xi)=\frac{1}{|a|}\mathcal{F} f\paren{\frac{\xi}{a}}
+\switch
+    \mathcal{F}\sbr{f(at)}(\omega)=\frac{1}{|a|}\mathcal{F} f\paren{\frac{\omega}{a}}.
+\end{lralign}
+随着$a$的增大，时域函数$f(at)$变得越来越集中，而频域函数$\mathcal{F} f\paren{\frac{x}{a}}$则变得越来越分散，反之亦然。
 我们可以用方差来定量描述这一关系。
 \begin{theorem}
-    时域信号、频域信号的方差之积满足不等式
-    \[\sigma(f)\sigma(F)\geq \frac{1}{4\pi}\]
-    其中$f\in L^1(\mathbb{R} )\cap L^2(\mathbb{R})$，$F(\xi)=\int_{-\infty}^{\infty}f(t)\mathrm{e}^{-2\pi \mathrm{i}\xi t}\,dt$，$\sigma(f),\sigma(F)$分别为$f,F$的方差。
+    时域函数、频域函数的方差之积满足不等式
+    \begin{equation}
+        \sigma(f)\sigma(F)\geq \frac{1}{4\pi},
+    \end{equation}
+    其中$f\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，$F(\xi)=\int_{-\infty}^{\infty}f(t)\e^{-2\pi\im\xi t}\,\dd t$，$\sigma(f),\sigma(F)$分别为$f,F$的方差。
 \end{theorem}
-物理规律中许多现象都可以归结为这一数学事实，例如著名的\textbf{海森堡不确定性原理} (Heisenberg's uncertainty principle)\footnote{尽管广义的不确定性原理应该归结为算符或矩阵的不对易，但由于动量空间波函数是位置空间波函数的傅里叶变换，以上结果的确能够证明$\sigma_x \sigma_p\geq\frac{\hbar}{2}$}。读者可以自行验证，以上不等式取等于高斯函数。
+物理规律中许多现象都可以归结为这一数学事实，例如著名的\textbf{海森堡不确定性原理}(Heisenberg's uncertainty principle)\footnote{尽管广义的不确定性原理应该归结为算符或矩阵的不对易，但由于动量空间波函数是位置空间波函数的傅里叶变换，以上结果的确能够证明$\sigma_x \sigma_p\geq\frac{\hbar}{2}$。}。读者可以自行验证，以上不等式取等于高斯函数。
 \begin{proof}
-    我们首先验证，$|f|^2$与$|F|^2$作为某个随机变量的概率密度函数是良定义的，从而其方差是良定义的。根据普朗歇尔定理（\cref{thm:plancherel}），\lr{
-        \int_{-\infty}^{\infty}|f(t)|^2\,dt=\int_{-\infty}^{\infty}|\mathcal{F} f(\xi)|^2\,d\xi
-    }{
-        \int_{-\infty}^{\infty}|f(t)|^2\,dt=\frac{1}{2\pi}\int_{-\infty}^{\infty}|\mathcal{F} f(\omega)|^2\,d\omega
-    }
+    我们首先验证，$|f|^2$与$|F|^2$作为某个随机变量的概率密度函数是良定义的，从而其方差是良定义的。根据普朗歇尔定理（\cref{thm:plancherel}），
+    \begin{lralign}
+        \int_{-\infty}^{\infty}|f(t)|^2\,\dd t=\int_{-\infty}^{\infty}|\mathcal{F} f(\xi)|^2\,\dd\xi
+    \switch
+        \int_{-\infty}^{\infty}|f(t)|^2\,\dd t=\frac{1}{2\pi}\int_{-\infty}^{\infty}|\mathcal{F} f(\omega)|^2\,\dd\omega.
+    \end{lralign}
     要使它们都是概率密度函数，我们就需要把$|f|^2,|F|^2$归一化，在频率形式的傅里叶变换下，这是自动成立的，而如果使用角频率来做傅里叶变换，则需要引入额外的归一化系数，因此下面仅使用频率。
 
     %我们知道，如果随机变量$X$的概率密度函数为$f(x)$，并且其方差有定义（二阶中心矩存在），则方差为$\sigma^2=\int_{-\infty}^{\infty}(x-\mu)^2 f(x)\,dx$，其中$\mu=\int_{-\infty}^{\infty}x f(x)\,dx$为数学期望。
 
-    我们假设$|f|^2$和$|F|^2$的数学期望为0，否则可以通过时移、频移定理将它调整为0，而不影响另一个域上信号的模值；又假设\[\int_{-\infty}^{\infty}t^2|f(t)|^2\,dt<\infty,\int_{-\infty}^{\infty}\xi^2|F(\xi)|^2\,d\xi<\infty\]
-    即方差存在，则\begin{align*}
-        4\pi^2 \sigma^2(f)\sigma^2(F) & =4\pi^2 \int_{-\infty}^{\infty}t^2|f(t)|^2\,dt\int_{-\infty}^{\infty}\xi^2|F(\xi)|^2\,d\xi                                        \\
-                                      & =\int_{-\infty}^{\infty}t^2|f(t)|^2\,dt\int_{-\infty}^{\infty}|2\pi \mathrm{i}\xi F(\xi)|^2\,d\xi                                 \\
-                                      & =\int_{-\infty}^{\infty}t^2|f(t)|^2\,dt\int_{-\infty}^{\infty}\left| \mathcal{F} [f'(t)](\xi)\right|^2\,d\xi & \text{(时域微分性质)}    \\
-                                      & =\int_{-\infty}^{\infty}t^2|f(t)|^2\,dt\int_{-\infty}^{\infty}| f'(t)|^2\,dt                                 & \text{(普朗歇尔定理)}    \\
-                                      & \geq \left(\int_{-\infty}^{\infty}|tf(t)||f'(t)|\,dt\right)^2                                                & \text{(柯西-施瓦兹不等式)} \\
-                                      & =\frac{1}{4}\left(\evalat{t|f(t)|^2}{-\infty}{\infty}-\int_{-\infty}^{\infty}|f(t)|^2\,dt\right)^2           & \text{(分部积分)}
-        %&=\frac{1}{4}&\text{(归一化)}
-    \end{align*}
-    上述过程中，我们通过普朗歇尔定理说明了$f'(t)\in L^2(\mathbb{R})$，因此$f(t)$几乎处处可导，$t|f(t)|^2$几乎处处连续，而期望$\int_{-\infty}^{\infty}t|f(t)|^2\,dt=0<\infty$，因此$\lim_{|t|\to\infty}t|f(t)|^2=0$；\\
-    又已知$\int_{-\infty}^{\infty}|f(t)|^2\,dt=1$，因此，$\sigma(f)\sigma(F)\geq \dfrac{1}{4\pi}$，得证。
+    我们假设$|f|^2$和$|F|^2$的数学期望为$0$，否则可以通过时移、频移定理将它调整为$0$，而不影响另一个域上函数的模值；又假设
+    \begin{equation}
+        \int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t<\infty,\quad \int_{-\infty}^{\infty}\xi^2|F(\xi)|^2\,\dd\xi<\infty,
+    \end{equation}
+    即方差存在，则
+    \begin{align}
+        4\pi^2 \sigma^2(f)\sigma^2(F)&=4\pi^2 \int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t\int_{-\infty}^{\infty}\xi^2|F(\xi)|^2\,\dd\xi \nonumber \\
+        &=\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t\int_{-\infty}^{\infty}|2\pi\im\xi F(\xi)|^2\,\dd\xi \nonumber \\
+        &=\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t\int_{-\infty}^{\infty}\abs{\mathcal{F}\sbr{f'(t)}(\xi)}^2\,\dd\xi \qquad \text{(时域微分性质)} \nonumber \\
+        &=\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t\int_{-\infty}^{\infty}|f'(t)|^2\,\dd t \qquad \text{(普朗歇尔定理)} \nonumber \\
+        &\geq \paren{\int_{-\infty}^{\infty}|tf(t)||f'(t)|\,\dd t}^2 \qquad \text{(柯西-施瓦兹不等式)} \nonumber \\
+        &=\frac{1}{4}\paren{\evalat{t|f(t)|^2}{-\infty}{\infty}-\int_{-\infty}^{\infty}|f(t)|^2\,\dd t}^2. \qquad \text{(分部积分)}
+    \end{align}
+    上述过程中，我们通过普朗歇尔定理说明了$f'(t)\in L^2(\mathbb{R})$，因此$f(t)$几乎处处可导，$t|f(t)|^2$几乎处处连续，而期望$\int_{-\infty}^{\infty}t|f(t)|^2\,\dd t=0<\infty$，因此$\lim_{|t|\to\infty}t|f(t)|^2=0$；又已知$\int_{-\infty}^{\infty}|f(t)|^2\,\dd t=1$，因此，$\sigma(f)\sigma(F)\geq \displaystyle\frac{1}{4\pi}$，得证。
 \end{proof}
 
-使用方差的定义可以轻松地得到一个有用的不等式，它给出了一种基于方差估计函数集中程度的方法，这就是\textbf{切比雪夫不等式} (Chebyshev's inequality)：
+使用方差的定义可以轻松地得到一个有用的不等式，它给出了一种基于方差估计函数集中程度的方法，这就是\textbf{切比雪夫不等式}(Chebyshev's inequality)：
 \begin{theorem}[切比雪夫不等式]
-    设$f\in L^2(\mathbb{R} )$，则对于任意$a>0$，都有
-    \[\int_{|t|\geq a}|f(t)|^2\,dt\leq \frac{1}{a^2}\int_{-\infty}^{\infty}t^2|f(t)|^2\,dt\]
-    在概率论中它的表述是：设随机变量$X$的数学期望为$\mu$，方差为$\sigma^2$，则对于任意$k>0$，都有\[P(|X-\mu|\geq a)\leq \frac{\sigma^2}{a^2}\]
+    设$f\in L^2(\mathbb{R})$，则对于任意$a>0$，都有
+    \begin{equation}
+        \int_{|t|\geq a}|f(t)|^2\,\dd t\leq \frac{1}{a^2}\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t.
+    \end{equation}
+    在概率论中它的表述是：设随机变量$X$的数学期望为$\mu$，方差为$\sigma^2$，则对于任意$a>0$，都有
+    \begin{equation}
+        P(|X-\mu|\geq a)\leq \frac{\sigma^2}{a^2}.
+    \end{equation}
 \end{theorem}
 \begin{proof}
     由于$a>0$，有
-    \begin{align*}
-        \int_{|t|\geq a}|f(t)|^2\,dt & =\int_{|t|\geq a}\frac{t^2}{t^2}|f(t)|^2\,dt             \\
-                                     & \leq \frac{1}{a^2}\int_{|t|\geq a}t^2|f(t)|^2\,dt        \\
-                                     & \leq \frac{1}{a^2}\int_{-\infty}^{\infty}t^2|f(t)|^2\,dt
-    \end{align*}
+    \begin{align}
+        \int_{|t|\geq a}|f(t)|^2\,\dd t&=\int_{|t|\geq a}\frac{t^2}{t^2}|f(t)|^2\,\dd t \nonumber \\
+        &\leq \frac{1}{a^2}\int_{|t|\geq a}t^2|f(t)|^2\,\dd t \nonumber \\
+        &\leq \frac{1}{a^2}\int_{-\infty}^{\infty}t^2|f(t)|^2\,\dd t.
+    \end{align}
 \end{proof}
 
 \begin{example}
-    设$f$满足归一化条件且数学期望为0，取$a=2\sigma(f)$，则有\[\int_{|t|\geq 2\sigma(f)}|f(t)|^2\,dt\leq \frac{1}{4}\]
+    设$f$满足归一化条件且数学期望为$0$，取$a=2\sigma(f)$，则有
+    \begin{equation}
+        \int_{|t|\geq 2\sigma(f)}|f(t)|^2\,\dd t\leq \frac{1}{4},
+    \end{equation}
     即$f$在区间$[-2\sigma(f),2\sigma(f)]$之外的能量不超过总能量的$1/4$。
 \end{example}
-可见，前面证明的$\sigma_f \sigma_F\geq 1/4\pi$又可以表述为时域上的“宽度”与频域上的“宽度”之积有下界，由此可以定义信号的时宽、带宽积：
+可见，前面证明的$\sigma_f \sigma_F\geq 1/4\pi$又可以表述为时域上的“宽度”与频域上的“宽度”之积有下界，由此可以定义函数的时宽、带宽积：
 \begin{definition}[时宽-带宽积]
-    设$f\in L^1(\mathbb{R} )\cap L^2(\mathbb{R} )$，$F(\xi)=\int_{-\infty}^{\infty}f(t)\mathrm{e}^{-2\pi \mathrm{i}\xi t}\,dt$，且它们的方差存在，则$f$的\textbf{时宽}(time width)和\textbf{带宽}(bandwidth)定义分别为
-    \[T=2\sigma(f),\quad B=2\sigma(F)\]
-    它们的乘积称为\textbf{时宽-带宽积} (time-bandwidth product)：
-    \[TB(f)=4\sigma(f)\sigma(F)\]
+    设$f\in L^1(\mathbb{R})\cap L^2(\mathbb{R})$，$F(\xi)=\int_{-\infty}^{\infty}f(t)\e^{-2\pi\im\xi t}\,\dd t$，且它们的方差存在，则$f$的\textbf{时宽}(time width)和\textbf{带宽}(bandwidth)定义分别为
+    \begin{equation}
+        T=2\sigma(f),\quad B=2\sigma(F),
+    \end{equation}
+    它们的乘积称为\textbf{时宽-带宽积}(time-bandwidth product)：
+    \begin{equation}
+        TB(f)=4\sigma(f)\sigma(F).
+    \end{equation}
 \end{definition}
 
-我们也可以根据时域、频域函数的半高宽或$1/20$高宽（1dB带宽）来估计它们的集中程度。
+我们也可以根据时域、频域函数的半高宽或$1/20$高宽（$1\,\mathrm{dB}$带宽）来估计它们的集中程度。
 
 \subsection{*傅里叶变换的连续性}\label{sub:fourier_continuous}
-施瓦兹函数类的另一个好处在于，它不仅保证了傅里叶变换下的封闭性，还使得傅里叶变换$\mathcal{F} :\mathcal{S} \to \mathcal{S} $是一个\textbf{线性拓扑自同构}，具体来说，这要求\begin{itemize}
-    \item $\mathcal{F} $是线性的
-    \item $\mathcal{F} $是双射（我们已经找到逆映射$\mathcal{F} ^{-1} $）
-    \item $\mathcal{F} $及其逆映射$\mathcal{F} ^{-1} $均为连续映射。
+施瓦兹函数类的另一个好处在于，它不仅保证了傅里叶变换下的封闭性，还使得傅里叶变换$\mathcal{F}:\mathcal{S}(\mathbb{R})\to\mathcal{S}(\mathbb{R})$是一个\textbf{线性拓扑自同构}，具体来说，这要求
+\begin{itemize}
+    \item $\mathcal{F}$是线性的；
+    \item $\mathcal{F}$是双射（我们已经找到逆映射$\mathcal{F}^{-1}$）；
+    \item $\mathcal{F}$及其逆映射$\mathcal{F}^{-1}$均为连续映射。
 \end{itemize}
-我们已经证明过$\mathcal{F}$是线性的双射，下面来说明连续性。为此，我们需要给施瓦兹函数类赋予一个拓扑结构。尽管$\mathcal{S}\in L^p(\mathbb{R} )(1\leq p\leq\infty)$，但$L^p$空间的范数并不能很好地刻画施瓦兹函数类的性质，因此我们需要引入一族\textbf{半范数} (seminorm)：
+我们已经证明过$\mathcal{F}$是线性的双射，下面来说明连续性。为此，我们需要给施瓦兹函数类赋予一个拓扑结构。尽管$\mathcal{S}(\mathbb{R})\subset L^p(\mathbb{R})\ (1\leq p\leq\infty)$，但$L^p$空间的范数并不能很好地刻画施瓦兹函数类的性质，因此我们需要引入一族\textbf{半范数}(seminorm)：
 \begin{definition}[*施瓦兹函数类的半范数]
-    对于$m,n\in\mathbb{N} $，定义施瓦兹函数类上的半范数
-    \[\left\|\varphi\right\|_{m,n}=\sup_{x\in\mathbb{R} }|x|^m\left|\varphi^{(n)}(x)\right|\]
+    对于$m,n\in\mathbb{N}$，定义施瓦兹函数类上的半范数
+    \begin{equation}
+        \norm{\varphi}_{m,n}=\sup_{x\in\mathbb{R}}|x|^m\abs{\varphi^{(n)}(x)}.
+    \end{equation}
 \end{definition}
-在这个范数下$\mathcal{S} $构成\textbf{弗雷歇空间} (Fréchet space)，依范数收敛此时应该理解为：
+在这个范数下$\mathcal{S}(\mathbb{R})$构成\textbf{弗雷歇空间}(Fréchet space)，依范数收敛此时应该理解为：
 \begin{definition}[*施瓦兹函数类中的收敛]
-    设$\{\varphi_k\}\subset\mathcal{S} $，如果对于任意$m,n\in\mathbb{N} $，都有
-    \[\lim_{k\to\infty}\left\|\varphi_k-\varphi\right\|_{m,n}=0\]
+    设$\{\varphi_k\}\subset\mathcal{S}(\mathbb{R})$，如果对于任意$m,n\in\mathbb{N}$，都有
+    \begin{equation}
+        \lim_{k\to\infty}\norm{\varphi_k-\varphi}_{m,n}=0,
+    \end{equation}
     则称$\varphi_k$在施瓦兹函数类中（依范数）收敛于$\varphi$，记为$\varphi_k\to \varphi$。
 \end{definition}
 有了这些定义，我们就可以说明傅里叶变换及其逆映射的连续性：
-\begin{theorem}[*$\mathcal{S} $上傅里叶变换的连续性]
-    设$\varphi_k\to \varphi$，则$\mathcal{F} \varphi_k\to \mathcal{F} \varphi$。
+\begin{theorem}[*$\mathcal{S}(\mathbb{R})$上傅里叶变换的连续性]
+    设$\varphi_k\to \varphi$，则$\mathcal{F}\varphi_k\to \mathcal{F}\varphi$。
 \end{theorem}
 \begin{proof}
-    不妨设$\varphi=\mathcal{F} \varphi=0$。由傅里叶变换的微分性质（\cref{thm:FT_derivative}），
-    \begin{align*}
-        \mathcal{F}\left[\left((-\mathrm{i}t)^n\varphi_k\right)^{(m)}\right](\omega) & =(\mathrm{i}\omega)^m \mathcal{F}\left[(-\mathrm{i}t)^n \varphi_k\right](\omega)                            \\
-                                                                                     & =(\mathrm{i}\omega)^m (\mathcal{F} \varphi_k)^{(n)}(\omega)                                                 \\
-        \|\mathcal{F} \varphi_k\|_{m,n}                                              & =\sup_{\omega\in\mathbb{R} }|\omega|^m\left|(\mathcal{F} \varphi_k)^{(n)}(\omega)\right|                    \\
-                                                                                     & =\sup_{\omega\in\mathbb{R} }\left|\mathcal{F}\left[((-\mathrm{i}t)^n \varphi_k)^{(m)}\right](\omega)\right|
-    \end{align*}
-    令$\phi_k=\left((-\mathrm{i}t)^n \varphi_k\right)^{(m)}\in\mathcal{S} $，则
-    \begin{align*}
-        \|\mathcal{F} \varphi_k\|_{m,n} & =\sup_{\omega\in\mathbb{R} }\left|\mathcal{F} \phi_k(\omega)\right|\leq \int_{-\infty}^{\infty}|\phi_k(t)|\,dt
-    \end{align*}
-    问题转化为证明\[\int_{-\infty}^{\infty}|\phi_k(t)|\,dt\to 0\]
-    考虑利用$\varphi_k\in\mathcal{S} ,\|\varphi_k\|_{m,n}\to 0,\forall m,n\in\mathbb{N}$给出$|\phi_k(t)|$的估计。利用莱布尼兹求导法则，有：
-    \begin{align*}
-        |\phi_k(t)| & =\left|\left((-\mathrm{i}t)^n \varphi_k\right)^{(m)}(t)\right|                                     \\
-                    & =\left|\sum_{j=0}^{m}\binom{m}{j}(t^n)^{(j)}\varphi_k^{(m-j)}(t)\right|                            \\
-                    & \leq \sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}|t|^{n-j}\left|\varphi_k^{(m-j)}(t)\right|
-    \end{align*}
-    由于$\|\varphi_k\|_{n-j+2,m-j}\to 0$，有：$\forall \epsilon>0,\exists N\in\mathbb{N},k>N\implies \|\varphi_k\|_{n-j+2,m-j}<\epsilon$，于是
-    \begin{align*}
-        |\phi_k(t)| & \leq \sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}\frac{\|\varphi_k\|_{n-j+2,m-j}}{|t|^2} \\
-                    & <\frac{C\epsilon}{|t|^2},\quad C=\sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}
-    \end{align*}
-    因此有\begin{align*}
-        \int_{|t|\geq 1}|\phi_k(t)|\,dt & \leq \int_{|t|\geq 1}\frac{C\epsilon}{|t|^2}\,dt \\
-                                        & =2C\epsilon\int_{1}^{\infty}\frac{1}{t^2}\,dt    \\
-                                        & =2C\epsilon
-    \end{align*}
-    而在$|t|<1$时，\begin{align*}
-        \sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}|t|^{n-j}\left|\varphi_k^{(m-j)}(t)\right| & \leq \sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}\|\varphi_k\|_{0,m-j} \\
-                                                                                                      & \leq C'\max_{0\leq j\leq \min(m,n)}\|\varphi_k\|_{0,m-j}<\epsilon
-    \end{align*}
-    即$\phi_k$一致收敛于0，因此有
-    \[\int_{|t|<1}|\phi_k(t)|\,dt\to 0\]
-    综上，\[0\leq\|\mathcal{F} \varphi_k\|_{m,n}\leq\int_{-\infty}^{\infty}|\phi_k(t)|\,dt\to 0\]
-    根据夹逼定理，$\|\mathcal{F} \varphi_k\|_{m,n}\to 0$，得证。傅里叶逆变换同理。
+    不妨设$\varphi=\mathcal{F}\varphi=0$。由傅里叶变换的微分性质（\cref{thm:FT_derivative}），
+    \begin{align}
+        \mathcal{F}\braces{\sbr{(-\im t)^n\varphi_k}^{(m)}}(\omega)&=(\im\omega)^m \mathcal{F}\sbr{(-\im t)^n \varphi_k}(\omega) \nonumber \\
+        &=(\im\omega)^m (\mathcal{F}\varphi_k)^{(n)}(\omega), \\
+        \norm{\mathcal{F}\varphi_k}_{m,n}&=\sup_{\omega\in\mathbb{R}}|\omega|^m\abs{(\mathcal{F}\varphi_k)^{(n)}(\omega)} \nonumber \\
+        &=\sup_{\omega\in\mathbb{R}}\abs{\mathcal{F}\braces{\sbr{(-\im t)^n\varphi_k}^{(m)}}(\omega)}.
+    \end{align}
+    令$\phi_k=\paren{(-\im t)^n \varphi_k}^{(m)}\in\mathcal{S}(\mathbb{R})$，则
+    \begin{equation}
+        \norm{\mathcal{F}\varphi_k}_{m,n}=\sup_{\omega\in\mathbb{R}}\abs{\mathcal{F}\phi_k(\omega)}\leq \int_{-\infty}^{\infty}|\phi_k(t)|\,\dd t.
+    \end{equation}
+    问题转化为证明
+    \begin{equation}
+        \int_{-\infty}^{\infty}|\phi_k(t)|\,\dd t\to 0.
+    \end{equation}
+    考虑利用$\varphi_k\in\mathcal{S}(\mathbb{R}),\ \norm{\varphi_k}_{m,n}\to 0,\ \forall m,n\in\mathbb{N}$给出$|\phi_k(t)|$的估计。利用莱布尼兹求导法则，有：
+    \begin{align}
+        |\phi_k(t)|&=\abs{\paren{(-\im t)^n \varphi_k}^{(m)}(t)} \nonumber \\
+        &=\abs{\sum_{j=0}^{m}\binom{m}{j}(t^n)^{(j)}\varphi_k^{(m-j)}(t)} \nonumber \\
+        &\leq \sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}|t|^{n-j}\abs{\varphi_k^{(m-j)}(t)}.
+    \end{align}
+    由于$\norm{\varphi_k}_{n-j+2,m-j}\to 0$，有：$\forall \epsilon>0,\ \exists N\in\mathbb{N},\ k>N\implies \norm{\varphi_k}_{n-j+2,m-j}<\epsilon$，于是
+    \begin{align}
+        |\phi_k(t)|&\leq \sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}\frac{\norm{\varphi_k}_{n-j+2,m-j}}{|t|^2} \nonumber \\
+        &<\frac{C\epsilon}{|t|^2},\quad C=\sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}.
+    \end{align}
+    因此有
+    \begin{align}
+        \int_{|t|\geq 1}|\phi_k(t)|\,\dd t&\leq \int_{|t|\geq 1}\frac{C\epsilon}{|t|^2}\,\dd t \nonumber \\
+        &=2C\epsilon\int_{1}^{\infty}\frac{1}{t^2}\,\dd t \nonumber \\
+        &=2C\epsilon.
+    \end{align}
+    而在$|t|<1$时，
+    \begin{align}
+        \sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}|t|^{n-j}\abs{\varphi_k^{(m-j)}(t)}&\leq \sum_{j=0}^{\min(m,n)}\binom{m}{j}\frac{n!}{(n-j)!}\norm{\varphi_k}_{0,m-j} \nonumber \\
+        &\leq C'\max_{0\leq j\leq \min(m,n)}\norm{\varphi_k}_{0,m-j}<\epsilon,
+    \end{align}
+    即$\phi_k$一致收敛于$0$，因此有
+    \begin{equation}
+        \int_{|t|<1}|\phi_k(t)|\,\dd t\to 0.
+    \end{equation}
+    综上，
+    \begin{equation}
+        0\leq\norm{\mathcal{F}\varphi_k}_{m,n}\leq\int_{-\infty}^{\infty}|\phi_k(t)|\,\dd t\to 0,
+    \end{equation}
+    根据夹逼定理，$\norm{\mathcal{F}\varphi_k}_{m,n}\to 0$，得证。傅里叶逆变换同理。
 \end{proof}
 
 其实，如果我们考虑$L^1(\mathbb{R})\cap L^2(\mathbb{R})$中傅里叶变换的连续性，可以得到类似的结论，但证明要简单得多，因为$L^1(\mathbb{R})\cap L^2(\mathbb{R})$中有普朗歇尔定理（\cref{thm:plancherel}）。
 \begin{theorem}[$L^1(\mathbb{R})\cap L^2(\mathbb{R})$上傅里叶变换的连续性]
     设
-    $$\lim_{k\to\infty}\|f_k-f\|_2=0$$
+    \begin{equation}
+        \lim_{k\to\infty}\norm{f_k-f}_2=0,
+    \end{equation}
     则
-    $$\lim_{k\to\infty}\|\mathcal{F}f_k-\mathcal{F}f\|_2=0$$
+    \begin{equation}
+        \lim_{k\to\infty}\norm{\mathcal{F}f_k-\mathcal{F}f}_2=0.
+    \end{equation}
 \end{theorem}
 \begin{remark}
-    尽管$L^1(\mathbb{R})\cap L^2(\mathbb{R})$是比$\mathcal{S} $更大的空间，但这个定理有一定的局限性：其一，依$L^2$范数收敛不能保证依半范数收敛，即证得的收敛性会减弱；其二，$L^1(\mathbb{R})\cap L^2(\mathbb{R})$并不是傅里叶变换下的封闭空间，因此我们无法保证傅里叶逆变换的连续性。
+    尽管$L^1(\mathbb{R})\cap L^2(\mathbb{R})$是比$\mathcal{S}(\mathbb{R})$更大的空间，但这个定理有一定的局限性：其一，依$L^2$范数收敛不能保证依半范数收敛，即证得的收敛性会减弱；其二，$L^1(\mathbb{R})\cap L^2(\mathbb{R})$并不是傅里叶变换下的封闭空间，因此我们无法保证傅里叶逆变换的连续性。
 \end{remark}
 \begin{proof}
     由普朗歇尔定理，有
-    \lr{
-        \left\|\mathcal{F} f_k-\mathcal{F} f\right\|_2^2&=\int_{-\infty}^{\infty}\left|\mathcal{F} f_k(\xi)-\mathcal{F} f(\xi)\right|^2\,d\xi\\
-        &=\int_{-\infty}^{\infty}\left|f_k(t)-f(t)\right|^2\,dt\\
-        &=\left\|f_k-f\right\|_2^2
-    }{
-        \left\|\mathcal{F} f_k-\mathcal{F} f\right\|_2^2&=\int_{-\infty}^{\infty}\left|\mathcal{F} f_k(\omega)-\mathcal{F} f(\omega)\right|^2\,d\omega\\
-        &=2\pi\int_{-\infty}^{\infty}\left|f_k(t)-f(t)\right|^2\,dt\\
-        &=2\pi\left\|f_k-f\right\|_2^2
-    }
-    因此，$\left\|f_k-f\right\|_2\to 0\Rightarrow \left\|\mathcal{F} f_k-\mathcal{F} f\right\|_2\to 0$，得证。
+    \begin{lralign}
+        \norm{\mathcal{F} f_k-\mathcal{F} f}_2^2&=\int_{-\infty}^{\infty}\abs{\mathcal{F} f_k(\xi)-\mathcal{F} f(\xi)}^2\,\dd\xi\\
+        &=\int_{-\infty}^{\infty}\abs{f_k(t)-f(t)}^2\,\dd t\\
+        &=\norm{f_k-f}_2^2
+    \switch
+        \norm{\mathcal{F} f_k-\mathcal{F} f}_2^2&=\int_{-\infty}^{\infty}\abs{\mathcal{F} f_k(\omega)-\mathcal{F} f(\omega)}^2\,\dd\omega\\
+        &=2\pi\int_{-\infty}^{\infty}\abs{f_k(t)-f(t)}^2\,\dd t\\
+        &=2\pi\norm{f_k-f}_2^2.
+    \end{lralign}
+    因此，$\norm{f_k-f}_2\to 0\implies \norm{\mathcal{F} f_k-\mathcal{F} f}_2\to 0$，得证。
 \end{proof}
 
-另外，在弱收敛的意义下，傅里叶变换同样是$\mathcal{T} =\mathcal{S} ' $上的线性拓扑自同构（\cref{thm:distribution_fourier_continuous}）。
+另外，在弱收敛的意义下，傅里叶变换同样是$\mathcal{T}(\mathbb{R})=\mathcal{S}'(\mathbb{R})$上的线性拓扑自同构（\cref{thm:distribution_fourier_continuous}）。
