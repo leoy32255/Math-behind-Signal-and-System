@@ -1,3 +1,4 @@
+% !TeX root = ../../MainBook.tex
 \section{傅里叶变换}\label{sec:Fourier}
 
 在构建傅里叶级数时，使用频率和角频率只涉及书写问题，因为傅里叶级数不会涉及尺度变换、逆变换和卷积，但在傅里叶变换的理论中，这将导致许多公式在形式上有一些差别。这时，将同时给出两种傅里叶变换的公式，左侧（过长时置于上方）为频率版本，用蓝色标注，右侧（对应置于下方）为角频率版本，用红色标注。对于频率的符号，物理上一般使用$f$或$\nu$，而一些傅里叶分析的书上则使用$s$或$\xi$，但鉴于$f$常常用来表示函数，$s$用于表示复频率，我们将使用$\xi$作为频率的符号。
@@ -242,12 +243,12 @@
 \end{theorem}
 \begin{proof}
     \begin{lralign}
-        \mathcal{F}[f(at)](\xi)&=\int_{-\infty}^{\infty}f(at)\e^{2\pi \im \xi t}\,\dd t\\
-        &=\frac{1}{|a|}\int_{-\infty}^{\infty}f(t)\e^{\frac{2\pi \im \xi t}{a}}\,\dd t\\
+        \mathcal{F}[f(at)](\xi)&=\int_{-\infty}^{\infty}f(at)\e^{-2\pi \im \xi t}\,\dd t\\
+        &=\frac{1}{|a|}\int_{-\infty}^{\infty}f(t)\e^{-\frac{2\pi \im \xi t}{a}}\,\dd t\\
         &=\frac{1}{|a|}\mathcal{F}f\paren{\frac{\xi}{a}}
     \switch
-        \mathcal{F}[f(at)](\omega)&=\int_{-\infty}^{\infty}f(at)\e^{\im \omega t}\,\dd t\\
-        &=\frac{1}{|a|}\int_{-\infty}^{\infty}f(t)\e^{\frac{\im \omega t}{a}}\,\dd t\\
+        \mathcal{F}[f(at)](\omega)&=\int_{-\infty}^{\infty}f(at)\e^{-\im \omega t}\,\dd t\\
+        &=\frac{1}{|a|}\int_{-\infty}^{\infty}f(t)\e^{-\frac{\im \omega t}{a}}\,\dd t\\
         &=\frac{1}{|a|}\mathcal{F}f\paren{\frac{\omega}{a}}.
     \end{lralign}
     注意变量代换时，如果$a<0$，积分上下限也会改变，这正是绝对值的来源，对此有疑惑的读者可以自行分情况验算。频域的伸缩定理仅仅是时域伸缩定理的直接推论。

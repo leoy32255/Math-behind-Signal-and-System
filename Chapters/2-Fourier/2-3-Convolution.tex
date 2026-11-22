@@ -1,3 +1,4 @@
+% !TeX root = ../../MainBook.tex
 \section{卷积}\label{sec:Convolution}
 
 \subsection{卷积的引入}\label{sub:convolution}
@@ -307,14 +308,14 @@
 \begin{proof}
     $R_{fg}(x)=f*\overline{g^-}$，以频率形式为例，计算$\overline{g^-}$的傅里叶变换：
     \begin{align}
-        \mathcal{F}\sbr{\overline{g^-}} &= \int_{-\infty}^\infty \overline{g^-(t)}\e^{2\pi\im\xi t}\,\dd t\nonumber \\
-        &= \overline{\int_{-\infty}^\infty g(-t)\e^{-2\pi\im\xi t}\,\dd t}\nonumber \\
-        &= \overline{\int_{-\infty}^\infty g(t)\e^{2\pi\im\xi t}\,\dd t}\nonumber   \\
+        \mathcal{F}\sbr{\overline{g^-}} &= \int_{-\infty}^\infty \overline{g^-(t)}\e^{-2\pi\im\xi t}\,\dd t\nonumber \\
+        &= \overline{\int_{-\infty}^\infty g(-t)\e^{2\pi\im\xi t}\,\dd t}\nonumber \\
+        &= \overline{\int_{-\infty}^\infty g(t)\e^{-2\pi\im\xi t}\,\dd t}\nonumber   \\
         &= \overline{\mathcal{F}g}.
     \end{align}
     由卷积定理可得：
     \begin{equation}
-        \mathcal{F}R_{fg}=\mathcal{F}[f*g^-]=\mathcal{F}f\overline{\mathcal{F}g}.
+        \mathcal{F}R_{fg}=\mathcal{F}\sbr{f*\overline{g^-}}=\mathcal{F}f\overline{\mathcal{F}g}.
     \end{equation}
 \end{proof}
 
@@ -342,7 +343,7 @@
     $C$为常数（对于随机信号来说，这是可以做到的），因此可以考虑求发射信号与接收信号的互相关函数：
     \begin{align}
         R_{f,f_r}(t) & =R_{f,\tau_{2T}f}(t)+R_{fn}(t)\nonumber  \\
-                     & =\alpha\tau_{2T}R_f(t)+\alpha C.
+                     & =\alpha\tau_{-2T}R_f(t)+C.
     \end{align}
-    根据前面得到的性质3，$R_f(t)$在0处取最大值，因此$R_{f,f_r}(t)$在$2T$处取最大值，于是我们只需要观察这个互相关函数的最大值点，就可以得到$T$。
+    根据前面得到的性质3，$R_f(t)$在0处取最大值，因此$R_{f,f_r}(t)$在$-2T$处取最大值，于是我们只需要观察这个互相关函数的最大值点，就可以得到$T$。
 \end{example}

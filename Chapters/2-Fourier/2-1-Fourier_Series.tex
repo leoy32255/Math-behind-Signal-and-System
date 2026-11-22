@@ -1,3 +1,4 @@
+% !TeX root = ../../MainBook.tex
 \section{傅里叶级数}\label{sec:Fourier_Series}
 
 十九世纪初，傅里叶为了求解热传导问题中的偏微分方程，断言：任何周期函数都可以通过无穷多个正弦和余弦函数的线性组合来表示，即傅里叶级数。这一猜想引发了许多数学家的质疑，促进了分析学的发展，直到1829年，狄利克雷提出了傅里叶级数收敛的充分条件和严格证明。今天，傅里叶级数已经成为数学、物理中的重要工具。
@@ -196,7 +197,7 @@
     \end{equation}
 \end{definition}
 
-作为一个引理，我们首先来证明（指数形式的）傅里叶级数是使用正交基$\{\e^{\im k\omega t}\}_{k=0}^{\infty}$给出的，\textbf{最小均方误差}(minimum mean square error, MMSE)意义下的最佳逼近：
+作为一个引理，我们首先来证明（指数形式的）傅里叶级数是使用正交基$\{\e^{\im k\omega t}\}_{k\in\mathbb{Z}}$给出的，\textbf{最小均方误差}(minimum mean square error, MMSE)意义下的最佳逼近：
 \begin{lemma}
     设$f\in L^2([0,T])$，指数形式的傅里叶系数为$c_k\ (k\in\mathbb{Z})$，则对于任意的正整数$N$和任意的复数列$\{\alpha_k\}_{k=-\infty}^{\infty}$，都有
     \begin{equation}

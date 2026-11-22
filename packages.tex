@@ -27,7 +27,6 @@
 % 防止行内 \displaystyle 公式与上下行文字贴靠或重叠
 \setlength{\lineskiplimit}{3pt}
 \setlength{\lineskip}{4pt}
-\setlength{\emergencystretch}{1.5em}
 \usetikzlibrary{shapes,arrows,positioning,calc}
 \usepackage{graphicx}
 \usepackage{grffile}
@@ -153,37 +152,7 @@
 \bool_new:N \l_lralign_left_has_amp_bool
 \bool_new:N \l_lralign_right_has_amp_bool
 \bool_new:N \l_lralign_numbered_bool
-\bool_new:N \l_lralign_force_stack_bool
 \box_new:N \l_lralign_measure_box
-
-\keys_define:nn { lralign }
-{
-    stack .bool_set:N = \l_lralign_force_stack_bool,
-    stack .default:n  = true,
-    label .tl_set:N   = \l_lralign_label_tl,
-}
-
-\cs_new_protected:Npn \lralign_parse_options:n #1
-{
-    \bool_set_false:N \l_lralign_force_stack_bool
-    \tl_clear:N \l_lralign_label_tl
-    \tl_if_blank:nF { #1 }
-    {
-        \clist_map_inline:nn { #1 }
-        {
-            \tl_if_blank:nF { ##1 }
-            {
-                \tl_if_in:nnTF { ##1 } { = }
-                { \keys_set:nn { lralign } { ##1 } }
-                {
-                    \str_if_eq:nnTF { ##1 } { stack }
-                    { \bool_set_true:N \l_lralign_force_stack_bool }
-                    { \tl_set:Nn \l_lralign_label_tl { ##1 } }
-                }
-            }
-        }
-    }
-}
 
 \msg_new:nnn { lralign } { too-many-alignment-tabs }
 {
@@ -432,7 +401,7 @@
 
 \cs_new_protected:Npn \lralign_process:nn #1#2
 {
-    \lralign_parse_options:n { #1 }
+    \tl_set:Nn \l_lralign_label_tl { #1 }
     % Split input at \switch
     \seq_set_split:Nnn \l_lralign_parts_seq { \switch } { #2 }
     \seq_pop_left:NN \l_lralign_parts_seq \l_lralign_left_body_tl
@@ -500,7 +469,7 @@
 
     \tl_clear:N \l_lralign_final_body_tl
 
-    \bool_if:nTF { \l_lralign_force_stack_bool || \dim_compare_p:nNn { \l_lralign_slack_dim } < { \l_lralign_gap_dim } }
+    \dim_compare:nNnTF { \l_lralign_slack_dim } < { \l_lralign_gap_dim }
     {
         % Stacked mode: frequency (blue) on top, angular frequency (red) below
         \bool_if:nTF { \l_lralign_left_has_amp_bool || \l_lralign_right_has_amp_bool }
